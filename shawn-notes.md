@@ -5,9 +5,9 @@
 * Rumor has that it is advisable to install Haskell using 'Stack' instead of the full Haskell Platform.
 
 * For Ubuntu, installation of Haskell Stack is:
-sudo apt install haskell-stack
+`sudo apt install haskell-stack`
 
-* Eprover installation is from source and routine (export PATH)
+* Eprover installation is from source and routine (`export PATH`)
 
 * Follow the readme instructions in the Naproche-SAD repo to run the test.
 
@@ -23,4 +23,4 @@ sudo apt install haskell-stack
 
 -> Import -> Parser -> Prove -> Export ->
 
-* I will make further analysis of the source code in the days to come.
+* The repo https://github.com/tertium/SAD contains the original SAD, it is already written in Haskell.
