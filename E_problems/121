@@ -1,0 +1,10 @@
+fof(mElmSort,hypothesis,$true).
+fof(mRelSort,hypothesis,$true).
+fof(mReduct,hypothesis,( ! [W0] : ( ! [W1] : ((aElement(W0) & aRewritingSystem(W1)) => ( ! [W2] : (aReductOfIn(W2,W0,W1) => aElement(W2))))))).
+fof(m_,hypothesis,$true).
+fof(mTCDef,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : (((aElement(W0) & aRewritingSystem(W1)) & aElement(W2)) => (sdtmndtplgtdt(W0,W1,W2) <=> (aReductOfIn(W2,W0,W1) | ( ? [W3] : (aElement(W3) & (aReductOfIn(W3,W0,W1) & sdtmndtplgtdt(W3,W1,W2))))))))))).
+fof(mTCTrans,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : ( ! [W3] : ((((aElement(W0) & aRewritingSystem(W1)) & aElement(W2)) & aElement(W3)) => ((sdtmndtplgtdt(W0,W1,W2) & sdtmndtplgtdt(W2,W1,W3)) => sdtmndtplgtdt(W0,W1,W3)))))))).
+fof(mTCRDef,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : (((aElement(W0) & aRewritingSystem(W1)) & aElement(W2)) => (sdtmndtasgtdt(W0,W1,W2) <=> ((W0 = W2) | sdtmndtplgtdt(W0,W1,W2)))))))).
+fof(m__,hypothesis,(((aElement(xx) & aRewritingSystem(xR)) & aElement(xy)) & aElement(xz))).
+fof(m__,conjecture,((sdtmndtasgtdt(xx,xR,xy) & sdtmndtasgtdt(xy,xR,xz)) => sdtmndtasgtdt(xx,xR,xz))).
+

@@ -1,0 +1,331 @@
+[Parser] "examples/chinese.ftl"
+parsing successful
+[Reasoner] "examples/chinese.ftl"
+verification started
+[Reasoner] "examples/chinese.ftl" (line 35, column 9)
+goal:  .= x * (0 + 0) (by AddZero)
+[Reasoner] "examples/chinese.ftl" (line 35, column 37)
+goal:  .= (x * 0) + (x * 0) (by AMDistr1)
+[Reasoner] "examples/chinese.ftl" (line 35, column 3)
+goal:  x * 0 .= x * (0 + 0) (by AddZero) .= (x * 0) + (x * 0) (by AMDistr1).
+[Reasoner] "examples/chinese.ftl" (line 34, column 20)
+goal:  x * 0 = 0.
+[Reasoner] "examples/chinese.ftl" (line 38, column 9)
+goal:  .= (0 + 0) * x (by AddZero)
+[Reasoner] "examples/chinese.ftl" (line 38, column 37)
+goal:  .= (0 * x) + (0 * x) (by AMDistr2)
+[Reasoner] "examples/chinese.ftl" (line 38, column 3)
+goal:  0 * x .= (0 + 0) * x (by AddZero) .= (0 * x) + (0 * x) (by AMDistr2).
+[Reasoner] "examples/chinese.ftl" (line 37, column 20)
+goal:  0 * x = 0.
+[Reasoner] "examples/chinese.ftl" (line 32, column 17)
+goal:  x * 0 = 0 = 0 * x.
+[Reasoner] "examples/chinese.ftl" (line 82, column 9)
+goal:  Take k << I and l << J such that x = k + l.
+[Reasoner] "examples/chinese.ftl" (line 83, column 9)
+goal:  Take m << I and n << J such that y = m + n.
+[Reasoner] "examples/chinese.ftl" (line 84, column 5)
+goal:  k + m belongs to I and l + n belongs to J.
+[Reasoner] "examples/chinese.ftl" (line 85, column 11)
+goal:  .= (k + m) + (l + n) (by 1, 2, AddComm,AddAsso,AddBubble)
+[Reasoner] "examples/chinese.ftl" (line 85, column 5)
+goal:  x + y .= (k + m) + (l + n) (by 1, 2, AddComm,AddAsso,AddBubble).
+[Reasoner] "examples/chinese.ftl" (line 86, column 5)
+goal:  Therefore the thesis.
+[Reasoner] "examples/chinese.ftl" (line 79, column 1)
+goal:  forall y << (I +' J) (x + y) << (I +' J).
+[Reasoner] "examples/chinese.ftl" (line 90, column 30)
+goal:  Take k << I and l << J such that x = k + l.
+[Reasoner] "examples/chinese.ftl" (line 91, column 5)
+goal:  z * k belongs to I and z * l belongs to J .
+[Reasoner] "examples/chinese.ftl" (line 92, column 11)
+goal:  .= (z * k) + (z * l) (by AMDistr1, 1)
+[Reasoner] "examples/chinese.ftl" (line 92, column 5)
+goal:  z * x .= (z * k) + (z * l) (by AMDistr1, 1).
+[Reasoner] "examples/chinese.ftl" (line 93, column 5)
+goal:  Therefore the thesis.
+[Reasoner] "examples/chinese.ftl" (line 88, column 1)
+goal:  For every element z (z * x) << (I +' J).
+[Reasoner] "examples/chinese.ftl" (line 76, column 17)
+goal:  I +' J is an ideal.
+[Reasoner] "examples/chinese.ftl" (line 98, column 16)
+goal:  I ** J is an ideal (by Definition).
+[Reasoner] Warning: Could not find sections "Definition"
+[Reasoner] "examples/chinese.ftl" (line 106, column 1)
+goal:  Take a << I and b << J such that a + b = 1 (by DefSum).
+[Reasoner] Warning: Could not find sections "DefSum"
+[Reasoner] "examples/chinese.ftl" (line 107, column 5)
+goal:  Take w = (y * a) + (x * b).
+[Reasoner] "examples/chinese.ftl" (line 111, column 9)
+goal:  w - x = (y * a) + ((x * b) - x).
+[Reasoner] "examples/chinese.ftl" (line 112, column 9)
+goal:  x * (b - 1) belongs to I.
+[Reasoner] "examples/chinese.ftl" (line 109, column 5)
+goal:  w - x belongs to I.
+[Reasoner] "examples/chinese.ftl" (line 116, column 9)
+goal:  w - y = (x * b) + ((y * a) - y).
+[Reasoner] "examples/chinese.ftl" (line 117, column 9)
+goal:  y * (a - 1) belongs to J.
+[Reasoner] "examples/chinese.ftl" (line 114, column 5)
+goal:  w - y belongs to J.
+[Reasoner] "examples/chinese.ftl" (line 108, column 18)
+goal:  w = x (mod I) and w = y (mod J).
+[Reasoner] "examples/chinese.ftl" (line 104, column 1)
+goal:  There exists an element w such that w = x (mod I) and w = y (mod J).
+[Reasoner] "examples/chinese.ftl" (line 159, column 9)
+goal:  Take an element u such that c * u = x.
+[Reasoner] "examples/chinese.ftl" (line 160, column 9)
+goal:  Take an element v such that c * v = y.
+[Reasoner] "examples/chinese.ftl" (line 161, column 11)
+goal:  .= c * (u + v) (by 1, 2, AMDistr1)
+[Reasoner] "examples/chinese.ftl" (line 161, column 5)
+goal:  x + y .= c * (u + v) (by 1, 2, AMDistr1).
+[Reasoner] "examples/chinese.ftl" (line 162, column 5)
+goal:  Therefore the thesis.
+[Reasoner] "examples/chinese.ftl" (line 156, column 1)
+goal:  forall y << <c> x + y << <c>.
+[Reasoner] "examples/chinese.ftl" (line 167, column 9)
+goal:  Take an element u such that c * u = x.
+[Reasoner] "examples/chinese.ftl" (line 168, column 11)
+goal:  .= c * (u * z) (by 1,MulComm,MulAsso, MulBubble)
+[Reasoner] "examples/chinese.ftl" (line 168, column 5)
+goal:  z * x .= c * (u * z) (by 1,MulComm,MulAsso, MulBubble).
+[Reasoner] "examples/chinese.ftl" (line 169, column 5)
+goal:  Therefore the thesis.
+[Reasoner] "examples/chinese.ftl" (line 164, column 1)
+goal:  forall z z * x << <c>.
+[Reasoner] "examples/chinese.ftl" (line 153, column 17)
+goal:  <c> is an ideal.
+[Reasoner] "examples/chinese.ftl" (line 177, column 1)
+goal:  Take an ideal I equal to <a> +' <b>.
+[Reasoner] "examples/chinese.ftl" (line 178, column 1)
+goal:  We have 0,a << <a> and 0,b << <b> (by MulZero, MulUnit).
+[Reasoner] "examples/chinese.ftl" (line 180, column 8)
+goal:  a << <a> +' <b> and b << <a> +' <b> (by AddZero).
+[Reasoner] "examples/chinese.ftl" (line 179, column 1)
+goal:  Hence there exists a nonzero element of <a> +' <b>.
+[Reasoner] "examples/chinese.ftl" (line 185, column 42)
+goal:  for every nonzero w << I there exists nonzero u << I such that for no nonzero v << I (|v| -<- |u|).
+[Reasoner] "examples/chinese.ftl" (line 182, column 1)
+goal:  Take a nonzero u << I such that for no nonzero v << I (|v| -<- |u|).
+[Parser] "examples/fuerst.ftl"
+parsing successful
+[Reasoner] "examples/fuerst.ftl"
+verification started
+[Reasoner] "examples/fuerst.ftl" (line 32, column 21)
+goal:  a * 0 = 0 = 0 * a.
+[Reasoner] "examples/fuerst.ftl" (line 33, column 21)
+goal:  -1 * a = -a = a * -1.
+[Reasoner] "examples/fuerst.ftl" (line 50, column 21)
+goal:  a = a (mod q).
+[Reasoner] "examples/fuerst.ftl" (line 55, column 9)
+goal:  Take n such that q * n = a - b.
+[Reasoner] "examples/fuerst.ftl" (line 56, column 12)
+goal:  .= (-1) * (q * n) (by MulMinOne, MulAsso,MulComm,MulBubble)
+[Simplifier] Warning: Could not find rules "MulBubble"
+[Reasoner] "examples/fuerst.ftl" (line 57, column 20)
+goal:  .= (-1) * (a - b) (by 1)
+[Reasoner] "examples/fuerst.ftl" (line 56, column 5)
+goal:  q * -n .= (-1) * (q * n) (by MulMinOne, MulAsso,MulComm,MulBubble) .= (-1) * (a - b) (by 1).
+[Reasoner] "examples/fuerst.ftl" (line 52, column 21)
+goal:  a = b (mod q) => b = a (mod q).
+[Reasoner] Warning: "examples/fuerst.ftl" (line 52, column 21)
+goal failed
+[Reasoner] "examples/fuerst.ftl"
+verification failed
+[Main] sections 65 - goals 6 - failed 1 - trivial 0 - proved 7 - equations 2
+[Main] symbols 174 - checks 161 - trivial 161 - proved 0 - unfolds 30
+[Main] parser 00:00.59 - reasoner 00:00.02 - simplifier 00:00.00 - prover 00:12.64/00:00.27
+[Main] total 00:13.26
+[Parser] "examples/Koenigs_lemma.ftl"
+parsing successful
+[Reasoner] "examples/Koenigs_lemma.ftl"
+verification started
+[Reasoner] "examples/Koenigs_lemma.ftl" (line 92, column 1)
+goal:  Define f[i] = Choose an element v of lambda[i] in v for i in D.
+[Reasoner] "examples/Koenigs_lemma.ftl" (line 93, column 1)
+goal:  Then f is an element of ProdSet(lambda,D).
+[Reasoner] "examples/Koenigs_lemma.ftl" (line 90, column 28)
+goal:  ProdSet(lambda, D) has an element.
+[Reasoner] "examples/Koenigs_lemma.ftl" (line 101, column 22)
+goal:  Then Prod (lambda,D) =< Sum(kappa,D).
+[Reasoner] "examples/Koenigs_lemma.ftl" (line 104, column 10)
+goal:  ProdSet(lambda, D) has an element.
+[Reasoner] "examples/Koenigs_lemma.ftl" (line 102, column 1)
+goal:  Take a function G such that SumSet(kappa,D) is the domain of G and ProdSet(lambda,D) is the image of G.
+[Reasoner] "examples/Koenigs_lemma.ftl" (line 105, column 1)
+goal:  Define Diag[i] = { G[(n,i)][i] | n is an element of kappa[i] } for i in D.
+[Reasoner] "examples/Koenigs_lemma.ftl" (line 107, column 29)
+goal:  Define F[n] = G[(n,i)][i] for n in kappa[i].
+[Reasoner] "examples/Koenigs_lemma.ftl" (line 108, column 3)
+goal:  Then F^[kappa[i]] = Diag[i].
+[Reasoner] "examples/Koenigs_lemma.ftl" (line 106, column 1)
+goal:  For every element i of D card(Diag[i]) < lambda[i].
+[Reasoner] "examples/Koenigs_lemma.ftl" (line 109, column 1)
+goal:  Define f[i] = Choose an element v of lambda[i] \ Diag[i] in v for i in D.
+[Reasoner] "examples/Koenigs_lemma.ftl" (line 110, column 1)
+goal:  Then f is an element of ProdSet(lambda,D).
+[Reasoner] "examples/Koenigs_lemma.ftl" (line 111, column 1)
+goal:  Take an element j of D and an element m of kappa[j] such that G[(m,j)] = f.
+[Reasoner] "examples/Koenigs_lemma.ftl" (line 111, column 77)
+goal:  G[(m,j)][j] is an element of Diag[j] and f[j] is not an element of Diag[j].
+[Parser] "examples/Maximum_principle.ftl"
+parsing successful
+[Reasoner] "examples/Maximum_principle.ftl"
+verification started
+[Reasoner] "examples/Maximum_principle.ftl" (line 71, column 38)
+goal:  Take eps such that Ball(eps,z) is a subset of Dom(f) and |f[w]| =< |f[z]| for every element w of Ball(eps,z).
+[Reasoner] "examples/Maximum_principle.ftl" (line 74, column 23)
+goal:  Then f^[Ball(eps,z)] is open.
+[Reasoner] "examples/Maximum_principle.ftl" (line 74, column 53)
+goal:  We can take delta such that Ball(delta, f[z]) is a subset of f^[Ball(eps,z)].
+[Reasoner] "examples/Maximum_principle.ftl" (line 75, column 2)
+goal:  Therefore there exists an element w of Ball(eps,z) such that |f[z]| < |f[w]|.
+[Reasoner] "examples/Maximum_principle.ftl" (line 75, column 80)
+goal:  Contradiction.
+[Parser] "examples/newman.ftl"
+parsing successful
+[Reasoner] "examples/newman.ftl"
+verification started
+[Reasoner] "examples/newman.ftl" (line 19, column 21)
+goal:  x -R*> y -R*> z => x -R*> z.
+[Reasoner] "examples/newman.ftl" (line 36, column 17)
+goal:  Every element x has a normal form in R.
+[Thesis] Warning: "examples/newman.ftl" (line 47, column 9)
+   unmotivated assumption
+[Reasoner] "examples/newman.ftl" (line 49, column 9)
+goal:  Take u such that a -R> u -R*> b.
+[Reasoner] "examples/newman.ftl" (line 50, column 9)
+goal:  Take v such that a -R> v -R*> c.
+[Reasoner] "examples/newman.ftl" (line 51, column 9)
+goal:  Take w such that u,v -R*> w.
+[Reasoner] "examples/newman.ftl" (line 52, column 9)
+goal:  Take a normal form d of w in R.
+[Reasoner] "examples/newman.ftl" (line 54, column 26)
+goal:  take x such that b,d -R*> x.
+[Reasoner] "examples/newman.ftl" (line 54, column 9)
+goal:  b -R*> d.
+[Reasoner] "examples/newman.ftl" (line 55, column 26)
+goal:  take y such that c,d -R*> y.
+[Reasoner] "examples/newman.ftl" (line 55, column 9)
+goal:  c -R*> d.
+[Reasoner] "examples/newman.ftl" (line 44, column 42)
+goal:  for all a,b,c such that a -R*> b,c there exists d such that b,c -R*> d.
+[Reasoner] "examples/newman.ftl" (line 40, column 5)
+goal:  Any locally confluent terminating rewriting system is confluent.
+[Reasoner] "examples/newman.ftl"
+verification successful
+[Main] sections 52 - goals 11 - trivial 0 - proved 11 - equations 0
+[Main] symbols 124 - checks 115 - trivial 115 - proved 0 - unfolds 0
+[Main] parser 00:00.64 - reasoner 00:00.01 - simplifier 00:00.00 - prover 00:00.51/00:00.20
+[Main] total 00:01.17
+[Parser] "examples/powerset.ftl"
+parsing successful
+[Reasoner] "examples/powerset.ftl"
+verification started
+[Reasoner] "examples/powerset.ftl" (line 23, column 22)
+goal:  Take a function f that is defined on M and surjects onto the powerset of M.
+[Reasoner] "examples/powerset.ftl" (line 24, column 1)
+goal:  Define N = { x in M | x is not an element of f[x] }.
+[Reasoner] "examples/powerset.ftl" (line 25, column 1)
+goal:  Then N is not equal to the value of f at any element of M.
+[Reasoner] "examples/powerset.ftl" (line 26, column 1)
+goal:  Contradiction.
+[Parser] "examples/prime_no_square.ftl"
+parsing successful
+[Reasoner] "examples/prime_no_square.ftl"
+verification started
+[Reasoner] "examples/prime_no_square.ftl" (line 37, column 22)
+goal:  Take a rational number q such that p = q^2.
+[Reasoner] "examples/prime_no_square.ftl" (line 38, column 1)
+goal:  Take coprime m,n such that m * q = n.
+[Reasoner] "examples/prime_no_square.ftl" (line 38, column 39)
+goal:  Then p * m^2 = n^2.
+[Reasoner] "examples/prime_no_square.ftl" (line 39, column 1)
+goal:  Therefore p divides n.
+[Reasoner] "examples/prime_no_square.ftl" (line 39, column 24)
+goal:  Take a natural number k such that n = k * p.
+[Reasoner] "examples/prime_no_square.ftl" (line 40, column 1)
+goal:  Then p * m^2 = p * (k * n).
+[Reasoner] "examples/prime_no_square.ftl" (line 41, column 1)
+goal:  Therefore m * m is equal to p * k^2.
+[Reasoner] "examples/prime_no_square.ftl" (line 42, column 1)
+goal:  Hence p divides m.
+[Reasoner] "examples/prime_no_square.ftl" (line 42, column 20)
+goal:  Contradiction.
+[Parser] "examples/regular_successor.ftl"
+parsing successful
+[Reasoner] "examples/regular_successor.ftl"
+verification started
+[Reasoner] "examples/regular_successor.ftl" (line 16, column 1)
+goal:  If (x,y) is an element of Prod(M,N) then x is an element of M and y is an element of N.
+[Reasoner] "examples/regular_successor.ftl" (line 119, column 1)
+goal:  Take a cofinal subset x of Succ(A) such that card(x) != Succ(A).
+[Reasoner] "examples/regular_successor.ftl" (line 120, column 1)
+goal:  Then card(x) =< A.
+[Reasoner] "examples/regular_successor.ftl" (line 122, column 8)
+goal:  x has an element and card(A) = A.
+[Reasoner] "examples/regular_successor.ftl" (line 121, column 1)
+goal:  Take a function f that is surjective from A onto x (by Surj_Exi).
+[Reasoner] "examples/regular_successor.ftl" (line 123, column 1)
+goal:  Define g[i] = Case i has an element -> Choose a function h that is surjective from A onto i in h, Case i has no element -> 0^A for i in Succ(A).
+[Reasoner] "examples/regular_successor.ftl" (line 127, column 1)
+goal:  Define h[(xi,zeta)] = g[f[xi]][zeta] for (xi,zeta) in Prod(A,A).
+[Reasoner] "examples/regular_successor.ftl" (line 129, column 2)
+goal:  Dom(h) = Prod(A,A).
+[Reasoner] "examples/regular_successor.ftl" (line 131, column 35)
+goal:  Take an element xi of A such that n < f[xi].
+[Reasoner] "examples/regular_successor.ftl" (line 132, column 3)
+goal:  Take an element zeta of A such that g[f[xi]][zeta] = n.
+[Reasoner] "examples/regular_successor.ftl" (line 133, column 3)
+goal:  Then n = h[(xi,zeta)].
+[Reasoner] "examples/regular_successor.ftl" (line 133, column 55)
+goal:  (xi,zeta) is an element of Prod(A,A).
+[Reasoner] "examples/regular_successor.ftl" (line 133, column 26)
+goal:  Therefore the thesis.
+[Reasoner] "examples/regular_successor.ftl" (line 129, column 22)
+goal:  Every element of Succ(A) is an element of h^[Prod(A,A)].
+[Reasoner] "examples/regular_successor.ftl" (line 137, column 42)
+goal:  We can take elements a,b of A such that n = h[(a,b)].
+[Reasoner] "examples/regular_successor.ftl" (line 138, column 4)
+goal:  Case f[a] has an element.
+[Reasoner] "examples/regular_successor.ftl" (line 139, column 4)
+goal:  Case f[a] has no element.
+[Reasoner] "examples/regular_successor.ftl" (line 135, column 2)
+goal:  Every element of h^[Prod(A,A)] is an element of Succ(A).
+[Parser] "examples/tarski.ftl"
+parsing successful
+[Reasoner] "examples/tarski.ftl"
+verification started
+[Reasoner] "examples/tarski.ftl" (line 49, column 37)
+goal:  Then u = v.
+[Reasoner] "examples/tarski.ftl" (line 52, column 36)
+goal:  Then u = v.
+[Reasoner] "examples/tarski.ftl" (line 89, column 9)
+goal:  Define P = { x in U | f[x] <= x and x is an upper bound of T in U }.
+[Reasoner] "examples/tarski.ftl" (line 90, column 9)
+goal:  Take an infimum p of P in U.
+[Reasoner] "examples/tarski.ftl" (line 91, column 9)
+goal:  f[p] is a lower bound of P in U and an upper bound of T in U.
+[Reasoner] "examples/tarski.ftl" (line 92, column 9)
+goal:  Hence p is a fixed point of f and a supremum of T in S.
+[Reasoner] "examples/tarski.ftl" (line 88, column 22)
+goal:  T has a supremum in S.
+[Reasoner] "examples/tarski.ftl" (line 96, column 9)
+goal:  Define Q = { x in U | x <= f[x] and x is a lower bound of T in U }.
+[Reasoner] "examples/tarski.ftl" (line 97, column 9)
+goal:  Take a supremum q of Q in U.
+[Reasoner] "examples/tarski.ftl" (line 98, column 9)
+goal:  f[q] is an upper bound of Q in U and a lower bound of T in U.
+[Reasoner] "examples/tarski.ftl" (line 99, column 9)
+goal:  Hence q is a fixed point of f and an infimum of T in S.
+[Reasoner] "examples/tarski.ftl" (line 95, column 22)
+goal:  T has an infimum in S.
+[Reasoner] "examples/tarski.ftl" (line 84, column 5)
+goal:  S is a complete lattice.
+[Reasoner] "examples/tarski.ftl"
+verification successful
+[Main] sections 85 - goals 10 - trivial 0 - proved 32 - equations 0
+[Main] symbols 143 - checks 129 - trivial 111 - proved 18 - unfolds 19
+[Main] parser 00:00.20 - reasoner 00:00.05 - simplifier 00:00.00 - prover 00:12.09/00:02.63
+[Main] total 00:12.35

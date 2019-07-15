@@ -1,0 +1,22 @@
+fof(mIntegers,hypothesis,$true).
+fof(mIntZero,hypothesis,aInteger(sz0)).
+fof(mIntOne,hypothesis,aInteger(sz1)).
+fof(mIntNeg,hypothesis,( ! [W0] : (aInteger(W0) => aInteger(smndt(W0))))).
+fof(mIntPlus,hypothesis,( ! [W0] : ( ! [W1] : ((aInteger(W0) & aInteger(W1)) => aInteger(sdtpldt(W0,W1)))))).
+fof(mIntMult,hypothesis,( ! [W0] : ( ! [W1] : ((aInteger(W0) & aInteger(W1)) => aInteger(sdtasdt(W0,W1)))))).
+fof(mAddAsso,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : (((aInteger(W0) & aInteger(W1)) & aInteger(W2)) => (sdtpldt(W0,sdtpldt(W1,W2)) = sdtpldt(sdtpldt(W0,W1),W2))))))).
+fof(mAddComm,hypothesis,( ! [W0] : ( ! [W1] : ((aInteger(W0) & aInteger(W1)) => (sdtpldt(W0,W1) = sdtpldt(W1,W0)))))).
+fof(mAddZero,hypothesis,( ! [W0] : (aInteger(W0) => ((sdtpldt(W0,sz0) = W0) & (W0 = sdtpldt(sz0,W0)))))).
+fof(mAddNeg,hypothesis,( ! [W0] : (aInteger(W0) => ((sdtpldt(W0,smndt(W0)) = sz0) & (sz0 = sdtpldt(smndt(W0),W0)))))).
+fof(mMulAsso,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : (((aInteger(W0) & aInteger(W1)) & aInteger(W2)) => (sdtasdt(W0,sdtasdt(W1,W2)) = sdtasdt(sdtasdt(W0,W1),W2))))))).
+fof(mMulComm,hypothesis,( ! [W0] : ( ! [W1] : ((aInteger(W0) & aInteger(W1)) => (sdtasdt(W0,W1) = sdtasdt(W1,W0)))))).
+fof(mMulOne,hypothesis,( ! [W0] : (aInteger(W0) => ((sdtasdt(W0,sz1) = W0) & (W0 = sdtasdt(sz1,W0)))))).
+fof(mDistrib,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : (((aInteger(W0) & aInteger(W1)) & aInteger(W2)) => ((sdtasdt(W0,sdtpldt(W1,W2)) = sdtpldt(sdtasdt(W0,W1),sdtasdt(W0,W2))) & (sdtasdt(sdtpldt(W0,W1),W2) = sdtpldt(sdtasdt(W0,W2),sdtasdt(W1,W2))))))))).
+fof(mMulZero,hypothesis,( ! [W0] : (aInteger(W0) => ((sdtasdt(W0,sz0) = sz0) & (sz0 = sdtasdt(sz0,W0)))))).
+fof(mMulMinOne,hypothesis,( ! [W0] : (aInteger(W0) => ((sdtasdt(smndt(sz1),W0) = smndt(W0)) & (smndt(W0) = sdtasdt(W0,smndt(sz1))))))).
+fof(mZeroDiv,hypothesis,( ! [W0] : ( ! [W1] : ((aInteger(W0) & aInteger(W1)) => ((( ~ (W0 = sz0)) & ( ~ (W1 = sz0))) => ( ~ (sdtasdt(W0,W1) = sz0))))))).
+fof(mDivisor,hypothesis,( ! [W0] : (aInteger(W0) => ( ! [W1] : (aDivisorOf(W1,W0) <=> (aInteger(W1) & (( ~ (W1 = sz0)) & ( ? [W2] : (aInteger(W2) & (sdtasdt(W1,W2) = W0)))))))))).
+fof(mEquMod,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : (((aInteger(W0) & aInteger(W1)) & (aInteger(W2) & ( ~ (W2 = sz0)))) => (sdteqdtlpzmzozddtrp(W0,W1,W2) <=> aDivisorOf(W2,sdtpldt(W0,smndt(W1))))))))).
+fof(m__,hypothesis,(aInteger(xa) & (aInteger(xq) & ( ~ (xq = sz0))))).
+fof(m__,conjecture,sdteqdtlpzmzozddtrp(xa,xa,xq)).
+

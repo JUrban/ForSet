@@ -1,0 +1,8 @@
+fof(m_,hypothesis,( ! [W0] : (aSet(W0) => ( ! [W1] : (aSubsetOf(W1,W0) <=> (aSet(W1) & ( ! [W2] : (aElementOf(W2,W1) => aElementOf(W2,W0))))))))).
+fof(m_,hypothesis,( ! [W0] : ( ! [W1] : ((aSet(W0) & aSet(W1)) => ((aSet(sdtbsdt(W0,W1)) & ( ! [W2] : (aElementOf(W2,sdtbsdt(W0,W1)) <=> (aElementOf(W2,W0) & ( ~ aElementOf(W2,W1)))))) & ( ! [W2] : ((aSet(W2) & ( ! [W3] : (aElementOf(W3,W2) <=> (aElementOf(W3,W0) & ( ~ aElementOf(W3,W1)))))) => (W2 = sdtbsdt(W0,W1))))))))).
+fof(m__,hypothesis,aFunction(xf)).
+fof(m__,hypothesis,aSubsetOf(xM,szDzozmlpdtrp(xf))).
+fof(m__,hypothesis,aSet(w0)).
+fof(m__,hypothesis,aElementOf(w2,xM)).
+fof(m__,conjecture,aElementOf(w2,szDzozmlpdtrp(xf))).
+

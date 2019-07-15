@@ -1,0 +1,30 @@
+fof(mElmSort,hypothesis,$true).
+fof(mEOfElem,hypothesis,( ! [W0] : (aSet(W0) => ( ! [W1] : (aElementOf(W1,W0) => aElement(W1)))))).
+fof(mDefEmpty,hypothesis,( ! [W0] : (aSet(W0) => (isEmpty(W0) <=> ( ~ ( ? [W1] : aElementOf(W1,W0))))))).
+fof(mDefSub,hypothesis,( ! [W0] : (aSet(W0) => ( ! [W1] : (aSubsetOf(W1,W0) <=> (aSet(W1) & ( ! [W2] : (aElementOf(W2,W1) => aElementOf(W2,W0))))))))).
+fof(mLessRel,hypothesis,$true).
+fof(mARefl,hypothesis,( ! [W0] : (aElement(W0) => sdtlseqdt(W0,W0)))).
+fof(mASymm,hypothesis,( ! [W0] : ( ! [W1] : ((aElement(W0) & aElement(W1)) => ((sdtlseqdt(W0,W1) & sdtlseqdt(W1,W0)) => (W0 = W1)))))).
+fof(mTrans,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : (((aElement(W0) & aElement(W1)) & aElement(W2)) => ((sdtlseqdt(W0,W1) & sdtlseqdt(W1,W2)) => sdtlseqdt(W0,W2))))))).
+fof(mDefLB,hypothesis,( ! [W0] : (aSet(W0) => ( ! [W1] : (aSubsetOf(W1,W0) => ( ! [W2] : (aLowerBoundOfIn(W2,W1,W0) <=> (aElementOf(W2,W0) & ( ! [W3] : (aElementOf(W3,W1) => sdtlseqdt(W2,W3))))))))))).
+fof(mDefUB,hypothesis,( ! [W0] : (aSet(W0) => ( ! [W1] : (aSubsetOf(W1,W0) => ( ! [W2] : (aUpperBoundOfIn(W2,W1,W0) <=> (aElementOf(W2,W0) & ( ! [W3] : (aElementOf(W3,W1) => sdtlseqdt(W3,W2))))))))))).
+fof(mDefInf,hypothesis,( ! [W0] : (aSet(W0) => ( ! [W1] : (aSubsetOf(W1,W0) => ( ! [W2] : (aInfimumOfIn(W2,W1,W0) <=> (aElementOf(W2,W0) & (aLowerBoundOfIn(W2,W1,W0) & ( ! [W3] : (aLowerBoundOfIn(W3,W1,W0) => sdtlseqdt(W3,W2)))))))))))).
+fof(mDefSup,hypothesis,( ! [W0] : (aSet(W0) => ( ! [W1] : (aSubsetOf(W1,W0) => ( ! [W2] : (aSupremumOfIn(W2,W1,W0) <=> (aElementOf(W2,W0) & (aUpperBoundOfIn(W2,W1,W0) & ( ! [W3] : (aUpperBoundOfIn(W3,W1,W0) => sdtlseqdt(W2,W3)))))))))))).
+fof(mSupUn,hypothesis,( ! [W0] : (aSet(W0) => ( ! [W1] : (aSubsetOf(W1,W0) => ( ! [W2] : ( ! [W3] : ((aSupremumOfIn(W2,W1,W0) & aSupremumOfIn(W3,W1,W0)) => (W2 = W3))))))))).
+fof(mInfUn,hypothesis,( ! [W0] : (aSet(W0) => ( ! [W1] : (aSubsetOf(W1,W0) => ( ! [W2] : ( ! [W3] : ((aInfimumOfIn(W2,W1,W0) & aInfimumOfIn(W3,W1,W0)) => (W2 = W3))))))))).
+fof(mDefCLat,hypothesis,( ! [W0] : (aCompleteLattice(W0) <=> (aSet(W0) & ( ! [W1] : (aSubsetOf(W1,W0) => ( ? [W2] : (aInfimumOfIn(W2,W1,W0) & ( ? [W3] : aSupremumOfIn(W3,W1,W0)))))))))).
+fof(m_,hypothesis,( ! [W0] : (aFunction(W0) => aSet(szDzozmlpdtrp(W0))))).
+fof(mRanSort,hypothesis,( ! [W0] : (aFunction(W0) => aSet(szRzaznlpdtrp(W0))))).
+fof(mDefDom,hypothesis,( ! [W0] : ( ! [W1] : ((aFunction(W0) & aSet(W1)) => (isOn(W0,W1) <=> ((szDzozmlpdtrp(W0) = szRzaznlpdtrp(W0)) & (szRzaznlpdtrp(W0) = W1))))))).
+fof(mImgSort,hypothesis,( ! [W0] : (aFunction(W0) => ( ! [W1] : (aElementOf(W1,szDzozmlpdtrp(W0)) => aElementOf(sdtlbdtrb(W0,W1),szRzaznlpdtrp(W0))))))).
+fof(mDefFix,hypothesis,( ! [W0] : (aFunction(W0) => ( ! [W1] : (aFixedPointOf(W1,W0) <=> (aElementOf(W1,szDzozmlpdtrp(W0)) & (sdtlbdtrb(W0,W1) = W1))))))).
+fof(mDefMonot,hypothesis,( ! [W0] : (aFunction(W0) => (isMonotone(W0) <=> ( ! [W1] : ( ! [W2] : ((aElementOf(W1,szDzozmlpdtrp(W0)) & aElementOf(W2,szDzozmlpdtrp(W0))) => (sdtlseqdt(W1,W2) => sdtlseqdt(sdtlbdtrb(W0,W1),sdtlbdtrb(W0,W2)))))))))).
+fof(m__,hypothesis,(aCompleteLattice(xU) & (aFunction(xf) & (isMonotone(xf) & isOn(xf,xU))))).
+fof(m__,hypothesis,(aSet(xS) & ( ! [W0] : (aElementOf(W0,xS) <=> aFixedPointOf(W0,xf))))).
+fof(m__,hypothesis,aSubsetOf(xT,xS)).
+fof(m__,hypothesis,( ? [W0] : aSupremumOfIn(W0,xT,xS))).
+fof(m__,hypothesis,aSet(xQ)).
+fof(m__,hypothesis,aElementOf(w0,xU)).
+fof(m__,hypothesis,sdtlseqdt(w0,sdtlbdtrb(xf,w0))).
+fof(m__,conjecture,aSubsetOf(xT,xU)).
+

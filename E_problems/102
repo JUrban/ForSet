@@ -1,0 +1,18 @@
+fof(m_,hypothesis,$true).
+fof(m_,hypothesis,( ! [W0] : ( ! [W1] : aRationalNumber(sdtasdt(W0,W1))))).
+fof(m_,hypothesis,( ! [W0] : ( ! [W1] : (sdtasdt(W0,W1) = sdtasdt(W1,W0))))).
+fof(m_,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : (sdtasdt(W0,sdtasdt(W1,W2)) = sdtasdt(sdtasdt(W0,W1),W2)))))).
+fof(m_,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : ((( ~ aRationalNumber(W0)) | ( ~ aRationalNumber(W1))) | (( ~ (sdtasdt(W2,W0) = sdtasdt(W2,W1))) | (W0 = W1))))))).
+fof(m_,hypothesis,( ! [W0] : (( ~ aNaturalNumber(W0)) | aRationalNumber(W0)))).
+fof(m_,hypothesis,( ! [W0] : ( ! [W1] : ((( ~ aNaturalNumber(W0)) | ( ~ aNaturalNumber(W1))) | aNaturalNumber(sdtasdt(W0,W1)))))).
+fof(m_,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : (((( ~ aNaturalNumber(W0)) | ( ~ aNaturalNumber(W1))) | (( ~ sdtbrdt(W0,W1)) | aNaturalNumber(tsk1(W1,W0)))) & (((( ~ aNaturalNumber(W0)) | ( ~ aNaturalNumber(W1))) | (( ~ sdtbrdt(W0,W1)) | (sdtasdt(tsk1(W1,W0),W0) = W1))) & ((( ~ aNaturalNumber(W0)) | ( ~ aNaturalNumber(W1))) | (sdtbrdt(W0,W1) | (( ~ aNaturalNumber(W2)) | ( ~ (sdtasdt(W2,W0) = W1))))))))))).
+fof(m_,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : ((( ~ misCoprime(W0,W1)) | (( ~ sdtbrdt(W2,W0)) | ( ~ sdtbrdt(W2,W1)))) & (((( ~ aNaturalNumber(W0)) | ( ~ aNaturalNumber(W1))) | (misCoprime(W0,W1) | aNaturalNumber(tsk3(W1,W0)))) & (((( ~ aNaturalNumber(W0)) | ( ~ aNaturalNumber(W1))) | (misCoprime(W0,W1) | sdtbrdt(tsk3(W1,W0),W0))) & ((( ~ aNaturalNumber(W0)) | ( ~ aNaturalNumber(W1))) | (misCoprime(W0,W1) | sdtbrdt(tsk3(W1,W0),W1)))))))))).
+fof(m_,hypothesis,$true).
+fof(m_,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : (((( ~ isPrime(W0)) | ( ~ aNaturalNumber(W1))) | ( ~ aNaturalNumber(W2))) | (( ~ sdtbrdt(W0,sdtasdt(W1,W2))) | (sdtbrdt(W0,W1) | sdtbrdt(W0,W2)))))))).
+fof(m_,hypothesis,( ! [W0] : ((( ~ aRationalNumber(W0)) | aNaturalNumber(tsk6(W0))) & ((( ~ aRationalNumber(W0)) | aNaturalNumber(tsk7(W0))) & ((( ~ aRationalNumber(W0)) | misCoprime(tsk6(W0),tsk7(W0))) & (( ~ aRationalNumber(W0)) | (sdtasdt(tsk6(W0),W0) = tsk7(W0)))))))).
+fof(m__,hypothesis,(aNaturalNumber(xp) & isPrime(xp))).
+fof(m__,hypothesis,( ~ ( ! [W0] : (aRationalNumber(W0) => ( ~ (xp = sdtasdt(W0,W0))))))).
+fof(m__,hypothesis,(aRationalNumber(xq) & (xp = sdtasdt(xq,xq)))).
+fof(m__,hypothesis,((aNaturalNumber(xm) & aNaturalNumber(xn)) & (misCoprime(xm,xn) & (sdtasdt(xm,xq) = xn)))).
+fof(m__,conjecture,(sdtasdt(xp,sdtasdt(xm,xm)) = sdtasdt(xn,xn))).
+

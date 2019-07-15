@@ -1,0 +1,44 @@
+fof(mElmSort,hypothesis,$true).
+fof(mSortsC,hypothesis,aElement(sz0)).
+fof(mSortsC,hypothesis,aElement(sz1)).
+fof(mSortsU,hypothesis,( ! [W0] : (aElement(W0) => aElement(smndt(W0))))).
+fof(mSortsB,hypothesis,( ! [W0] : ( ! [W1] : ((aElement(W0) & aElement(W1)) => aElement(sdtpldt(W0,W1)))))).
+fof(mSortsB,hypothesis,( ! [W0] : ( ! [W1] : ((aElement(W0) & aElement(W1)) => aElement(sdtasdt(W0,W1)))))).
+fof(mAddComm,hypothesis,( ! [W0] : ( ! [W1] : ((aElement(W0) & aElement(W1)) => (sdtpldt(W0,W1) = sdtpldt(W1,W0)))))).
+fof(mAddAsso,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : (((aElement(W0) & aElement(W1)) & aElement(W2)) => (sdtpldt(sdtpldt(W0,W1),W2) = sdtpldt(W0,sdtpldt(W1,W2)))))))).
+fof(mAddBubble,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : (((aElement(W0) & aElement(W1)) & aElement(W2)) => (sdtpldt(W0,sdtpldt(W1,W2)) = sdtpldt(W1,sdtpldt(W0,W2)))))))).
+fof(mAddZero,hypothesis,( ! [W0] : (aElement(W0) => ((sdtpldt(W0,sz0) = W0) & (W0 = sdtpldt(sz0,W0)))))).
+fof(mAddInvr,hypothesis,( ! [W0] : (aElement(W0) => ((sdtpldt(W0,smndt(W0)) = sz0) & (sz0 = sdtpldt(smndt(W0),W0)))))).
+fof(mMulComm,hypothesis,( ! [W0] : ( ! [W1] : ((aElement(W0) & aElement(W1)) => (sdtasdt(W0,W1) = sdtasdt(W1,W0)))))).
+fof(mMulAsso,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : (((aElement(W0) & aElement(W1)) & aElement(W2)) => (sdtasdt(sdtasdt(W0,W1),W2) = sdtasdt(W0,sdtasdt(W1,W2)))))))).
+fof(mMulBubble,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : (((aElement(W0) & aElement(W1)) & aElement(W2)) => (sdtasdt(W0,sdtasdt(W1,W2)) = sdtasdt(W1,sdtasdt(W0,W2)))))))).
+fof(mMulUnit,hypothesis,( ! [W0] : (aElement(W0) => ((sdtasdt(W0,sz1) = W0) & (W0 = sdtasdt(sz1,W0)))))).
+fof(mAMDistr1,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : (((aElement(W0) & aElement(W1)) & aElement(W2)) => (sdtasdt(W0,sdtpldt(W1,W2)) = sdtpldt(sdtasdt(W0,W1),sdtasdt(W0,W2)))))))).
+fof(mAMDistr2,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : (((aElement(W0) & aElement(W1)) & aElement(W2)) => (sdtasdt(sdtpldt(W0,W1),W2) = sdtpldt(sdtasdt(W0,W2),sdtasdt(W1,W2)))))))).
+fof(mMulMnOne,hypothesis,( ! [W0] : (aElement(W0) => ((sdtasdt(smndt(sz1),W0) = smndt(W0)) & (smndt(W0) = sdtasdt(W0,smndt(sz1))))))).
+fof(mMulZero,hypothesis,( ! [W0] : (aElement(W0) => ((sdtasdt(W0,sz0) = sz0) & (sz0 = sdtasdt(sz0,W0)))))).
+fof(mCancel,hypothesis,( ! [W0] : ( ! [W1] : ((aElement(W0) & aElement(W1)) => ((( ~ (W0 = sz0)) & ( ~ (W1 = sz0))) => ( ~ (sdtasdt(W0,W1) = sz0))))))).
+fof(mUnNeZr,hypothesis,( ~ (sz1 = sz0))).
+fof(m_,hypothesis,( ! [W0] : (aSet(W0) => ( ! [W1] : (aElementOf(W1,W0) => aElement(W1)))))).
+fof(mSetEq,hypothesis,( ! [W0] : ( ! [W1] : ((aSet(W0) & aSet(W1)) => ((( ! [W2] : (aElementOf(W2,W0) => aElementOf(W2,W1))) & ( ! [W2] : (aElementOf(W2,W1) => aElementOf(W2,W0)))) => (W0 = W1)))))).
+fof(mDefSSum,hypothesis,( ! [W0] : ( ! [W1] : ((aSet(W0) & aSet(W1)) => ((aSet(sdtplqtdt(W0,W1)) & ( ! [W2] : (aElement(W2) => (aElementOf(W2,sdtplqtdt(W0,W1)) <=> ( ? [W3] : (aElementOf(W3,W0) & ( ? [W4] : (aElementOf(W4,W1) & (W2 = sdtpldt(W3,W4)))))))))) & ( ! [W2] : ((aSet(W2) & ( ! [W3] : (aElement(W3) => (aElementOf(W3,W2) <=> ( ? [W4] : (aElementOf(W4,W0) & ( ? [W5] : (aElementOf(W5,W1) & (W3 = sdtpldt(W4,W5)))))))))) => (W2 = sdtplqtdt(W0,W1))))))))).
+fof(mDefSInt,hypothesis,( ! [W0] : ( ! [W1] : ((aSet(W0) & aSet(W1)) => ((aSet(sdtasasdt(W0,W1)) & ( ! [W2] : (aElement(W2) => (aElementOf(W2,sdtplqtdt(W0,W1)) <=> (aElementOf(W2,W0) & aElementOf(W2,W1)))))) & ( ! [W2] : ((aSet(W2) & ( ! [W3] : (aElement(W3) => (aElementOf(W3,sdtplqtdt(W0,W1)) <=> (aElementOf(W3,W0) & aElementOf(W3,W1)))))) => (W2 = sdtasasdt(W0,W1))))))))).
+fof(mDefIdeal,hypothesis,( ! [W0] : (aIdeal(W0) <=> (aSet(W0) & ( ! [W1] : (aElementOf(W1,W0) => (( ! [W2] : (aElementOf(W2,W0) => aElementOf(sdtpldt(W1,W2),W0))) & ( ! [W2] : (aElement(W2) => aElementOf(sdtasdt(W2,W1),W0)))))))))).
+fof(mIdeSum,hypothesis,( ! [W0] : ( ! [W1] : ((aIdeal(W0) & aIdeal(W1)) => aIdeal(sdtplqtdt(W0,W1)))))).
+fof(mIdeInt,hypothesis,( ! [W0] : ( ! [W1] : ((aIdeal(W0) & aIdeal(W1)) => aIdeal(sdtasasdt(W0,W1)))))).
+fof(mDefMod,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : (((aElement(W0) & aElement(W1)) & aIdeal(W2)) => (sdteqdtlpzmzozddtrp(W0,W1,W2) <=> aElementOf(sdtpldt(W0,smndt(W1)),W2))))))).
+fof(mChineseRemainder,hypothesis,( ! [W0] : ( ! [W1] : ((aIdeal(W0) & aIdeal(W1)) => (( ! [W2] : (aElement(W2) => aElementOf(W2,sdtplqtdt(W0,W1)))) => ( ! [W2] : ( ! [W3] : ((aElement(W2) & aElement(W3)) => ( ? [W4] : (aElement(W4) & (sdteqdtlpzmzozddtrp(W4,W2,W0) & sdteqdtlpzmzozddtrp(W4,W3,W1)))))))))))).
+fof(mNatSort,hypothesis,$true).
+fof(mEucSort,hypothesis,( ! [W0] : ((aElement(W0) & ( ~ (W0 = sz0))) => aNaturalNumber(sbrdtbr(W0))))).
+fof(mDivision,hypothesis,( ! [W0] : ( ! [W1] : (((aElement(W0) & aElement(W1)) & ( ~ (W1 = sz0))) => ( ? [W2] : ( ? [W3] : ((aElement(W2) & aElement(W3)) & ((W0 = sdtpldt(sdtasdt(W2,W1),W3)) & (( ~ (W3 = sz0)) => iLess(sbrdtbr(W3),sbrdtbr(W1))))))))))).
+fof(mDefDiv,hypothesis,( ! [W0] : ( ! [W1] : ((aElement(W0) & aElement(W1)) => (doDivides(W0,W1) <=> ( ? [W2] : (aElement(W2) & (sdtasdt(W0,W2) = W1)))))))).
+fof(mDefDvs,hypothesis,( ! [W0] : (aElement(W0) => ( ! [W1] : (aDivisorOf(W1,W0) <=> (aElement(W1) & doDivides(W1,W0))))))).
+fof(mDefGCD,hypothesis,( ! [W0] : ( ! [W1] : ((aElement(W0) & aElement(W1)) => ( ! [W2] : (aGcdOfAnd(W2,W0,W1) <=> ((aDivisorOf(W2,W0) & aDivisorOf(W2,W1)) & ( ! [W3] : ((aDivisorOf(W3,W0) & aDivisorOf(W3,W1)) => doDivides(W3,W2)))))))))).
+fof(mDefRel,hypothesis,( ! [W0] : ( ! [W1] : ((aElement(W0) & aElement(W1)) => (misRelativelyPrime(W0,W1) <=> aGcdOfAnd(sz1,W0,W1)))))).
+fof(mDefPrIdeal,hypothesis,( ! [W0] : (aElement(W0) => ((aSet(slsdtgt(W0)) & ( ! [W1] : (aElement(W1) => (aElementOf(W1,slsdtgt(W0)) <=> ( ? [W2] : (aElement(W2) & (W1 = sdtasdt(W0,W2)))))))) & ( ! [W1] : ((aSet(W1) & ( ! [W2] : (aElement(W2) => (aElementOf(W2,W1) <=> ( ? [W3] : (aElement(W3) & (W2 = sdtasdt(W0,W3)))))))) => (W1 = slsdtgt(W0)))))))).
+fof(m__,hypothesis,aElement(xc)).
+fof(m__,hypothesis,aElementOf(xx,slsdtgt(xc))).
+fof(m__,hypothesis,aElementOf(xy,slsdtgt(xc))).
+fof(m1,hypothesis,(aElement(xu) & (sdtasdt(xc,xu) = xx))).
+fof(m2,conjecture,( ? [W0] : (aElement(W0) & (sdtasdt(xc,W0) = xy)))).
+

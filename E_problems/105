@@ -1,0 +1,11 @@
+fof(m_,hypothesis,( ! [W0] : (aFunction(W0) => ( ! [W1] : (aElementOf(W1,szDzozmlpdtrp(W0)) => aSet(sdtlbdtrb(W0,W1))))))).
+fof(m_,hypothesis,( ! [W0] : (aSet(W0) => ( ! [W1] : (aSubsetOf(W1,W0) <=> (aSet(W1) & ( ! [W2] : (aElementOf(W2,W1) => aElementOf(W2,W0))))))))).
+fof(m_,hypothesis,( ! [W0] : (aSet(W0) => ((aSet(tthePowersetOf(W0)) & ( ! [W1] : (aElementOf(W1,tthePowersetOf(W0)) <=> aSubsetOf(W1,W0)))) & ( ! [W1] : ((aSet(W1) & ( ! [W2] : (aElementOf(W2,W1) <=> aSubsetOf(W2,W0)))) => (W1 = tthePowersetOf(W0)))))))).
+fof(m_,hypothesis,( ! [W0] : ( ! [W1] : ((aFunction(W0) & aSet(W1)) => (doSurjectsOnto(W0,W1) <=> ( ! [W2] : (aElementOf(W2,W1) => ( ? [W3] : (aElementOf(W3,szDzozmlpdtrp(W0)) & (W2 = sdtlbdtrb(W0,W3))))))))))).
+fof(m__,hypothesis,aSet(xM)).
+fof(m__,hypothesis,( ~ ( ! [W0] : ((aFunction(W0) & (szDzozmlpdtrp(W0) = xM)) => ( ~ doSurjectsOnto(W0,tthePowersetOf(xM))))))).
+fof(m__,hypothesis,(aFunction(xf) & ((szDzozmlpdtrp(xf) = xM) & doSurjectsOnto(xf,tthePowersetOf(xM))))).
+fof(m__,hypothesis,(aSet(xN) & ( ! [W0] : (aElementOf(W0,xN) <=> (aElementOf(W0,xM) & ( ~ aElementOf(W0,sdtlbdtrb(xf,W0)))))))).
+fof(m__,hypothesis,( ! [W0] : (aElementOf(W0,xM) => ( ~ (xN = sdtlbdtrb(xf,W0)))))).
+fof(m__,conjecture,$false).
+

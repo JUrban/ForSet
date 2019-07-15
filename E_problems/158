@@ -1,0 +1,32 @@
+fof(m_,hypothesis,( ! [W0] : (aSet(W0) => ( ! [W1] : (aSubsetOf(W1,W0) <=> (aSet(W1) & ( ! [W2] : (aElementOf(W2,W1) => aElementOf(W2,W0))))))))).
+fof(m_,hypothesis,( ! [W0] : ( ! [W1] : ((aSet(W0) & aSet(W1)) => ((aSet(sdtbsdt(W0,W1)) & ( ! [W2] : (aElementOf(W2,sdtbsdt(W0,W1)) <=> (aElementOf(W2,W0) & ( ~ aElementOf(W2,W1)))))) & ( ! [W2] : ((aSet(W2) & ( ! [W3] : (aElementOf(W3,W2) <=> (aElementOf(W3,W0) & ( ~ aElementOf(W3,W1)))))) => (W2 = sdtbsdt(W0,W1))))))))).
+fof(m_,hypothesis,( ! [W0] : (aFunction(W0) => ( ! [W1] : (aSubsetOf(W1,szDzozmlpdtrp(W0)) => ((aSet(sdtcflbdtrb(W0,W1)) & ( ! [W2] : (aElementOf(W2,sdtcflbdtrb(W0,W1)) <=> ( ? [W3] : (aElementOf(W3,W1) & (W2 = sdtlbdtrb(W0,W3))))))) & ( ! [W2] : ((aSet(W2) & ( ! [W3] : (aElementOf(W3,W2) <=> ( ? [W4] : (aElementOf(W4,W1) & (W3 = sdtlbdtrb(W0,W4))))))) => (W2 = sdtcflbdtrb(W0,W1)))))))))).
+fof(m_,hypothesis,( ! [W0] : (aCardinal(W0) => aSet(W0)))).
+fof(m_,hypothesis,$true).
+fof(m_,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : (((aCardinal(W0) & aCardinal(W1)) & aCardinal(W2)) => ((sdtlsdt(W0,W1) & sdtlsdt(W1,W2)) => sdtlsdt(W0,W2))))))).
+fof(m_,hypothesis,( ! [W0] : ( ! [W1] : ((aCardinal(W0) & aCardinal(W1)) => ((sdtlsdt(W0,W1) | sdtlsdt(W1,W0)) | (W1 = W0)))))).
+fof(m_,hypothesis,( ! [W0] : (aSet(W0) => aCardinal(ttheCardinalityOf(W0))))).
+fof(mImage_Card,hypothesis,( ! [W0] : (aFunction(W0) => ( ! [W1] : (aSubsetOf(W1,szDzozmlpdtrp(W0)) => ((ttheCardinalityOf(sdtcflbdtrb(W0,W1)) = ttheCardinalityOf(W1)) | sdtlsdt(ttheCardinalityOf(sdtcflbdtrb(W0,W1)),ttheCardinalityOf(W1)))))))).
+fof(m_,hypothesis,( ! [W0] : ( ! [W1] : ((aSet(W0) & aSet(W1)) => (sdtlsdt(ttheCardinalityOf(W0),ttheCardinalityOf(W1)) => ( ? [W2] : aElementOf(W2,sdtbsdt(W1,W0)))))))).
+fof(mSurj_Exi,hypothesis,( ! [W0] : ( ! [W1] : ((aSet(W0) & aSet(W1)) => (((ttheCardinalityOf(W0) = ttheCardinalityOf(W1)) | sdtlsdt(ttheCardinalityOf(W0),ttheCardinalityOf(W1))) => (( ? [W2] : aElementOf(W2,W0)) => ( ? [W2] : (aFunction(W2) & ((W1 = szDzozmlpdtrp(W2)) & (W0 = sdtcflbdtrb(W2,szDzozmlpdtrp(W2)))))))))))).
+fof(m_,hypothesis,( ! [W0] : (aCardinal(W0) => (ttheCardinalityOf(W0) = W0)))).
+fof(m_,hypothesis,( ! [W0] : (aSet(W0) => ( ! [W1] : (aSequenceOfCardinalsOn(W1,W0) <=> (aFunction(W1) & ((szDzozmlpdtrp(W1) = W0) & ( ! [W2] : (aElementOf(W2,W0) => aCardinal(sdtlbdtrb(W1,W2))))))))))).
+fof(m_,hypothesis,( ! [W0] : (aSet(W0) => ( ! [W1] : (aSequenceOfCardinalsOn(W1,W0) => aSet(szSzuzmzSzeztlpdtcmdtrp(W1,W0))))))).
+fof(mSum_Def,hypothesis,( ! [W0] : (aSet(W0) => ( ! [W1] : (aSequenceOfCardinalsOn(W1,W0) => ( ! [W2] : (aElementOf(W2,szSzuzmzSzeztlpdtcmdtrp(W1,W0)) <=> ( ? [W3] : ( ? [W4] : ((aElementOf(W4,W0) & aElementOf(W3,sdtlbdtrb(W1,W4))) & (W2 = slpdtcmdtrp(W3,W4)))))))))))).
+fof(m_,hypothesis,( ! [W0] : (aSet(W0) => ( ! [W1] : (aSequenceOfCardinalsOn(W1,W0) => ((szSzuzmlpdtcmdtrp(W1,W0) = ttheCardinalityOf(szSzuzmzSzeztlpdtcmdtrp(W1,W0))) & ( ! [W2] : ((W2 = ttheCardinalityOf(szSzuzmzSzeztlpdtcmdtrp(W1,W0))) => (W2 = szSzuzmlpdtcmdtrp(W1,W0)))))))))).
+fof(m_,hypothesis,( ! [W0] : (aSet(W0) => ( ! [W1] : (aSequenceOfCardinalsOn(W1,W0) => aSet(szPzrzozdzSzeztlpdtcmdtrp(W1,W0))))))).
+fof(mProd_Def,hypothesis,( ! [W0] : (aSet(W0) => ( ! [W1] : (aSequenceOfCardinalsOn(W1,W0) => ( ! [W2] : (aElementOf(W2,szPzrzozdzSzeztlpdtcmdtrp(W1,W0)) <=> (aFunction(W2) & ((szDzozmlpdtrp(W2) = W0) & ( ! [W3] : (aElementOf(W3,W0) => aElementOf(sdtlbdtrb(W2,W3),sdtlbdtrb(W1,W3))))))))))))).
+fof(m_,hypothesis,( ! [W0] : (aSet(W0) => ( ! [W1] : (aSequenceOfCardinalsOn(W1,W0) => ((szPzrzozdlpdtcmdtrp(W1,W0) = ttheCardinalityOf(szPzrzozdzSzeztlpdtcmdtrp(W1,W0))) & ( ! [W2] : ((W2 = ttheCardinalityOf(szPzrzozdzSzeztlpdtcmdtrp(W1,W0))) => (W2 = szPzrzozdlpdtcmdtrp(W1,W0)))))))))).
+fof(mChoice,hypothesis,( ! [W0] : (aSet(W0) => ( ! [W1] : (aSequenceOfCardinalsOn(W1,W0) => (( ! [W2] : (aElementOf(W2,W0) => ( ? [W3] : aElementOf(W3,sdtlbdtrb(W1,W2))))) => ( ? [W2] : aElementOf(W2,szPzrzozdzSzeztlpdtcmdtrp(W1,W0))))))))).
+fof(m__,hypothesis,aSet(xD)).
+fof(m__,hypothesis,(aSequenceOfCardinalsOn(xkappa,xD) & aSequenceOfCardinalsOn(xlambda,xD))).
+fof(m__,hypothesis,( ! [W0] : (aElementOf(W0,xD) => sdtlsdt(sdtlbdtrb(xkappa,W0),sdtlbdtrb(xlambda,W0))))).
+fof(m__,hypothesis,( ~ sdtlsdt(szSzuzmlpdtcmdtrp(xkappa,xD),szPzrzozdlpdtcmdtrp(xlambda,xD)))).
+fof(m__,hypothesis,((szPzrzozdlpdtcmdtrp(xlambda,xD) = szSzuzmlpdtcmdtrp(xkappa,xD)) | sdtlsdt(szPzrzozdlpdtcmdtrp(xlambda,xD),szSzuzmlpdtcmdtrp(xkappa,xD)))).
+fof(m__,hypothesis,(aFunction(xG) & ((szSzuzmzSzeztlpdtcmdtrp(xkappa,xD) = szDzozmlpdtrp(xG)) & (szPzrzozdzSzeztlpdtcmdtrp(xlambda,xD) = sdtcflbdtrb(xG,szDzozmlpdtrp(xG)))))).
+fof(m__,hypothesis,((aFunction(xDiag) & (szDzozmlpdtrp(xDiag) = xD)) & ( ! [W0] : (aElementOf(W0,szDzozmlpdtrp(xDiag)) => ( ? [W1] : ((aSet(W1) & ( ! [W2] : (aElementOf(W2,W1) <=> ( ? [W3] : (aElementOf(W3,sdtlbdtrb(xkappa,W0)) & (W2 = sdtlbdtrb(sdtlbdtrb(xG,slpdtcmdtrp(W3,W0)),W0))))))) & (sdtlbdtrb(xDiag,W0) = W1))))))).
+fof(m__,hypothesis,( ! [W0] : (aElementOf(W0,xD) => sdtlsdt(ttheCardinalityOf(sdtlbdtrb(xDiag,W0)),sdtlbdtrb(xlambda,W0))))).
+fof(m__,hypothesis,(aFunction(xf) & (szDzozmlpdtrp(xf) = xD))).
+fof(m__,hypothesis,aElementOf(w0,szDzozmlpdtrp(xf))).
+fof(m__,conjecture,aElementOf(w0,szDzozmlpdtrp(xlambda))).
+

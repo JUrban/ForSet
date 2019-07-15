@@ -1,0 +1,20 @@
+fof(mElmSort,hypothesis,$true).
+fof(mRelSort,hypothesis,$true).
+fof(mReduct,hypothesis,( ! [W0] : ( ! [W1] : ((aElement(W0) & aRewritingSystem(W1)) => ( ! [W2] : (aReductOfIn(W2,W0,W1) => aElement(W2))))))).
+fof(m_,hypothesis,$true).
+fof(mTCDef,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : (((aElement(W0) & aRewritingSystem(W1)) & aElement(W2)) => (sdtmndtplgtdt(W0,W1,W2) <=> (aReductOfIn(W2,W0,W1) | ( ? [W3] : (aElement(W3) & (aReductOfIn(W3,W0,W1) & sdtmndtplgtdt(W3,W1,W2))))))))))).
+fof(mTCTrans,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : ( ! [W3] : ((((aElement(W0) & aRewritingSystem(W1)) & aElement(W2)) & aElement(W3)) => ((sdtmndtplgtdt(W0,W1,W2) & sdtmndtplgtdt(W2,W1,W3)) => sdtmndtplgtdt(W0,W1,W3)))))))).
+fof(mTCRDef,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : (((aElement(W0) & aRewritingSystem(W1)) & aElement(W2)) => (sdtmndtasgtdt(W0,W1,W2) <=> ((W0 = W2) | sdtmndtplgtdt(W0,W1,W2)))))))).
+fof(mTCRTrans,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : ( ! [W3] : ((((aElement(W0) & aRewritingSystem(W1)) & aElement(W2)) & aElement(W3)) => ((sdtmndtasgtdt(W0,W1,W2) & sdtmndtasgtdt(W2,W1,W3)) => sdtmndtasgtdt(W0,W1,W3)))))))).
+fof(mCRDef,hypothesis,( ! [W0] : (aRewritingSystem(W0) => (isConfluent(W0) <=> ( ! [W1] : ( ! [W2] : ( ! [W3] : ((((aElement(W1) & aElement(W2)) & aElement(W3)) & (sdtmndtasgtdt(W1,W0,W2) & sdtmndtasgtdt(W1,W0,W3))) => ( ? [W4] : (aElement(W4) & (sdtmndtasgtdt(W2,W0,W4) & sdtmndtasgtdt(W3,W0,W4)))))))))))).
+fof(mWCRDef,hypothesis,( ! [W0] : (aRewritingSystem(W0) => (isLocallyConfluent(W0) <=> ( ! [W1] : ( ! [W2] : ( ! [W3] : ((((aElement(W1) & aElement(W2)) & aElement(W3)) & (aReductOfIn(W2,W1,W0) & aReductOfIn(W3,W1,W0))) => ( ? [W4] : (aElement(W4) & (sdtmndtasgtdt(W2,W0,W4) & sdtmndtasgtdt(W3,W0,W4)))))))))))).
+fof(mTermin,hypothesis,( ! [W0] : (aRewritingSystem(W0) => (isTerminating(W0) <=> ( ! [W1] : ( ! [W2] : ((aElement(W1) & aElement(W2)) => (sdtmndtplgtdt(W1,W0,W2) => iLess(W2,W1))))))))).
+fof(mNFRDef,hypothesis,( ! [W0] : ( ! [W1] : ((aElement(W0) & aRewritingSystem(W1)) => ( ! [W2] : (aNormalFormOfIn(W2,W0,W1) <=> (aElement(W2) & (sdtmndtasgtdt(W0,W1,W2) & ( ~ ( ? [W3] : aReductOfIn(W3,W2,W1))))))))))).
+fof(mTermNF,hypothesis,( ! [W0] : ((aRewritingSystem(W0) & isTerminating(W0)) => ( ! [W1] : (aElement(W1) => ( ? [W2] : aNormalFormOfIn(W2,W1,W0))))))).
+fof(m__,hypothesis,aRewritingSystem(xR)).
+fof(m__,hypothesis,(isLocallyConfluent(xR) & isTerminating(xR))).
+fof(m__,hypothesis,((aElement(xa) & aElement(xb)) & aElement(xc))).
+fof(m__,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : ((((aElement(W0) & aElement(W1)) & aElement(W2)) & (sdtmndtasgtdt(W0,xR,W1) & sdtmndtasgtdt(W0,xR,W2))) => (iLess(W0,xa) => ( ? [W3] : (aElement(W3) & (sdtmndtasgtdt(W1,xR,W3) & sdtmndtasgtdt(W2,xR,W3)))))))))).
+fof(m__,hypothesis,(sdtmndtplgtdt(xa,xR,xb) & sdtmndtplgtdt(xa,xR,xc))).
+fof(m__,conjecture,( ? [W0] : (aElement(W0) & (aReductOfIn(W0,xa,xR) & sdtmndtasgtdt(W0,xR,xb))))).
+

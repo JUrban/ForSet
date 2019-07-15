@@ -1,0 +1,6 @@
+fof(m_,hypothesis,( ! [W0] : ( ! [W1] : ( ! [W2] : ( ! [W3] : (((($true & $true) & $true) & $true) => ((slpdtcmdtrp(W0,W1) = slpdtcmdtrp(W2,W3)) => ((W0 = W2) & (W1 = W3))))))))).
+fof(m_,hypothesis,( ! [W0] : ( ! [W1] : ((aSet(W0) & aSet(W1)) => ((aSet(szPzrzozdlpdtcmdtrp(W0,W1)) & ( ! [W2] : (aElementOf(W2,szPzrzozdlpdtcmdtrp(W0,W1)) <=> ( ? [W3] : ( ? [W4] : ((aElementOf(W3,W0) & aElementOf(W4,W1)) & (W2 = slpdtcmdtrp(W3,W4)))))))) & ( ! [W2] : ((aSet(W2) & ( ! [W3] : (aElementOf(W3,W2) <=> ( ? [W4] : ( ? [W5] : ((aElementOf(W4,W0) & aElementOf(W5,W1)) & (W3 = slpdtcmdtrp(W4,W5)))))))) => (W2 = szPzrzozdlpdtcmdtrp(W0,W1))))))))).
+fof(m__,hypothesis,($true & $true)).
+fof(m__,hypothesis,(aSet(xM) & aSet(xN))).
+fof(m__,conjecture,(aElementOf(slpdtcmdtrp(xx,xy),szPzrzozdlpdtcmdtrp(xM,xN)) => (aElementOf(xx,xM) => aElementOf(xy,xN)))).
+
