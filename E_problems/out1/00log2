@@ -1,0 +1,137 @@
+urban@dell:/local/data/urban/extcode/isanap/Naproche-SAD$ for FILE in examples/*.ftl; do   stack exec Naproche-SAD -- "$FILE"; done | tee 00log2
+[Parser] "examples/chinese.ftl"
+parsing successful
+[Reasoner] "examples/chinese.ftl"
+verification started
+[Reasoner] "examples/chinese.ftl" (line 35, column 9)
+goal:  .= x * (0 + 0) (by AddZero)
+[Reasoner] "examples/chinese.ftl" (line 35, column 37)
+goal:  .= (x * 0) + (x * 0) (by AMDistr1)
+[Reasoner] "examples/chinese.ftl" (line 35, column 3)
+goal:  x * 0 .= x * (0 + 0) (by AddZero) .= (x * 0) + (x * 0) (by AMDistr1).
+[Export] Error: Bad prover response:
+652472572
+# No SInE strategy applied
+# Auto-Mode selected heuristic SAT001_MinMin_rr
+# and selection function SelectMaxLComplexAvoidPosPred.
+#
+# Presaturation interreduction done
+# Proof found!
+# SZS status Theorem
+[Parser] "examples/fuerst.ftl"
+parsing successful
+[Reasoner] "examples/fuerst.ftl"
+verification started
+[Reasoner] "examples/fuerst.ftl" (line 32, column 21)
+goal:  a * 0 = 0 = 0 * a.
+[Export] Error: Bad prover response:
+421039946
+# No SInE strategy applied
+# Auto-Mode selected heuristic G_E___207_C18_F1_AE_CS_SP_PI_PS_S0S
+# and selection function SelectComplexG.
+#
+# Presaturation interreduction done
+# Proof found!
+# SZS status Theorem
+[Parser] "examples/Koenigs_lemma.ftl"
+parsing successful
+[Reasoner] "examples/Koenigs_lemma.ftl"
+verification started
+[Export] Error: Bad prover response:
+011546678
+# Failure: Resource limit exceeded (time)
+# SZS status ResourceOut
+# No SInE strategy applied
+# Auto-Mode selected heuristic SAT001_MinMin_rr
+# and selection function SelectMaxLComplexAvoidPosPred.
+#
+# Presaturation interreduction done
+eprover: CPU time limit exceeded, terminating
+[Parser] "examples/Maximum_principle.ftl"
+parsing successful
+[Reasoner] "examples/Maximum_principle.ftl"
+verification started
+[Export] Error: Bad prover response:
+309634475
+# No SInE strategy applied
+# Auto-Mode selected heuristic G_E___107_C36_F1_PI_AE_Q4_CS_SP_PS_S0Y
+# and selection function SelectMaxLComplexAvoidPosPred.
+#
+# Presaturation interreduction done
+# Proof found!
+# SZS status Theorem
+[Parser] "examples/newman.ftl"
+parsing successful
+[Reasoner] "examples/newman.ftl"
+verification started
+[Reasoner] "examples/newman.ftl" (line 19, column 21)
+goal:  x -R*> y -R*> z => x -R*> z.
+[Export] Error: Bad prover response:
+994425054
+# No SInE strategy applied
+# Auto-Mode selected heuristic SAT001_MinMin_rr
+# and selection function SelectMaxLComplexAvoidPosPred.
+#
+# Presaturation interreduction done
+# Proof found!
+# SZS status Theorem
+[Parser] "examples/powerset.ftl"
+parsing successful
+[Reasoner] "examples/powerset.ftl"
+verification started
+[Reasoner] "examples/powerset.ftl" (line 23, column 22)
+goal:  Take a function f that is defined on M and surjects onto the powerset of M.
+[Export] Error: Bad prover response:
+210786548
+# No SInE strategy applied
+# Auto-Mode selected heuristic SAT001_MinMin_rr
+# and selection function SelectMaxLComplexAvoidPosPred.
+#
+# Presaturation interreduction done
+# Proof found!
+# SZS status Theorem
+[Parser] "examples/prime_no_square.ftl"
+parsing successful
+[Reasoner] "examples/prime_no_square.ftl"
+verification started
+[Reasoner] "examples/prime_no_square.ftl" (line 37, column 22)
+goal:  Take a rational number q such that p = q^2.
+[Export] Error: Bad prover response:
+449252865
+# No SInE strategy applied
+# Auto-Mode selected heuristic SAT001_MinMin_rr
+# and selection function SelectMaxLComplexAvoidPosPred.
+#
+# Presaturation interreduction done
+# Proof found!
+# SZS status Theorem
+[Parser] "examples/regular_successor.ftl"
+parsing successful
+[Reasoner] "examples/regular_successor.ftl"
+verification started
+[Reasoner] "examples/regular_successor.ftl" (line 16, column 1)
+goal:  If (x,y) is an element of Prod(M,N) then x is an element of M and y is an element of N.
+[Export] Error: Bad prover response:
+684470333
+# No SInE strategy applied
+# Auto-Mode selected heuristic G_E___208_C18_F1_SE_CS_SP_PS_TT_S0Y
+# and selection function SelectMaxLComplexAvoidPosPred.
+#
+# Presaturation interreduction done
+# Proof found!
+# SZS status Theorem
+[Parser] "examples/tarski.ftl"
+parsing successful
+[Reasoner] "examples/tarski.ftl"
+verification started
+[Reasoner] "examples/tarski.ftl" (line 49, column 37)
+goal:  Then u = v.
+[Export] Error: Bad prover response:
+981717314
+# No SInE strategy applied
+# Auto-Mode selected heuristic G_E___208_C18_F1_SE_CS_SP_PS_TT_S0Y
+# and selection function SelectMaxLComplexAvoidPosPred.
+#
+# Presaturation interreduction done
+# Proof found!
+# SZS status Theorem
