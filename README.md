@@ -8,4 +8,4 @@
 
 4. Automatically add arxiv/stacks growing terminology as new formal definitions
 
-5. Solve the QED problem
+5. Solve the QED problem.
