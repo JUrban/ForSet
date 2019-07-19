@@ -1,0 +1,2729 @@
+[Parser] "examples/Koenigs_lemma.ftl"
+parsing successful
+[Main] String: examples
+[Main] text0: [String Library "examples"
+,String Provers "provers.dat"
+,String Prover "eprover"
+,Int Timelimit 3
+,Int Depthlimit 7
+,Int Checktime 1
+,Int Checkdepth 3
+,Bool Prove True
+,Bool Check True
+,Bool Symsign True
+,Bool Info True
+,Bool Thesis True
+,Bool Filter True
+,Bool Skipfail False
+,Bool Flat False
+,Bool Printgoal True
+,Bool Printreason False
+,Bool Printsection False
+,Bool Printcheck False
+,Bool Printprover False
+,Bool Printunfold False
+,Bool Printfulltask False
+,Bool OnlyTranslate True
+,String File "examples/Koenigs_lemma.ftl"
+]
+[Main] text1: [String Library "examples"
+,String Provers "provers.dat"
+,String Prover "eprover"
+,Int Timelimit 3
+,Int Depthlimit 7
+,Int Checktime 1
+,Int Checkdepth 3
+,Bool Prove True
+,Bool Check True
+,Bool Symsign True
+,Bool Info True
+,Bool Thesis True
+,Bool Filter True
+,Bool Skipfail False
+,Bool Flat False
+,Bool Printgoal True
+,Bool Printreason False
+,Bool Printsection False
+,Bool Printcheck False
+,Bool Printprover False
+,Bool Printunfold False
+,Bool Printfulltask False
+,Bool OnlyTranslate True
+,Bool Ontored True
+,Strings Synonym ["cardinal","cardinals"]
+,Strings Synonym ["sequence","sequences"]
+,,,,hypothesis.
+  assume ("aSet" "xM").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aSubsetOf" (DB 0) "xM"))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aElementOf" (DB 0) (DB 1))("aElementOf" (DB 0) "xM")))))).
+,hypothesis.
+  assume ( and ("aSet" "xM")("aSet" "xN")).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("sdtbsdt" "xM" "xN")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) ( and ("aElementOf" (DB 0) "xM")(not ("aElementOf" (DB 0) "xN")))))))).
+,hypothesis.
+  assume ("aFunction" "xf").
+  assume ("aSubsetOf" "xM" ("szDzozmlpdtrp" "xf")).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("sdtcflbdtrb" "xf" "xM")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) (Replacement tag (exists (DB 0) ( and ("aElementOf" (DB 0) "xM")("=" (DB 1) ("sdtlbdtrb" "xf" (DB 0))))))))))).
+,,hypothesis.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aCardinal" (DB 0)))("aSet" (DB 0)))).
+,,hypothesis.
+  assume ( and ("aCardinal" "xA")("aCardinal" "xB")).
+  assume ( implies (HeadTerm tag ("sdtlsdt" "xA" "xB"))truth).
+,,hypothesis.
+  assume ( and ( and ("aCardinal" "xA")("aCardinal" "xB"))("aCardinal" "xC")).
+  assume ( implies ( and ("sdtlsdt" "xA" "xB")("sdtlsdt" "xB" "xC"))("sdtlsdt" "xA" "xC")).
+,hypothesis.
+  assume ( and ("aCardinal" "xA")("aCardinal" "xB")).
+  assume ( or ( or ("sdtlsdt" "xA" "xB")("sdtlsdt" "xB" "xA"))("=" "xB" "xA")).
+,,hypothesis.
+  assume ("aSet" "xM").
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("ttheCardinalityOf" "xM")))("aCardinal" (DB 0)))).
+,,hypothesis Image_Card.
+  assume ("aFunction" "xf").
+  assume ("aSubsetOf" "xM" ("szDzozmlpdtrp" "xf")).
+  assume ( or ("=" ("ttheCardinalityOf" ("sdtcflbdtrb" "xf" "xM")) ("ttheCardinalityOf" "xM"))("sdtlsdt" ("ttheCardinalityOf" ("sdtcflbdtrb" "xf" "xM")) ("ttheCardinalityOf" "xM"))).
+,hypothesis.
+  assume ( and ("aSet" "xN")("aSet" "xM")).
+  assume ("sdtlsdt" ("ttheCardinalityOf" "xN") ("ttheCardinalityOf" "xM")).
+  assume (exists (DB 0) ("aElementOf" (DB 0) ("sdtbsdt" "xM" "xN"))).
+,hypothesis Surj_Exi.
+  assume ( and ("aSet" "xM")("aSet" "xN")).
+  assume ( or ("=" ("ttheCardinalityOf" "xM") ("ttheCardinalityOf" "xN"))("sdtlsdt" ("ttheCardinalityOf" "xM") ("ttheCardinalityOf" "xN"))).
+  assume (exists (DB 0) ("aElementOf" (DB 0) "xM")).
+  assume (exists (DB 0) ( and ("aFunction" (DB 0))( and ("=" "xN" ("szDzozmlpdtrp" (DB 0)))("=" "xM" ("sdtcflbdtrb" (DB 0) ("szDzozmlpdtrp" (DB 0))))))).
+,hypothesis.
+  assume ("aCardinal" "xA").
+  assume ("=" ("ttheCardinalityOf" "xA") "xA").
+,,hypothesis.
+  assume ("aSet" "xD").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aSequenceOfCardinalsOn" (DB 0) "xD"))( and ("aFunction" (DB 0))( and ("=" ("szDzozmlpdtrp" (DB 0)) "xD")(forall (DB 0) ( implies ("aElementOf" (DB 0) "xD")("aCardinal" ("sdtlbdtrb" (DB 1) (DB 0))))))))).
+,hypothesis.
+  assume ("aSet" "xD").
+  assume ("aSequenceOfCardinalsOn" "xkappa" "xD").
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("szSzuzmzSzeztlpdtcmdtrp" "xkappa" "xD")))("aSet" (DB 0)))).
+,hypothesis Sum_Def.
+  assume ("aSet" "xD").
+  assume ("aSequenceOfCardinalsOn" "xkappa" "xD").
+  assume (forall (DB 0) ( iff ("aElementOf" (DB 0) ("szSzuzmzSzeztlpdtcmdtrp" "xkappa" "xD"))(exists (DB 0) (exists (DB 0) ( and ( and ("aElementOf" (DB 0) "xD")("aElementOf" (DB 1) ("sdtlbdtrb" "xkappa" (DB 0))))("=" (DB 2) ("slpdtcmdtrp" (DB 1) (DB 0)))))))).
+,hypothesis.
+  assume ("aSet" "xD").
+  assume ("aSequenceOfCardinalsOn" "xkappa" "xD").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("szSzuzmlpdtcmdtrp" "xkappa" "xD")))("=" (DB 0) ("ttheCardinalityOf" ("szSzuzmzSzeztlpdtcmdtrp" "xkappa" "xD"))))).
+,hypothesis.
+  assume ("aSet" "xD").
+  assume ("aSequenceOfCardinalsOn" "xkappa" "xD").
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("szPzrzozdzSzeztlpdtcmdtrp" "xkappa" "xD")))("aSet" (DB 0)))).
+,hypothesis Prod_Def.
+  assume ("aSet" "xD").
+  assume ("aSequenceOfCardinalsOn" "xkappa" "xD").
+  assume (forall (DB 0) ( iff ("aElementOf" (DB 0) ("szPzrzozdzSzeztlpdtcmdtrp" "xkappa" "xD"))( and ("aFunction" (DB 0))( and ("=" ("szDzozmlpdtrp" (DB 0)) "xD")(forall (DB 0) ( implies ("aElementOf" (DB 0) "xD")("aElementOf" ("sdtlbdtrb" (DB 1) (DB 0)) ("sdtlbdtrb" "xkappa" (DB 0))))))))).
+,hypothesis.
+  assume ("aSet" "xD").
+  assume ("aSequenceOfCardinalsOn" "xkappa" "xD").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("szPzrzozdlpdtcmdtrp" "xkappa" "xD")))("=" (DB 0) ("ttheCardinalityOf" ("szPzrzozdzSzeztlpdtcmdtrp" "xkappa" "xD"))))).
+,conjecture Choice.
+  assume ("aSet" "xD").
+  assume ("aSequenceOfCardinalsOn" "xlambda" "xD").
+  assume (forall (DB 0) ( implies ("aElementOf" (DB 0) "xD")(exists (DB 0) ("aElementOf" (DB 0) ("sdtlbdtrb" "xlambda" (DB 1)))))).
+  (exists (DB 0) ("aElementOf" (DB 0) ("szPzrzozdzSzeztlpdtcmdtrp" "xlambda" "xD"))).
+  proof.
+    ( and ( and ("aFunction" "xf")(Domain tag ("=" ("szDzozmlpdtrp" "xf") "xD")))(forall (DB 0) ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))(exists (DB 0) ( and ("aElementOf" (DB 0) ("sdtlbdtrb" "xlambda" (DB 1)))(Evaluation tag ("=" ("sdtlbdtrb" "xf" (DB 1)) (DB 0)))))))).
+    ("aElementOf" "xf" ("szPzrzozdzSzeztlpdtcmdtrp" "xlambda" "xD")).
+  qed.
+,conjecture Koenig.
+  assume ("aSet" "xD").
+  assume ( and ("aSequenceOfCardinalsOn" "xkappa" "xD")("aSequenceOfCardinalsOn" "xlambda" "xD")).
+  assume (forall (DB 0) ( implies ("aElementOf" (DB 0) "xD")("sdtlsdt" ("sdtlbdtrb" "xkappa" (DB 0)) ("sdtlbdtrb" "xlambda" (DB 0))))).
+  ("sdtlsdt" ("szSzuzmlpdtcmdtrp" "xkappa" "xD") ("szPzrzozdlpdtcmdtrp" "xlambda" "xD")).
+  proof.
+    assume (not ("#TH#")).
+    ( or ("=" ("szPzrzozdlpdtcmdtrp" "xlambda" "xD") ("szSzuzmlpdtcmdtrp" "xkappa" "xD"))("sdtlsdt" ("szPzrzozdlpdtcmdtrp" "xlambda" "xD") ("szSzuzmlpdtcmdtrp" "xkappa" "xD"))).
+    ( and ("aFunction" "xG")( and ("=" ("szSzuzmzSzeztlpdtcmdtrp" "xkappa" "xD") ("szDzozmlpdtrp" "xG"))("=" ("szPzrzozdzSzeztlpdtcmdtrp" "xlambda" "xD") ("sdtcflbdtrb" "xG" ("szDzozmlpdtrp" "xG"))))).
+    proof.
+      (exists (DB 0) ("aElementOf" (DB 0) ("szPzrzozdzSzeztlpdtcmdtrp" "xlambda" "xD"))).
+    qed.
+    ( and ( and ("aFunction" "xDiag")(Domain tag ("=" ("szDzozmlpdtrp" "xDiag") "xD")))(forall (DB 0) ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xDiag"))(exists (DB 0) ( and (Defined tag ( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) (Replacement tag (exists (DB 0) ( and ("aElementOf" (DB 0) ("sdtlbdtrb" "xkappa" "xi"))("=" (DB 1) ("sdtlbdtrb" ("sdtlbdtrb" "xG" ("slpdtcmdtrp" (DB 0) "xi")) "xi")))))))))(Evaluation tag ("=" ("sdtlbdtrb" "xDiag" (DB 1)) (DB 0)))))))).
+    (forall (DB 0) ( implies ("aElementOf" (DB 0) "xD")("sdtlsdt" ("ttheCardinalityOf" ("sdtlbdtrb" "xDiag" (DB 0))) ("sdtlbdtrb" "xlambda" (DB 0))))).
+    proof.
+      assume ("aElementOf" "xi" "xD").
+      ( and ( and ("aFunction" "xF")(Domain tag ("=" ("szDzozmlpdtrp" "xF") ("sdtlbdtrb" "xkappa" "xi"))))(forall (DB 0) ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xF"))(Evaluation tag ("=" ("sdtlbdtrb" "xF" (DB 0)) ("sdtlbdtrb" ("sdtlbdtrb" "xG" ("slpdtcmdtrp" (DB 0) "xi")) "xi")))))).
+      ("=" ("sdtcflbdtrb" "xF" ("sdtlbdtrb" "xkappa" "xi")) ("sdtlbdtrb" "xDiag" "xi")).
+    qed.
+    ( and ( and ("aFunction" "xf")(Domain tag ("=" ("szDzozmlpdtrp" "xf") "xD")))(forall (DB 0) ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))(exists (DB 0) ( and ("aElementOf" (DB 0) ("sdtbsdt" ("sdtlbdtrb" "xlambda" (DB 1)) ("sdtlbdtrb" "xDiag" (DB 1))))(Evaluation tag ("=" ("sdtlbdtrb" "xf" (DB 1)) (DB 0)))))))).
+    ("aElementOf" "xf" ("szPzrzozdzSzeztlpdtcmdtrp" "xlambda" "xD")).
+    ( and ("aElementOf" "xj" "xD")( and ("aElementOf" "xm" ("sdtlbdtrb" "xkappa" "xj"))("=" ("sdtlbdtrb" "xG" ("slpdtcmdtrp" "xm" "xj")) "xf"))).
+    ( and ("aElementOf" ("sdtlbdtrb" ("sdtlbdtrb" "xG" ("slpdtcmdtrp" "xm" "xj")) "xj") ("sdtlbdtrb" "xDiag" "xj"))(not ("aElementOf" ("sdtlbdtrb" "xf" "xj") ("sdtlbdtrb" "xDiag" "xj")))).
+    contradiction.
+  qed.
+]
+[Main] typeOf: [Char] -> [Text] -> IO [Text]
+hypothesis.
+  assume ("aSet" "xM").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aSubsetOf" (DB 0) "xM"))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aElementOf" (DB 0) (DB 1))("aElementOf" (DB 0) "xM")))))).
+
+hypothesis.
+  assume ( and ("aSet" "xM")("aSet" "xN")).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("sdtbsdt" "xM" "xN")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) ( and ("aElementOf" (DB 0) "xM")(not ("aElementOf" (DB 0) "xN")))))))).
+
+hypothesis.
+  assume ("aFunction" "xf").
+  assume ("aSubsetOf" "xM" ("szDzozmlpdtrp" "xf")).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("sdtcflbdtrb" "xf" "xM")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) (Replacement tag (exists (DB 0) ( and ("aElementOf" (DB 0) "xM")("=" (DB 1) ("sdtlbdtrb" "xf" (DB 0))))))))))).
+
+hypothesis.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aCardinal" (DB 0)))("aSet" (DB 0)))).
+
+hypothesis.
+  assume ( and ("aCardinal" "xA")("aCardinal" "xB")).
+  assume ( implies (HeadTerm tag ("sdtlsdt" "xA" "xB"))truth).
+
+hypothesis.
+  assume ( and ( and ("aCardinal" "xA")("aCardinal" "xB"))("aCardinal" "xC")).
+  assume ( implies ( and ("sdtlsdt" "xA" "xB")("sdtlsdt" "xB" "xC"))("sdtlsdt" "xA" "xC")).
+
+hypothesis.
+  assume ( and ("aCardinal" "xA")("aCardinal" "xB")).
+  assume ( or ( or ("sdtlsdt" "xA" "xB")("sdtlsdt" "xB" "xA"))("=" "xB" "xA")).
+
+hypothesis.
+  assume ("aSet" "xM").
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("ttheCardinalityOf" "xM")))("aCardinal" (DB 0)))).
+
+hypothesis Image_Card.
+  assume ("aFunction" "xf").
+  assume ("aSubsetOf" "xM" ("szDzozmlpdtrp" "xf")).
+  assume ( or ("=" ("ttheCardinalityOf" ("sdtcflbdtrb" "xf" "xM")) ("ttheCardinalityOf" "xM"))("sdtlsdt" ("ttheCardinalityOf" ("sdtcflbdtrb" "xf" "xM")) ("ttheCardinalityOf" "xM"))).
+
+hypothesis.
+  assume ( and ("aSet" "xN")("aSet" "xM")).
+  assume ("sdtlsdt" ("ttheCardinalityOf" "xN") ("ttheCardinalityOf" "xM")).
+  assume (exists (DB 0) ("aElementOf" (DB 0) ("sdtbsdt" "xM" "xN"))).
+
+hypothesis Surj_Exi.
+  assume ( and ("aSet" "xM")("aSet" "xN")).
+  assume ( or ("=" ("ttheCardinalityOf" "xM") ("ttheCardinalityOf" "xN"))("sdtlsdt" ("ttheCardinalityOf" "xM") ("ttheCardinalityOf" "xN"))).
+  assume (exists (DB 0) ("aElementOf" (DB 0) "xM")).
+  assume (exists (DB 0) ( and ("aFunction" (DB 0))( and ("=" "xN" ("szDzozmlpdtrp" (DB 0)))("=" "xM" ("sdtcflbdtrb" (DB 0) ("szDzozmlpdtrp" (DB 0))))))).
+
+hypothesis.
+  assume ("aCardinal" "xA").
+  assume ("=" ("ttheCardinalityOf" "xA") "xA").
+
+hypothesis.
+  assume ("aSet" "xD").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aSequenceOfCardinalsOn" (DB 0) "xD"))( and ("aFunction" (DB 0))( and ("=" ("szDzozmlpdtrp" (DB 0)) "xD")(forall (DB 0) ( implies ("aElementOf" (DB 0) "xD")("aCardinal" ("sdtlbdtrb" (DB 1) (DB 0))))))))).
+
+hypothesis.
+  assume ("aSet" "xD").
+  assume ("aSequenceOfCardinalsOn" "xkappa" "xD").
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("szSzuzmzSzeztlpdtcmdtrp" "xkappa" "xD")))("aSet" (DB 0)))).
+
+hypothesis Sum_Def.
+  assume ("aSet" "xD").
+  assume ("aSequenceOfCardinalsOn" "xkappa" "xD").
+  assume (forall (DB 0) ( iff ("aElementOf" (DB 0) ("szSzuzmzSzeztlpdtcmdtrp" "xkappa" "xD"))(exists (DB 0) (exists (DB 0) ( and ( and ("aElementOf" (DB 0) "xD")("aElementOf" (DB 1) ("sdtlbdtrb" "xkappa" (DB 0))))("=" (DB 2) ("slpdtcmdtrp" (DB 1) (DB 0)))))))).
+
+hypothesis.
+  assume ("aSet" "xD").
+  assume ("aSequenceOfCardinalsOn" "xkappa" "xD").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("szSzuzmlpdtcmdtrp" "xkappa" "xD")))("=" (DB 0) ("ttheCardinalityOf" ("szSzuzmzSzeztlpdtcmdtrp" "xkappa" "xD"))))).
+
+hypothesis.
+  assume ("aSet" "xD").
+  assume ("aSequenceOfCardinalsOn" "xkappa" "xD").
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("szPzrzozdzSzeztlpdtcmdtrp" "xkappa" "xD")))("aSet" (DB 0)))).
+
+hypothesis Prod_Def.
+  assume ("aSet" "xD").
+  assume ("aSequenceOfCardinalsOn" "xkappa" "xD").
+  assume (forall (DB 0) ( iff ("aElementOf" (DB 0) ("szPzrzozdzSzeztlpdtcmdtrp" "xkappa" "xD"))( and ("aFunction" (DB 0))( and ("=" ("szDzozmlpdtrp" (DB 0)) "xD")(forall (DB 0) ( implies ("aElementOf" (DB 0) "xD")("aElementOf" ("sdtlbdtrb" (DB 1) (DB 0)) ("sdtlbdtrb" "xkappa" (DB 0))))))))).
+
+hypothesis.
+  assume ("aSet" "xD").
+  assume ("aSequenceOfCardinalsOn" "xkappa" "xD").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("szPzrzozdlpdtcmdtrp" "xkappa" "xD")))("=" (DB 0) ("ttheCardinalityOf" ("szPzrzozdzSzeztlpdtcmdtrp" "xkappa" "xD"))))).
+
+conjecture Choice.
+  assume ("aSet" "xD").
+  assume ("aSequenceOfCardinalsOn" "xlambda" "xD").
+  assume (forall (DB 0) ( implies ("aElementOf" (DB 0) "xD")(exists (DB 0) ("aElementOf" (DB 0) ("sdtlbdtrb" "xlambda" (DB 1)))))).
+  (exists (DB 0) ("aElementOf" (DB 0) ("szPzrzozdzSzeztlpdtcmdtrp" "xlambda" "xD"))).
+  proof.
+    ( and ( and ("aFunction" "xf")(Domain tag ("=" ("szDzozmlpdtrp" "xf") "xD")))(forall (DB 0) ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))(exists (DB 0) ( and ("aElementOf" (DB 0) ("sdtlbdtrb" "xlambda" (DB 1)))(Evaluation tag ("=" ("sdtlbdtrb" "xf" (DB 1)) (DB 0)))))))).
+    ("aElementOf" "xf" ("szPzrzozdzSzeztlpdtcmdtrp" "xlambda" "xD")).
+  qed.
+
+conjecture Koenig.
+  assume ("aSet" "xD").
+  assume ( and ("aSequenceOfCardinalsOn" "xkappa" "xD")("aSequenceOfCardinalsOn" "xlambda" "xD")).
+  assume (forall (DB 0) ( implies ("aElementOf" (DB 0) "xD")("sdtlsdt" ("sdtlbdtrb" "xkappa" (DB 0)) ("sdtlbdtrb" "xlambda" (DB 0))))).
+  ("sdtlsdt" ("szSzuzmlpdtcmdtrp" "xkappa" "xD") ("szPzrzozdlpdtcmdtrp" "xlambda" "xD")).
+  proof.
+    assume (not ("#TH#")).
+    ( or ("=" ("szPzrzozdlpdtcmdtrp" "xlambda" "xD") ("szSzuzmlpdtcmdtrp" "xkappa" "xD"))("sdtlsdt" ("szPzrzozdlpdtcmdtrp" "xlambda" "xD") ("szSzuzmlpdtcmdtrp" "xkappa" "xD"))).
+    ( and ("aFunction" "xG")( and ("=" ("szSzuzmzSzeztlpdtcmdtrp" "xkappa" "xD") ("szDzozmlpdtrp" "xG"))("=" ("szPzrzozdzSzeztlpdtcmdtrp" "xlambda" "xD") ("sdtcflbdtrb" "xG" ("szDzozmlpdtrp" "xG"))))).
+    proof.
+      (exists (DB 0) ("aElementOf" (DB 0) ("szPzrzozdzSzeztlpdtcmdtrp" "xlambda" "xD"))).
+    qed.
+    ( and ( and ("aFunction" "xDiag")(Domain tag ("=" ("szDzozmlpdtrp" "xDiag") "xD")))(forall (DB 0) ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xDiag"))(exists (DB 0) ( and (Defined tag ( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) (Replacement tag (exists (DB 0) ( and ("aElementOf" (DB 0) ("sdtlbdtrb" "xkappa" "xi"))("=" (DB 1) ("sdtlbdtrb" ("sdtlbdtrb" "xG" ("slpdtcmdtrp" (DB 0) "xi")) "xi")))))))))(Evaluation tag ("=" ("sdtlbdtrb" "xDiag" (DB 1)) (DB 0)))))))).
+    (forall (DB 0) ( implies ("aElementOf" (DB 0) "xD")("sdtlsdt" ("ttheCardinalityOf" ("sdtlbdtrb" "xDiag" (DB 0))) ("sdtlbdtrb" "xlambda" (DB 0))))).
+    proof.
+      assume ("aElementOf" "xi" "xD").
+      ( and ( and ("aFunction" "xF")(Domain tag ("=" ("szDzozmlpdtrp" "xF") ("sdtlbdtrb" "xkappa" "xi"))))(forall (DB 0) ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xF"))(Evaluation tag ("=" ("sdtlbdtrb" "xF" (DB 0)) ("sdtlbdtrb" ("sdtlbdtrb" "xG" ("slpdtcmdtrp" (DB 0) "xi")) "xi")))))).
+      ("=" ("sdtcflbdtrb" "xF" ("sdtlbdtrb" "xkappa" "xi")) ("sdtlbdtrb" "xDiag" "xi")).
+    qed.
+    ( and ( and ("aFunction" "xf")(Domain tag ("=" ("szDzozmlpdtrp" "xf") "xD")))(forall (DB 0) ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))(exists (DB 0) ( and ("aElementOf" (DB 0) ("sdtbsdt" ("sdtlbdtrb" "xlambda" (DB 1)) ("sdtlbdtrb" "xDiag" (DB 1))))(Evaluation tag ("=" ("sdtlbdtrb" "xf" (DB 1)) (DB 0)))))))).
+    ("aElementOf" "xf" ("szPzrzozdzSzeztlpdtcmdtrp" "xlambda" "xD")).
+    ( and ("aElementOf" "xj" "xD")( and ("aElementOf" "xm" ("sdtlbdtrb" "xkappa" "xj"))("=" ("sdtlbdtrb" "xG" ("slpdtcmdtrp" "xm" "xj")) "xf"))).
+    ( and ("aElementOf" ("sdtlbdtrb" ("sdtlbdtrb" "xG" ("slpdtcmdtrp" "xm" "xj")) "xj") ("sdtlbdtrb" "xDiag" "xj"))(not ("aElementOf" ("sdtlbdtrb" "xf" "xj") ("sdtlbdtrb" "xDiag" "xj")))).
+    contradiction.
+  qed.
+
+[Main] total 00:00.04
+[Parser] "examples/Maximum_principle.ftl"
+parsing successful
+[Main] String: examples
+[Main] text0: [String Library "examples"
+,String Provers "provers.dat"
+,String Prover "eprover"
+,Int Timelimit 3
+,Int Depthlimit 7
+,Int Checktime 1
+,Int Checkdepth 3
+,Bool Prove True
+,Bool Check True
+,Bool Symsign True
+,Bool Info True
+,Bool Thesis True
+,Bool Filter True
+,Bool Skipfail False
+,Bool Flat False
+,Bool Printgoal True
+,Bool Printreason False
+,Bool Printsection False
+,Bool Printcheck False
+,Bool Printprover False
+,Bool Printunfold False
+,Bool Printfulltask False
+,Bool OnlyTranslate True
+,String File "examples/Maximum_principle.ftl"
+]
+[Main] text1: [String Library "examples"
+,String Provers "provers.dat"
+,String Prover "eprover"
+,Int Timelimit 3
+,Int Depthlimit 7
+,Int Checktime 1
+,Int Checkdepth 3
+,Bool Prove True
+,Bool Check True
+,Bool Symsign True
+,Bool Info True
+,Bool Thesis True
+,Bool Filter True
+,Bool Skipfail False
+,Bool Flat False
+,Bool Printgoal True
+,Bool Printreason False
+,Bool Printsection False
+,Bool Printcheck False
+,Bool Printprover False
+,Bool Printunfold False
+,Bool Printfulltask False
+,Bool OnlyTranslate True
+,Strings Synonym ["number","numbers"]
+,Bool Ontored True
+,Bool Checkontored True
+,,,,,,,hypothesis.
+  assume ("aSet" "xM").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aSubsetOf" (DB 0) "xM"))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aElementOf" (DB 0) (DB 1))("aElementOf" (DB 0) "xM")))))).
+,hypothesis.
+  assume ("aFunction" "xf").
+  assume ("aSubsetOf" "xM" ("szDzozmlpdtrp" "xf")).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("sdtcflbdtrb" "xf" "xM")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) (Replacement tag (exists (DB 0) ( and ("aElementOf" (DB 0) "xM")("=" (DB 1) ("sdtlbdtrb" "xf" (DB 0))))))))))).
+,hypothesis.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aComplexNumber" (DB 0)))truth)).
+,,hypothesis.
+  assume ("aFunction" "xf").
+  assume ( and (forall (DB 0) ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))("aComplexNumber" (DB 0))))(forall (DB 0) ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))("aComplexNumber" ("sdtlbdtrb" "xf" (DB 0)))))).
+,hypothesis.
+  assume ("aSet" "xM").
+  assume (forall (DB 0) ( implies ("aElementOf" (DB 0) "xM")("aComplexNumber" (DB 0)))).
+,hypothesis.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aRealNumber" (DB 0)))truth)).
+,,hypothesis.
+  assume ("aComplexNumber" "xz").
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("sbrdtbr" "xz")))("aRealNumber" (DB 0)))).
+,hypothesis.
+  assume ("aRealNumber" "xx").
+  assume ( implies (HeadTerm tag ("isPositive" "xx"))truth).
+,,hypothesis.
+  assume ( and ("aRealNumber" "xx")("aRealNumber" "xy")).
+  assume ( implies (HeadTerm tag ("sdtlsdt" "xx" "xy"))truth).
+,,hypothesis.
+  assume ( and ("aRealNumber" "xx")("aRealNumber" "xy")).
+  assume ( implies ("sdtlsdt" "xx" "xy")(not ("sdtlsdt" "xy" "xx"))).
+,hypothesis.
+  assume ("aFunction" "xf").
+  assume ( implies (HeadTerm tag ("isHolomorphic" "xf"))truth).
+,hypothesis.
+  assume ( and ( and ("aRealNumber" "xeps")("isPositive" "xeps"))("aComplexNumber" "xz")).
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("szBzazlzllpdtcmdtrp" "xeps" "xz")))( and ("aSet" (DB 0))("aElementOf" "xz" (DB 0))))).
+,hypothesis.
+  assume ( and ( and ("aRealNumber" "xeps")("isPositive" "xeps"))("aComplexNumber" "xz")).
+  assume (exists (DB 0) ( and ("aElementOf" (DB 0) ("szBzazlzllpdtcmdtrp" "xeps" "xz"))("sdtlsdt" ("sbrdtbr" "xz") ("sbrdtbr" (DB 0))))).
+,hypothesis.
+  assume ("aSet" "xM").
+  assume ( iff (HeadTerm tag ("isOpen" "xM"))(forall (DB 0) ( implies ("aElementOf" (DB 0) "xM")(exists (DB 0) ( and ( and ("aRealNumber" (DB 0))("isPositive" (DB 0)))("aSubsetOf" ("szBzazlzllpdtcmdtrp" (DB 0) (DB 1)) "xM")))))).
+,hypothesis.
+  assume ( and ( and ("aRealNumber" "xeps")("isPositive" "xeps"))("aComplexNumber" "xz")).
+  assume ("isOpen" ("szBzazlzllpdtcmdtrp" "xeps" "xz")).
+,hypothesis.
+  assume ("aFunction" "xf").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aLocalMaximalPointOf" (DB 0) "xf"))( and ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))(exists (DB 0) ( and ( and ("aRealNumber" (DB 0))("isPositive" (DB 0)))( and ("aSubsetOf" ("szBzazlzllpdtcmdtrp" (DB 0) (DB 1)) ("szDzozmlpdtrp" "xf"))(forall (DB 0) ( implies ("aElementOf" (DB 0) ("szBzazlzllpdtcmdtrp" (DB 1) (DB 2)))( or ("=" ("sbrdtbr" ("sdtlbdtrb" "xf" (DB 0))) ("sbrdtbr" ("sdtlbdtrb" "xf" (DB 2))))("sdtlsdt" ("sbrdtbr" ("sdtlbdtrb" "xf" (DB 0))) ("sbrdtbr" ("sdtlbdtrb" "xf" (DB 2))))))))))))).
+,hypothesis.
+  assume ("aFunction" "xf").
+  assume ("aSubsetOf" "xU" ("szDzozmlpdtrp" "xf")).
+  assume ( iff (HeadTerm tag ("isConstantOn" "xf" "xU"))(exists (DB 0) ( and ("aComplexNumber" (DB 0))(forall (DB 0) ( implies ("aElementOf" (DB 0) "xU")("=" ("sdtlbdtrb" "xf" (DB 0)) (DB 1))))))).
+,,hypothesis.
+  assume ( and ( and ("aFunction" "xf")( and ("aRealNumber" "xeps")("isPositive" "xeps")))("aComplexNumber" "xz")).
+  assume ( and ("isHolomorphic" "xf")("aSubsetOf" ("szBzazlzllpdtcmdtrp" "xeps" "xz") ("szDzozmlpdtrp" "xf"))).
+  assume ( implies (not ("isConstantOn" "xf" ("szBzazlzllpdtcmdtrp" "xeps" "xz")))("isOpen" ("sdtcflbdtrb" "xf" ("szBzazlzllpdtcmdtrp" "xeps" "xz")))).
+,hypothesis.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aRegion" (DB 0)))( and ("aSet" (DB 0))("isOpen" (DB 0))))).
+,hypothesis Identity_Theorem.
+  assume ("aFunction" "xf").
+  assume ( and ("isHolomorphic" "xf")("aRegion" ("szDzozmlpdtrp" "xf"))).
+  assume ( and ( and ("aRealNumber" "xeps")("isPositive" "xeps"))("aComplexNumber" "xz")).
+  assume ("aSubsetOf" ("szBzazlzllpdtcmdtrp" "xeps" "xz") ("szDzozmlpdtrp" "xf")).
+  assume ( implies ("isConstantOn" "xf" ("szBzazlzllpdtcmdtrp" "xeps" "xz"))("isConstantOn" "xf" ("szDzozmlpdtrp" "xf"))).
+,conjecture Maximum_principle.
+  assume ("aFunction" "xf").
+  assume ( and ("isHolomorphic" "xf")("aRegion" ("szDzozmlpdtrp" "xf"))).
+  ( implies (exists (DB 0) ("aLocalMaximalPointOf" (DB 0) "xf"))("isConstantOn" "xf" ("szDzozmlpdtrp" "xf"))).
+  proof.
+    assume ("aLocalMaximalPointOf" "xz" "xf").
+    ( and ( and ("aRealNumber" "xeps")("isPositive" "xeps"))( and ("aSubsetOf" ("szBzazlzllpdtcmdtrp" "xeps" "xz") ("szDzozmlpdtrp" "xf"))(forall (DB 0) ( implies ("aElementOf" (DB 0) ("szBzazlzllpdtcmdtrp" "xeps" "xz"))( or ("=" ("sbrdtbr" ("sdtlbdtrb" "xf" (DB 0))) ("sbrdtbr" ("sdtlbdtrb" "xf" "xz")))("sdtlsdt" ("sbrdtbr" ("sdtlbdtrb" "xf" (DB 0))) ("sbrdtbr" ("sdtlbdtrb" "xf" "xz")))))))).
+    ("isConstantOn" "xf" ("szBzazlzllpdtcmdtrp" "xeps" "xz")).
+    proof.
+      assume (not ("#TH#")).
+      ("isOpen" ("sdtcflbdtrb" "xf" ("szBzazlzllpdtcmdtrp" "xeps" "xz"))).
+      ( and ( and ("aRealNumber" "xdelta")("isPositive" "xdelta"))("aSubsetOf" ("szBzazlzllpdtcmdtrp" "xdelta" ("sdtlbdtrb" "xf" "xz")) ("sdtcflbdtrb" "xf" ("szBzazlzllpdtcmdtrp" "xeps" "xz")))).
+      (exists (DB 0) ( and ("aElementOf" (DB 0) ("szBzazlzllpdtcmdtrp" "xeps" "xz"))("sdtlsdt" ("sbrdtbr" ("sdtlbdtrb" "xf" "xz")) ("sbrdtbr" ("sdtlbdtrb" "xf" (DB 0)))))).
+      contradiction.
+    qed.
+    ("isConstantOn" "xf" ("szDzozmlpdtrp" "xf")).
+  qed.
+]
+[Main] typeOf: [Char] -> [Text] -> IO [Text]
+hypothesis.
+  assume ("aSet" "xM").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aSubsetOf" (DB 0) "xM"))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aElementOf" (DB 0) (DB 1))("aElementOf" (DB 0) "xM")))))).
+
+hypothesis.
+  assume ("aFunction" "xf").
+  assume ("aSubsetOf" "xM" ("szDzozmlpdtrp" "xf")).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("sdtcflbdtrb" "xf" "xM")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) (Replacement tag (exists (DB 0) ( and ("aElementOf" (DB 0) "xM")("=" (DB 1) ("sdtlbdtrb" "xf" (DB 0))))))))))).
+
+hypothesis.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aComplexNumber" (DB 0)))truth)).
+
+hypothesis.
+  assume ("aFunction" "xf").
+  assume ( and (forall (DB 0) ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))("aComplexNumber" (DB 0))))(forall (DB 0) ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))("aComplexNumber" ("sdtlbdtrb" "xf" (DB 0)))))).
+
+hypothesis.
+  assume ("aSet" "xM").
+  assume (forall (DB 0) ( implies ("aElementOf" (DB 0) "xM")("aComplexNumber" (DB 0)))).
+
+hypothesis.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aRealNumber" (DB 0)))truth)).
+
+hypothesis.
+  assume ("aComplexNumber" "xz").
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("sbrdtbr" "xz")))("aRealNumber" (DB 0)))).
+
+hypothesis.
+  assume ("aRealNumber" "xx").
+  assume ( implies (HeadTerm tag ("isPositive" "xx"))truth).
+
+hypothesis.
+  assume ( and ("aRealNumber" "xx")("aRealNumber" "xy")).
+  assume ( implies (HeadTerm tag ("sdtlsdt" "xx" "xy"))truth).
+
+hypothesis.
+  assume ( and ("aRealNumber" "xx")("aRealNumber" "xy")).
+  assume ( implies ("sdtlsdt" "xx" "xy")(not ("sdtlsdt" "xy" "xx"))).
+
+hypothesis.
+  assume ("aFunction" "xf").
+  assume ( implies (HeadTerm tag ("isHolomorphic" "xf"))truth).
+
+hypothesis.
+  assume ( and ( and ("aRealNumber" "xeps")("isPositive" "xeps"))("aComplexNumber" "xz")).
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("szBzazlzllpdtcmdtrp" "xeps" "xz")))( and ("aSet" (DB 0))("aElementOf" "xz" (DB 0))))).
+
+hypothesis.
+  assume ( and ( and ("aRealNumber" "xeps")("isPositive" "xeps"))("aComplexNumber" "xz")).
+  assume (exists (DB 0) ( and ("aElementOf" (DB 0) ("szBzazlzllpdtcmdtrp" "xeps" "xz"))("sdtlsdt" ("sbrdtbr" "xz") ("sbrdtbr" (DB 0))))).
+
+hypothesis.
+  assume ("aSet" "xM").
+  assume ( iff (HeadTerm tag ("isOpen" "xM"))(forall (DB 0) ( implies ("aElementOf" (DB 0) "xM")(exists (DB 0) ( and ( and ("aRealNumber" (DB 0))("isPositive" (DB 0)))("aSubsetOf" ("szBzazlzllpdtcmdtrp" (DB 0) (DB 1)) "xM")))))).
+
+hypothesis.
+  assume ( and ( and ("aRealNumber" "xeps")("isPositive" "xeps"))("aComplexNumber" "xz")).
+  assume ("isOpen" ("szBzazlzllpdtcmdtrp" "xeps" "xz")).
+
+hypothesis.
+  assume ("aFunction" "xf").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aLocalMaximalPointOf" (DB 0) "xf"))( and ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))(exists (DB 0) ( and ( and ("aRealNumber" (DB 0))("isPositive" (DB 0)))( and ("aSubsetOf" ("szBzazlzllpdtcmdtrp" (DB 0) (DB 1)) ("szDzozmlpdtrp" "xf"))(forall (DB 0) ( implies ("aElementOf" (DB 0) ("szBzazlzllpdtcmdtrp" (DB 1) (DB 2)))( or ("=" ("sbrdtbr" ("sdtlbdtrb" "xf" (DB 0))) ("sbrdtbr" ("sdtlbdtrb" "xf" (DB 2))))("sdtlsdt" ("sbrdtbr" ("sdtlbdtrb" "xf" (DB 0))) ("sbrdtbr" ("sdtlbdtrb" "xf" (DB 2))))))))))))).
+
+hypothesis.
+  assume ("aFunction" "xf").
+  assume ("aSubsetOf" "xU" ("szDzozmlpdtrp" "xf")).
+  assume ( iff (HeadTerm tag ("isConstantOn" "xf" "xU"))(exists (DB 0) ( and ("aComplexNumber" (DB 0))(forall (DB 0) ( implies ("aElementOf" (DB 0) "xU")("=" ("sdtlbdtrb" "xf" (DB 0)) (DB 1))))))).
+
+hypothesis.
+  assume ( and ( and ("aFunction" "xf")( and ("aRealNumber" "xeps")("isPositive" "xeps")))("aComplexNumber" "xz")).
+  assume ( and ("isHolomorphic" "xf")("aSubsetOf" ("szBzazlzllpdtcmdtrp" "xeps" "xz") ("szDzozmlpdtrp" "xf"))).
+  assume ( implies (not ("isConstantOn" "xf" ("szBzazlzllpdtcmdtrp" "xeps" "xz")))("isOpen" ("sdtcflbdtrb" "xf" ("szBzazlzllpdtcmdtrp" "xeps" "xz")))).
+
+hypothesis.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aRegion" (DB 0)))( and ("aSet" (DB 0))("isOpen" (DB 0))))).
+
+hypothesis Identity_Theorem.
+  assume ("aFunction" "xf").
+  assume ( and ("isHolomorphic" "xf")("aRegion" ("szDzozmlpdtrp" "xf"))).
+  assume ( and ( and ("aRealNumber" "xeps")("isPositive" "xeps"))("aComplexNumber" "xz")).
+  assume ("aSubsetOf" ("szBzazlzllpdtcmdtrp" "xeps" "xz") ("szDzozmlpdtrp" "xf")).
+  assume ( implies ("isConstantOn" "xf" ("szBzazlzllpdtcmdtrp" "xeps" "xz"))("isConstantOn" "xf" ("szDzozmlpdtrp" "xf"))).
+
+conjecture Maximum_principle.
+  assume ("aFunction" "xf").
+  assume ( and ("isHolomorphic" "xf")("aRegion" ("szDzozmlpdtrp" "xf"))).
+  ( implies (exists (DB 0) ("aLocalMaximalPointOf" (DB 0) "xf"))("isConstantOn" "xf" ("szDzozmlpdtrp" "xf"))).
+  proof.
+    assume ("aLocalMaximalPointOf" "xz" "xf").
+    ( and ( and ("aRealNumber" "xeps")("isPositive" "xeps"))( and ("aSubsetOf" ("szBzazlzllpdtcmdtrp" "xeps" "xz") ("szDzozmlpdtrp" "xf"))(forall (DB 0) ( implies ("aElementOf" (DB 0) ("szBzazlzllpdtcmdtrp" "xeps" "xz"))( or ("=" ("sbrdtbr" ("sdtlbdtrb" "xf" (DB 0))) ("sbrdtbr" ("sdtlbdtrb" "xf" "xz")))("sdtlsdt" ("sbrdtbr" ("sdtlbdtrb" "xf" (DB 0))) ("sbrdtbr" ("sdtlbdtrb" "xf" "xz")))))))).
+    ("isConstantOn" "xf" ("szBzazlzllpdtcmdtrp" "xeps" "xz")).
+    proof.
+      assume (not ("#TH#")).
+      ("isOpen" ("sdtcflbdtrb" "xf" ("szBzazlzllpdtcmdtrp" "xeps" "xz"))).
+      ( and ( and ("aRealNumber" "xdelta")("isPositive" "xdelta"))("aSubsetOf" ("szBzazlzllpdtcmdtrp" "xdelta" ("sdtlbdtrb" "xf" "xz")) ("sdtcflbdtrb" "xf" ("szBzazlzllpdtcmdtrp" "xeps" "xz")))).
+      (exists (DB 0) ( and ("aElementOf" (DB 0) ("szBzazlzllpdtcmdtrp" "xeps" "xz"))("sdtlsdt" ("sbrdtbr" ("sdtlbdtrb" "xf" "xz")) ("sbrdtbr" ("sdtlbdtrb" "xf" (DB 0)))))).
+      contradiction.
+    qed.
+    ("isConstantOn" "xf" ("szDzozmlpdtrp" "xf")).
+  qed.
+
+[Main] total 00:00.03
+[Parser] "examples/chinese.ftl"
+parsing successful
+[Main] String: examples
+[Main] text0: [String Library "examples"
+,String Provers "provers.dat"
+,String Prover "eprover"
+,Int Timelimit 3
+,Int Depthlimit 7
+,Int Checktime 1
+,Int Checkdepth 3
+,Bool Prove True
+,Bool Check True
+,Bool Symsign True
+,Bool Info True
+,Bool Thesis True
+,Bool Filter True
+,Bool Skipfail False
+,Bool Flat False
+,Bool Printgoal True
+,Bool Printreason False
+,Bool Printsection False
+,Bool Printcheck False
+,Bool Printprover False
+,Bool Printunfold False
+,Bool Printfulltask False
+,Bool OnlyTranslate True
+,String File "examples/chinese.ftl"
+]
+[Main] text1: [String Library "examples"
+,String Provers "provers.dat"
+,String Prover "eprover"
+,Int Timelimit 3
+,Int Depthlimit 7
+,Int Checktime 1
+,Int Checkdepth 3
+,Bool Prove True
+,Bool Check True
+,Bool Symsign True
+,Bool Info True
+,Bool Thesis True
+,Bool Filter True
+,Bool Skipfail False
+,Bool Flat False
+,Bool Printgoal True
+,Bool Printreason False
+,Bool Printsection False
+,Bool Printcheck False
+,Bool Printprover False
+,Bool Printunfold False
+,Bool Printfulltask False
+,Bool OnlyTranslate True
+,Strings Synonym ["element","elements"]
+,hypothesis ElmSort.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aElement" (DB 0)))truth)).
+,,hypothesis SortsC.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("sz0")))("aElement" (DB 0)))).
+,hypothesis SortsC.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("sz1")))("aElement" (DB 0)))).
+,hypothesis SortsU.
+  assume ("aElement" "xx").
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("smndt" "xx")))("aElement" (DB 0)))).
+,hypothesis SortsB.
+  assume ( and ("aElement" "xx")("aElement" "xy")).
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("sdtpldt" "xx" "xy")))("aElement" (DB 0)))).
+,hypothesis SortsB.
+  assume ( and ("aElement" "xx")("aElement" "xy")).
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("sdtasdt" "xx" "xy")))("aElement" (DB 0)))).
+,,,hypothesis AddComm.
+  assume ( and ("aElement" "xx")("aElement" "xy")).
+  assume ("=" ("sdtpldt" "xx" "xy") ("sdtpldt" "xy" "xx")).
+,hypothesis AddAsso.
+  assume ( and ( and ("aElement" "xx")("aElement" "xy"))("aElement" "xz")).
+  assume ("=" ("sdtpldt" ("sdtpldt" "xx" "xy") "xz") ("sdtpldt" "xx" ("sdtpldt" "xy" "xz"))).
+,hypothesis AddBubble.
+  assume ( and ( and ("aElement" "xx")("aElement" "xy"))("aElement" "xz")).
+  assume ("=" ("sdtpldt" "xx" ("sdtpldt" "xy" "xz")) ("sdtpldt" "xy" ("sdtpldt" "xx" "xz"))).
+,hypothesis AddZero.
+  assume ("aElement" "xx").
+  assume ( and ("=" ("sdtpldt" "xx" ("sz0")) "xx")("=" "xx" ("sdtpldt" ("sz0") "xx"))).
+,hypothesis AddInvr.
+  assume ("aElement" "xx").
+  assume ( and ("=" ("sdtpldt" "xx" ("smndt" "xx")) ("sz0"))("=" ("sz0") ("sdtpldt" ("smndt" "xx") "xx"))).
+,hypothesis MulComm.
+  assume ( and ("aElement" "xx")("aElement" "xy")).
+  assume ("=" ("sdtasdt" "xx" "xy") ("sdtasdt" "xy" "xx")).
+,hypothesis MulAsso.
+  assume ( and ( and ("aElement" "xx")("aElement" "xy"))("aElement" "xz")).
+  assume ("=" ("sdtasdt" ("sdtasdt" "xx" "xy") "xz") ("sdtasdt" "xx" ("sdtasdt" "xy" "xz"))).
+,hypothesis MulBubble.
+  assume ( and ( and ("aElement" "xx")("aElement" "xy"))("aElement" "xz")).
+  assume ("=" ("sdtasdt" "xx" ("sdtasdt" "xy" "xz")) ("sdtasdt" "xy" ("sdtasdt" "xx" "xz"))).
+,hypothesis MulUnit.
+  assume ("aElement" "xx").
+  assume ( and ("=" ("sdtasdt" "xx" ("sz1")) "xx")("=" "xx" ("sdtasdt" ("sz1") "xx"))).
+,hypothesis AMDistr1.
+  assume ( and ( and ("aElement" "xx")("aElement" "xy"))("aElement" "xz")).
+  assume ("=" ("sdtasdt" "xx" ("sdtpldt" "xy" "xz")) ("sdtpldt" ("sdtasdt" "xx" "xy") ("sdtasdt" "xx" "xz"))).
+,hypothesis AMDistr2.
+  assume ( and ( and ("aElement" "xy")("aElement" "xz"))("aElement" "xx")).
+  assume ("=" ("sdtasdt" ("sdtpldt" "xy" "xz") "xx") ("sdtpldt" ("sdtasdt" "xy" "xx") ("sdtasdt" "xz" "xx"))).
+,hypothesis MulMnOne.
+  assume ("aElement" "xx").
+  assume ( and ("=" ("sdtasdt" ("smndt" ("sz1")) "xx") ("smndt" "xx"))("=" ("smndt" "xx") ("sdtasdt" "xx" ("smndt" ("sz1"))))).
+,conjecture MulZero.
+  assume ("aElement" "xx").
+  ( and ("=" ("sdtasdt" "xx" ("sz0")) ("sz0"))("=" ("sz0") ("sdtasdt" ("sz0") "xx"))).
+  proof.
+    ("=" ("sdtasdt" "xx" ("sz0")) ("sz0")).
+    proof.
+      (EqualityChain tag ("=" ("sdtasdt" "xx" ("sz0")) ("sdtpldt" ("sdtasdt" "xx" ("sz0")) ("sdtasdt" "xx" ("sz0"))))).
+      proof.
+        (EqualityChain tag ("=" ("sdtasdt" "xx" ("sz0")) ("sdtasdt" "xx" ("sdtpldt" ("sz0") ("sz0"))))).
+        (EqualityChain tag ("=" ("sdtasdt" "xx" ("sdtpldt" ("sz0") ("sz0"))) ("sdtpldt" ("sdtasdt" "xx" ("sz0")) ("sdtasdt" "xx" ("sz0"))))).
+      qed.
+    qed.
+    ("=" ("sdtasdt" ("sz0") "xx") ("sz0")).
+    proof.
+      (EqualityChain tag ("=" ("sdtasdt" ("sz0") "xx") ("sdtpldt" ("sdtasdt" ("sz0") "xx") ("sdtasdt" ("sz0") "xx")))).
+      proof.
+        (EqualityChain tag ("=" ("sdtasdt" ("sz0") "xx") ("sdtasdt" ("sdtpldt" ("sz0") ("sz0")) "xx"))).
+        (EqualityChain tag ("=" ("sdtasdt" ("sdtpldt" ("sz0") ("sz0")) "xx") ("sdtpldt" ("sdtasdt" ("sz0") "xx") ("sdtasdt" ("sz0") "xx")))).
+      qed.
+    qed.
+  qed.
+,hypothesis Cancel.
+  assume ( and ("aElement" "xx")("aElement" "xy")).
+  assume ( implies ( and (not ("=" "xx" ("sz0")))(not ("=" "xy" ("sz0"))))(not ("=" ("sdtasdt" "xx" "xy") ("sz0")))).
+,hypothesis UnNeZr.
+  assume (not ("=" ("sz1") ("sz0"))).
+,Strings Synonym ["set","sets"]
+,Strings Synonym ["belong","belongs"]
+,,hypothesis.
+  assume ("aSet" "xX").
+  assume (forall (DB 0) ( implies ("aElementOf" (DB 0) "xX")("aElement" (DB 0)))).
+,,,hypothesis SetEq.
+  assume ( and ("aSet" "xX")("aSet" "xY")).
+  assume ( implies ( and (forall (DB 0) ( implies ("aElementOf" (DB 0) "xX")("aElementOf" (DB 0) "xY")))(forall (DB 0) ( implies ("aElementOf" (DB 0) "xY")("aElementOf" (DB 0) "xX"))))("=" "xX" "xY")).
+,hypothesis DefSSum.
+  assume ( and ("aSet" "xX")("aSet" "xY")).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("sdtplqtdt" "xX" "xY")))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aElement" (DB 0))( iff ("aElementOf" (DB 0) (DB 1))(exists (DB 0) ( and ("aElementOf" (DB 0) "xX")(exists (DB 0) ( and ("aElementOf" (DB 0) "xY")("=" (DB 2) ("sdtpldt" (DB 1) (DB 0))))))))))))).
+,hypothesis DefSInt.
+  assume ( and ("aSet" "xX")("aSet" "xY")).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("sdtasasdt" "xX" "xY")))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aElement" (DB 0))( iff ("aElementOf" (DB 0) ("sdtplqtdt" "xX" "xY"))( and ("aElementOf" (DB 0) "xX")("aElementOf" (DB 0) "xY")))))))).
+,Strings Synonym ["ideal","ideals"]
+,hypothesis DefIdeal.
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aIdeal" (DB 0)))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aElementOf" (DB 0) (DB 1))( and (forall (DB 0) ( implies ("aElementOf" (DB 0) (DB 2))("aElementOf" ("sdtpldt" (DB 1) (DB 0)) (DB 2))))(forall (DB 0) ( implies ("aElement" (DB 0))("aElementOf" ("sdtasdt" (DB 0) (DB 1)) (DB 2)))))))))).
+,,conjecture IdeSum.
+  assume ( and ("aIdeal" "xI")("aIdeal" "xJ")).
+  ("aIdeal" ("sdtplqtdt" "xI" "xJ")).
+  proof.
+    assume ("aElementOf" "xx" ("sdtplqtdt" "xI" "xJ")).
+    (forall (DB 0) ( implies ("aElementOf" (DB 0) ("sdtplqtdt" "xI" "xJ"))("aElementOf" ("sdtpldt" "xx" (DB 0)) ("sdtplqtdt" "xI" "xJ")))).
+    proof.
+      assume ("aElementOf" "xy" ("sdtplqtdt" "xI" "xJ")).
+      ( and ("aElementOf" "xk" "xI")( and ("aElementOf" "xl" "xJ")("=" "xx" ("sdtpldt" "xk" "xl")))).
+      ( and ("aElementOf" "xm" "xI")( and ("aElementOf" "xn" "xJ")("=" "xy" ("sdtpldt" "xm" "xn")))).
+      ( and ("aElementOf" ("sdtpldt" "xk" "xm") "xI")("aElementOf" ("sdtpldt" "xl" "xn") "xJ")).
+      (EqualityChain tag ("=" ("sdtpldt" "xx" "xy") ("sdtpldt" ("sdtpldt" "xk" "xm") ("sdtpldt" "xl" "xn")))).
+      proof.
+        (EqualityChain tag ("=" ("sdtpldt" "xx" "xy") ("sdtpldt" ("sdtpldt" "xk" "xm") ("sdtpldt" "xl" "xn")))).
+      qed.
+      ("#TH#").
+    qed.
+    (forall (DB 0) ( implies ("aElement" (DB 0))("aElementOf" ("sdtasdt" (DB 0) "xx") ("sdtplqtdt" "xI" "xJ")))).
+    proof.
+      assume ("aElement" "xz").
+      ( and ("aElementOf" "xk" "xI")( and ("aElementOf" "xl" "xJ")("=" "xx" ("sdtpldt" "xk" "xl")))).
+      ( and ("aElementOf" ("sdtasdt" "xz" "xk") "xI")("aElementOf" ("sdtasdt" "xz" "xl") "xJ")).
+      (EqualityChain tag ("=" ("sdtasdt" "xz" "xx") ("sdtpldt" ("sdtasdt" "xz" "xk") ("sdtasdt" "xz" "xl")))).
+      proof.
+        (EqualityChain tag ("=" ("sdtasdt" "xz" "xx") ("sdtpldt" ("sdtasdt" "xz" "xk") ("sdtasdt" "xz" "xl")))).
+      qed.
+      ("#TH#").
+    qed.
+  qed.
+,conjecture IdeInt.
+  assume ( and ("aIdeal" "xI")("aIdeal" "xJ")).
+  ("aIdeal" ("sdtasasdt" "xI" "xJ")).
+,hypothesis DefMod.
+  assume ( and ( and ("aElement" "xx")("aElement" "xy"))("aIdeal" "xI")).
+  assume ( iff (HeadTerm tag ("sdteqdtlpzmzozddtrp" "xx" "xy" "xI"))("aElementOf" ("sdtpldt" "xx" ("smndt" "xy")) "xI")).
+,conjecture ChineseRemainder.
+  assume ( and ("aIdeal" "xI")("aIdeal" "xJ")).
+  assume (forall (DB 0) ( implies ("aElement" (DB 0))("aElementOf" (DB 0) ("sdtplqtdt" "xI" "xJ")))).
+  assume ( and ("aElement" "xx")("aElement" "xy")).
+  (exists (DB 0) ( and ("aElement" (DB 0))( and ("sdteqdtlpzmzozddtrp" (DB 0) "xx" "xI")("sdteqdtlpzmzozddtrp" (DB 0) "xy" "xJ")))).
+  proof.
+    ( and ("aElementOf" "xa" "xI")( and ("aElementOf" "xb" "xJ")("=" ("sdtpldt" "xa" "xb") ("sz1")))).
+    ("=" "xw" ("sdtpldt" ("sdtasdt" "xy" "xa") ("sdtasdt" "xx" "xb"))).
+    ( and ("sdteqdtlpzmzozddtrp" "xw" "xx" "xI")("sdteqdtlpzmzozddtrp" "xw" "xy" "xJ")).
+    proof.
+      ("aElementOf" ("sdtpldt" "xw" ("smndt" "xx")) "xI").
+      proof.
+        ("=" ("sdtpldt" "xw" ("smndt" "xx")) ("sdtpldt" ("sdtasdt" "xy" "xa") ("sdtpldt" ("sdtasdt" "xx" "xb") ("smndt" "xx")))).
+        ("aElementOf" ("sdtasdt" "xx" ("sdtpldt" "xb" ("smndt" ("sz1")))) "xI").
+      qed.
+      ("aElementOf" ("sdtpldt" "xw" ("smndt" "xy")) "xJ").
+      proof.
+        ("=" ("sdtpldt" "xw" ("smndt" "xy")) ("sdtpldt" ("sdtasdt" "xx" "xb") ("sdtpldt" ("sdtasdt" "xy" "xa") ("smndt" "xy")))).
+        ("aElementOf" ("sdtasdt" "xy" ("sdtpldt" "xa" ("smndt" ("sz1")))) "xJ").
+      qed.
+    qed.
+  qed.
+,Strings Synonym ["number","numbers"]
+,hypothesis NatSort.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aNaturalNumber" (DB 0)))truth)).
+,hypothesis EucSort.
+  assume ( and ("aElement" "xx")(not ("=" "xx" ("sz0")))).
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("sbrdtbr" "xx")))("aNaturalNumber" (DB 0)))).
+,hypothesis Division.
+  assume ( and ( and ("aElement" "xx")("aElement" "xy"))(not ("=" "xy" ("sz0")))).
+  assume (exists (DB 0) (exists (DB 0) ( and ( and ("aElement" (DB 1))("aElement" (DB 0)))( and ("=" "xx" ("sdtpldt" ("sdtasdt" (DB 1) "xy") (DB 0)))( implies (not ("=" (DB 0) ("sz0")))("iLess" ("sbrdtbr" (DB 0)) ("sbrdtbr" "xy"))))))).
+,Strings Synonym ["divisor","divisors"]
+,Strings Synonym ["divide","divides"]
+,hypothesis DefDiv.
+  assume ( and ("aElement" "xx")("aElement" "xy")).
+  assume ( iff (HeadTerm tag ("doDivides" "xx" "xy"))(exists (DB 0) ( and ("aElement" (DB 0))("=" ("sdtasdt" "xx" (DB 0)) "xy")))).
+,,,hypothesis DefDvs.
+  assume ("aElement" "xx").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aDivisorOf" (DB 0) "xx"))( and ("aElement" (DB 0))("doDivides" (DB 0) "xx")))).
+,hypothesis DefGCD.
+  assume ( and ("aElement" "xx")("aElement" "xy")).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aGcdOfAnd" (DB 0) "xx" "xy"))( and ( and ("aDivisorOf" (DB 0) "xx")("aDivisorOf" (DB 0) "xy"))(forall (DB 0) ( implies ( and ("aDivisorOf" (DB 0) "xx")("aDivisorOf" (DB 0) "xy"))("doDivides" (DB 0) (DB 1))))))).
+,hypothesis DefRel.
+  assume ( and ("aElement" "xx")("aElement" "xy")).
+  assume ( iff (HeadTerm tag ("misRelativelyPrime" "xx" "xy"))("aGcdOfAnd" ("sz1") "xx" "xy")).
+,hypothesis DefPrIdeal.
+  assume ("aElement" "xc").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("slsdtgt" "xc")))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aElement" (DB 0))( iff ("aElementOf" (DB 0) (DB 1))(exists (DB 0) ( and ("aElement" (DB 0))("=" (DB 1) ("sdtasdt" "xc" (DB 0))))))))))).
+,conjecture PrIdeal.
+  assume ("aElement" "xc").
+  ("aIdeal" ("slsdtgt" "xc")).
+  proof.
+    assume ("aElementOf" "xx" ("slsdtgt" "xc")).
+    (forall (DB 0) ( implies ("aElementOf" (DB 0) ("slsdtgt" "xc"))("aElementOf" ("sdtpldt" "xx" (DB 0)) ("slsdtgt" "xc")))).
+    proof.
+      assume ("aElementOf" "xy" ("slsdtgt" "xc")).
+      ( and ("aElement" "xu")("=" ("sdtasdt" "xc" "xu") "xx")).
+      ( and ("aElement" "xv")("=" ("sdtasdt" "xc" "xv") "xy")).
+      (EqualityChain tag ("=" ("sdtpldt" "xx" "xy") ("sdtasdt" "xc" ("sdtpldt" "xu" "xv")))).
+      proof.
+        (EqualityChain tag ("=" ("sdtpldt" "xx" "xy") ("sdtasdt" "xc" ("sdtpldt" "xu" "xv")))).
+      qed.
+      ("#TH#").
+    qed.
+    (forall (DB 0) ( implies ("aElement" (DB 0))("aElementOf" ("sdtasdt" (DB 0) "xx") ("slsdtgt" "xc")))).
+    proof.
+      assume ("aElement" "xz").
+      ( and ("aElement" "xu")("=" ("sdtasdt" "xc" "xu") "xx")).
+      (EqualityChain tag ("=" ("sdtasdt" "xz" "xx") ("sdtasdt" "xc" ("sdtasdt" "xu" "xz")))).
+      proof.
+        (EqualityChain tag ("=" ("sdtasdt" "xz" "xx") ("sdtasdt" "xc" ("sdtasdt" "xu" "xz")))).
+      qed.
+      ("#TH#").
+    qed.
+  qed.
+,conjecture GCDin.
+  assume ( and ("aElement" "xa")("aElement" "xb")).
+  assume ( or (not ("=" "xa" ("sz0")))(not ("=" "xb" ("sz0")))).
+  assume ("aGcdOfAnd" "xc" "xa" "xb").
+  ("aElementOf" "xc" ("sdtplqtdt" ("slsdtgt" "xa") ("slsdtgt" "xb"))).
+  proof.
+    ( and ("aIdeal" "xI")("=" "xI" ("sdtplqtdt" ("slsdtgt" "xa") ("slsdtgt" "xb")))).
+    ( and ( and ("aElementOf" ("sz0") ("slsdtgt" "xa"))("aElementOf" "xa" ("slsdtgt" "xa")))( and ("aElementOf" ("sz0") ("slsdtgt" "xb"))("aElementOf" "xb" ("slsdtgt" "xb")))).
+    (exists (DB 0) ( and ("aElementOf" (DB 0) ("sdtplqtdt" ("slsdtgt" "xa") ("slsdtgt" "xb")))(not ("=" (DB 0) ("sz0"))))).
+    proof.
+      ( and ("aElementOf" "xa" ("sdtplqtdt" ("slsdtgt" "xa") ("slsdtgt" "xb")))("aElementOf" "xb" ("sdtplqtdt" ("slsdtgt" "xa") ("slsdtgt" "xb")))).
+    qed.
+    ( and ("aElementOf" "xu" "xI")( and (not ("=" "xu" ("sz0")))(forall (DB 0) ( implies ( and ("aElementOf" (DB 0) "xI")(not ("=" (DB 0) ("sz0"))))(not ("iLess" ("sbrdtbr" (DB 0)) ("sbrdtbr" "xu"))))))).
+    proof.
+      assume (not ("#TH#")).
+      (forall (DB 0) ( implies ( and ("aElementOf" (DB 0) "xI")(not ("=" (DB 0) ("sz0"))))( implies (InductionHypothesis tag (forall (DB 0) ( implies ( and ("aElementOf" (DB 0) "xI")(not ("=" (DB 0) ("sz0"))))( implies ("iLess" ("sbrdtbr" (DB 0)) ("sbrdtbr" (DB 1)))(exists (DB 0) ( and ("aElementOf" (DB 0) "xI")( and (not ("=" (DB 0) ("sz0")))(forall (DB 0) ( implies ( and ("aElementOf" (DB 0) "xI")(not ("=" (DB 0) ("sz0"))))(not ("iLess" ("sbrdtbr" (DB 0)) ("sbrdtbr" (DB 1)))))))))))))(exists (DB 0) ( and ("aElementOf" (DB 0) "xI")( and (not ("=" (DB 0) ("sz0")))(forall (DB 0) ( implies ( and ("aElementOf" (DB 0) "xI")(not ("=" (DB 0) ("sz0"))))(not ("iLess" ("sbrdtbr" (DB 0)) ("sbrdtbr" (DB 1)))))))))))).
+    qed.
+    ( and ("aDivisorOf" "xu" "xa")("aDivisorOf" "xu" "xb")).
+    proof.
+      assume (not ("#TH#")).
+      (exists (DB 0) (exists (DB 0) ( and ( and ("aElement" (DB 1))("aElement" (DB 0)))("=" "xu" ("sdtpldt" ("sdtasdt" "xa" (DB 1)) ("sdtasdt" "xb" (DB 0))))))).
+      proof.
+        ( and ("aElementOf" "xk" ("slsdtgt" "xa"))( and ("aElementOf" "xl" ("slsdtgt" "xb"))("=" "xu" ("sdtpldt" "xk" "xl")))).
+        ( and ( and ("aElement" "xx")("aElement" "xy"))( and ("=" "xk" ("sdtasdt" "xa" "xx"))("=" "xl" ("sdtasdt" "xb" "xy")))).
+        ("#TH#").
+      qed.
+      ( implies (CaseHypothesis tag (not ("doDivides" "xu" "xa")))("#TH#")).
+      proof.
+        ( and ( and ("aElement" "xq")("aElement" "xr"))( and ("=" "xa" ("sdtpldt" ("sdtasdt" "xq" "xu") "xr"))( or ("=" "xr" ("sz0"))("iLess" ("sbrdtbr" "xr") ("sbrdtbr" "xu"))))).
+        (not ("=" "xr" ("sz0"))).
+        ("aElementOf" ("smndt" ("sdtasdt" "xq" "xu")) "xI").
+        ("aElementOf" "xa" "xI").
+        ("=" "xr" ("sdtpldt" ("smndt" ("sdtasdt" "xq" "xu")) "xa")).
+        ("aElementOf" "xr" "xI").
+      qed.
+      ( implies (CaseHypothesis tag (not ("doDivides" "xu" "xb")))("#TH#")).
+      proof.
+        ( and ( and ("aElement" "xq")("aElement" "xr"))( and ("=" "xb" ("sdtpldt" ("sdtasdt" "xq" "xu") "xr"))( or ("=" "xr" ("sz0"))("iLess" ("sbrdtbr" "xr") ("sbrdtbr" "xu"))))).
+        (not ("=" "xr" ("sz0"))).
+        ("aElementOf" ("smndt" ("sdtasdt" "xq" "xu")) "xI").
+        ("aElementOf" "xb" "xI").
+        ("=" "xr" ("sdtpldt" ("smndt" ("sdtasdt" "xq" "xu")) "xb")).
+        ("aElementOf" "xr" "xI").
+      qed.
+    qed.
+    ("doDivides" "xu" "xc").
+    ("#TH#").
+    proof.
+      ( and ("aElement" "xz")("=" "xc" ("sdtasdt" "xz" "xu"))).
+      ("aElementOf" "xc" "xI").
+    qed.
+  qed.
+]
+[Main] typeOf: [Char] -> [Text] -> IO [Text]
+hypothesis ElmSort.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aElement" (DB 0)))truth)).
+
+hypothesis SortsC.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("sz0")))("aElement" (DB 0)))).
+
+hypothesis SortsC.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("sz1")))("aElement" (DB 0)))).
+
+hypothesis SortsU.
+  assume ("aElement" "xx").
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("smndt" "xx")))("aElement" (DB 0)))).
+
+hypothesis SortsB.
+  assume ( and ("aElement" "xx")("aElement" "xy")).
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("sdtpldt" "xx" "xy")))("aElement" (DB 0)))).
+
+hypothesis SortsB.
+  assume ( and ("aElement" "xx")("aElement" "xy")).
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("sdtasdt" "xx" "xy")))("aElement" (DB 0)))).
+
+hypothesis AddComm.
+  assume ( and ("aElement" "xx")("aElement" "xy")).
+  assume ("=" ("sdtpldt" "xx" "xy") ("sdtpldt" "xy" "xx")).
+
+hypothesis AddAsso.
+  assume ( and ( and ("aElement" "xx")("aElement" "xy"))("aElement" "xz")).
+  assume ("=" ("sdtpldt" ("sdtpldt" "xx" "xy") "xz") ("sdtpldt" "xx" ("sdtpldt" "xy" "xz"))).
+
+hypothesis AddBubble.
+  assume ( and ( and ("aElement" "xx")("aElement" "xy"))("aElement" "xz")).
+  assume ("=" ("sdtpldt" "xx" ("sdtpldt" "xy" "xz")) ("sdtpldt" "xy" ("sdtpldt" "xx" "xz"))).
+
+hypothesis AddZero.
+  assume ("aElement" "xx").
+  assume ( and ("=" ("sdtpldt" "xx" ("sz0")) "xx")("=" "xx" ("sdtpldt" ("sz0") "xx"))).
+
+hypothesis AddInvr.
+  assume ("aElement" "xx").
+  assume ( and ("=" ("sdtpldt" "xx" ("smndt" "xx")) ("sz0"))("=" ("sz0") ("sdtpldt" ("smndt" "xx") "xx"))).
+
+hypothesis MulComm.
+  assume ( and ("aElement" "xx")("aElement" "xy")).
+  assume ("=" ("sdtasdt" "xx" "xy") ("sdtasdt" "xy" "xx")).
+
+hypothesis MulAsso.
+  assume ( and ( and ("aElement" "xx")("aElement" "xy"))("aElement" "xz")).
+  assume ("=" ("sdtasdt" ("sdtasdt" "xx" "xy") "xz") ("sdtasdt" "xx" ("sdtasdt" "xy" "xz"))).
+
+hypothesis MulBubble.
+  assume ( and ( and ("aElement" "xx")("aElement" "xy"))("aElement" "xz")).
+  assume ("=" ("sdtasdt" "xx" ("sdtasdt" "xy" "xz")) ("sdtasdt" "xy" ("sdtasdt" "xx" "xz"))).
+
+hypothesis MulUnit.
+  assume ("aElement" "xx").
+  assume ( and ("=" ("sdtasdt" "xx" ("sz1")) "xx")("=" "xx" ("sdtasdt" ("sz1") "xx"))).
+
+hypothesis AMDistr1.
+  assume ( and ( and ("aElement" "xx")("aElement" "xy"))("aElement" "xz")).
+  assume ("=" ("sdtasdt" "xx" ("sdtpldt" "xy" "xz")) ("sdtpldt" ("sdtasdt" "xx" "xy") ("sdtasdt" "xx" "xz"))).
+
+hypothesis AMDistr2.
+  assume ( and ( and ("aElement" "xy")("aElement" "xz"))("aElement" "xx")).
+  assume ("=" ("sdtasdt" ("sdtpldt" "xy" "xz") "xx") ("sdtpldt" ("sdtasdt" "xy" "xx") ("sdtasdt" "xz" "xx"))).
+
+hypothesis MulMnOne.
+  assume ("aElement" "xx").
+  assume ( and ("=" ("sdtasdt" ("smndt" ("sz1")) "xx") ("smndt" "xx"))("=" ("smndt" "xx") ("sdtasdt" "xx" ("smndt" ("sz1"))))).
+
+conjecture MulZero.
+  assume ("aElement" "xx").
+  ( and ("=" ("sdtasdt" "xx" ("sz0")) ("sz0"))("=" ("sz0") ("sdtasdt" ("sz0") "xx"))).
+  proof.
+    ("=" ("sdtasdt" "xx" ("sz0")) ("sz0")).
+    proof.
+      (EqualityChain tag ("=" ("sdtasdt" "xx" ("sz0")) ("sdtpldt" ("sdtasdt" "xx" ("sz0")) ("sdtasdt" "xx" ("sz0"))))).
+      proof.
+        (EqualityChain tag ("=" ("sdtasdt" "xx" ("sz0")) ("sdtasdt" "xx" ("sdtpldt" ("sz0") ("sz0"))))).
+        (EqualityChain tag ("=" ("sdtasdt" "xx" ("sdtpldt" ("sz0") ("sz0"))) ("sdtpldt" ("sdtasdt" "xx" ("sz0")) ("sdtasdt" "xx" ("sz0"))))).
+      qed.
+    qed.
+    ("=" ("sdtasdt" ("sz0") "xx") ("sz0")).
+    proof.
+      (EqualityChain tag ("=" ("sdtasdt" ("sz0") "xx") ("sdtpldt" ("sdtasdt" ("sz0") "xx") ("sdtasdt" ("sz0") "xx")))).
+      proof.
+        (EqualityChain tag ("=" ("sdtasdt" ("sz0") "xx") ("sdtasdt" ("sdtpldt" ("sz0") ("sz0")) "xx"))).
+        (EqualityChain tag ("=" ("sdtasdt" ("sdtpldt" ("sz0") ("sz0")) "xx") ("sdtpldt" ("sdtasdt" ("sz0") "xx") ("sdtasdt" ("sz0") "xx")))).
+      qed.
+    qed.
+  qed.
+
+hypothesis Cancel.
+  assume ( and ("aElement" "xx")("aElement" "xy")).
+  assume ( implies ( and (not ("=" "xx" ("sz0")))(not ("=" "xy" ("sz0"))))(not ("=" ("sdtasdt" "xx" "xy") ("sz0")))).
+
+hypothesis UnNeZr.
+  assume (not ("=" ("sz1") ("sz0"))).
+
+hypothesis.
+  assume ("aSet" "xX").
+  assume (forall (DB 0) ( implies ("aElementOf" (DB 0) "xX")("aElement" (DB 0)))).
+
+hypothesis SetEq.
+  assume ( and ("aSet" "xX")("aSet" "xY")).
+  assume ( implies ( and (forall (DB 0) ( implies ("aElementOf" (DB 0) "xX")("aElementOf" (DB 0) "xY")))(forall (DB 0) ( implies ("aElementOf" (DB 0) "xY")("aElementOf" (DB 0) "xX"))))("=" "xX" "xY")).
+
+hypothesis DefSSum.
+  assume ( and ("aSet" "xX")("aSet" "xY")).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("sdtplqtdt" "xX" "xY")))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aElement" (DB 0))( iff ("aElementOf" (DB 0) (DB 1))(exists (DB 0) ( and ("aElementOf" (DB 0) "xX")(exists (DB 0) ( and ("aElementOf" (DB 0) "xY")("=" (DB 2) ("sdtpldt" (DB 1) (DB 0))))))))))))).
+
+hypothesis DefSInt.
+  assume ( and ("aSet" "xX")("aSet" "xY")).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("sdtasasdt" "xX" "xY")))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aElement" (DB 0))( iff ("aElementOf" (DB 0) ("sdtplqtdt" "xX" "xY"))( and ("aElementOf" (DB 0) "xX")("aElementOf" (DB 0) "xY")))))))).
+
+hypothesis DefIdeal.
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aIdeal" (DB 0)))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aElementOf" (DB 0) (DB 1))( and (forall (DB 0) ( implies ("aElementOf" (DB 0) (DB 2))("aElementOf" ("sdtpldt" (DB 1) (DB 0)) (DB 2))))(forall (DB 0) ( implies ("aElement" (DB 0))("aElementOf" ("sdtasdt" (DB 0) (DB 1)) (DB 2)))))))))).
+
+conjecture IdeSum.
+  assume ( and ("aIdeal" "xI")("aIdeal" "xJ")).
+  ("aIdeal" ("sdtplqtdt" "xI" "xJ")).
+  proof.
+    assume ("aElementOf" "xx" ("sdtplqtdt" "xI" "xJ")).
+    (forall (DB 0) ( implies ("aElementOf" (DB 0) ("sdtplqtdt" "xI" "xJ"))("aElementOf" ("sdtpldt" "xx" (DB 0)) ("sdtplqtdt" "xI" "xJ")))).
+    proof.
+      assume ("aElementOf" "xy" ("sdtplqtdt" "xI" "xJ")).
+      ( and ("aElementOf" "xk" "xI")( and ("aElementOf" "xl" "xJ")("=" "xx" ("sdtpldt" "xk" "xl")))).
+      ( and ("aElementOf" "xm" "xI")( and ("aElementOf" "xn" "xJ")("=" "xy" ("sdtpldt" "xm" "xn")))).
+      ( and ("aElementOf" ("sdtpldt" "xk" "xm") "xI")("aElementOf" ("sdtpldt" "xl" "xn") "xJ")).
+      (EqualityChain tag ("=" ("sdtpldt" "xx" "xy") ("sdtpldt" ("sdtpldt" "xk" "xm") ("sdtpldt" "xl" "xn")))).
+      proof.
+        (EqualityChain tag ("=" ("sdtpldt" "xx" "xy") ("sdtpldt" ("sdtpldt" "xk" "xm") ("sdtpldt" "xl" "xn")))).
+      qed.
+      ("#TH#").
+    qed.
+    (forall (DB 0) ( implies ("aElement" (DB 0))("aElementOf" ("sdtasdt" (DB 0) "xx") ("sdtplqtdt" "xI" "xJ")))).
+    proof.
+      assume ("aElement" "xz").
+      ( and ("aElementOf" "xk" "xI")( and ("aElementOf" "xl" "xJ")("=" "xx" ("sdtpldt" "xk" "xl")))).
+      ( and ("aElementOf" ("sdtasdt" "xz" "xk") "xI")("aElementOf" ("sdtasdt" "xz" "xl") "xJ")).
+      (EqualityChain tag ("=" ("sdtasdt" "xz" "xx") ("sdtpldt" ("sdtasdt" "xz" "xk") ("sdtasdt" "xz" "xl")))).
+      proof.
+        (EqualityChain tag ("=" ("sdtasdt" "xz" "xx") ("sdtpldt" ("sdtasdt" "xz" "xk") ("sdtasdt" "xz" "xl")))).
+      qed.
+      ("#TH#").
+    qed.
+  qed.
+
+conjecture IdeInt.
+  assume ( and ("aIdeal" "xI")("aIdeal" "xJ")).
+  ("aIdeal" ("sdtasasdt" "xI" "xJ")).
+
+hypothesis DefMod.
+  assume ( and ( and ("aElement" "xx")("aElement" "xy"))("aIdeal" "xI")).
+  assume ( iff (HeadTerm tag ("sdteqdtlpzmzozddtrp" "xx" "xy" "xI"))("aElementOf" ("sdtpldt" "xx" ("smndt" "xy")) "xI")).
+
+conjecture ChineseRemainder.
+  assume ( and ("aIdeal" "xI")("aIdeal" "xJ")).
+  assume (forall (DB 0) ( implies ("aElement" (DB 0))("aElementOf" (DB 0) ("sdtplqtdt" "xI" "xJ")))).
+  assume ( and ("aElement" "xx")("aElement" "xy")).
+  (exists (DB 0) ( and ("aElement" (DB 0))( and ("sdteqdtlpzmzozddtrp" (DB 0) "xx" "xI")("sdteqdtlpzmzozddtrp" (DB 0) "xy" "xJ")))).
+  proof.
+    ( and ("aElementOf" "xa" "xI")( and ("aElementOf" "xb" "xJ")("=" ("sdtpldt" "xa" "xb") ("sz1")))).
+    ("=" "xw" ("sdtpldt" ("sdtasdt" "xy" "xa") ("sdtasdt" "xx" "xb"))).
+    ( and ("sdteqdtlpzmzozddtrp" "xw" "xx" "xI")("sdteqdtlpzmzozddtrp" "xw" "xy" "xJ")).
+    proof.
+      ("aElementOf" ("sdtpldt" "xw" ("smndt" "xx")) "xI").
+      proof.
+        ("=" ("sdtpldt" "xw" ("smndt" "xx")) ("sdtpldt" ("sdtasdt" "xy" "xa") ("sdtpldt" ("sdtasdt" "xx" "xb") ("smndt" "xx")))).
+        ("aElementOf" ("sdtasdt" "xx" ("sdtpldt" "xb" ("smndt" ("sz1")))) "xI").
+      qed.
+      ("aElementOf" ("sdtpldt" "xw" ("smndt" "xy")) "xJ").
+      proof.
+        ("=" ("sdtpldt" "xw" ("smndt" "xy")) ("sdtpldt" ("sdtasdt" "xx" "xb") ("sdtpldt" ("sdtasdt" "xy" "xa") ("smndt" "xy")))).
+        ("aElementOf" ("sdtasdt" "xy" ("sdtpldt" "xa" ("smndt" ("sz1")))) "xJ").
+      qed.
+    qed.
+  qed.
+
+hypothesis NatSort.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aNaturalNumber" (DB 0)))truth)).
+
+hypothesis EucSort.
+  assume ( and ("aElement" "xx")(not ("=" "xx" ("sz0")))).
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("sbrdtbr" "xx")))("aNaturalNumber" (DB 0)))).
+
+hypothesis Division.
+  assume ( and ( and ("aElement" "xx")("aElement" "xy"))(not ("=" "xy" ("sz0")))).
+  assume (exists (DB 0) (exists (DB 0) ( and ( and ("aElement" (DB 1))("aElement" (DB 0)))( and ("=" "xx" ("sdtpldt" ("sdtasdt" (DB 1) "xy") (DB 0)))( implies (not ("=" (DB 0) ("sz0")))("iLess" ("sbrdtbr" (DB 0)) ("sbrdtbr" "xy"))))))).
+
+hypothesis DefDiv.
+  assume ( and ("aElement" "xx")("aElement" "xy")).
+  assume ( iff (HeadTerm tag ("doDivides" "xx" "xy"))(exists (DB 0) ( and ("aElement" (DB 0))("=" ("sdtasdt" "xx" (DB 0)) "xy")))).
+
+hypothesis DefDvs.
+  assume ("aElement" "xx").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aDivisorOf" (DB 0) "xx"))( and ("aElement" (DB 0))("doDivides" (DB 0) "xx")))).
+
+hypothesis DefGCD.
+  assume ( and ("aElement" "xx")("aElement" "xy")).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aGcdOfAnd" (DB 0) "xx" "xy"))( and ( and ("aDivisorOf" (DB 0) "xx")("aDivisorOf" (DB 0) "xy"))(forall (DB 0) ( implies ( and ("aDivisorOf" (DB 0) "xx")("aDivisorOf" (DB 0) "xy"))("doDivides" (DB 0) (DB 1))))))).
+
+hypothesis DefRel.
+  assume ( and ("aElement" "xx")("aElement" "xy")).
+  assume ( iff (HeadTerm tag ("misRelativelyPrime" "xx" "xy"))("aGcdOfAnd" ("sz1") "xx" "xy")).
+
+hypothesis DefPrIdeal.
+  assume ("aElement" "xc").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("slsdtgt" "xc")))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aElement" (DB 0))( iff ("aElementOf" (DB 0) (DB 1))(exists (DB 0) ( and ("aElement" (DB 0))("=" (DB 1) ("sdtasdt" "xc" (DB 0))))))))))).
+
+conjecture PrIdeal.
+  assume ("aElement" "xc").
+  ("aIdeal" ("slsdtgt" "xc")).
+  proof.
+    assume ("aElementOf" "xx" ("slsdtgt" "xc")).
+    (forall (DB 0) ( implies ("aElementOf" (DB 0) ("slsdtgt" "xc"))("aElementOf" ("sdtpldt" "xx" (DB 0)) ("slsdtgt" "xc")))).
+    proof.
+      assume ("aElementOf" "xy" ("slsdtgt" "xc")).
+      ( and ("aElement" "xu")("=" ("sdtasdt" "xc" "xu") "xx")).
+      ( and ("aElement" "xv")("=" ("sdtasdt" "xc" "xv") "xy")).
+      (EqualityChain tag ("=" ("sdtpldt" "xx" "xy") ("sdtasdt" "xc" ("sdtpldt" "xu" "xv")))).
+      proof.
+        (EqualityChain tag ("=" ("sdtpldt" "xx" "xy") ("sdtasdt" "xc" ("sdtpldt" "xu" "xv")))).
+      qed.
+      ("#TH#").
+    qed.
+    (forall (DB 0) ( implies ("aElement" (DB 0))("aElementOf" ("sdtasdt" (DB 0) "xx") ("slsdtgt" "xc")))).
+    proof.
+      assume ("aElement" "xz").
+      ( and ("aElement" "xu")("=" ("sdtasdt" "xc" "xu") "xx")).
+      (EqualityChain tag ("=" ("sdtasdt" "xz" "xx") ("sdtasdt" "xc" ("sdtasdt" "xu" "xz")))).
+      proof.
+        (EqualityChain tag ("=" ("sdtasdt" "xz" "xx") ("sdtasdt" "xc" ("sdtasdt" "xu" "xz")))).
+      qed.
+      ("#TH#").
+    qed.
+  qed.
+
+conjecture GCDin.
+  assume ( and ("aElement" "xa")("aElement" "xb")).
+  assume ( or (not ("=" "xa" ("sz0")))(not ("=" "xb" ("sz0")))).
+  assume ("aGcdOfAnd" "xc" "xa" "xb").
+  ("aElementOf" "xc" ("sdtplqtdt" ("slsdtgt" "xa") ("slsdtgt" "xb"))).
+  proof.
+    ( and ("aIdeal" "xI")("=" "xI" ("sdtplqtdt" ("slsdtgt" "xa") ("slsdtgt" "xb")))).
+    ( and ( and ("aElementOf" ("sz0") ("slsdtgt" "xa"))("aElementOf" "xa" ("slsdtgt" "xa")))( and ("aElementOf" ("sz0") ("slsdtgt" "xb"))("aElementOf" "xb" ("slsdtgt" "xb")))).
+    (exists (DB 0) ( and ("aElementOf" (DB 0) ("sdtplqtdt" ("slsdtgt" "xa") ("slsdtgt" "xb")))(not ("=" (DB 0) ("sz0"))))).
+    proof.
+      ( and ("aElementOf" "xa" ("sdtplqtdt" ("slsdtgt" "xa") ("slsdtgt" "xb")))("aElementOf" "xb" ("sdtplqtdt" ("slsdtgt" "xa") ("slsdtgt" "xb")))).
+    qed.
+    ( and ("aElementOf" "xu" "xI")( and (not ("=" "xu" ("sz0")))(forall (DB 0) ( implies ( and ("aElementOf" (DB 0) "xI")(not ("=" (DB 0) ("sz0"))))(not ("iLess" ("sbrdtbr" (DB 0)) ("sbrdtbr" "xu"))))))).
+    proof.
+      assume (not ("#TH#")).
+      (forall (DB 0) ( implies ( and ("aElementOf" (DB 0) "xI")(not ("=" (DB 0) ("sz0"))))( implies (InductionHypothesis tag (forall (DB 0) ( implies ( and ("aElementOf" (DB 0) "xI")(not ("=" (DB 0) ("sz0"))))( implies ("iLess" ("sbrdtbr" (DB 0)) ("sbrdtbr" (DB 1)))(exists (DB 0) ( and ("aElementOf" (DB 0) "xI")( and (not ("=" (DB 0) ("sz0")))(forall (DB 0) ( implies ( and ("aElementOf" (DB 0) "xI")(not ("=" (DB 0) ("sz0"))))(not ("iLess" ("sbrdtbr" (DB 0)) ("sbrdtbr" (DB 1)))))))))))))(exists (DB 0) ( and ("aElementOf" (DB 0) "xI")( and (not ("=" (DB 0) ("sz0")))(forall (DB 0) ( implies ( and ("aElementOf" (DB 0) "xI")(not ("=" (DB 0) ("sz0"))))(not ("iLess" ("sbrdtbr" (DB 0)) ("sbrdtbr" (DB 1)))))))))))).
+    qed.
+    ( and ("aDivisorOf" "xu" "xa")("aDivisorOf" "xu" "xb")).
+    proof.
+      assume (not ("#TH#")).
+      (exists (DB 0) (exists (DB 0) ( and ( and ("aElement" (DB 1))("aElement" (DB 0)))("=" "xu" ("sdtpldt" ("sdtasdt" "xa" (DB 1)) ("sdtasdt" "xb" (DB 0))))))).
+      proof.
+        ( and ("aElementOf" "xk" ("slsdtgt" "xa"))( and ("aElementOf" "xl" ("slsdtgt" "xb"))("=" "xu" ("sdtpldt" "xk" "xl")))).
+        ( and ( and ("aElement" "xx")("aElement" "xy"))( and ("=" "xk" ("sdtasdt" "xa" "xx"))("=" "xl" ("sdtasdt" "xb" "xy")))).
+        ("#TH#").
+      qed.
+      ( implies (CaseHypothesis tag (not ("doDivides" "xu" "xa")))("#TH#")).
+      proof.
+        ( and ( and ("aElement" "xq")("aElement" "xr"))( and ("=" "xa" ("sdtpldt" ("sdtasdt" "xq" "xu") "xr"))( or ("=" "xr" ("sz0"))("iLess" ("sbrdtbr" "xr") ("sbrdtbr" "xu"))))).
+        (not ("=" "xr" ("sz0"))).
+        ("aElementOf" ("smndt" ("sdtasdt" "xq" "xu")) "xI").
+        ("aElementOf" "xa" "xI").
+        ("=" "xr" ("sdtpldt" ("smndt" ("sdtasdt" "xq" "xu")) "xa")).
+        ("aElementOf" "xr" "xI").
+      qed.
+      ( implies (CaseHypothesis tag (not ("doDivides" "xu" "xb")))("#TH#")).
+      proof.
+        ( and ( and ("aElement" "xq")("aElement" "xr"))( and ("=" "xb" ("sdtpldt" ("sdtasdt" "xq" "xu") "xr"))( or ("=" "xr" ("sz0"))("iLess" ("sbrdtbr" "xr") ("sbrdtbr" "xu"))))).
+        (not ("=" "xr" ("sz0"))).
+        ("aElementOf" ("smndt" ("sdtasdt" "xq" "xu")) "xI").
+        ("aElementOf" "xb" "xI").
+        ("=" "xr" ("sdtpldt" ("smndt" ("sdtasdt" "xq" "xu")) "xb")).
+        ("aElementOf" "xr" "xI").
+      qed.
+    qed.
+    ("doDivides" "xu" "xc").
+    ("#TH#").
+    proof.
+      ( and ("aElement" "xz")("=" "xc" ("sdtasdt" "xz" "xu"))).
+      ("aElementOf" "xc" "xI").
+    qed.
+  qed.
+
+[Main] total 00:00.21
+[Parser] "examples/fuerst.ftl"
+parsing successful
+[Main] String: examples
+[Main] text0: [String Library "examples"
+,String Provers "provers.dat"
+,String Prover "eprover"
+,Int Timelimit 3
+,Int Depthlimit 7
+,Int Checktime 1
+,Int Checkdepth 3
+,Bool Prove True
+,Bool Check True
+,Bool Symsign True
+,Bool Info True
+,Bool Thesis True
+,Bool Filter True
+,Bool Skipfail False
+,Bool Flat False
+,Bool Printgoal True
+,Bool Printreason False
+,Bool Printsection False
+,Bool Printcheck False
+,Bool Printprover False
+,Bool Printunfold False
+,Bool Printfulltask False
+,Bool OnlyTranslate True
+,String File "examples/fuerst.ftl"
+]
+[Main] text1: [String Library "examples"
+,String Provers "provers.dat"
+,String Prover "eprover"
+,Int Timelimit 3
+,Int Depthlimit 7
+,Int Checktime 1
+,Int Checkdepth 3
+,Bool Prove True
+,Bool Check True
+,Bool Symsign True
+,Bool Info True
+,Bool Thesis True
+,Bool Filter True
+,Bool Skipfail False
+,Bool Flat False
+,Bool Printgoal True
+,Bool Printreason False
+,Bool Printsection False
+,Bool Printcheck False
+,Bool Printprover False
+,Bool Printunfold False
+,Bool Printfulltask False
+,Bool OnlyTranslate True
+,Bool Unfoldlow True
+,Strings Synonym ["integer","integers"]
+,hypothesis Integers.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aInteger" (DB 0)))truth)).
+,,hypothesis IntZero.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("sz0")))("aInteger" (DB 0)))).
+,hypothesis IntOne.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("sz1")))("aInteger" (DB 0)))).
+,hypothesis IntNeg.
+  assume ("aInteger" "xa").
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("smndt" "xa")))("aInteger" (DB 0)))).
+,hypothesis IntPlus.
+  assume ( and ("aInteger" "xa")("aInteger" "xb")).
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("sdtpldt" "xa" "xb")))("aInteger" (DB 0)))).
+,hypothesis IntMult.
+  assume ( and ("aInteger" "xa")("aInteger" "xb")).
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("sdtasdt" "xa" "xb")))("aInteger" (DB 0)))).
+,,hypothesis AddAsso.
+  assume ( and ( and ("aInteger" "xa")("aInteger" "xb"))("aInteger" "xc")).
+  assume ("=" ("sdtpldt" "xa" ("sdtpldt" "xb" "xc")) ("sdtpldt" ("sdtpldt" "xa" "xb") "xc")).
+,hypothesis AddComm.
+  assume ( and ("aInteger" "xa")("aInteger" "xb")).
+  assume ("=" ("sdtpldt" "xa" "xb") ("sdtpldt" "xb" "xa")).
+,hypothesis AddZero.
+  assume ("aInteger" "xa").
+  assume ( and ("=" ("sdtpldt" "xa" ("sz0")) "xa")("=" "xa" ("sdtpldt" ("sz0") "xa"))).
+,hypothesis AddNeg.
+  assume ("aInteger" "xa").
+  assume ( and ("=" ("sdtpldt" "xa" ("smndt" "xa")) ("sz0"))("=" ("sz0") ("sdtpldt" ("smndt" "xa") "xa"))).
+,hypothesis MulAsso.
+  assume ( and ( and ("aInteger" "xa")("aInteger" "xb"))("aInteger" "xc")).
+  assume ("=" ("sdtasdt" "xa" ("sdtasdt" "xb" "xc")) ("sdtasdt" ("sdtasdt" "xa" "xb") "xc")).
+,hypothesis MulComm.
+  assume ( and ("aInteger" "xa")("aInteger" "xb")).
+  assume ("=" ("sdtasdt" "xa" "xb") ("sdtasdt" "xb" "xa")).
+,hypothesis MulOne.
+  assume ("aInteger" "xa").
+  assume ( and ("=" ("sdtasdt" "xa" ("sz1")) "xa")("=" "xa" ("sdtasdt" ("sz1") "xa"))).
+,hypothesis Distrib.
+  assume ( and ( and ("aInteger" "xa")("aInteger" "xb"))("aInteger" "xc")).
+  assume ( and ("=" ("sdtasdt" "xa" ("sdtpldt" "xb" "xc")) ("sdtpldt" ("sdtasdt" "xa" "xb") ("sdtasdt" "xa" "xc")))("=" ("sdtasdt" ("sdtpldt" "xa" "xb") "xc") ("sdtpldt" ("sdtasdt" "xa" "xc") ("sdtasdt" "xb" "xc")))).
+,conjecture MulZero.
+  assume ("aInteger" "xa").
+  ( and ("=" ("sdtasdt" "xa" ("sz0")) ("sz0"))("=" ("sz0") ("sdtasdt" ("sz0") "xa"))).
+,conjecture MulMinOne.
+  assume ("aInteger" "xa").
+  ( and ("=" ("sdtasdt" ("smndt" ("sz1")) "xa") ("smndt" "xa"))("=" ("smndt" "xa") ("sdtasdt" "xa" ("smndt" ("sz1"))))).
+,hypothesis ZeroDiv.
+  assume ( and ("aInteger" "xa")("aInteger" "xb")).
+  assume ( implies ( and (not ("=" "xa" ("sz0")))(not ("=" "xb" ("sz0"))))(not ("=" ("sdtasdt" "xa" "xb") ("sz0")))).
+,,,Strings Synonym ["divisor","divisors"]
+,Strings Synonym ["divide","divides"]
+,hypothesis Divisor.
+  assume ("aInteger" "xb").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aDivisorOf" (DB 0) "xb"))( and ("aInteger" (DB 0))( and (not ("=" (DB 0) ("sz0")))(exists (DB 0) ( and ("aInteger" (DB 0))("=" ("sdtasdt" (DB 1) (DB 0)) "xb"))))))).
+,,,hypothesis EquMod.
+  assume ( and ( and ("aInteger" "xa")("aInteger" "xb"))( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))).
+  assume ( iff (HeadTerm tag ("sdteqdtlpzmzozddtrp" "xa" "xb" "xq"))("aDivisorOf" "xq" ("sdtpldt" "xa" ("smndt" "xb")))).
+,conjecture EquModRef.
+  assume ( and ("aInteger" "xa")( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))).
+  ("sdteqdtlpzmzozddtrp" "xa" "xa" "xq").
+,Bool Ontored True
+,conjecture EquModSym.
+  assume ( and ( and ("aInteger" "xa")("aInteger" "xb"))( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))).
+  ( implies ("sdteqdtlpzmzozddtrp" "xa" "xb" "xq")("sdteqdtlpzmzozddtrp" "xb" "xa" "xq")).
+  proof.
+    assume ("sdteqdtlpzmzozddtrp" "xa" "xb" "xq").
+    ( and ("aInteger" "xn")("=" ("sdtasdt" "xq" "xn") ("sdtpldt" "xa" ("smndt" "xb")))).
+    (EqualityChain tag ("=" ("sdtasdt" "xq" ("smndt" "xn")) ("sdtasdt" ("smndt" ("sz1")) ("sdtpldt" "xa" ("smndt" "xb"))))).
+    proof.
+      (EqualityChain tag ("=" ("sdtasdt" "xq" ("smndt" "xn")) ("sdtasdt" ("smndt" ("sz1")) ("sdtasdt" "xq" "xn")))).
+      (EqualityChain tag ("=" ("sdtasdt" ("smndt" ("sz1")) ("sdtasdt" "xq" "xn")) ("sdtasdt" ("smndt" ("sz1")) ("sdtpldt" "xa" ("smndt" "xb"))))).
+    qed.
+  qed.
+,DropBool Ontored
+,conjecture EquModTrn.
+  assume ( and ( and ( and ("aInteger" "xa")("aInteger" "xb"))( and ("aInteger" "xq")(not ("=" "xq" ("sz0")))))("aInteger" "xc")).
+  ( implies ( and ("sdteqdtlpzmzozddtrp" "xa" "xb" "xq")("sdteqdtlpzmzozddtrp" "xb" "xc" "xq"))("sdteqdtlpzmzozddtrp" "xa" "xc" "xq")).
+  proof.
+    assume ( and ("sdteqdtlpzmzozddtrp" "xa" "xb" "xq")("sdteqdtlpzmzozddtrp" "xb" "xc" "xq")).
+    ( and ("aInteger" "xn")("=" ("sdtasdt" "xq" "xn") ("sdtpldt" "xa" ("smndt" "xb")))).
+    ( and ("aInteger" "xm")("=" ("sdtasdt" "xq" "xm") ("sdtpldt" "xb" ("smndt" "xc")))).
+    ("=" ("sdtasdt" "xq" ("sdtpldt" "xn" "xm")) ("sdtpldt" "xa" ("smndt" "xc"))).
+  qed.
+,conjecture EquModMul.
+  assume ( and ( and ( and ("aInteger" "xa")("aInteger" "xb"))( and ("aInteger" "xp")(not ("=" "xp" ("sz0")))))( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))).
+  ( implies ("sdteqdtlpzmzozddtrp" "xa" "xb" ("sdtasdt" "xp" "xq"))( and ("sdteqdtlpzmzozddtrp" "xa" "xb" "xp")("sdteqdtlpzmzozddtrp" "xa" "xb" "xq"))).
+  proof.
+    assume ("sdteqdtlpzmzozddtrp" "xa" "xb" ("sdtasdt" "xp" "xq")).
+    ( and ("aInteger" "xm")("=" ("sdtasdt" ("sdtasdt" "xp" "xq") "xm") ("sdtpldt" "xa" ("smndt" "xb")))).
+    ( and ("=" ("sdtasdt" "xp" ("sdtasdt" "xq" "xm")) ("sdtpldt" "xa" ("smndt" "xb")))("=" ("sdtpldt" "xa" ("smndt" "xb")) ("sdtasdt" "xq" ("sdtasdt" "xp" "xm")))).
+  qed.
+,hypothesis Prime.
+  assume ("aInteger" "xa").
+  assume ( implies (HeadTerm tag ("isPrime" "xa"))truth).
+,,hypothesis PrimeDivisor.
+  assume ("aInteger" "xn").
+  assume ( iff (exists (DB 0) ( and ("aDivisorOf" (DB 0) "xn")("isPrime" (DB 0))))( and (not ("=" "xn" ("sz1")))(not ("=" "xn" ("smndt" ("sz1")))))).
+,Strings Synonym ["belong","belongs"]
+,Strings Synonym ["subset","subsets"]
+,,,,hypothesis Subset.
+  assume ("aSet" "xS").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aSubsetOf" (DB 0) "xS"))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aElementOf" (DB 0) (DB 1))("aElementOf" (DB 0) "xS")))))).
+,,hypothesis FinSet.
+  assume ("aSet" "xS").
+  assume ( implies (HeadTerm tag ("isFinite" "xS"))truth).
+,,hypothesis.
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("szIzNzT")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) ("aInteger" (DB 0))))))).
+,,hypothesis Union.
+  assume ( and ("aSubsetOf" "xA" ("szIzNzT"))("aSubsetOf" "xB" ("szIzNzT"))).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("sdtbsmnsldt" "xA" "xB")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) (Replacement tag ( and ("aInteger" (DB 0))( or ("aElementOf" (DB 0) "xA")("aElementOf" (DB 0) "xB"))))))))).
+,hypothesis Intersection.
+  assume ( and ("aSubsetOf" "xA" ("szIzNzT"))("aSubsetOf" "xB" ("szIzNzT"))).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("sdtslmnbsdt" "xA" "xB")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) (Replacement tag ( and ("aInteger" (DB 0))( and ("aElementOf" (DB 0) "xA")("aElementOf" (DB 0) "xB"))))))))).
+,hypothesis IntegerSets.
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aFamilyOfIntegerSets" (DB 0)))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aElementOf" (DB 0) (DB 1))("aSubsetOf" (DB 0) ("szIzNzT"))))))).
+,hypothesis UnionSet.
+  assume ("aFamilyOfIntegerSets" "xS").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("sbsmnsldt" "xS")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) (Replacement tag ( and ("aInteger" (DB 0))(exists (DB 0) ( and ("aElementOf" (DB 0) "xS")("aElementOf" (DB 1) (DB 0))))))))))).
+,conjecture.
+  assume ("aFamilyOfIntegerSets" "xS").
+  ("aSubsetOf" ("sbsmnsldt" "xS") ("szIzNzT")).
+,hypothesis Complement.
+  assume ("aSubsetOf" "xA" ("szIzNzT")).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("stldt" "xA")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) (Replacement tag ( and ("aInteger" (DB 0))(not ("aElementOf" (DB 0) "xA"))))))))).
+,conjecture.
+  assume ("aSubsetOf" "xA" ("szIzNzT")).
+  ("aSubsetOf" ("stldt" "xA") ("szIzNzT")).
+,hypothesis ArSeq.
+  assume ( and ("aInteger" "xa")( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("szAzrzSzezqlpdtcmdtrp" "xa" "xq")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) (Replacement tag ( and ("aInteger" (DB 0))("sdteqdtlpzmzozddtrp" (DB 0) "xa" "xq")))))))).
+,hypothesis Open.
+  assume ("aSubsetOf" "xA" ("szIzNzT")).
+  assume ( iff (HeadTerm tag ("isOpen" "xA"))(forall (DB 0) ( implies ("aElementOf" (DB 0) "xA")(exists (DB 0) ( and ( and ("aInteger" (DB 0))(not ("=" (DB 0) ("sz0"))))("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" (DB 1) (DB 0)) "xA")))))).
+,hypothesis Closed.
+  assume ("aSubsetOf" "xA" ("szIzNzT")).
+  assume ( iff (HeadTerm tag ("isClosed" "xA"))("isOpen" ("stldt" "xA"))).
+,hypothesis OpenIntegerSets.
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aOpenFamily" (DB 0)))( and ("aFamilyOfIntegerSets" (DB 0))(forall (DB 0) ( implies ("aElementOf" (DB 0) (DB 1))("isOpen" (DB 0))))))).
+,conjecture UnionOpen.
+  assume ("aOpenFamily" "xS").
+  ("isOpen" ("sbsmnsldt" "xS")).
+  proof.
+    assume ("aElementOf" "xx" ("sbsmnsldt" "xS")).
+    ( and ("aSet" "xM")( and ("aElementOf" "xM" "xS")("aElementOf" "xx" "xM"))).
+    ( and ( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xx" "xq") "xM")).
+    ("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xx" "xq") ("sbsmnsldt" "xS")).
+  qed.
+,conjecture InterOpen.
+  assume ( and ( and ("aSubsetOf" "xA" ("szIzNzT"))("aSubsetOf" "xB" ("szIzNzT")))( and ("isOpen" "xA")("isOpen" "xB"))).
+  ( and ("aSubsetOf" ("sdtslmnbsdt" "xA" "xB") ("szIzNzT"))("isOpen" ("sdtslmnbsdt" "xA" "xB"))).
+  proof.
+    ("aSubsetOf" ("sdtslmnbsdt" "xA" "xB") ("szIzNzT")).
+    assume ("aElementOf" "xx" ("sdtslmnbsdt" "xA" "xB")).
+    ("aInteger" "xx").
+    ( and ( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xx" "xq") "xA")).
+    ( and ( and ("aInteger" "xp")(not ("=" "xp" ("sz0"))))("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xx" "xp") "xB")).
+    ( and ( and ("aInteger" ("sdtasdt" "xp" "xq"))(not ("=" ("sdtasdt" "xp" "xq") ("sz0"))))("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xx" ("sdtasdt" "xp" "xq")) ("sdtslmnbsdt" "xA" "xB"))).
+    proof.
+      ( and ("aInteger" ("sdtasdt" "xp" "xq"))(not ("=" ("sdtasdt" "xp" "xq") ("sz0")))).
+      assume ("aElementOf" "xa" ("szAzrzSzezqlpdtcmdtrp" "xx" ("sdtasdt" "xp" "xq"))).
+      ( and ("aElementOf" "xa" ("szAzrzSzezqlpdtcmdtrp" "xx" "xp"))("aElementOf" "xa" ("szAzrzSzezqlpdtcmdtrp" "xx" "xq"))).
+      proof.
+        ( and ("aInteger" "xx")("sdteqdtlpzmzozddtrp" "xa" "xx" ("sdtasdt" "xp" "xq"))).
+        ( and ("sdteqdtlpzmzozddtrp" "xa" "xx" "xp")("sdteqdtlpzmzozddtrp" "xa" "xx" "xq")).
+      qed.
+      ( and ("aElementOf" "xa" "xA")("aElementOf" "xa" "xB")).
+      ("aElementOf" "xa" ("sdtslmnbsdt" "xA" "xB")).
+    qed.
+  qed.
+,conjecture UnionClosed.
+  assume ( and ( and ("aSubsetOf" "xA" ("szIzNzT"))("aSubsetOf" "xB" ("szIzNzT")))( and ("isClosed" "xA")("isClosed" "xB"))).
+  ("isClosed" ("sdtbsmnsldt" "xA" "xB")).
+  proof.
+    ( and ("aSubsetOf" ("stldt" "xA") ("szIzNzT"))("aSubsetOf" ("stldt" "xB") ("szIzNzT"))).
+    ("=" ("stldt" ("sdtbsmnsldt" "xA" "xB")) ("sdtslmnbsdt" ("stldt" "xA") ("stldt" "xB"))).
+  qed.
+,hypothesis UnionSClosed.
+  assume ( and ("aFamilyOfIntegerSets" "xS")( and ("isFinite" "xS")(forall (DB 0) ( implies ("aElementOf" (DB 0) "xS")( and ("aSubsetOf" (DB 0) ("szIzNzT"))("isClosed" (DB 0))))))).
+  assume ("isClosed" ("sbsmnsldt" "xS")).
+,conjecture ArSeqClosed.
+  assume ( and ("aInteger" "xa")( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))).
+  ( and ("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xa" "xq") ("szIzNzT"))("isClosed" ("szAzrzSzezqlpdtcmdtrp" "xa" "xq"))).
+  proof.
+    ("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xa" "xq") ("szIzNzT")).
+    assume ("aElementOf" "xb" ("stldt" ("szAzrzSzezqlpdtcmdtrp" "xa" "xq"))).
+    ("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xb" "xq") ("stldt" ("szAzrzSzezqlpdtcmdtrp" "xa" "xq"))).
+    proof.
+      assume ("aElementOf" "xc" ("szAzrzSzezqlpdtcmdtrp" "xb" "xq")).
+      assume (not ("aElementOf" "xc" ("stldt" ("szAzrzSzezqlpdtcmdtrp" "xa" "xq")))).
+      ( and ("sdteqdtlpzmzozddtrp" "xc" "xb" "xq")("sdteqdtlpzmzozddtrp" "xa" "xc" "xq")).
+      ("sdteqdtlpzmzozddtrp" "xb" "xa" "xq").
+      ("aElementOf" "xb" ("szAzrzSzezqlpdtcmdtrp" "xa" "xq")).
+      contradiction.
+    qed.
+  qed.
+,conjecture Fuerstenberg.
+  assume ("aSet" "xS").
+  assume (forall (DB 0) ( iff ("aElementOf" (DB 0) "xS")(exists (DB 0) ( and ( and ("aInteger" (DB 0))( and (not ("=" (DB 0) ("sz0")))("isPrime" (DB 0))))("=" (DB 1) ("szAzrzSzezqlpdtcmdtrp" ("sz0") (DB 0))))))).
+  (not ("isFinite" "xS")).
+  proof.
+    ("aFamilyOfIntegerSets" "xS").
+    (forall (DB 0) ( iff ("aElementOf" (DB 0) ("stldt" ("sbsmnsldt" "xS")))( or ("=" (DB 0) ("sz1"))("=" (DB 0) ("smndt" ("sz1")))))).
+    proof.
+      (forall (DB 0) ( implies ("aInteger" (DB 0))( iff ("aElementOf" (DB 0) ("sbsmnsldt" "xS"))(exists (DB 0) ( and ("aDivisorOf" (DB 0) (DB 1))("isPrime" (DB 0))))))).
+      proof.
+        assume ("aInteger" "xn").
+        ( implies (exists (DB 0) ( and ("aDivisorOf" (DB 0) "xn")("isPrime" (DB 0))))("aElementOf" "xn" ("sbsmnsldt" "xS"))).
+        proof.
+          assume (exists (DB 0) ( and ("aDivisorOf" (DB 0) "xn")("isPrime" (DB 0)))).
+          ( and ("aDivisorOf" "xp" "xn")("isPrime" "xp")).
+          ("aElementOf" ("szAzrzSzezqlpdtcmdtrp" ("sz0") "xp") "xS").
+          ("aElementOf" "xn" ("szAzrzSzezqlpdtcmdtrp" ("sz0") "xp")).
+        qed.
+        ( implies ("aElementOf" "xn" ("sbsmnsldt" "xS"))(exists (DB 0) ( and ("aDivisorOf" (DB 0) "xn")("isPrime" (DB 0))))).
+        proof.
+          assume ("aElementOf" "xn" ("sbsmnsldt" "xS")).
+          ( and ( and ("aInteger" "xr")( and (not ("=" "xr" ("sz0")))("isPrime" "xr")))("aElementOf" "xn" ("szAzrzSzezqlpdtcmdtrp" ("sz0") "xr"))).
+          ( and ("aDivisorOf" "xr" "xn")("isPrime" "xr")).
+        qed.
+      qed.
+    qed.
+    assume ("isFinite" "xS").
+    ( and ("isClosed" ("sbsmnsldt" "xS"))("isOpen" ("stldt" ("sbsmnsldt" "xS")))).
+    ( and ( and ("aInteger" "xp")(not ("=" "xp" ("sz0"))))("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" ("sz1") "xp") ("stldt" ("sbsmnsldt" "xS")))).
+    (exists (DB 0) ( and ("aElementOf" (DB 0) ("szAzrzSzezqlpdtcmdtrp" ("sz1") "xp"))( and (not ("=" (DB 0) ("sz1")))(not ("=" (DB 0) ("smndt" ("sz1"))))))).
+    proof.
+      ( and ("aElementOf" ("sdtpldt" ("sz1") "xp") ("szAzrzSzezqlpdtcmdtrp" ("sz1") "xp"))("aElementOf" ("sdtpldt" ("sz1") ("smndt" "xp")) ("szAzrzSzezqlpdtcmdtrp" ("sz1") "xp"))).
+      ( and (not ("=" ("sdtpldt" ("sz1") "xp") ("sz1")))(not ("=" ("sdtpldt" ("sz1") ("smndt" "xp")) ("sz1")))).
+      ( or (not ("=" ("sdtpldt" ("sz1") "xp") ("smndt" ("sz1"))))(not ("=" ("sdtpldt" ("sz1") ("smndt" "xp")) ("smndt" ("sz1"))))).
+    qed.
+    contradiction.
+  qed.
+]
+[Main] typeOf: [Char] -> [Text] -> IO [Text]
+hypothesis Integers.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aInteger" (DB 0)))truth)).
+
+hypothesis IntZero.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("sz0")))("aInteger" (DB 0)))).
+
+hypothesis IntOne.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("sz1")))("aInteger" (DB 0)))).
+
+hypothesis IntNeg.
+  assume ("aInteger" "xa").
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("smndt" "xa")))("aInteger" (DB 0)))).
+
+hypothesis IntPlus.
+  assume ( and ("aInteger" "xa")("aInteger" "xb")).
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("sdtpldt" "xa" "xb")))("aInteger" (DB 0)))).
+
+hypothesis IntMult.
+  assume ( and ("aInteger" "xa")("aInteger" "xb")).
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("sdtasdt" "xa" "xb")))("aInteger" (DB 0)))).
+
+hypothesis AddAsso.
+  assume ( and ( and ("aInteger" "xa")("aInteger" "xb"))("aInteger" "xc")).
+  assume ("=" ("sdtpldt" "xa" ("sdtpldt" "xb" "xc")) ("sdtpldt" ("sdtpldt" "xa" "xb") "xc")).
+
+hypothesis AddComm.
+  assume ( and ("aInteger" "xa")("aInteger" "xb")).
+  assume ("=" ("sdtpldt" "xa" "xb") ("sdtpldt" "xb" "xa")).
+
+hypothesis AddZero.
+  assume ("aInteger" "xa").
+  assume ( and ("=" ("sdtpldt" "xa" ("sz0")) "xa")("=" "xa" ("sdtpldt" ("sz0") "xa"))).
+
+hypothesis AddNeg.
+  assume ("aInteger" "xa").
+  assume ( and ("=" ("sdtpldt" "xa" ("smndt" "xa")) ("sz0"))("=" ("sz0") ("sdtpldt" ("smndt" "xa") "xa"))).
+
+hypothesis MulAsso.
+  assume ( and ( and ("aInteger" "xa")("aInteger" "xb"))("aInteger" "xc")).
+  assume ("=" ("sdtasdt" "xa" ("sdtasdt" "xb" "xc")) ("sdtasdt" ("sdtasdt" "xa" "xb") "xc")).
+
+hypothesis MulComm.
+  assume ( and ("aInteger" "xa")("aInteger" "xb")).
+  assume ("=" ("sdtasdt" "xa" "xb") ("sdtasdt" "xb" "xa")).
+
+hypothesis MulOne.
+  assume ("aInteger" "xa").
+  assume ( and ("=" ("sdtasdt" "xa" ("sz1")) "xa")("=" "xa" ("sdtasdt" ("sz1") "xa"))).
+
+hypothesis Distrib.
+  assume ( and ( and ("aInteger" "xa")("aInteger" "xb"))("aInteger" "xc")).
+  assume ( and ("=" ("sdtasdt" "xa" ("sdtpldt" "xb" "xc")) ("sdtpldt" ("sdtasdt" "xa" "xb") ("sdtasdt" "xa" "xc")))("=" ("sdtasdt" ("sdtpldt" "xa" "xb") "xc") ("sdtpldt" ("sdtasdt" "xa" "xc") ("sdtasdt" "xb" "xc")))).
+
+conjecture MulZero.
+  assume ("aInteger" "xa").
+  ( and ("=" ("sdtasdt" "xa" ("sz0")) ("sz0"))("=" ("sz0") ("sdtasdt" ("sz0") "xa"))).
+
+conjecture MulMinOne.
+  assume ("aInteger" "xa").
+  ( and ("=" ("sdtasdt" ("smndt" ("sz1")) "xa") ("smndt" "xa"))("=" ("smndt" "xa") ("sdtasdt" "xa" ("smndt" ("sz1"))))).
+
+hypothesis ZeroDiv.
+  assume ( and ("aInteger" "xa")("aInteger" "xb")).
+  assume ( implies ( and (not ("=" "xa" ("sz0")))(not ("=" "xb" ("sz0"))))(not ("=" ("sdtasdt" "xa" "xb") ("sz0")))).
+
+hypothesis Divisor.
+  assume ("aInteger" "xb").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aDivisorOf" (DB 0) "xb"))( and ("aInteger" (DB 0))( and (not ("=" (DB 0) ("sz0")))(exists (DB 0) ( and ("aInteger" (DB 0))("=" ("sdtasdt" (DB 1) (DB 0)) "xb"))))))).
+
+hypothesis EquMod.
+  assume ( and ( and ("aInteger" "xa")("aInteger" "xb"))( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))).
+  assume ( iff (HeadTerm tag ("sdteqdtlpzmzozddtrp" "xa" "xb" "xq"))("aDivisorOf" "xq" ("sdtpldt" "xa" ("smndt" "xb")))).
+
+conjecture EquModRef.
+  assume ( and ("aInteger" "xa")( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))).
+  ("sdteqdtlpzmzozddtrp" "xa" "xa" "xq").
+
+conjecture EquModSym.
+  assume ( and ( and ("aInteger" "xa")("aInteger" "xb"))( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))).
+  ( implies ("sdteqdtlpzmzozddtrp" "xa" "xb" "xq")("sdteqdtlpzmzozddtrp" "xb" "xa" "xq")).
+  proof.
+    assume ("sdteqdtlpzmzozddtrp" "xa" "xb" "xq").
+    ( and ("aInteger" "xn")("=" ("sdtasdt" "xq" "xn") ("sdtpldt" "xa" ("smndt" "xb")))).
+    (EqualityChain tag ("=" ("sdtasdt" "xq" ("smndt" "xn")) ("sdtasdt" ("smndt" ("sz1")) ("sdtpldt" "xa" ("smndt" "xb"))))).
+    proof.
+      (EqualityChain tag ("=" ("sdtasdt" "xq" ("smndt" "xn")) ("sdtasdt" ("smndt" ("sz1")) ("sdtasdt" "xq" "xn")))).
+      (EqualityChain tag ("=" ("sdtasdt" ("smndt" ("sz1")) ("sdtasdt" "xq" "xn")) ("sdtasdt" ("smndt" ("sz1")) ("sdtpldt" "xa" ("smndt" "xb"))))).
+    qed.
+  qed.
+
+conjecture EquModTrn.
+  assume ( and ( and ( and ("aInteger" "xa")("aInteger" "xb"))( and ("aInteger" "xq")(not ("=" "xq" ("sz0")))))("aInteger" "xc")).
+  ( implies ( and ("sdteqdtlpzmzozddtrp" "xa" "xb" "xq")("sdteqdtlpzmzozddtrp" "xb" "xc" "xq"))("sdteqdtlpzmzozddtrp" "xa" "xc" "xq")).
+  proof.
+    assume ( and ("sdteqdtlpzmzozddtrp" "xa" "xb" "xq")("sdteqdtlpzmzozddtrp" "xb" "xc" "xq")).
+    ( and ("aInteger" "xn")("=" ("sdtasdt" "xq" "xn") ("sdtpldt" "xa" ("smndt" "xb")))).
+    ( and ("aInteger" "xm")("=" ("sdtasdt" "xq" "xm") ("sdtpldt" "xb" ("smndt" "xc")))).
+    ("=" ("sdtasdt" "xq" ("sdtpldt" "xn" "xm")) ("sdtpldt" "xa" ("smndt" "xc"))).
+  qed.
+
+conjecture EquModMul.
+  assume ( and ( and ( and ("aInteger" "xa")("aInteger" "xb"))( and ("aInteger" "xp")(not ("=" "xp" ("sz0")))))( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))).
+  ( implies ("sdteqdtlpzmzozddtrp" "xa" "xb" ("sdtasdt" "xp" "xq"))( and ("sdteqdtlpzmzozddtrp" "xa" "xb" "xp")("sdteqdtlpzmzozddtrp" "xa" "xb" "xq"))).
+  proof.
+    assume ("sdteqdtlpzmzozddtrp" "xa" "xb" ("sdtasdt" "xp" "xq")).
+    ( and ("aInteger" "xm")("=" ("sdtasdt" ("sdtasdt" "xp" "xq") "xm") ("sdtpldt" "xa" ("smndt" "xb")))).
+    ( and ("=" ("sdtasdt" "xp" ("sdtasdt" "xq" "xm")) ("sdtpldt" "xa" ("smndt" "xb")))("=" ("sdtpldt" "xa" ("smndt" "xb")) ("sdtasdt" "xq" ("sdtasdt" "xp" "xm")))).
+  qed.
+
+hypothesis Prime.
+  assume ("aInteger" "xa").
+  assume ( implies (HeadTerm tag ("isPrime" "xa"))truth).
+
+hypothesis PrimeDivisor.
+  assume ("aInteger" "xn").
+  assume ( iff (exists (DB 0) ( and ("aDivisorOf" (DB 0) "xn")("isPrime" (DB 0))))( and (not ("=" "xn" ("sz1")))(not ("=" "xn" ("smndt" ("sz1")))))).
+
+hypothesis Subset.
+  assume ("aSet" "xS").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aSubsetOf" (DB 0) "xS"))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aElementOf" (DB 0) (DB 1))("aElementOf" (DB 0) "xS")))))).
+
+hypothesis FinSet.
+  assume ("aSet" "xS").
+  assume ( implies (HeadTerm tag ("isFinite" "xS"))truth).
+
+hypothesis.
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("szIzNzT")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) ("aInteger" (DB 0))))))).
+
+hypothesis Union.
+  assume ( and ("aSubsetOf" "xA" ("szIzNzT"))("aSubsetOf" "xB" ("szIzNzT"))).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("sdtbsmnsldt" "xA" "xB")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) (Replacement tag ( and ("aInteger" (DB 0))( or ("aElementOf" (DB 0) "xA")("aElementOf" (DB 0) "xB"))))))))).
+
+hypothesis Intersection.
+  assume ( and ("aSubsetOf" "xA" ("szIzNzT"))("aSubsetOf" "xB" ("szIzNzT"))).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("sdtslmnbsdt" "xA" "xB")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) (Replacement tag ( and ("aInteger" (DB 0))( and ("aElementOf" (DB 0) "xA")("aElementOf" (DB 0) "xB"))))))))).
+
+hypothesis IntegerSets.
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aFamilyOfIntegerSets" (DB 0)))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aElementOf" (DB 0) (DB 1))("aSubsetOf" (DB 0) ("szIzNzT"))))))).
+
+hypothesis UnionSet.
+  assume ("aFamilyOfIntegerSets" "xS").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("sbsmnsldt" "xS")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) (Replacement tag ( and ("aInteger" (DB 0))(exists (DB 0) ( and ("aElementOf" (DB 0) "xS")("aElementOf" (DB 1) (DB 0))))))))))).
+
+conjecture.
+  assume ("aFamilyOfIntegerSets" "xS").
+  ("aSubsetOf" ("sbsmnsldt" "xS") ("szIzNzT")).
+
+hypothesis Complement.
+  assume ("aSubsetOf" "xA" ("szIzNzT")).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("stldt" "xA")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) (Replacement tag ( and ("aInteger" (DB 0))(not ("aElementOf" (DB 0) "xA"))))))))).
+
+conjecture.
+  assume ("aSubsetOf" "xA" ("szIzNzT")).
+  ("aSubsetOf" ("stldt" "xA") ("szIzNzT")).
+
+hypothesis ArSeq.
+  assume ( and ("aInteger" "xa")( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("szAzrzSzezqlpdtcmdtrp" "xa" "xq")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) (Replacement tag ( and ("aInteger" (DB 0))("sdteqdtlpzmzozddtrp" (DB 0) "xa" "xq")))))))).
+
+hypothesis Open.
+  assume ("aSubsetOf" "xA" ("szIzNzT")).
+  assume ( iff (HeadTerm tag ("isOpen" "xA"))(forall (DB 0) ( implies ("aElementOf" (DB 0) "xA")(exists (DB 0) ( and ( and ("aInteger" (DB 0))(not ("=" (DB 0) ("sz0"))))("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" (DB 1) (DB 0)) "xA")))))).
+
+hypothesis Closed.
+  assume ("aSubsetOf" "xA" ("szIzNzT")).
+  assume ( iff (HeadTerm tag ("isClosed" "xA"))("isOpen" ("stldt" "xA"))).
+
+hypothesis OpenIntegerSets.
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aOpenFamily" (DB 0)))( and ("aFamilyOfIntegerSets" (DB 0))(forall (DB 0) ( implies ("aElementOf" (DB 0) (DB 1))("isOpen" (DB 0))))))).
+
+conjecture UnionOpen.
+  assume ("aOpenFamily" "xS").
+  ("isOpen" ("sbsmnsldt" "xS")).
+  proof.
+    assume ("aElementOf" "xx" ("sbsmnsldt" "xS")).
+    ( and ("aSet" "xM")( and ("aElementOf" "xM" "xS")("aElementOf" "xx" "xM"))).
+    ( and ( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xx" "xq") "xM")).
+    ("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xx" "xq") ("sbsmnsldt" "xS")).
+  qed.
+
+conjecture InterOpen.
+  assume ( and ( and ("aSubsetOf" "xA" ("szIzNzT"))("aSubsetOf" "xB" ("szIzNzT")))( and ("isOpen" "xA")("isOpen" "xB"))).
+  ( and ("aSubsetOf" ("sdtslmnbsdt" "xA" "xB") ("szIzNzT"))("isOpen" ("sdtslmnbsdt" "xA" "xB"))).
+  proof.
+    ("aSubsetOf" ("sdtslmnbsdt" "xA" "xB") ("szIzNzT")).
+    assume ("aElementOf" "xx" ("sdtslmnbsdt" "xA" "xB")).
+    ("aInteger" "xx").
+    ( and ( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xx" "xq") "xA")).
+    ( and ( and ("aInteger" "xp")(not ("=" "xp" ("sz0"))))("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xx" "xp") "xB")).
+    ( and ( and ("aInteger" ("sdtasdt" "xp" "xq"))(not ("=" ("sdtasdt" "xp" "xq") ("sz0"))))("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xx" ("sdtasdt" "xp" "xq")) ("sdtslmnbsdt" "xA" "xB"))).
+    proof.
+      ( and ("aInteger" ("sdtasdt" "xp" "xq"))(not ("=" ("sdtasdt" "xp" "xq") ("sz0")))).
+      assume ("aElementOf" "xa" ("szAzrzSzezqlpdtcmdtrp" "xx" ("sdtasdt" "xp" "xq"))).
+      ( and ("aElementOf" "xa" ("szAzrzSzezqlpdtcmdtrp" "xx" "xp"))("aElementOf" "xa" ("szAzrzSzezqlpdtcmdtrp" "xx" "xq"))).
+      proof.
+        ( and ("aInteger" "xx")("sdteqdtlpzmzozddtrp" "xa" "xx" ("sdtasdt" "xp" "xq"))).
+        ( and ("sdteqdtlpzmzozddtrp" "xa" "xx" "xp")("sdteqdtlpzmzozddtrp" "xa" "xx" "xq")).
+      qed.
+      ( and ("aElementOf" "xa" "xA")("aElementOf" "xa" "xB")).
+      ("aElementOf" "xa" ("sdtslmnbsdt" "xA" "xB")).
+    qed.
+  qed.
+
+conjecture UnionClosed.
+  assume ( and ( and ("aSubsetOf" "xA" ("szIzNzT"))("aSubsetOf" "xB" ("szIzNzT")))( and ("isClosed" "xA")("isClosed" "xB"))).
+  ("isClosed" ("sdtbsmnsldt" "xA" "xB")).
+  proof.
+    ( and ("aSubsetOf" ("stldt" "xA") ("szIzNzT"))("aSubsetOf" ("stldt" "xB") ("szIzNzT"))).
+    ("=" ("stldt" ("sdtbsmnsldt" "xA" "xB")) ("sdtslmnbsdt" ("stldt" "xA") ("stldt" "xB"))).
+  qed.
+
+hypothesis UnionSClosed.
+  assume ( and ("aFamilyOfIntegerSets" "xS")( and ("isFinite" "xS")(forall (DB 0) ( implies ("aElementOf" (DB 0) "xS")( and ("aSubsetOf" (DB 0) ("szIzNzT"))("isClosed" (DB 0))))))).
+  assume ("isClosed" ("sbsmnsldt" "xS")).
+
+conjecture ArSeqClosed.
+  assume ( and ("aInteger" "xa")( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))).
+  ( and ("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xa" "xq") ("szIzNzT"))("isClosed" ("szAzrzSzezqlpdtcmdtrp" "xa" "xq"))).
+  proof.
+    ("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xa" "xq") ("szIzNzT")).
+    assume ("aElementOf" "xb" ("stldt" ("szAzrzSzezqlpdtcmdtrp" "xa" "xq"))).
+    ("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xb" "xq") ("stldt" ("szAzrzSzezqlpdtcmdtrp" "xa" "xq"))).
+    proof.
+      assume ("aElementOf" "xc" ("szAzrzSzezqlpdtcmdtrp" "xb" "xq")).
+      assume (not ("aElementOf" "xc" ("stldt" ("szAzrzSzezqlpdtcmdtrp" "xa" "xq")))).
+      ( and ("sdteqdtlpzmzozddtrp" "xc" "xb" "xq")("sdteqdtlpzmzozddtrp" "xa" "xc" "xq")).
+      ("sdteqdtlpzmzozddtrp" "xb" "xa" "xq").
+      ("aElementOf" "xb" ("szAzrzSzezqlpdtcmdtrp" "xa" "xq")).
+      contradiction.
+    qed.
+  qed.
+
+conjecture Fuerstenberg.
+  assume ("aSet" "xS").
+  assume (forall (DB 0) ( iff ("aElementOf" (DB 0) "xS")(exists (DB 0) ( and ( and ("aInteger" (DB 0))( and (not ("=" (DB 0) ("sz0")))("isPrime" (DB 0))))("=" (DB 1) ("szAzrzSzezqlpdtcmdtrp" ("sz0") (DB 0))))))).
+  (not ("isFinite" "xS")).
+  proof.
+    ("aFamilyOfIntegerSets" "xS").
+    (forall (DB 0) ( iff ("aElementOf" (DB 0) ("stldt" ("sbsmnsldt" "xS")))( or ("=" (DB 0) ("sz1"))("=" (DB 0) ("smndt" ("sz1")))))).
+    proof.
+      (forall (DB 0) ( implies ("aInteger" (DB 0))( iff ("aElementOf" (DB 0) ("sbsmnsldt" "xS"))(exists (DB 0) ( and ("aDivisorOf" (DB 0) (DB 1))("isPrime" (DB 0))))))).
+      proof.
+        assume ("aInteger" "xn").
+        ( implies (exists (DB 0) ( and ("aDivisorOf" (DB 0) "xn")("isPrime" (DB 0))))("aElementOf" "xn" ("sbsmnsldt" "xS"))).
+        proof.
+          assume (exists (DB 0) ( and ("aDivisorOf" (DB 0) "xn")("isPrime" (DB 0)))).
+          ( and ("aDivisorOf" "xp" "xn")("isPrime" "xp")).
+          ("aElementOf" ("szAzrzSzezqlpdtcmdtrp" ("sz0") "xp") "xS").
+          ("aElementOf" "xn" ("szAzrzSzezqlpdtcmdtrp" ("sz0") "xp")).
+        qed.
+        ( implies ("aElementOf" "xn" ("sbsmnsldt" "xS"))(exists (DB 0) ( and ("aDivisorOf" (DB 0) "xn")("isPrime" (DB 0))))).
+        proof.
+          assume ("aElementOf" "xn" ("sbsmnsldt" "xS")).
+          ( and ( and ("aInteger" "xr")( and (not ("=" "xr" ("sz0")))("isPrime" "xr")))("aElementOf" "xn" ("szAzrzSzezqlpdtcmdtrp" ("sz0") "xr"))).
+          ( and ("aDivisorOf" "xr" "xn")("isPrime" "xr")).
+        qed.
+      qed.
+    qed.
+    assume ("isFinite" "xS").
+    ( and ("isClosed" ("sbsmnsldt" "xS"))("isOpen" ("stldt" ("sbsmnsldt" "xS")))).
+    ( and ( and ("aInteger" "xp")(not ("=" "xp" ("sz0"))))("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" ("sz1") "xp") ("stldt" ("sbsmnsldt" "xS")))).
+    (exists (DB 0) ( and ("aElementOf" (DB 0) ("szAzrzSzezqlpdtcmdtrp" ("sz1") "xp"))( and (not ("=" (DB 0) ("sz1")))(not ("=" (DB 0) ("smndt" ("sz1"))))))).
+    proof.
+      ( and ("aElementOf" ("sdtpldt" ("sz1") "xp") ("szAzrzSzezqlpdtcmdtrp" ("sz1") "xp"))("aElementOf" ("sdtpldt" ("sz1") ("smndt" "xp")) ("szAzrzSzezqlpdtcmdtrp" ("sz1") "xp"))).
+      ( and (not ("=" ("sdtpldt" ("sz1") "xp") ("sz1")))(not ("=" ("sdtpldt" ("sz1") ("smndt" "xp")) ("sz1")))).
+      ( or (not ("=" ("sdtpldt" ("sz1") "xp") ("smndt" ("sz1"))))(not ("=" ("sdtpldt" ("sz1") ("smndt" "xp")) ("smndt" ("sz1"))))).
+    qed.
+    contradiction.
+  qed.
+
+[Main] total 00:00.31
+[Parser] "examples/newman.ftl"
+parsing successful
+[Main] String: examples
+[Main] text0: [String Library "examples"
+,String Provers "provers.dat"
+,String Prover "eprover"
+,Int Timelimit 3
+,Int Depthlimit 7
+,Int Checktime 1
+,Int Checkdepth 3
+,Bool Prove True
+,Bool Check True
+,Bool Symsign True
+,Bool Info True
+,Bool Thesis True
+,Bool Filter True
+,Bool Skipfail False
+,Bool Flat False
+,Bool Printgoal True
+,Bool Printreason False
+,Bool Printsection False
+,Bool Printcheck False
+,Bool Printprover False
+,Bool Printunfold False
+,Bool Printfulltask False
+,Bool OnlyTranslate True
+,String File "examples/newman.ftl"
+]
+[Main] text1: [String Library "examples"
+,String Provers "provers.dat"
+,String Prover "eprover"
+,Int Timelimit 3
+,Int Depthlimit 7
+,Int Checktime 1
+,Int Checkdepth 3
+,Bool Prove True
+,Bool Check True
+,Bool Symsign True
+,Bool Info True
+,Bool Thesis True
+,Bool Filter True
+,Bool Skipfail False
+,Bool Flat False
+,Bool Printgoal True
+,Bool Printreason False
+,Bool Printsection False
+,Bool Printcheck False
+,Bool Printprover False
+,Bool Printunfold False
+,Bool Printfulltask False
+,Bool OnlyTranslate True
+,Strings Synonym ["element","elements"]
+,Strings Synonym ["system","systems"]
+,Strings Synonym ["reduct","reducts"]
+,hypothesis ElmSort.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aElement" (DB 0)))truth)).
+,hypothesis RelSort.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aRewritingSystem" (DB 0)))truth)).
+,,,hypothesis Reduct.
+  assume ( and ("aElement" "xx")("aRewritingSystem" "xR")).
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aReductOfIn" (DB 0) "xx" "xR"))("aElement" (DB 0)))).
+,,hypothesis.
+  assume ( and ( and ("aElement" "xx")("aRewritingSystem" "xR"))("aElement" "xy")).
+  assume ( implies (HeadTerm tag ("sdtmndtplgtdt" "xx" "xR" "xy"))truth).
+,hypothesis TCDef.
+  assume ( and ( and ("aElement" "xx")("aRewritingSystem" "xR"))("aElement" "xy")).
+  assume ( iff ("sdtmndtplgtdt" "xx" "xR" "xy")( or ("aReductOfIn" "xy" "xx" "xR")(exists (DB 0) ( and ("aElement" (DB 0))( and ("aReductOfIn" (DB 0) "xx" "xR")("sdtmndtplgtdt" (DB 0) "xR" "xy")))))).
+,hypothesis TCTrans.
+  assume ( and ( and ( and ("aElement" "xx")("aRewritingSystem" "xR"))("aElement" "xy"))("aElement" "xz")).
+  assume ( implies ( and ("sdtmndtplgtdt" "xx" "xR" "xy")("sdtmndtplgtdt" "xy" "xR" "xz"))("sdtmndtplgtdt" "xx" "xR" "xz")).
+,hypothesis TCRDef.
+  assume ( and ( and ("aElement" "xx")("aRewritingSystem" "xR"))("aElement" "xy")).
+  assume ( iff (HeadTerm tag ("sdtmndtasgtdt" "xx" "xR" "xy"))( or ("=" "xx" "xy")("sdtmndtplgtdt" "xx" "xR" "xy"))).
+,conjecture TCRTrans.
+  assume ( and ( and ( and ("aElement" "xx")("aRewritingSystem" "xR"))("aElement" "xy"))("aElement" "xz")).
+  ( implies ( and ("sdtmndtasgtdt" "xx" "xR" "xy")("sdtmndtasgtdt" "xy" "xR" "xz"))("sdtmndtasgtdt" "xx" "xR" "xz")).
+,hypothesis CRDef.
+  assume ("aRewritingSystem" "xR").
+  assume ( iff (HeadTerm tag ("isConfluent" "xR"))(forall (DB 0) (forall (DB 0) (forall (DB 0) ( implies ( and ( and ( and ("aElement" (DB 2))("aElement" (DB 1)))("aElement" (DB 0)))( and ("sdtmndtasgtdt" (DB 2) "xR" (DB 1))("sdtmndtasgtdt" (DB 2) "xR" (DB 0))))(exists (DB 0) ( and ("aElement" (DB 0))( and ("sdtmndtasgtdt" (DB 2) "xR" (DB 0))("sdtmndtasgtdt" (DB 1) "xR" (DB 0)))))))))).
+,hypothesis WCRDef.
+  assume ("aRewritingSystem" "xR").
+  assume ( iff (HeadTerm tag ("isLocallyConfluent" "xR"))(forall (DB 0) (forall (DB 0) (forall (DB 0) ( implies ( and ( and ( and ("aElement" (DB 2))("aElement" (DB 1)))("aElement" (DB 0)))( and ("aReductOfIn" (DB 1) (DB 2) "xR")("aReductOfIn" (DB 0) (DB 2) "xR")))(exists (DB 0) ( and ("aElement" (DB 0))( and ("sdtmndtasgtdt" (DB 2) "xR" (DB 0))("sdtmndtasgtdt" (DB 1) "xR" (DB 0)))))))))).
+,hypothesis Termin.
+  assume ("aRewritingSystem" "xR").
+  assume ( iff (HeadTerm tag ("isTerminating" "xR"))(forall (DB 0) (forall (DB 0) ( implies ( and ("aElement" (DB 1))("aElement" (DB 0)))( implies ("sdtmndtplgtdt" (DB 1) "xR" (DB 0))("iLess" (DB 0) (DB 1))))))).
+,hypothesis NFRDef.
+  assume ( and ("aElement" "xx")("aRewritingSystem" "xR")).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aNormalFormOfIn" (DB 0) "xx" "xR"))( and ("aElement" (DB 0))( and ("sdtmndtasgtdt" "xx" "xR" (DB 0))(not (exists (DB 0) ("aReductOfIn" (DB 0) (DB 1) "xR"))))))).
+,conjecture TermNF.
+  assume ( and ("aRewritingSystem" "xR")("isTerminating" "xR")).
+  (forall (DB 0) ( implies ("aElement" (DB 0))( implies (InductionHypothesis tag (forall (DB 0) ( implies ("aElement" (DB 0))( implies ("iLess" (DB 0) (DB 1))(exists (DB 0) ("aNormalFormOfIn" (DB 0) (DB 1) "xR"))))))(exists (DB 0) ("aNormalFormOfIn" (DB 0) (DB 1) "xR"))))).
+,conjecture Newman.
+  (forall (DB 0) ( implies ( and ("aRewritingSystem" (DB 0))( and ("isTerminating" (DB 0))("isLocallyConfluent" (DB 0))))("isConfluent" (DB 0)))).
+  proof.
+    assume ("aRewritingSystem" "xR").
+    assume ( and ("isLocallyConfluent" "xR")("isTerminating" "xR")).
+    (forall (DB 0) (forall (DB 0) (forall (DB 0) ( implies ( and ( and ( and ("aElement" (DB 2))("aElement" (DB 1)))("aElement" (DB 0)))( and ("sdtmndtasgtdt" (DB 2) "xR" (DB 1))("sdtmndtasgtdt" (DB 2) "xR" (DB 0))))( implies (InductionHypothesis tag (forall (DB 0) (forall (DB 0) (forall (DB 0) ( implies ( and ( and ( and ("aElement" (DB 2))("aElement" (DB 1)))("aElement" (DB 0)))( and ("sdtmndtasgtdt" (DB 2) "xR" (DB 1))("sdtmndtasgtdt" (DB 2) "xR" (DB 0))))( implies ("iLess" (DB 2) (DB 5))(exists (DB 0) ( and ("aElement" (DB 0))( and ("sdtmndtasgtdt" (DB 2) "xR" (DB 0))("sdtmndtasgtdt" (DB 1) "xR" (DB 0)))))))))))(exists (DB 0) ( and ("aElement" (DB 0))( and ("sdtmndtasgtdt" (DB 2) "xR" (DB 0))("sdtmndtasgtdt" (DB 1) "xR" (DB 0)))))))))).
+    proof.
+      assume ( and ( and ("aElement" "xa")("aElement" "xb"))("aElement" "xc")).
+      assume ( and ("sdtmndtplgtdt" "xa" "xR" "xb")("sdtmndtplgtdt" "xa" "xR" "xc")).
+      ( and ("aElement" "xu")( and ("aReductOfIn" "xu" "xa" "xR")("sdtmndtasgtdt" "xu" "xR" "xb"))).
+      ( and ("aElement" "xv")( and ("aReductOfIn" "xv" "xa" "xR")("sdtmndtasgtdt" "xv" "xR" "xc"))).
+      ( and ("aElement" "xw")( and ("sdtmndtasgtdt" "xu" "xR" "xw")("sdtmndtasgtdt" "xv" "xR" "xw"))).
+      ("aNormalFormOfIn" "xd" "xw" "xR").
+      ("sdtmndtasgtdt" "xb" "xR" "xd").
+      proof.
+        ( and ("aElement" "xx")( and ("sdtmndtasgtdt" "xb" "xR" "xx")("sdtmndtasgtdt" "xd" "xR" "xx"))).
+      qed.
+      ("sdtmndtasgtdt" "xc" "xR" "xd").
+      proof.
+        ( and ("aElement" "xy")( and ("sdtmndtasgtdt" "xc" "xR" "xy")("sdtmndtasgtdt" "xd" "xR" "xy"))).
+      qed.
+    qed.
+  qed.
+]
+[Main] typeOf: [Char] -> [Text] -> IO [Text]
+hypothesis ElmSort.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aElement" (DB 0)))truth)).
+
+hypothesis RelSort.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aRewritingSystem" (DB 0)))truth)).
+
+hypothesis Reduct.
+  assume ( and ("aElement" "xx")("aRewritingSystem" "xR")).
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aReductOfIn" (DB 0) "xx" "xR"))("aElement" (DB 0)))).
+
+hypothesis.
+  assume ( and ( and ("aElement" "xx")("aRewritingSystem" "xR"))("aElement" "xy")).
+  assume ( implies (HeadTerm tag ("sdtmndtplgtdt" "xx" "xR" "xy"))truth).
+
+hypothesis TCDef.
+  assume ( and ( and ("aElement" "xx")("aRewritingSystem" "xR"))("aElement" "xy")).
+  assume ( iff ("sdtmndtplgtdt" "xx" "xR" "xy")( or ("aReductOfIn" "xy" "xx" "xR")(exists (DB 0) ( and ("aElement" (DB 0))( and ("aReductOfIn" (DB 0) "xx" "xR")("sdtmndtplgtdt" (DB 0) "xR" "xy")))))).
+
+hypothesis TCTrans.
+  assume ( and ( and ( and ("aElement" "xx")("aRewritingSystem" "xR"))("aElement" "xy"))("aElement" "xz")).
+  assume ( implies ( and ("sdtmndtplgtdt" "xx" "xR" "xy")("sdtmndtplgtdt" "xy" "xR" "xz"))("sdtmndtplgtdt" "xx" "xR" "xz")).
+
+hypothesis TCRDef.
+  assume ( and ( and ("aElement" "xx")("aRewritingSystem" "xR"))("aElement" "xy")).
+  assume ( iff (HeadTerm tag ("sdtmndtasgtdt" "xx" "xR" "xy"))( or ("=" "xx" "xy")("sdtmndtplgtdt" "xx" "xR" "xy"))).
+
+conjecture TCRTrans.
+  assume ( and ( and ( and ("aElement" "xx")("aRewritingSystem" "xR"))("aElement" "xy"))("aElement" "xz")).
+  ( implies ( and ("sdtmndtasgtdt" "xx" "xR" "xy")("sdtmndtasgtdt" "xy" "xR" "xz"))("sdtmndtasgtdt" "xx" "xR" "xz")).
+
+hypothesis CRDef.
+  assume ("aRewritingSystem" "xR").
+  assume ( iff (HeadTerm tag ("isConfluent" "xR"))(forall (DB 0) (forall (DB 0) (forall (DB 0) ( implies ( and ( and ( and ("aElement" (DB 2))("aElement" (DB 1)))("aElement" (DB 0)))( and ("sdtmndtasgtdt" (DB 2) "xR" (DB 1))("sdtmndtasgtdt" (DB 2) "xR" (DB 0))))(exists (DB 0) ( and ("aElement" (DB 0))( and ("sdtmndtasgtdt" (DB 2) "xR" (DB 0))("sdtmndtasgtdt" (DB 1) "xR" (DB 0)))))))))).
+
+hypothesis WCRDef.
+  assume ("aRewritingSystem" "xR").
+  assume ( iff (HeadTerm tag ("isLocallyConfluent" "xR"))(forall (DB 0) (forall (DB 0) (forall (DB 0) ( implies ( and ( and ( and ("aElement" (DB 2))("aElement" (DB 1)))("aElement" (DB 0)))( and ("aReductOfIn" (DB 1) (DB 2) "xR")("aReductOfIn" (DB 0) (DB 2) "xR")))(exists (DB 0) ( and ("aElement" (DB 0))( and ("sdtmndtasgtdt" (DB 2) "xR" (DB 0))("sdtmndtasgtdt" (DB 1) "xR" (DB 0)))))))))).
+
+hypothesis Termin.
+  assume ("aRewritingSystem" "xR").
+  assume ( iff (HeadTerm tag ("isTerminating" "xR"))(forall (DB 0) (forall (DB 0) ( implies ( and ("aElement" (DB 1))("aElement" (DB 0)))( implies ("sdtmndtplgtdt" (DB 1) "xR" (DB 0))("iLess" (DB 0) (DB 1))))))).
+
+hypothesis NFRDef.
+  assume ( and ("aElement" "xx")("aRewritingSystem" "xR")).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aNormalFormOfIn" (DB 0) "xx" "xR"))( and ("aElement" (DB 0))( and ("sdtmndtasgtdt" "xx" "xR" (DB 0))(not (exists (DB 0) ("aReductOfIn" (DB 0) (DB 1) "xR"))))))).
+
+conjecture TermNF.
+  assume ( and ("aRewritingSystem" "xR")("isTerminating" "xR")).
+  (forall (DB 0) ( implies ("aElement" (DB 0))( implies (InductionHypothesis tag (forall (DB 0) ( implies ("aElement" (DB 0))( implies ("iLess" (DB 0) (DB 1))(exists (DB 0) ("aNormalFormOfIn" (DB 0) (DB 1) "xR"))))))(exists (DB 0) ("aNormalFormOfIn" (DB 0) (DB 1) "xR"))))).
+
+conjecture Newman.
+  (forall (DB 0) ( implies ( and ("aRewritingSystem" (DB 0))( and ("isTerminating" (DB 0))("isLocallyConfluent" (DB 0))))("isConfluent" (DB 0)))).
+  proof.
+    assume ("aRewritingSystem" "xR").
+    assume ( and ("isLocallyConfluent" "xR")("isTerminating" "xR")).
+    (forall (DB 0) (forall (DB 0) (forall (DB 0) ( implies ( and ( and ( and ("aElement" (DB 2))("aElement" (DB 1)))("aElement" (DB 0)))( and ("sdtmndtasgtdt" (DB 2) "xR" (DB 1))("sdtmndtasgtdt" (DB 2) "xR" (DB 0))))( implies (InductionHypothesis tag (forall (DB 0) (forall (DB 0) (forall (DB 0) ( implies ( and ( and ( and ("aElement" (DB 2))("aElement" (DB 1)))("aElement" (DB 0)))( and ("sdtmndtasgtdt" (DB 2) "xR" (DB 1))("sdtmndtasgtdt" (DB 2) "xR" (DB 0))))( implies ("iLess" (DB 2) (DB 5))(exists (DB 0) ( and ("aElement" (DB 0))( and ("sdtmndtasgtdt" (DB 2) "xR" (DB 0))("sdtmndtasgtdt" (DB 1) "xR" (DB 0)))))))))))(exists (DB 0) ( and ("aElement" (DB 0))( and ("sdtmndtasgtdt" (DB 2) "xR" (DB 0))("sdtmndtasgtdt" (DB 1) "xR" (DB 0)))))))))).
+    proof.
+      assume ( and ( and ("aElement" "xa")("aElement" "xb"))("aElement" "xc")).
+      assume ( and ("sdtmndtplgtdt" "xa" "xR" "xb")("sdtmndtplgtdt" "xa" "xR" "xc")).
+      ( and ("aElement" "xu")( and ("aReductOfIn" "xu" "xa" "xR")("sdtmndtasgtdt" "xu" "xR" "xb"))).
+      ( and ("aElement" "xv")( and ("aReductOfIn" "xv" "xa" "xR")("sdtmndtasgtdt" "xv" "xR" "xc"))).
+      ( and ("aElement" "xw")( and ("sdtmndtasgtdt" "xu" "xR" "xw")("sdtmndtasgtdt" "xv" "xR" "xw"))).
+      ("aNormalFormOfIn" "xd" "xw" "xR").
+      ("sdtmndtasgtdt" "xb" "xR" "xd").
+      proof.
+        ( and ("aElement" "xx")( and ("sdtmndtasgtdt" "xb" "xR" "xx")("sdtmndtasgtdt" "xd" "xR" "xx"))).
+      qed.
+      ("sdtmndtasgtdt" "xc" "xR" "xd").
+      proof.
+        ( and ("aElement" "xy")( and ("sdtmndtasgtdt" "xc" "xR" "xy")("sdtmndtasgtdt" "xd" "xR" "xy"))).
+      qed.
+    qed.
+  qed.
+
+[Main] total 00:00.25
+[Parser] "examples/powerset.ftl"
+parsing successful
+[Main] String: examples
+[Main] text0: [String Library "examples"
+,String Provers "provers.dat"
+,String Prover "eprover"
+,Int Timelimit 3
+,Int Depthlimit 7
+,Int Checktime 1
+,Int Checkdepth 3
+,Bool Prove True
+,Bool Check True
+,Bool Symsign True
+,Bool Info True
+,Bool Thesis True
+,Bool Filter True
+,Bool Skipfail False
+,Bool Flat False
+,Bool Printgoal True
+,Bool Printreason False
+,Bool Printsection False
+,Bool Printcheck False
+,Bool Printprover False
+,Bool Printunfold False
+,Bool Printfulltask False
+,Bool OnlyTranslate True
+,String File "examples/powerset.ftl"
+]
+[Main] text1: [String Library "examples"
+,String Provers "provers.dat"
+,String Prover "eprover"
+,Int Timelimit 3
+,Int Depthlimit 7
+,Int Checktime 1
+,Int Checkdepth 3
+,Bool Prove True
+,Bool Check True
+,Bool Symsign True
+,Bool Info True
+,Bool Thesis True
+,Bool Filter True
+,Bool Skipfail False
+,Bool Flat False
+,Bool Printgoal True
+,Bool Printreason False
+,Bool Printsection False
+,Bool Printcheck False
+,Bool Printprover False
+,Bool Printunfold False
+,Bool Printfulltask False
+,Bool OnlyTranslate True
+,Strings Synonym ["subset","subsets"]
+,Strings Synonym ["surject","surjects"]
+,,,,,,hypothesis.
+  assume ("aFunction" "xf").
+  assume (forall (DB 0) ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))("aSet" ("sdtlbdtrb" "xf" (DB 0))))).
+,hypothesis.
+  assume ("aSet" "xM").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aSubsetOf" (DB 0) "xM"))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aElementOf" (DB 0) (DB 1))("aElementOf" (DB 0) "xM")))))).
+,hypothesis.
+  assume ("aSet" "xM").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("tthePowersetOf" "xM")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) ("aSubsetOf" (DB 0) "xM")))))).
+,hypothesis.
+  assume ( and ("aFunction" "xf")("aSet" "xM")).
+  assume ( iff (HeadTerm tag ("doSurjectsOnto" "xf" "xM"))(forall (DB 0) ( implies ("aElementOf" (DB 0) "xM")(exists (DB 0) ( and ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))("=" (DB 1) ("sdtlbdtrb" "xf" (DB 0)))))))).
+,conjecture.
+  assume ("aSet" "xM").
+  (forall (DB 0) ( implies ( and ("aFunction" (DB 0))("=" ("szDzozmlpdtrp" (DB 0)) "xM"))(not ("doSurjectsOnto" (DB 0) ("tthePowersetOf" "xM"))))).
+  proof.
+    assume (not ("#TH#")).
+    ( and ("aFunction" "xf")( and ("=" ("szDzozmlpdtrp" "xf") "xM")("doSurjectsOnto" "xf" ("tthePowersetOf" "xM")))).
+    ( and ("aSet" "xN")("=" "xN" (lambda (DB 0) ( and ("aElementOf" (DB 0) "xM")(not ("aElementOf" (DB 0) ("sdtlbdtrb" "xf" (DB 0)))))))).
+    (forall (DB 0) ( implies ("aElementOf" (DB 0) "xM")(not ("=" "xN" ("sdtlbdtrb" "xf" (DB 0)))))).
+    contradiction.
+  qed.
+]
+[Main] typeOf: [Char] -> [Text] -> IO [Text]
+hypothesis.
+  assume ("aFunction" "xf").
+  assume (forall (DB 0) ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))("aSet" ("sdtlbdtrb" "xf" (DB 0))))).
+
+hypothesis.
+  assume ("aSet" "xM").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aSubsetOf" (DB 0) "xM"))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aElementOf" (DB 0) (DB 1))("aElementOf" (DB 0) "xM")))))).
+
+hypothesis.
+  assume ("aSet" "xM").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("tthePowersetOf" "xM")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) ("aSubsetOf" (DB 0) "xM")))))).
+
+hypothesis.
+  assume ( and ("aFunction" "xf")("aSet" "xM")).
+  assume ( iff (HeadTerm tag ("doSurjectsOnto" "xf" "xM"))(forall (DB 0) ( implies ("aElementOf" (DB 0) "xM")(exists (DB 0) ( and ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))("=" (DB 1) ("sdtlbdtrb" "xf" (DB 0)))))))).
+
+conjecture.
+  assume ("aSet" "xM").
+  (forall (DB 0) ( implies ( and ("aFunction" (DB 0))("=" ("szDzozmlpdtrp" (DB 0)) "xM"))(not ("doSurjectsOnto" (DB 0) ("tthePowersetOf" "xM"))))).
+  proof.
+    assume (not ("#TH#")).
+    ( and ("aFunction" "xf")( and ("=" ("szDzozmlpdtrp" "xf") "xM")("doSurjectsOnto" "xf" ("tthePowersetOf" "xM")))).
+    ( and ("aSet" "xN")("=" "xN" (lambda (DB 0) ( and ("aElementOf" (DB 0) "xM")(not ("aElementOf" (DB 0) ("sdtlbdtrb" "xf" (DB 0)))))))).
+    (forall (DB 0) ( implies ("aElementOf" (DB 0) "xM")(not ("=" "xN" ("sdtlbdtrb" "xf" (DB 0)))))).
+    contradiction.
+  qed.
+
+[Main] total 00:00.00
+[Parser] "examples/prime_no_square.ftl"
+parsing successful
+[Main] String: examples
+[Main] text0: [String Library "examples"
+,String Provers "provers.dat"
+,String Prover "eprover"
+,Int Timelimit 3
+,Int Depthlimit 7
+,Int Checktime 1
+,Int Checkdepth 3
+,Bool Prove True
+,Bool Check True
+,Bool Symsign True
+,Bool Info True
+,Bool Thesis True
+,Bool Filter True
+,Bool Skipfail False
+,Bool Flat False
+,Bool Printgoal True
+,Bool Printreason False
+,Bool Printsection False
+,Bool Printcheck False
+,Bool Printprover False
+,Bool Printunfold False
+,Bool Printfulltask False
+,Bool OnlyTranslate True
+,String File "examples/prime_no_square.ftl"
+]
+[Main] text1: [String Library "examples"
+,String Provers "provers.dat"
+,String Prover "eprover"
+,Int Timelimit 3
+,Int Depthlimit 7
+,Int Checktime 1
+,Int Checkdepth 3
+,Bool Prove True
+,Bool Check True
+,Bool Symsign True
+,Bool Info True
+,Bool Thesis True
+,Bool Filter True
+,Bool Skipfail False
+,Bool Flat False
+,Bool Printgoal True
+,Bool Printreason False
+,Bool Printsection False
+,Bool Printcheck False
+,Bool Printprover False
+,Bool Printunfold False
+,Bool Printfulltask False
+,Bool OnlyTranslate True
+,Strings Synonym ["number","numbers"]
+,Strings Synonym ["devide","devides"]
+,Bool Ontored True
+,hypothesis.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aRationalNumber" (DB 0)))truth)).
+,,hypothesis.
+  assume ( and ("aRationalNumber" "xr")("aRationalNumber" "xq")).
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("sdtasdt" "xr" "xq")))("aRationalNumber" (DB 0)))).
+,hypothesis.
+  assume ( and ("aRationalNumber" "xr")("aRationalNumber" "xq")).
+  assume ("=" ("sdtasdt" "xr" "xq") ("sdtasdt" "xq" "xr")).
+,hypothesis.
+  assume ( and ( and ("aRationalNumber" "xr")("aRationalNumber" "xq"))("aRationalNumber" "xs")).
+  assume ("=" ("sdtasdt" "xr" ("sdtasdt" "xq" "xs")) ("sdtasdt" ("sdtasdt" "xr" "xq") "xs")).
+,hypothesis.
+  assume ( and ( and ("aRationalNumber" "xq")("aRationalNumber" "xs"))("aRationalNumber" "xr")).
+  assume ( implies ("=" ("sdtasdt" "xq" "xs") ("sdtasdt" "xq" "xr"))("=" "xs" "xr")).
+,hypothesis.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aNaturalNumber" (DB 0)))("aRationalNumber" (DB 0)))).
+,,hypothesis.
+  assume ( and ("aNaturalNumber" "xn")("aNaturalNumber" "xm")).
+  assume ("aNaturalNumber" ("sdtasdt" "xn" "xm")).
+,hypothesis.
+  assume ( and ("aNaturalNumber" "xn")("aNaturalNumber" "xm")).
+  assume ( iff (HeadTerm tag ("sdtbrdt" "xn" "xm"))(exists (DB 0) ( and ("aNaturalNumber" (DB 0))("=" ("sdtasdt" (DB 0) "xn") "xm")))).
+,,,hypothesis.
+  assume ( and ("aNaturalNumber" "xn")("aNaturalNumber" "xm")).
+  assume ( iff (HeadTerm tag ("misCoprime" "xn" "xm"))(not (exists (DB 0) ( and ("aNaturalNumber" (DB 0))( and ("sdtbrdt" (DB 0) "xn")("sdtbrdt" (DB 0) "xm")))))).
+,hypothesis.
+  assume ("aNaturalNumber" "xn").
+  assume ( implies (HeadTerm tag ("isPrime" "xn"))truth).
+,,hypothesis.
+  assume ( and ( and ( and ("aNaturalNumber" "xp")("isPrime" "xp"))("aNaturalNumber" "xn"))("aNaturalNumber" "xm")).
+  assume ( implies ("sdtbrdt" "xp" ("sdtasdt" "xn" "xm"))( or ("sdtbrdt" "xp" "xn")("sdtbrdt" "xp" "xm"))).
+,hypothesis.
+  assume ("aRationalNumber" "xq").
+  assume (exists (DB 0) (exists (DB 0) ( and ( and ("aNaturalNumber" (DB 1))("aNaturalNumber" (DB 0)))( and ("misCoprime" (DB 1) (DB 0))("=" ("sdtasdt" (DB 1) "xq") (DB 0)))))).
+,,conjecture.
+  assume ( and ("aNaturalNumber" "xp")("isPrime" "xp")).
+  (forall (DB 0) ( implies ("aRationalNumber" (DB 0))(not ("=" "xp" ("sdtasdt" (DB 0) (DB 0)))))).
+  proof.
+    assume (not ("#TH#")).
+    ( and ("aRationalNumber" "xq")("=" "xp" ("sdtasdt" "xq" "xq"))).
+    ( and ( and ("aNaturalNumber" "xm")("aNaturalNumber" "xn"))( and ("misCoprime" "xm" "xn")("=" ("sdtasdt" "xm" "xq") "xn"))).
+    ("=" ("sdtasdt" "xp" ("sdtasdt" "xm" "xm")) ("sdtasdt" "xn" "xn")).
+    ("sdtbrdt" "xp" "xn").
+    ( and ("aNaturalNumber" "xk")("=" "xn" ("sdtasdt" "xk" "xp"))).
+    ("=" ("sdtasdt" "xp" ("sdtasdt" "xm" "xm")) ("sdtasdt" "xp" ("sdtasdt" "xk" "xn"))).
+    ("=" ("sdtasdt" "xm" "xm") ("sdtasdt" "xp" ("sdtasdt" "xk" "xk"))).
+    ("sdtbrdt" "xp" "xm").
+    contradiction.
+  qed.
+]
+[Main] typeOf: [Char] -> [Text] -> IO [Text]
+hypothesis.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aRationalNumber" (DB 0)))truth)).
+
+hypothesis.
+  assume ( and ("aRationalNumber" "xr")("aRationalNumber" "xq")).
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("sdtasdt" "xr" "xq")))("aRationalNumber" (DB 0)))).
+
+hypothesis.
+  assume ( and ("aRationalNumber" "xr")("aRationalNumber" "xq")).
+  assume ("=" ("sdtasdt" "xr" "xq") ("sdtasdt" "xq" "xr")).
+
+hypothesis.
+  assume ( and ( and ("aRationalNumber" "xr")("aRationalNumber" "xq"))("aRationalNumber" "xs")).
+  assume ("=" ("sdtasdt" "xr" ("sdtasdt" "xq" "xs")) ("sdtasdt" ("sdtasdt" "xr" "xq") "xs")).
+
+hypothesis.
+  assume ( and ( and ("aRationalNumber" "xq")("aRationalNumber" "xs"))("aRationalNumber" "xr")).
+  assume ( implies ("=" ("sdtasdt" "xq" "xs") ("sdtasdt" "xq" "xr"))("=" "xs" "xr")).
+
+hypothesis.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aNaturalNumber" (DB 0)))("aRationalNumber" (DB 0)))).
+
+hypothesis.
+  assume ( and ("aNaturalNumber" "xn")("aNaturalNumber" "xm")).
+  assume ("aNaturalNumber" ("sdtasdt" "xn" "xm")).
+
+hypothesis.
+  assume ( and ("aNaturalNumber" "xn")("aNaturalNumber" "xm")).
+  assume ( iff (HeadTerm tag ("sdtbrdt" "xn" "xm"))(exists (DB 0) ( and ("aNaturalNumber" (DB 0))("=" ("sdtasdt" (DB 0) "xn") "xm")))).
+
+hypothesis.
+  assume ( and ("aNaturalNumber" "xn")("aNaturalNumber" "xm")).
+  assume ( iff (HeadTerm tag ("misCoprime" "xn" "xm"))(not (exists (DB 0) ( and ("aNaturalNumber" (DB 0))( and ("sdtbrdt" (DB 0) "xn")("sdtbrdt" (DB 0) "xm")))))).
+
+hypothesis.
+  assume ("aNaturalNumber" "xn").
+  assume ( implies (HeadTerm tag ("isPrime" "xn"))truth).
+
+hypothesis.
+  assume ( and ( and ( and ("aNaturalNumber" "xp")("isPrime" "xp"))("aNaturalNumber" "xn"))("aNaturalNumber" "xm")).
+  assume ( implies ("sdtbrdt" "xp" ("sdtasdt" "xn" "xm"))( or ("sdtbrdt" "xp" "xn")("sdtbrdt" "xp" "xm"))).
+
+hypothesis.
+  assume ("aRationalNumber" "xq").
+  assume (exists (DB 0) (exists (DB 0) ( and ( and ("aNaturalNumber" (DB 1))("aNaturalNumber" (DB 0)))( and ("misCoprime" (DB 1) (DB 0))("=" ("sdtasdt" (DB 1) "xq") (DB 0)))))).
+
+conjecture.
+  assume ( and ("aNaturalNumber" "xp")("isPrime" "xp")).
+  (forall (DB 0) ( implies ("aRationalNumber" (DB 0))(not ("=" "xp" ("sdtasdt" (DB 0) (DB 0)))))).
+  proof.
+    assume (not ("#TH#")).
+    ( and ("aRationalNumber" "xq")("=" "xp" ("sdtasdt" "xq" "xq"))).
+    ( and ( and ("aNaturalNumber" "xm")("aNaturalNumber" "xn"))( and ("misCoprime" "xm" "xn")("=" ("sdtasdt" "xm" "xq") "xn"))).
+    ("=" ("sdtasdt" "xp" ("sdtasdt" "xm" "xm")) ("sdtasdt" "xn" "xn")).
+    ("sdtbrdt" "xp" "xn").
+    ( and ("aNaturalNumber" "xk")("=" "xn" ("sdtasdt" "xk" "xp"))).
+    ("=" ("sdtasdt" "xp" ("sdtasdt" "xm" "xm")) ("sdtasdt" "xp" ("sdtasdt" "xk" "xn"))).
+    ("=" ("sdtasdt" "xm" "xm") ("sdtasdt" "xp" ("sdtasdt" "xk" "xk"))).
+    ("sdtbrdt" "xp" "xm").
+    contradiction.
+  qed.
+
+[Main] total 00:00.02
+[Parser] "examples/regular_successor.ftl"
+parsing successful
+[Main] String: examples
+[Main] text0: [String Library "examples"
+,String Provers "provers.dat"
+,String Prover "eprover"
+,Int Timelimit 3
+,Int Depthlimit 7
+,Int Checktime 1
+,Int Checkdepth 3
+,Bool Prove True
+,Bool Check True
+,Bool Symsign True
+,Bool Info True
+,Bool Thesis True
+,Bool Filter True
+,Bool Skipfail False
+,Bool Flat False
+,Bool Printgoal True
+,Bool Printreason False
+,Bool Printsection False
+,Bool Printcheck False
+,Bool Printprover False
+,Bool Printunfold False
+,Bool Printfulltask False
+,Bool OnlyTranslate True
+,String File "examples/regular_successor.ftl"
+]
+[Main] text1: [String Library "examples"
+,String Provers "provers.dat"
+,String Prover "eprover"
+,Int Timelimit 3
+,Int Depthlimit 7
+,Int Checktime 1
+,Int Checkdepth 3
+,Bool Prove True
+,Bool Check True
+,Bool Symsign True
+,Bool Info True
+,Bool Thesis True
+,Bool Filter True
+,Bool Skipfail False
+,Bool Flat False
+,Bool Printgoal True
+,Bool Printreason False
+,Bool Printsection False
+,Bool Printcheck False
+,Bool Printprover False
+,Bool Printunfold False
+,Bool Printfulltask False
+,Bool OnlyTranslate True
+,Strings Synonym ["cardinal","cardinals"]
+,Strings Synonym ["ordinal","ordinals"]
+,,hypothesis.
+  assume (forall (DB 0) (forall (DB 0) (forall (DB 0) (forall (DB 0) ( implies ( and ( and ( and truthtruth)truth)truth)( implies ("=" ("slpdtcmdtrp" (DB 3) (DB 2)) ("slpdtcmdtrp" (DB 1) (DB 0)))( and ("=" (DB 3) (DB 1))("=" (DB 2) (DB 0))))))))).
+,hypothesis.
+  assume ( and ("aSet" "xM")("aSet" "xN")).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("szPzrzozdlpdtcmdtrp" "xM" "xN")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) (Replacement tag (exists (DB 0) (exists (DB 0) ( and ( and ("aElementOf" (DB 1) "xM")("aElementOf" (DB 0) "xN"))("=" (DB 2) ("slpdtcmdtrp" (DB 1) (DB 0)))))))))))).
+,conjecture.
+  assume ( and truthtruth).
+  assume ( and ("aSet" "xM")("aSet" "xN")).
+  ( implies ("aElementOf" ("slpdtcmdtrp" "xx" "xy") ("szPzrzozdlpdtcmdtrp" "xM" "xN"))( and ("aElementOf" "xx" "xM")("aElementOf" "xy" "xN"))).
+,,hypothesis.
+  assume ("aSet" "xM").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aSubsetOf" (DB 0) "xM"))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aElementOf" (DB 0) (DB 1))("aElementOf" (DB 0) "xM")))))).
+,hypothesis.
+  assume ("aFunction" "xf").
+  assume ("aSubsetOf" "xM" ("szDzozmlpdtrp" "xf")).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("sdtcflbdtrb" "xf" "xM")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) (Replacement tag (exists (DB 0) ( and ("aElementOf" (DB 0) "xM")("=" (DB 1) ("sdtlbdtrb" "xf" (DB 0))))))))))).
+,,hypothesis.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aOrdinal" (DB 0)))("aSet" (DB 0)))).
+,,hypothesis.
+  assume ("aOrdinal" "xalpha").
+  assume (forall (DB 0) ( implies ("aElementOf" (DB 0) "xalpha")("aOrdinal" (DB 0)))).
+,hypothesis.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aCardinal" (DB 0)))("aOrdinal" (DB 0)))).
+,,hypothesis.
+  assume ( and ("aOrdinal" "xalpha")("aOrdinal" "xbeta")).
+  assume ( implies (HeadTerm tag ("sdtlsdt" "xalpha" "xbeta"))truth).
+,hypothesis.
+  assume ( and ("aOrdinal" "xalpha")("aOrdinal" "xbeta")).
+  assume ( implies ("sdtlsdt" "xalpha" "xbeta")("aElementOf" "xalpha" "xbeta")).
+,,hypothesis.
+  assume ("aCardinal" "xA").
+  assume ("aSubsetOf" "xM" "xA").
+  assume ( iff (HeadTerm tag ("isCofinalIn" "xM" "xA"))(forall (DB 0) ( implies ("aElementOf" (DB 0) "xA")(exists (DB 0) ( and ("aElementOf" (DB 0) "xM")("sdtlsdt" (DB 1) (DB 0))))))).
+,,hypothesis.
+  assume ("aSet" "xM").
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("ttheCardinalityOf" "xM")))("aCardinal" (DB 0)))).
+,,hypothesis Surj_Exi.
+  assume ("aSet" "xM").
+  assume (exists (DB 0) ("aElementOf" (DB 0) "xM")).
+  assume ("aSet" "xN").
+  assume ( iff ( or ("=" ("ttheCardinalityOf" "xM") ("ttheCardinalityOf" "xN"))("sdtlsdt" ("ttheCardinalityOf" "xM") ("ttheCardinalityOf" "xN")))(exists (DB 0) ( and ("aFunction" (DB 0))( and ("=" ("szDzozmlpdtrp" (DB 0)) "xN")("=" ("sdtcflbdtrb" (DB 0) "xN") "xM"))))).
+,hypothesis Transitivity.
+  assume ("aCardinal" "xA").
+  assume ("aElementOf" "xM" "xA").
+  assume ("aElementOf" "xN" "xM").
+  assume ("aElementOf" "xN" "xA").
+,hypothesis.
+  assume ("aSet" "xM").
+  assume ("=" ("ttheCardinalityOf" ("szPzrzozdlpdtcmdtrp" "xM" "xM")) ("ttheCardinalityOf" "xM")).
+,hypothesis.
+  assume ("aCardinal" "xA").
+  assume ("=" ("ttheCardinalityOf" "xA") "xA").
+,hypothesis.
+  assume ("aSet" "xM").
+  assume ("aSubsetOf" "xN" "xM").
+  assume ( or ("=" ("ttheCardinalityOf" "xN") ("ttheCardinalityOf" "xM"))("sdtlsdt" ("ttheCardinalityOf" "xN") ("ttheCardinalityOf" "xM"))).
+,hypothesis.
+  assume ("aCardinal" "xA").
+  assume ( iff (HeadTerm tag ("isRegular" "xA"))(forall (DB 0) ( implies ( and ("aSubsetOf" (DB 0) "xA")("isCofinalIn" (DB 0) "xA"))("=" ("ttheCardinalityOf" (DB 0)) "xA")))).
+,hypothesis.
+  assume ("aCardinal" "xA").
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("szSzuzczclpdtrp" "xA")))("aCardinal" (DB 0)))).
+,hypothesis.
+  assume ( and ("aOrdinal" "xalpha")("aOrdinal" "xbeta")).
+  assume ( or ( or ("sdtlsdt" "xalpha" "xbeta")("sdtlsdt" "xbeta" "xalpha"))("=" "xbeta" "xalpha")).
+,hypothesis.
+  assume ("aCardinal" "xA").
+  assume ("sdtlsdt" "xA" ("szSzuzczclpdtrp" "xA")).
+,hypothesis.
+  assume ("aCardinal" "xA").
+  assume (forall (DB 0) ( implies ("aElementOf" (DB 0) ("szSzuzczclpdtrp" "xA"))( or ("=" ("ttheCardinalityOf" (DB 0)) "xA")("sdtlsdt" ("ttheCardinalityOf" (DB 0)) "xA")))).
+,hypothesis.
+  assume (forall (DB 0) (forall (DB 0) ( implies ( and ("aCardinal" (DB 1))("aCardinal" (DB 0)))(not ( and ("sdtlsdt" (DB 1) (DB 0))("sdtlsdt" (DB 0) (DB 1))))))).
+,hypothesis.
+  assume ("aCardinal" "xA").
+  assume (not (exists (DB 0) ( and ("aCardinal" (DB 0))( and ("sdtlsdt" "xA" (DB 0))("sdtlsdt" (DB 0) ("szSzuzczclpdtrp" "xA")))))).
+,hypothesis.
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("ttheEmptySet")))( and ("aCardinal" (DB 0))(forall (DB 0) ( implies ( and ("aOrdinal" (DB 0))(exists (DB 0) ("aElementOf" (DB 0) (DB 1))))("aElementOf" (DB 1) (DB 0))))))).
+,hypothesis.
+  assume ("aSet" "xM").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("ttheConstantZeroOn" "xM")))( and ("aFunction" (DB 0))( and ("=" ("szDzozmlpdtrp" (DB 0)) "xM")(forall (DB 0) ( implies ("aElementOf" (DB 0) "xM")("=" ("sdtlbdtrb" (DB 1) (DB 0)) ("ttheEmptySet")))))))).
+,,conjecture.
+  assume ("aCardinal" "xA").
+  ("isRegular" ("szSzuzczclpdtrp" "xA")).
+  proof.
+    assume (not ("#TH#")).
+    ( and ( and ("aSubsetOf" "xx" ("szSzuzczclpdtrp" "xA"))("isCofinalIn" "xx" ("szSzuzczclpdtrp" "xA")))(not ("=" ("ttheCardinalityOf" "xx") ("szSzuzczclpdtrp" "xA")))).
+    ( or ("=" ("ttheCardinalityOf" "xx") "xA")("sdtlsdt" ("ttheCardinalityOf" "xx") "xA")).
+    ( and ("aFunction" "xf")( and ("=" ("szDzozmlpdtrp" "xf") "xA")("=" ("sdtcflbdtrb" "xf" "xA") "xx"))).
+    proof.
+      ( and (exists (DB 0) ("aElementOf" (DB 0) "xx"))("=" ("ttheCardinalityOf" "xA") "xA")).
+    qed.
+    ( and ( and ("aFunction" "xg")(Domain tag ("=" ("szDzozmlpdtrp" "xg") ("szSzuzczclpdtrp" "xA"))))(forall (DB 0) ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xg"))( and (Condition tag ( implies (exists (DB 0) ("aElementOf" (DB 0) (DB 1)))(exists (DB 0) ( and ( and ("aFunction" (DB 0))( and ("=" ("szDzozmlpdtrp" (DB 0)) "xA")("=" ("sdtcflbdtrb" (DB 0) "xA") (DB 1))))(Evaluation tag ("=" ("sdtlbdtrb" "xg" (DB 1)) (DB 0)))))))(Condition tag ( implies (not (exists (DB 0) ("aElementOf" (DB 0) (DB 1))))(Evaluation tag ("=" ("sdtlbdtrb" "xg" (DB 0)) ("ttheConstantZeroOn" "xA"))))))))).
+    ( and ( and ("aFunction" "xh")(Domain tag ("=" ("szDzozmlpdtrp" "xh") ("szPzrzozdlpdtcmdtrp" "xA" "xA"))))(forall (DB 0) (forall (DB 0) ( implies ("aElementOf" ("slpdtcmdtrp" (DB 1) (DB 0)) ("szDzozmlpdtrp" "xh"))(Evaluation tag ("=" ("sdtlbdtrb" "xh" ("slpdtcmdtrp" (DB 1) (DB 0))) ("sdtlbdtrb" ("sdtlbdtrb" "xg" ("sdtlbdtrb" "xf" (DB 1))) (DB 0)))))))).
+    ( and ("=" ("szDzozmlpdtrp" "xh") ("szPzrzozdlpdtcmdtrp" "xA" "xA"))("=" ("sdtcflbdtrb" "xh" ("szPzrzozdlpdtcmdtrp" "xA" "xA")) ("szSzuzczclpdtrp" "xA"))).
+    proof.
+      ("=" ("szDzozmlpdtrp" "xh") ("szPzrzozdlpdtcmdtrp" "xA" "xA")).
+      (forall (DB 0) ( implies ("aElementOf" (DB 0) ("szSzuzczclpdtrp" "xA"))("aElementOf" (DB 0) ("sdtcflbdtrb" "xh" ("szPzrzozdlpdtcmdtrp" "xA" "xA"))))).
+      proof.
+        assume ("aElementOf" "xn" ("szSzuzczclpdtrp" "xA")).
+        ( and ("aElementOf" "xxi" "xA")("sdtlsdt" "xn" ("sdtlbdtrb" "xf" "xxi"))).
+        ( and ("aElementOf" "xzeta" "xA")("=" ("sdtlbdtrb" ("sdtlbdtrb" "xg" ("sdtlbdtrb" "xf" "xxi")) "xzeta") "xn")).
+        ("=" "xn" ("sdtlbdtrb" "xh" ("slpdtcmdtrp" "xxi" "xzeta"))).
+        ("#TH#").
+        proof.
+          ("aElementOf" ("slpdtcmdtrp" "xxi" "xzeta") ("szPzrzozdlpdtcmdtrp" "xA" "xA")).
+        qed.
+      qed.
+      (forall (DB 0) ( implies ("aElementOf" (DB 0) ("sdtcflbdtrb" "xh" ("szPzrzozdlpdtcmdtrp" "xA" "xA")))("aElementOf" (DB 0) ("szSzuzczclpdtrp" "xA")))).
+      proof.
+        assume ("aElementOf" "xn" ("sdtcflbdtrb" "xh" ("szPzrzozdlpdtcmdtrp" "xA" "xA"))).
+        ( and ( and ("aElementOf" "xa" "xA")("aElementOf" "xb" "xA"))("=" "xn" ("sdtlbdtrb" "xh" ("slpdtcmdtrp" "xa" "xb")))).
+        ( implies (CaseHypothesis tag (exists (DB 0) ("aElementOf" (DB 0) ("sdtlbdtrb" "xf" "xa"))))("#TH#")).
+        ( implies (CaseHypothesis tag (not (exists (DB 0) ("aElementOf" (DB 0) ("sdtlbdtrb" "xf" "xa")))))("#TH#")).
+      qed.
+    qed.
+    ( or ("=" ("szSzuzczclpdtrp" "xA") "xA")("sdtlsdt" ("szSzuzczclpdtrp" "xA") "xA")).
+    contradiction.
+  qed.
+]
+[Main] typeOf: [Char] -> [Text] -> IO [Text]
+hypothesis.
+  assume (forall (DB 0) (forall (DB 0) (forall (DB 0) (forall (DB 0) ( implies ( and ( and ( and truthtruth)truth)truth)( implies ("=" ("slpdtcmdtrp" (DB 3) (DB 2)) ("slpdtcmdtrp" (DB 1) (DB 0)))( and ("=" (DB 3) (DB 1))("=" (DB 2) (DB 0))))))))).
+
+hypothesis.
+  assume ( and ("aSet" "xM")("aSet" "xN")).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("szPzrzozdlpdtcmdtrp" "xM" "xN")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) (Replacement tag (exists (DB 0) (exists (DB 0) ( and ( and ("aElementOf" (DB 1) "xM")("aElementOf" (DB 0) "xN"))("=" (DB 2) ("slpdtcmdtrp" (DB 1) (DB 0)))))))))))).
+
+conjecture.
+  assume ( and truthtruth).
+  assume ( and ("aSet" "xM")("aSet" "xN")).
+  ( implies ("aElementOf" ("slpdtcmdtrp" "xx" "xy") ("szPzrzozdlpdtcmdtrp" "xM" "xN"))( and ("aElementOf" "xx" "xM")("aElementOf" "xy" "xN"))).
+
+hypothesis.
+  assume ("aSet" "xM").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aSubsetOf" (DB 0) "xM"))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aElementOf" (DB 0) (DB 1))("aElementOf" (DB 0) "xM")))))).
+
+hypothesis.
+  assume ("aFunction" "xf").
+  assume ("aSubsetOf" "xM" ("szDzozmlpdtrp" "xf")).
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("sdtcflbdtrb" "xf" "xM")))( and ("aSet" (DB 0))("=" (DB 0) (lambda (DB 0) (Replacement tag (exists (DB 0) ( and ("aElementOf" (DB 0) "xM")("=" (DB 1) ("sdtlbdtrb" "xf" (DB 0))))))))))).
+
+hypothesis.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aOrdinal" (DB 0)))("aSet" (DB 0)))).
+
+hypothesis.
+  assume ("aOrdinal" "xalpha").
+  assume (forall (DB 0) ( implies ("aElementOf" (DB 0) "xalpha")("aOrdinal" (DB 0)))).
+
+hypothesis.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aCardinal" (DB 0)))("aOrdinal" (DB 0)))).
+
+hypothesis.
+  assume ( and ("aOrdinal" "xalpha")("aOrdinal" "xbeta")).
+  assume ( implies (HeadTerm tag ("sdtlsdt" "xalpha" "xbeta"))truth).
+
+hypothesis.
+  assume ( and ("aOrdinal" "xalpha")("aOrdinal" "xbeta")).
+  assume ( implies ("sdtlsdt" "xalpha" "xbeta")("aElementOf" "xalpha" "xbeta")).
+
+hypothesis.
+  assume ("aCardinal" "xA").
+  assume ("aSubsetOf" "xM" "xA").
+  assume ( iff (HeadTerm tag ("isCofinalIn" "xM" "xA"))(forall (DB 0) ( implies ("aElementOf" (DB 0) "xA")(exists (DB 0) ( and ("aElementOf" (DB 0) "xM")("sdtlsdt" (DB 1) (DB 0))))))).
+
+hypothesis.
+  assume ("aSet" "xM").
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("ttheCardinalityOf" "xM")))("aCardinal" (DB 0)))).
+
+hypothesis Surj_Exi.
+  assume ("aSet" "xM").
+  assume (exists (DB 0) ("aElementOf" (DB 0) "xM")).
+  assume ("aSet" "xN").
+  assume ( iff ( or ("=" ("ttheCardinalityOf" "xM") ("ttheCardinalityOf" "xN"))("sdtlsdt" ("ttheCardinalityOf" "xM") ("ttheCardinalityOf" "xN")))(exists (DB 0) ( and ("aFunction" (DB 0))( and ("=" ("szDzozmlpdtrp" (DB 0)) "xN")("=" ("sdtcflbdtrb" (DB 0) "xN") "xM"))))).
+
+hypothesis Transitivity.
+  assume ("aCardinal" "xA").
+  assume ("aElementOf" "xM" "xA").
+  assume ("aElementOf" "xN" "xM").
+  assume ("aElementOf" "xN" "xA").
+
+hypothesis.
+  assume ("aSet" "xM").
+  assume ("=" ("ttheCardinalityOf" ("szPzrzozdlpdtcmdtrp" "xM" "xM")) ("ttheCardinalityOf" "xM")).
+
+hypothesis.
+  assume ("aCardinal" "xA").
+  assume ("=" ("ttheCardinalityOf" "xA") "xA").
+
+hypothesis.
+  assume ("aSet" "xM").
+  assume ("aSubsetOf" "xN" "xM").
+  assume ( or ("=" ("ttheCardinalityOf" "xN") ("ttheCardinalityOf" "xM"))("sdtlsdt" ("ttheCardinalityOf" "xN") ("ttheCardinalityOf" "xM"))).
+
+hypothesis.
+  assume ("aCardinal" "xA").
+  assume ( iff (HeadTerm tag ("isRegular" "xA"))(forall (DB 0) ( implies ( and ("aSubsetOf" (DB 0) "xA")("isCofinalIn" (DB 0) "xA"))("=" ("ttheCardinalityOf" (DB 0)) "xA")))).
+
+hypothesis.
+  assume ("aCardinal" "xA").
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("szSzuzczclpdtrp" "xA")))("aCardinal" (DB 0)))).
+
+hypothesis.
+  assume ( and ("aOrdinal" "xalpha")("aOrdinal" "xbeta")).
+  assume ( or ( or ("sdtlsdt" "xalpha" "xbeta")("sdtlsdt" "xbeta" "xalpha"))("=" "xbeta" "xalpha")).
+
+hypothesis.
+  assume ("aCardinal" "xA").
+  assume ("sdtlsdt" "xA" ("szSzuzczclpdtrp" "xA")).
+
+hypothesis.
+  assume ("aCardinal" "xA").
+  assume (forall (DB 0) ( implies ("aElementOf" (DB 0) ("szSzuzczclpdtrp" "xA"))( or ("=" ("ttheCardinalityOf" (DB 0)) "xA")("sdtlsdt" ("ttheCardinalityOf" (DB 0)) "xA")))).
+
+hypothesis.
+  assume (forall (DB 0) (forall (DB 0) ( implies ( and ("aCardinal" (DB 1))("aCardinal" (DB 0)))(not ( and ("sdtlsdt" (DB 1) (DB 0))("sdtlsdt" (DB 0) (DB 1))))))).
+
+hypothesis.
+  assume ("aCardinal" "xA").
+  assume (not (exists (DB 0) ( and ("aCardinal" (DB 0))( and ("sdtlsdt" "xA" (DB 0))("sdtlsdt" (DB 0) ("szSzuzczclpdtrp" "xA")))))).
+
+hypothesis.
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("ttheEmptySet")))( and ("aCardinal" (DB 0))(forall (DB 0) ( implies ( and ("aOrdinal" (DB 0))(exists (DB 0) ("aElementOf" (DB 0) (DB 1))))("aElementOf" (DB 1) (DB 0))))))).
+
+hypothesis.
+  assume ("aSet" "xM").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("=" (DB 0) ("ttheConstantZeroOn" "xM")))( and ("aFunction" (DB 0))( and ("=" ("szDzozmlpdtrp" (DB 0)) "xM")(forall (DB 0) ( implies ("aElementOf" (DB 0) "xM")("=" ("sdtlbdtrb" (DB 1) (DB 0)) ("ttheEmptySet")))))))).
+
+conjecture.
+  assume ("aCardinal" "xA").
+  ("isRegular" ("szSzuzczclpdtrp" "xA")).
+  proof.
+    assume (not ("#TH#")).
+    ( and ( and ("aSubsetOf" "xx" ("szSzuzczclpdtrp" "xA"))("isCofinalIn" "xx" ("szSzuzczclpdtrp" "xA")))(not ("=" ("ttheCardinalityOf" "xx") ("szSzuzczclpdtrp" "xA")))).
+    ( or ("=" ("ttheCardinalityOf" "xx") "xA")("sdtlsdt" ("ttheCardinalityOf" "xx") "xA")).
+    ( and ("aFunction" "xf")( and ("=" ("szDzozmlpdtrp" "xf") "xA")("=" ("sdtcflbdtrb" "xf" "xA") "xx"))).
+    proof.
+      ( and (exists (DB 0) ("aElementOf" (DB 0) "xx"))("=" ("ttheCardinalityOf" "xA") "xA")).
+    qed.
+    ( and ( and ("aFunction" "xg")(Domain tag ("=" ("szDzozmlpdtrp" "xg") ("szSzuzczclpdtrp" "xA"))))(forall (DB 0) ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xg"))( and (Condition tag ( implies (exists (DB 0) ("aElementOf" (DB 0) (DB 1)))(exists (DB 0) ( and ( and ("aFunction" (DB 0))( and ("=" ("szDzozmlpdtrp" (DB 0)) "xA")("=" ("sdtcflbdtrb" (DB 0) "xA") (DB 1))))(Evaluation tag ("=" ("sdtlbdtrb" "xg" (DB 1)) (DB 0)))))))(Condition tag ( implies (not (exists (DB 0) ("aElementOf" (DB 0) (DB 1))))(Evaluation tag ("=" ("sdtlbdtrb" "xg" (DB 0)) ("ttheConstantZeroOn" "xA"))))))))).
+    ( and ( and ("aFunction" "xh")(Domain tag ("=" ("szDzozmlpdtrp" "xh") ("szPzrzozdlpdtcmdtrp" "xA" "xA"))))(forall (DB 0) (forall (DB 0) ( implies ("aElementOf" ("slpdtcmdtrp" (DB 1) (DB 0)) ("szDzozmlpdtrp" "xh"))(Evaluation tag ("=" ("sdtlbdtrb" "xh" ("slpdtcmdtrp" (DB 1) (DB 0))) ("sdtlbdtrb" ("sdtlbdtrb" "xg" ("sdtlbdtrb" "xf" (DB 1))) (DB 0)))))))).
+    ( and ("=" ("szDzozmlpdtrp" "xh") ("szPzrzozdlpdtcmdtrp" "xA" "xA"))("=" ("sdtcflbdtrb" "xh" ("szPzrzozdlpdtcmdtrp" "xA" "xA")) ("szSzuzczclpdtrp" "xA"))).
+    proof.
+      ("=" ("szDzozmlpdtrp" "xh") ("szPzrzozdlpdtcmdtrp" "xA" "xA")).
+      (forall (DB 0) ( implies ("aElementOf" (DB 0) ("szSzuzczclpdtrp" "xA"))("aElementOf" (DB 0) ("sdtcflbdtrb" "xh" ("szPzrzozdlpdtcmdtrp" "xA" "xA"))))).
+      proof.
+        assume ("aElementOf" "xn" ("szSzuzczclpdtrp" "xA")).
+        ( and ("aElementOf" "xxi" "xA")("sdtlsdt" "xn" ("sdtlbdtrb" "xf" "xxi"))).
+        ( and ("aElementOf" "xzeta" "xA")("=" ("sdtlbdtrb" ("sdtlbdtrb" "xg" ("sdtlbdtrb" "xf" "xxi")) "xzeta") "xn")).
+        ("=" "xn" ("sdtlbdtrb" "xh" ("slpdtcmdtrp" "xxi" "xzeta"))).
+        ("#TH#").
+        proof.
+          ("aElementOf" ("slpdtcmdtrp" "xxi" "xzeta") ("szPzrzozdlpdtcmdtrp" "xA" "xA")).
+        qed.
+      qed.
+      (forall (DB 0) ( implies ("aElementOf" (DB 0) ("sdtcflbdtrb" "xh" ("szPzrzozdlpdtcmdtrp" "xA" "xA")))("aElementOf" (DB 0) ("szSzuzczclpdtrp" "xA")))).
+      proof.
+        assume ("aElementOf" "xn" ("sdtcflbdtrb" "xh" ("szPzrzozdlpdtcmdtrp" "xA" "xA"))).
+        ( and ( and ("aElementOf" "xa" "xA")("aElementOf" "xb" "xA"))("=" "xn" ("sdtlbdtrb" "xh" ("slpdtcmdtrp" "xa" "xb")))).
+        ( implies (CaseHypothesis tag (exists (DB 0) ("aElementOf" (DB 0) ("sdtlbdtrb" "xf" "xa"))))("#TH#")).
+        ( implies (CaseHypothesis tag (not (exists (DB 0) ("aElementOf" (DB 0) ("sdtlbdtrb" "xf" "xa")))))("#TH#")).
+      qed.
+    qed.
+    ( or ("=" ("szSzuzczclpdtrp" "xA") "xA")("sdtlsdt" ("szSzuzczclpdtrp" "xA") "xA")).
+    contradiction.
+  qed.
+
+[Main] total 00:00.05
+[Parser] "examples/tarski.ftl"
+parsing successful
+[Main] String: examples
+[Main] text0: [String Library "examples"
+,String Provers "provers.dat"
+,String Prover "eprover"
+,Int Timelimit 3
+,Int Depthlimit 7
+,Int Checktime 1
+,Int Checkdepth 3
+,Bool Prove True
+,Bool Check True
+,Bool Symsign True
+,Bool Info True
+,Bool Thesis True
+,Bool Filter True
+,Bool Skipfail False
+,Bool Flat False
+,Bool Printgoal True
+,Bool Printreason False
+,Bool Printsection False
+,Bool Printcheck False
+,Bool Printprover False
+,Bool Printunfold False
+,Bool Printfulltask False
+,Bool OnlyTranslate True
+,String File "examples/tarski.ftl"
+]
+[Main] text1: [String Library "examples"
+,String Provers "provers.dat"
+,String Prover "eprover"
+,Int Timelimit 3
+,Int Depthlimit 7
+,Int Checktime 1
+,Int Checkdepth 3
+,Bool Prove True
+,Bool Check True
+,Bool Symsign True
+,Bool Info True
+,Bool Thesis True
+,Bool Filter True
+,Bool Skipfail False
+,Bool Flat False
+,Bool Printgoal True
+,Bool Printreason False
+,Bool Printsection False
+,Bool Printcheck False
+,Bool Printprover False
+,Bool Printunfold False
+,Bool Printfulltask False
+,Bool OnlyTranslate True
+,Strings Synonym ["set","sets"]
+,Strings Synonym ["subset","subsets"]
+,Strings Synonym ["element","elements"]
+,Strings Synonym ["belong","belongs"]
+,hypothesis ElmSort.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aElement" (DB 0)))truth)).
+,,,hypothesis EOfElem.
+  assume ("aSet" "xS").
+  assume (forall (DB 0) ( implies ("aElementOf" (DB 0) "xS")("aElement" (DB 0)))).
+,,,hypothesis DefEmpty.
+  assume ("aSet" "xS").
+  assume ( iff (HeadTerm tag ("isEmpty" "xS"))(not (exists (DB 0) ("aElementOf" (DB 0) "xS")))).
+,hypothesis DefSub.
+  assume ("aSet" "xS").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aSubsetOf" (DB 0) "xS"))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aElementOf" (DB 0) (DB 1))("aElementOf" (DB 0) "xS")))))).
+,,hypothesis LessRel.
+  assume ( and ("aElement" "xx")("aElement" "xy")).
+  assume ( implies (HeadTerm tag ("sdtlseqdt" "xx" "xy"))truth).
+,hypothesis ARefl.
+  assume ("aElement" "xx").
+  assume ("sdtlseqdt" "xx" "xx").
+,hypothesis ASymm.
+  assume ( and ("aElement" "xx")("aElement" "xy")).
+  assume ( implies ( and ("sdtlseqdt" "xx" "xy")("sdtlseqdt" "xy" "xx"))("=" "xx" "xy")).
+,hypothesis Trans.
+  assume ( and ( and ("aElement" "xx")("aElement" "xy"))("aElement" "xz")).
+  assume ( implies ( and ("sdtlseqdt" "xx" "xy")("sdtlseqdt" "xy" "xz"))("sdtlseqdt" "xx" "xz")).
+,Strings Synonym ["bound","bounds"]
+,Strings Synonym ["supremum","supremums"]
+,Strings Synonym ["infimum","infimums"]
+,Strings Synonym ["lattice","lattices"]
+,hypothesis DefLB.
+  assume ("aSet" "xT").
+  assume ("aSubsetOf" "xS" "xT").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aLowerBoundOfIn" (DB 0) "xS" "xT"))( and ("aElementOf" (DB 0) "xT")(forall (DB 0) ( implies ("aElementOf" (DB 0) "xS")("sdtlseqdt" (DB 1) (DB 0))))))).
+,hypothesis DefUB.
+  assume ("aSet" "xT").
+  assume ("aSubsetOf" "xS" "xT").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aUpperBoundOfIn" (DB 0) "xS" "xT"))( and ("aElementOf" (DB 0) "xT")(forall (DB 0) ( implies ("aElementOf" (DB 0) "xS")("sdtlseqdt" (DB 0) (DB 1))))))).
+,hypothesis DefInf.
+  assume ("aSet" "xT").
+  assume ("aSubsetOf" "xS" "xT").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aInfimumOfIn" (DB 0) "xS" "xT"))( and ("aElementOf" (DB 0) "xT")( and ("aLowerBoundOfIn" (DB 0) "xS" "xT")(forall (DB 0) ( implies ("aLowerBoundOfIn" (DB 0) "xS" "xT")("sdtlseqdt" (DB 0) (DB 1)))))))).
+,hypothesis DefSup.
+  assume ("aSet" "xT").
+  assume ("aSubsetOf" "xS" "xT").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aSupremumOfIn" (DB 0) "xS" "xT"))( and ("aElementOf" (DB 0) "xT")( and ("aUpperBoundOfIn" (DB 0) "xS" "xT")(forall (DB 0) ( implies ("aUpperBoundOfIn" (DB 0) "xS" "xT")("sdtlseqdt" (DB 1) (DB 0)))))))).
+,conjecture SupUn.
+  assume ("aSet" "xT").
+  assume ("aSubsetOf" "xS" "xT").
+  assume ( and ("aSupremumOfIn" "xu" "xS" "xT")("aSupremumOfIn" "xv" "xS" "xT")).
+  ("=" "xu" "xv").
+,conjecture InfUn.
+  assume ("aSet" "xT").
+  assume ("aSubsetOf" "xS" "xT").
+  assume ( and ("aInfimumOfIn" "xu" "xS" "xT")("aInfimumOfIn" "xv" "xS" "xT")).
+  ("=" "xu" "xv").
+,hypothesis DefCLat.
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aCompleteLattice" (DB 0)))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aSubsetOf" (DB 0) (DB 1))(exists (DB 0) ( and ("aInfimumOfIn" (DB 0) (DB 1) (DB 2))(exists (DB 0) ("aSupremumOfIn" (DB 0) (DB 2) (DB 3)))))))))).
+,Strings Synonym ["function","functions"]
+,Strings Synonym ["point","points"]
+,,hypothesis.
+  assume ("aFunction" "xf").
+  assume ("aSet" ("szDzozmlpdtrp" "xf")).
+,hypothesis RanSort.
+  assume ("aFunction" "xf").
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("szRzaznlpdtrp" "xf")))("aSet" (DB 0)))).
+,hypothesis DefDom.
+  assume ( and ("aFunction" "xf")("aSet" "xS")).
+  assume ( iff (HeadTerm tag ("isOn" "xf" "xS"))( and ("=" ("szDzozmlpdtrp" "xf") ("szRzaznlpdtrp" "xf"))("=" ("szRzaznlpdtrp" "xf") "xS"))).
+,hypothesis ImgSort.
+  assume ("aFunction" "xf").
+  assume ("aElementOf" "xx" ("szDzozmlpdtrp" "xf")).
+  assume ("aElementOf" ("sdtlbdtrb" "xf" "xx") ("szRzaznlpdtrp" "xf")).
+,hypothesis DefFix.
+  assume ("aFunction" "xf").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aFixedPointOf" (DB 0) "xf"))( and ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))("=" ("sdtlbdtrb" "xf" (DB 0)) (DB 0))))).
+,hypothesis DefMonot.
+  assume ("aFunction" "xf").
+  assume ( iff (HeadTerm tag ("isMonotone" "xf"))(forall (DB 0) (forall (DB 0) ( implies ( and ("aElementOf" (DB 1) ("szDzozmlpdtrp" "xf"))("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf")))( implies ("sdtlseqdt" (DB 1) (DB 0))("sdtlseqdt" ("sdtlbdtrb" "xf" (DB 1)) ("sdtlbdtrb" "xf" (DB 0)))))))).
+,conjecture Tarski.
+  assume ( and ("aCompleteLattice" "xU")( and ("aFunction" "xf")( and ("isMonotone" "xf")("isOn" "xf" "xU")))).
+  assume ( and ("aSet" "xS")("=" "xS" (lambda (DB 0) ("aFixedPointOf" (DB 0) "xf")))).
+  ("aCompleteLattice" "xS").
+  proof.
+    assume ("aSubsetOf" "xT" "xS").
+    (exists (DB 0) ("aSupremumOfIn" (DB 0) "xT" "xS")).
+    proof.
+      ( and ("aSet" "xP")("=" "xP" (lambda (DB 0) ( and ("aElementOf" (DB 0) "xU")( and ("sdtlseqdt" ("sdtlbdtrb" "xf" (DB 0)) (DB 0))("aUpperBoundOfIn" (DB 0) "xT" "xU")))))).
+      ("aInfimumOfIn" "xp" "xP" "xU").
+      ( and ("aLowerBoundOfIn" ("sdtlbdtrb" "xf" "xp") "xP" "xU")("aUpperBoundOfIn" ("sdtlbdtrb" "xf" "xp") "xT" "xU")).
+      ( and ("aFixedPointOf" "xp" "xf")("aSupremumOfIn" "xp" "xT" "xS")).
+    qed.
+    (exists (DB 0) ("aInfimumOfIn" (DB 0) "xT" "xS")).
+    proof.
+      ( and ("aSet" "xQ")("=" "xQ" (lambda (DB 0) ( and ("aElementOf" (DB 0) "xU")( and ("sdtlseqdt" (DB 0) ("sdtlbdtrb" "xf" (DB 0)))("aLowerBoundOfIn" (DB 0) "xT" "xU")))))).
+      ("aSupremumOfIn" "xq" "xQ" "xU").
+      ( and ("aUpperBoundOfIn" ("sdtlbdtrb" "xf" "xq") "xQ" "xU")("aLowerBoundOfIn" ("sdtlbdtrb" "xf" "xq") "xT" "xU")).
+      ( and ("aFixedPointOf" "xq" "xf")("aInfimumOfIn" "xq" "xT" "xS")).
+    qed.
+  qed.
+]
+[Main] typeOf: [Char] -> [Text] -> IO [Text]
+hypothesis ElmSort.
+  assume (forall (DB 0) ( implies (HeadTerm tag ("aElement" (DB 0)))truth)).
+
+hypothesis EOfElem.
+  assume ("aSet" "xS").
+  assume (forall (DB 0) ( implies ("aElementOf" (DB 0) "xS")("aElement" (DB 0)))).
+
+hypothesis DefEmpty.
+  assume ("aSet" "xS").
+  assume ( iff (HeadTerm tag ("isEmpty" "xS"))(not (exists (DB 0) ("aElementOf" (DB 0) "xS")))).
+
+hypothesis DefSub.
+  assume ("aSet" "xS").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aSubsetOf" (DB 0) "xS"))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aElementOf" (DB 0) (DB 1))("aElementOf" (DB 0) "xS")))))).
+
+hypothesis LessRel.
+  assume ( and ("aElement" "xx")("aElement" "xy")).
+  assume ( implies (HeadTerm tag ("sdtlseqdt" "xx" "xy"))truth).
+
+hypothesis ARefl.
+  assume ("aElement" "xx").
+  assume ("sdtlseqdt" "xx" "xx").
+
+hypothesis ASymm.
+  assume ( and ("aElement" "xx")("aElement" "xy")).
+  assume ( implies ( and ("sdtlseqdt" "xx" "xy")("sdtlseqdt" "xy" "xx"))("=" "xx" "xy")).
+
+hypothesis Trans.
+  assume ( and ( and ("aElement" "xx")("aElement" "xy"))("aElement" "xz")).
+  assume ( implies ( and ("sdtlseqdt" "xx" "xy")("sdtlseqdt" "xy" "xz"))("sdtlseqdt" "xx" "xz")).
+
+hypothesis DefLB.
+  assume ("aSet" "xT").
+  assume ("aSubsetOf" "xS" "xT").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aLowerBoundOfIn" (DB 0) "xS" "xT"))( and ("aElementOf" (DB 0) "xT")(forall (DB 0) ( implies ("aElementOf" (DB 0) "xS")("sdtlseqdt" (DB 1) (DB 0))))))).
+
+hypothesis DefUB.
+  assume ("aSet" "xT").
+  assume ("aSubsetOf" "xS" "xT").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aUpperBoundOfIn" (DB 0) "xS" "xT"))( and ("aElementOf" (DB 0) "xT")(forall (DB 0) ( implies ("aElementOf" (DB 0) "xS")("sdtlseqdt" (DB 0) (DB 1))))))).
+
+hypothesis DefInf.
+  assume ("aSet" "xT").
+  assume ("aSubsetOf" "xS" "xT").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aInfimumOfIn" (DB 0) "xS" "xT"))( and ("aElementOf" (DB 0) "xT")( and ("aLowerBoundOfIn" (DB 0) "xS" "xT")(forall (DB 0) ( implies ("aLowerBoundOfIn" (DB 0) "xS" "xT")("sdtlseqdt" (DB 0) (DB 1)))))))).
+
+hypothesis DefSup.
+  assume ("aSet" "xT").
+  assume ("aSubsetOf" "xS" "xT").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aSupremumOfIn" (DB 0) "xS" "xT"))( and ("aElementOf" (DB 0) "xT")( and ("aUpperBoundOfIn" (DB 0) "xS" "xT")(forall (DB 0) ( implies ("aUpperBoundOfIn" (DB 0) "xS" "xT")("sdtlseqdt" (DB 1) (DB 0)))))))).
+
+conjecture SupUn.
+  assume ("aSet" "xT").
+  assume ("aSubsetOf" "xS" "xT").
+  assume ( and ("aSupremumOfIn" "xu" "xS" "xT")("aSupremumOfIn" "xv" "xS" "xT")).
+  ("=" "xu" "xv").
+
+conjecture InfUn.
+  assume ("aSet" "xT").
+  assume ("aSubsetOf" "xS" "xT").
+  assume ( and ("aInfimumOfIn" "xu" "xS" "xT")("aInfimumOfIn" "xv" "xS" "xT")).
+  ("=" "xu" "xv").
+
+hypothesis DefCLat.
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aCompleteLattice" (DB 0)))( and ("aSet" (DB 0))(forall (DB 0) ( implies ("aSubsetOf" (DB 0) (DB 1))(exists (DB 0) ( and ("aInfimumOfIn" (DB 0) (DB 1) (DB 2))(exists (DB 0) ("aSupremumOfIn" (DB 0) (DB 2) (DB 3)))))))))).
+
+hypothesis.
+  assume ("aFunction" "xf").
+  assume ("aSet" ("szDzozmlpdtrp" "xf")).
+
+hypothesis RanSort.
+  assume ("aFunction" "xf").
+  assume (forall (DB 0) ( implies (HeadTerm tag ("=" (DB 0) ("szRzaznlpdtrp" "xf")))("aSet" (DB 0)))).
+
+hypothesis DefDom.
+  assume ( and ("aFunction" "xf")("aSet" "xS")).
+  assume ( iff (HeadTerm tag ("isOn" "xf" "xS"))( and ("=" ("szDzozmlpdtrp" "xf") ("szRzaznlpdtrp" "xf"))("=" ("szRzaznlpdtrp" "xf") "xS"))).
+
+hypothesis ImgSort.
+  assume ("aFunction" "xf").
+  assume ("aElementOf" "xx" ("szDzozmlpdtrp" "xf")).
+  assume ("aElementOf" ("sdtlbdtrb" "xf" "xx") ("szRzaznlpdtrp" "xf")).
+
+hypothesis DefFix.
+  assume ("aFunction" "xf").
+  assume (forall (DB 0) ( iff (HeadTerm tag ("aFixedPointOf" (DB 0) "xf"))( and ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))("=" ("sdtlbdtrb" "xf" (DB 0)) (DB 0))))).
+
+hypothesis DefMonot.
+  assume ("aFunction" "xf").
+  assume ( iff (HeadTerm tag ("isMonotone" "xf"))(forall (DB 0) (forall (DB 0) ( implies ( and ("aElementOf" (DB 1) ("szDzozmlpdtrp" "xf"))("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf")))( implies ("sdtlseqdt" (DB 1) (DB 0))("sdtlseqdt" ("sdtlbdtrb" "xf" (DB 1)) ("sdtlbdtrb" "xf" (DB 0)))))))).
+
+conjecture Tarski.
+  assume ( and ("aCompleteLattice" "xU")( and ("aFunction" "xf")( and ("isMonotone" "xf")("isOn" "xf" "xU")))).
+  assume ( and ("aSet" "xS")("=" "xS" (lambda (DB 0) ("aFixedPointOf" (DB 0) "xf")))).
+  ("aCompleteLattice" "xS").
+  proof.
+    assume ("aSubsetOf" "xT" "xS").
+    (exists (DB 0) ("aSupremumOfIn" (DB 0) "xT" "xS")).
+    proof.
+      ( and ("aSet" "xP")("=" "xP" (lambda (DB 0) ( and ("aElementOf" (DB 0) "xU")( and ("sdtlseqdt" ("sdtlbdtrb" "xf" (DB 0)) (DB 0))("aUpperBoundOfIn" (DB 0) "xT" "xU")))))).
+      ("aInfimumOfIn" "xp" "xP" "xU").
+      ( and ("aLowerBoundOfIn" ("sdtlbdtrb" "xf" "xp") "xP" "xU")("aUpperBoundOfIn" ("sdtlbdtrb" "xf" "xp") "xT" "xU")).
+      ( and ("aFixedPointOf" "xp" "xf")("aSupremumOfIn" "xp" "xT" "xS")).
+    qed.
+    (exists (DB 0) ("aInfimumOfIn" (DB 0) "xT" "xS")).
+    proof.
+      ( and ("aSet" "xQ")("=" "xQ" (lambda (DB 0) ( and ("aElementOf" (DB 0) "xU")( and ("sdtlseqdt" (DB 0) ("sdtlbdtrb" "xf" (DB 0)))("aLowerBoundOfIn" (DB 0) "xT" "xU")))))).
+      ("aSupremumOfIn" "xq" "xQ" "xU").
+      ( and ("aUpperBoundOfIn" ("sdtlbdtrb" "xf" "xq") "xQ" "xU")("aLowerBoundOfIn" ("sdtlbdtrb" "xf" "xq") "xT" "xU")).
+      ( and ("aFixedPointOf" "xq" "xf")("aInfimumOfIn" "xq" "xT" "xS")).
+    qed.
+  qed.
+
+[Main] total 00:00.05
