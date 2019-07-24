@@ -114,7 +114,7 @@
 (body ))(block (decl ) Affirmation     ( and ("aElementOf" ("sdtlbdtrb" ("sdtlbdtrb" "xG" ("slpdtcmdtrp" "xm" "xj")) "xj") ("sdtlbdtrb" "xDiag" "xj"))(not ("aElementOf" ("sdtlbdtrb" "xf" "xj") ("sdtlbdtrb" "xDiag" "xj")))) "__" 
 (body ))(block (decl ) Affirmation     contradiction "__" 
 (body ))))))
-([Main] total 00:00.04)
+;([Main] total 00:00.04)
 ([Parser] "examples/Maximum_principle.ftl")
 (parsing successful)
 (block (decl ) definition "?"nil
@@ -214,7 +214,7 @@
 (body ))(block (decl ) Affirmation       contradiction "__" 
 (body ))))(block (decl ) Affirmation     ("isConstantOn" "xf" ("szDzozmlpdtrp" "xf")) "__" 
 (body ))))))
-([Main] total 00:00.03)
+;([Main] total 00:00.03)
 ([Parser] "examples/chinese.ftl")
 (parsing successful)
 (block (decl ) signature "?" "ElmSort" 
@@ -453,7 +453,7 @@
 (body (block (decl "xz" ) Selection       ( and ("aElement" "xz")("=" "xc" ("sdtasdt" "xz" "xu"))) "__" 
 (body ))(block (decl ) Affirmation       ("aElementOf" "xc" "xI") "__" 
 (body ))))))))
-([Main] total 00:00.21)
+;([Main] total 00:00.21)
 ([Parser] "examples/fuerst.ftl")
 (parsing successful)
 (block (decl ) signature "?" "Integers" 
@@ -692,7 +692,7 @@
 (body ))(block (decl ) Affirmation       ( or (not ("=" ("sdtpldt" ("sz1") "xp") ("smndt" ("sz1"))))(not ("=" ("sdtpldt" ("sz1") ("smndt" "xp")) ("smndt" ("sz1"))))) "__" 
 (body ))))(block (decl ) Affirmation     contradiction "__" 
 (body ))))))
-([Main] total 00:00.31)
+;([Main] total 00:00.31)
 ([Parser] "examples/newman.ftl")
 (parsing successful)
 (block (decl ) signature "?" "ElmSort" 
@@ -761,7 +761,7 @@
 (body ))))(block (decl ) Affirmation       ("sdtmndtasgtdt" "xc" "xR" "xd") "__" 
 (body (block (decl "xy" ) Selection         ( and ("aElement" "xy")( and ("sdtmndtasgtdt" "xc" "xR" "xy")("sdtmndtasgtdt" "xd" "xR" "xy"))) "__" 
 (body ))))))))))
-([Main] total 00:00.25)
+;([Main] total 00:00.25)
 ([Parser] "examples/powerset.ftl")
 (parsing successful)
 (block (decl ) axiom "?"nil
@@ -789,7 +789,7 @@
 (body ))(block (decl ) Affirmation     (forall  ( implies ("aElementOf" (DB 0) "xM")(not ("=" "xN" ("sdtlbdtrb" "xf" (DB 0)))))) "__" 
 (body ))(block (decl ) Affirmation     contradiction "__" 
 (body ))))))
-([Main] total 00:00.00)
+;([Main] total 00:00.00)
 ([Parser] "examples/prime_no_square.ftl")
 (parsing successful)
 (block (decl ) signature "?"nil
@@ -852,7 +852,7 @@
 (body ))(block (decl ) Affirmation     ("sdtbrdt" "xp" "xm") "__" 
 (body ))(block (decl ) Affirmation     contradiction "__" 
 (body ))))))
-([Main] total 00:00.02)
+;([Main] total 00:00.02)
 ([Parser] "examples/regular_successor.ftl")
 (parsing successful)
 (block (decl ) axiom "?"nil
@@ -989,7 +989,7 @@
 (body ))))))(block (decl ) Affirmation     ( or ("=" ("szSzuzczclpdtrp" "xA") "xA")("sdtlsdt" ("szSzuzczclpdtrp" "xA") "xA")) "__" 
 (body ))(block (decl ) Affirmation     contradiction "__" 
 (body ))))))
-([Main] total 00:00.05)
+;([Main] total 00:00.05)
 ([Parser] "examples/tarski.ftl")
 (parsing successful)
 (block (decl ) signature "?" "ElmSort" 
@@ -1099,4 +1099,4 @@
 (body ))(block (decl ) Affirmation       ( and ("aUpperBoundOfIn" ("sdtlbdtrb" "xf" "xq") "xQ" "xU")("aLowerBoundOfIn" ("sdtlbdtrb" "xf" "xq") "xT" "xU")) "__" 
 (body ))(block (decl ) Affirmation       ( and ("aFixedPointOf" "xq" "xf")("aInfimumOfIn" "xq" "xT" "xS")) "__" 
 (body ))))))))
-([Main] total 00:00.05)
+;([Main] total 00:00.05)
