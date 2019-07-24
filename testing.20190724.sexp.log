@@ -1,0 +1,1120 @@
+[Parser] "examples/Koenigs_lemma.ftl"
+parsing successful
+[Main] String: examples
+[Main] typeOf: [Char] -> [Text] -> IO [Text]
+(block (decl ) definition "?"nil
+(body (block (decl "xM" ) Assumption   ("aSet" "xM") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("aSubsetOf" (DB 0) "xM"))( and ("aSet" (DB 0))(forall  ( implies ("aElementOf" (DB 0) (DB 1))("aElementOf" (DB 0) "xM")))))) "__" 
+(body ))))
+(block (decl ) definition "?"nil
+(body (block (decl "xM" "xN" ) Assumption   ( and ("aSet" "xM")("aSet" "xN")) "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("=" (DB 0) ("sdtbsdt" "xM" "xN")))( and ("aSet" (DB 0))("=" (DB 0) (lambda  ( and ("aElementOf" (DB 0) "xM")(not ("aElementOf" (DB 0) "xN")))))))) "__" 
+(body ))))
+(block (decl ) definition "?"nil
+(body (block (decl "xf" ) Assumption   ("aFunction" "xf") "__" 
+(body ))(block (decl "xM" ) Assumption   ("aSubsetOf" "xM" ("szDzozmlpdtrp" "xf")) "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("=" (DB 0) ("sdtcflbdtrb" "xf" "xM")))( and ("aSet" (DB 0))("=" (DB 0) (lambda  (Replacement tag (exists  ( and ("aElementOf" (DB 0) "xM")("=" (DB 1) ("sdtlbdtrb" "xf" (DB 0))))))))))) "__" 
+(body ))))
+(block (decl ) signature "?"nil
+(body (block (decl ) Posit   (forall  ( implies (HeadTerm tag ("aCardinal" (DB 0)))("aSet" (DB 0)))) "__" 
+(body ))))
+(block (decl ) signature "?"nil
+(body (block (decl "xA" "xB" ) Assumption   ( and ("aCardinal" "xA")("aCardinal" "xB")) "__" 
+(body ))(block (decl ) Posit   ( implies (HeadTerm tag ("sdtlsdt" "xA" "xB"))truth) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xA" "xB" "xC" ) Assumption   ( and ( and ("aCardinal" "xA")("aCardinal" "xB"))("aCardinal" "xC")) "__" 
+(body ))(block (decl ) Posit   ( implies ( and ("sdtlsdt" "xA" "xB")("sdtlsdt" "xB" "xC"))("sdtlsdt" "xA" "xC")) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xA" "xB" ) Assumption   ( and ("aCardinal" "xA")("aCardinal" "xB")) "__" 
+(body ))(block (decl ) Posit   ( or ( or ("sdtlsdt" "xA" "xB")("sdtlsdt" "xB" "xA"))("=" "xB" "xA")) "__" 
+(body ))))
+(block (decl ) signature "?"nil
+(body (block (decl "xM" ) Assumption   ("aSet" "xM") "__" 
+(body ))(block (decl ) Posit   (forall  ( implies (HeadTerm tag ("=" (DB 0) ("ttheCardinalityOf" "xM")))("aCardinal" (DB 0)))) "__" 
+(body ))))
+(block (decl ) axiom "?" "Image_Card" 
+(body (block (decl "xf" ) Assumption   ("aFunction" "xf") "__" 
+(body ))(block (decl "xM" ) Assumption   ("aSubsetOf" "xM" ("szDzozmlpdtrp" "xf")) "__" 
+(body ))(block (decl ) Posit   ( or ("=" ("ttheCardinalityOf" ("sdtcflbdtrb" "xf" "xM")) ("ttheCardinalityOf" "xM"))("sdtlsdt" ("ttheCardinalityOf" ("sdtcflbdtrb" "xf" "xM")) ("ttheCardinalityOf" "xM"))) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xN" "xM" ) Assumption   ( and ("aSet" "xN")("aSet" "xM")) "__" 
+(body ))(block (decl ) Assumption   ("sdtlsdt" ("ttheCardinalityOf" "xN") ("ttheCardinalityOf" "xM")) "__" 
+(body ))(block (decl ) Posit   (exists  ("aElementOf" (DB 0) ("sdtbsdt" "xM" "xN"))) "__" 
+(body ))))
+(block (decl ) axiom "?" "Surj_Exi" 
+(body (block (decl "xM" "xN" ) Assumption   ( and ("aSet" "xM")("aSet" "xN")) "__" 
+(body ))(block (decl ) Assumption   ( or ("=" ("ttheCardinalityOf" "xM") ("ttheCardinalityOf" "xN"))("sdtlsdt" ("ttheCardinalityOf" "xM") ("ttheCardinalityOf" "xN"))) "__" 
+(body ))(block (decl ) Assumption   (exists  ("aElementOf" (DB 0) "xM")) "__" 
+(body ))(block (decl ) Posit   (exists  ( and ("aFunction" (DB 0))( and ("=" "xN" ("szDzozmlpdtrp" (DB 0)))("=" "xM" ("sdtcflbdtrb" (DB 0) ("szDzozmlpdtrp" (DB 0))))))) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xA" ) Assumption   ("aCardinal" "xA") "__" 
+(body ))(block (decl ) Posit   ("=" ("ttheCardinalityOf" "xA") "xA") "__" 
+(body ))))
+(block (decl ) definition "?"nil
+(body (block (decl "xD" ) Assumption   ("aSet" "xD") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("aSequenceOfCardinalsOn" (DB 0) "xD"))( and ("aFunction" (DB 0))( and ("=" ("szDzozmlpdtrp" (DB 0)) "xD")(forall  ( implies ("aElementOf" (DB 0) "xD")("aCardinal" ("sdtlbdtrb" (DB 1) (DB 0))))))))) "__" 
+(body ))))
+(block (decl ) signature "?"nil
+(body (block (decl "xD" ) Assumption   ("aSet" "xD") "__" 
+(body ))(block (decl "xkappa" ) Assumption   ("aSequenceOfCardinalsOn" "xkappa" "xD") "__" 
+(body ))(block (decl ) Posit   (forall  ( implies (HeadTerm tag ("=" (DB 0) ("szSzuzmzSzeztlpdtcmdtrp" "xkappa" "xD")))("aSet" (DB 0)))) "__" 
+(body ))))
+(block (decl ) axiom "?" "Sum_Def" 
+(body (block (decl "xD" ) Assumption   ("aSet" "xD") "__" 
+(body ))(block (decl "xkappa" ) Assumption   ("aSequenceOfCardinalsOn" "xkappa" "xD") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff ("aElementOf" (DB 0) ("szSzuzmzSzeztlpdtcmdtrp" "xkappa" "xD"))(exists  (exists  ( and ( and ("aElementOf" (DB 0) "xD")("aElementOf" (DB 1) ("sdtlbdtrb" "xkappa" (DB 0))))("=" (DB 2) ("slpdtcmdtrp" (DB 1) (DB 0)))))))) "__" 
+(body ))))
+(block (decl ) definition "?"nil
+(body (block (decl "xD" ) Assumption   ("aSet" "xD") "__" 
+(body ))(block (decl "xkappa" ) Assumption   ("aSequenceOfCardinalsOn" "xkappa" "xD") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("=" (DB 0) ("szSzuzmlpdtcmdtrp" "xkappa" "xD")))("=" (DB 0) ("ttheCardinalityOf" ("szSzuzmzSzeztlpdtcmdtrp" "xkappa" "xD"))))) "__" 
+(body ))))
+(block (decl ) signature "?"nil
+(body (block (decl "xD" ) Assumption   ("aSet" "xD") "__" 
+(body ))(block (decl "xkappa" ) Assumption   ("aSequenceOfCardinalsOn" "xkappa" "xD") "__" 
+(body ))(block (decl ) Posit   (forall  ( implies (HeadTerm tag ("=" (DB 0) ("szPzrzozdzSzeztlpdtcmdtrp" "xkappa" "xD")))("aSet" (DB 0)))) "__" 
+(body ))))
+(block (decl ) axiom "?" "Prod_Def" 
+(body (block (decl "xD" ) Assumption   ("aSet" "xD") "__" 
+(body ))(block (decl "xkappa" ) Assumption   ("aSequenceOfCardinalsOn" "xkappa" "xD") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff ("aElementOf" (DB 0) ("szPzrzozdzSzeztlpdtcmdtrp" "xkappa" "xD"))( and ("aFunction" (DB 0))( and ("=" ("szDzozmlpdtrp" (DB 0)) "xD")(forall  ( implies ("aElementOf" (DB 0) "xD")("aElementOf" ("sdtlbdtrb" (DB 1) (DB 0)) ("sdtlbdtrb" "xkappa" (DB 0))))))))) "__" 
+(body ))))
+(block (decl ) definition "?"nil
+(body (block (decl "xD" ) Assumption   ("aSet" "xD") "__" 
+(body ))(block (decl "xkappa" ) Assumption   ("aSequenceOfCardinalsOn" "xkappa" "xD") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("=" (DB 0) ("szPzrzozdlpdtcmdtrp" "xkappa" "xD")))("=" (DB 0) ("ttheCardinalityOf" ("szPzrzozdzSzeztlpdtcmdtrp" "xkappa" "xD"))))) "__" 
+(body ))))
+(block (decl ) theorem "?" "Choice" 
+(body (block (decl "xD" ) Assumption   ("aSet" "xD") "__" 
+(body ))(block (decl "xlambda" ) Assumption   ("aSequenceOfCardinalsOn" "xlambda" "xD") "__" 
+(body ))(block (decl ) Assumption   (forall  ( implies ("aElementOf" (DB 0) "xD")(exists  ("aElementOf" (DB 0) ("sdtlbdtrb" "xlambda" (DB 1)))))) "__" 
+(body ))(block (decl ) Affirmation   (exists  ("aElementOf" (DB 0) ("szPzrzozdzSzeztlpdtcmdtrp" "xlambda" "xD"))) "__" 
+(body (block (decl "xf" ) LowDefinition     ( and ( and ("aFunction" "xf")(Domain tag ("=" ("szDzozmlpdtrp" "xf") "xD")))(forall  ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))(exists  ( and ("aElementOf" (DB 0) ("sdtlbdtrb" "xlambda" (DB 1)))(Evaluation tag ("=" ("sdtlbdtrb" "xf" (DB 1)) (DB 0)))))))) "__" 
+(body ))(block (decl ) Affirmation     ("aElementOf" "xf" ("szPzrzozdzSzeztlpdtcmdtrp" "xlambda" "xD")) "__" 
+(body ))))))
+(block (decl ) theorem "?" "Koenig" 
+(body (block (decl "xD" ) Assumption   ("aSet" "xD") "__" 
+(body ))(block (decl "xkappa" "xlambda" ) Assumption   ( and ("aSequenceOfCardinalsOn" "xkappa" "xD")("aSequenceOfCardinalsOn" "xlambda" "xD")) "__" 
+(body ))(block (decl ) Assumption   (forall  ( implies ("aElementOf" (DB 0) "xD")("sdtlsdt" ("sdtlbdtrb" "xkappa" (DB 0)) ("sdtlbdtrb" "xlambda" (DB 0))))) "__" 
+(body ))(block (decl ) Affirmation   ("sdtlsdt" ("szSzuzmlpdtcmdtrp" "xkappa" "xD") ("szPzrzozdlpdtcmdtrp" "xlambda" "xD")) "__" 
+(body (block (decl ) Assumption     (not ("#TH#")) "__" 
+(body ))(block (decl ) Affirmation     ( or ("=" ("szPzrzozdlpdtcmdtrp" "xlambda" "xD") ("szSzuzmlpdtcmdtrp" "xkappa" "xD"))("sdtlsdt" ("szPzrzozdlpdtcmdtrp" "xlambda" "xD") ("szSzuzmlpdtcmdtrp" "xkappa" "xD"))) "__" 
+(body ))(block (decl "xG" ) Selection     ( and ("aFunction" "xG")( and ("=" ("szSzuzmzSzeztlpdtcmdtrp" "xkappa" "xD") ("szDzozmlpdtrp" "xG"))("=" ("szPzrzozdzSzeztlpdtcmdtrp" "xlambda" "xD") ("sdtcflbdtrb" "xG" ("szDzozmlpdtrp" "xG"))))) "__" 
+(body (block (decl ) Affirmation       (exists  ("aElementOf" (DB 0) ("szPzrzozdzSzeztlpdtcmdtrp" "xlambda" "xD"))) "__" 
+(body ))))(block (decl "xDiag" ) LowDefinition     ( and ( and ("aFunction" "xDiag")(Domain tag ("=" ("szDzozmlpdtrp" "xDiag") "xD")))(forall  ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xDiag"))(exists  ( and (Defined tag ( and ("aSet" (DB 0))("=" (DB 0) (lambda  (Replacement tag (exists  ( and ("aElementOf" (DB 0) ("sdtlbdtrb" "xkappa" "xi"))("=" (DB 1) ("sdtlbdtrb" ("sdtlbdtrb" "xG" ("slpdtcmdtrp" (DB 0) "xi")) "xi")))))))))(Evaluation tag ("=" ("sdtlbdtrb" "xDiag" (DB 1)) (DB 0)))))))) "__" 
+(body ))(block (decl ) Affirmation     (forall  ( implies ("aElementOf" (DB 0) "xD")("sdtlsdt" ("ttheCardinalityOf" ("sdtlbdtrb" "xDiag" (DB 0))) ("sdtlbdtrb" "xlambda" (DB 0))))) "__" 
+(body (block (decl "xi" ) Assumption       ("aElementOf" "xi" "xD") "__" 
+(body ))(block (decl "xF" ) LowDefinition       ( and ( and ("aFunction" "xF")(Domain tag ("=" ("szDzozmlpdtrp" "xF") ("sdtlbdtrb" "xkappa" "xi"))))(forall  ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xF"))(Evaluation tag ("=" ("sdtlbdtrb" "xF" (DB 0)) ("sdtlbdtrb" ("sdtlbdtrb" "xG" ("slpdtcmdtrp" (DB 0) "xi")) "xi")))))) "__" 
+(body ))(block (decl ) Affirmation       ("=" ("sdtcflbdtrb" "xF" ("sdtlbdtrb" "xkappa" "xi")) ("sdtlbdtrb" "xDiag" "xi")) "__" 
+(body ))))(block (decl "xf" ) LowDefinition     ( and ( and ("aFunction" "xf")(Domain tag ("=" ("szDzozmlpdtrp" "xf") "xD")))(forall  ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))(exists  ( and ("aElementOf" (DB 0) ("sdtbsdt" ("sdtlbdtrb" "xlambda" (DB 1)) ("sdtlbdtrb" "xDiag" (DB 1))))(Evaluation tag ("=" ("sdtlbdtrb" "xf" (DB 1)) (DB 0)))))))) "__" 
+(body ))(block (decl ) Affirmation     ("aElementOf" "xf" ("szPzrzozdzSzeztlpdtcmdtrp" "xlambda" "xD")) "__" 
+(body ))(block (decl "xj" "xm" ) Selection     ( and ("aElementOf" "xj" "xD")( and ("aElementOf" "xm" ("sdtlbdtrb" "xkappa" "xj"))("=" ("sdtlbdtrb" "xG" ("slpdtcmdtrp" "xm" "xj")) "xf"))) "__" 
+(body ))(block (decl ) Affirmation     ( and ("aElementOf" ("sdtlbdtrb" ("sdtlbdtrb" "xG" ("slpdtcmdtrp" "xm" "xj")) "xj") ("sdtlbdtrb" "xDiag" "xj"))(not ("aElementOf" ("sdtlbdtrb" "xf" "xj") ("sdtlbdtrb" "xDiag" "xj")))) "__" 
+(body ))(block (decl ) Affirmation     contradiction "__" 
+(body ))))))
+[Main] total 00:00.04
+[Parser] "examples/Maximum_principle.ftl"
+parsing successful
+[Main] String: examples
+[Main] typeOf: [Char] -> [Text] -> IO [Text]
+(block (decl ) definition "?"nil
+(body (block (decl "xM" ) Assumption   ("aSet" "xM") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("aSubsetOf" (DB 0) "xM"))( and ("aSet" (DB 0))(forall  ( implies ("aElementOf" (DB 0) (DB 1))("aElementOf" (DB 0) "xM")))))) "__" 
+(body ))))
+(block (decl ) definition "?"nil
+(body (block (decl "xf" ) Assumption   ("aFunction" "xf") "__" 
+(body ))(block (decl "xM" ) Assumption   ("aSubsetOf" "xM" ("szDzozmlpdtrp" "xf")) "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("=" (DB 0) ("sdtcflbdtrb" "xf" "xM")))( and ("aSet" (DB 0))("=" (DB 0) (lambda  (Replacement tag (exists  ( and ("aElementOf" (DB 0) "xM")("=" (DB 1) ("sdtlbdtrb" "xf" (DB 0))))))))))) "__" 
+(body ))))
+(block (decl ) signature "?"nil
+(body (block (decl ) Posit   (forall  ( implies (HeadTerm tag ("aComplexNumber" (DB 0)))truth)) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xf" ) Assumption   ("aFunction" "xf") "__" 
+(body ))(block (decl ) Posit   ( and (forall  ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))("aComplexNumber" (DB 0))))(forall  ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))("aComplexNumber" ("sdtlbdtrb" "xf" (DB 0)))))) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xM" ) Assumption   ("aSet" "xM") "__" 
+(body ))(block (decl ) Posit   (forall  ( implies ("aElementOf" (DB 0) "xM")("aComplexNumber" (DB 0)))) "__" 
+(body ))))
+(block (decl ) signature "?"nil
+(body (block (decl ) Posit   (forall  ( implies (HeadTerm tag ("aRealNumber" (DB 0)))truth)) "__" 
+(body ))))
+(block (decl ) signature "?"nil
+(body (block (decl "xz" ) Assumption   ("aComplexNumber" "xz") "__" 
+(body ))(block (decl ) Posit   (forall  ( implies (HeadTerm tag ("=" (DB 0) ("sbrdtbr" "xz")))("aRealNumber" (DB 0)))) "__" 
+(body ))))
+(block (decl ) signature "?"nil
+(body (block (decl "xx" ) Assumption   ("aRealNumber" "xx") "__" 
+(body ))(block (decl ) Posit   ( implies (HeadTerm tag ("isPositive" "xx"))truth) "__" 
+(body ))))
+(block (decl ) signature "?"nil
+(body (block (decl "xx" "xy" ) Assumption   ( and ("aRealNumber" "xx")("aRealNumber" "xy")) "__" 
+(body ))(block (decl ) Posit   ( implies (HeadTerm tag ("sdtlsdt" "xx" "xy"))truth) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xx" "xy" ) Assumption   ( and ("aRealNumber" "xx")("aRealNumber" "xy")) "__" 
+(body ))(block (decl ) Posit   ( implies ("sdtlsdt" "xx" "xy")(not ("sdtlsdt" "xy" "xx"))) "__" 
+(body ))))
+(block (decl ) signature "?"nil
+(body (block (decl "xf" ) Assumption   ("aFunction" "xf") "__" 
+(body ))(block (decl ) Posit   ( implies (HeadTerm tag ("isHolomorphic" "xf"))truth) "__" 
+(body ))))
+(block (decl ) signature "?"nil
+(body (block (decl "xeps" "xz" ) Assumption   ( and ( and ("aRealNumber" "xeps")("isPositive" "xeps"))("aComplexNumber" "xz")) "__" 
+(body ))(block (decl ) Posit   (forall  ( implies (HeadTerm tag ("=" (DB 0) ("szBzazlzllpdtcmdtrp" "xeps" "xz")))( and ("aSet" (DB 0))("aElementOf" "xz" (DB 0))))) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xeps" "xz" ) Assumption   ( and ( and ("aRealNumber" "xeps")("isPositive" "xeps"))("aComplexNumber" "xz")) "__" 
+(body ))(block (decl ) Posit   (exists  ( and ("aElementOf" (DB 0) ("szBzazlzllpdtcmdtrp" "xeps" "xz"))("sdtlsdt" ("sbrdtbr" "xz") ("sbrdtbr" (DB 0))))) "__" 
+(body ))))
+(block (decl ) definition "?"nil
+(body (block (decl "xM" ) Assumption   ("aSet" "xM") "__" 
+(body ))(block (decl ) Posit   ( iff (HeadTerm tag ("isOpen" "xM"))(forall  ( implies ("aElementOf" (DB 0) "xM")(exists  ( and ( and ("aRealNumber" (DB 0))("isPositive" (DB 0)))("aSubsetOf" ("szBzazlzllpdtcmdtrp" (DB 0) (DB 1)) "xM")))))) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xeps" "xz" ) Assumption   ( and ( and ("aRealNumber" "xeps")("isPositive" "xeps"))("aComplexNumber" "xz")) "__" 
+(body ))(block (decl ) Posit   ("isOpen" ("szBzazlzllpdtcmdtrp" "xeps" "xz")) "__" 
+(body ))))
+(block (decl ) definition "?"nil
+(body (block (decl "xf" ) Assumption   ("aFunction" "xf") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("aLocalMaximalPointOf" (DB 0) "xf"))( and ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))(exists  ( and ( and ("aRealNumber" (DB 0))("isPositive" (DB 0)))( and ("aSubsetOf" ("szBzazlzllpdtcmdtrp" (DB 0) (DB 1)) ("szDzozmlpdtrp" "xf"))(forall  ( implies ("aElementOf" (DB 0) ("szBzazlzllpdtcmdtrp" (DB 1) (DB 2)))( or ("=" ("sbrdtbr" ("sdtlbdtrb" "xf" (DB 0))) ("sbrdtbr" ("sdtlbdtrb" "xf" (DB 2))))("sdtlsdt" ("sbrdtbr" ("sdtlbdtrb" "xf" (DB 0))) ("sbrdtbr" ("sdtlbdtrb" "xf" (DB 2))))))))))))) "__" 
+(body ))))
+(block (decl ) definition "?"nil
+(body (block (decl "xf" ) Assumption   ("aFunction" "xf") "__" 
+(body ))(block (decl "xU" ) Assumption   ("aSubsetOf" "xU" ("szDzozmlpdtrp" "xf")) "__" 
+(body ))(block (decl ) Posit   ( iff (HeadTerm tag ("isConstantOn" "xf" "xU"))(exists  ( and ("aComplexNumber" (DB 0))(forall  ( implies ("aElementOf" (DB 0) "xU")("=" ("sdtlbdtrb" "xf" (DB 0)) (DB 1))))))) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xf" "xeps" "xz" ) Assumption   ( and ( and ("aFunction" "xf")( and ("aRealNumber" "xeps")("isPositive" "xeps")))("aComplexNumber" "xz")) "__" 
+(body ))(block (decl ) Assumption   ( and ("isHolomorphic" "xf")("aSubsetOf" ("szBzazlzllpdtcmdtrp" "xeps" "xz") ("szDzozmlpdtrp" "xf"))) "__" 
+(body ))(block (decl ) Posit   ( implies (not ("isConstantOn" "xf" ("szBzazlzllpdtcmdtrp" "xeps" "xz")))("isOpen" ("sdtcflbdtrb" "xf" ("szBzazlzllpdtcmdtrp" "xeps" "xz")))) "__" 
+(body ))))
+(block (decl ) signature "?"nil
+(body (block (decl ) Posit   (forall  ( implies (HeadTerm tag ("aRegion" (DB 0)))( and ("aSet" (DB 0))("isOpen" (DB 0))))) "__" 
+(body ))))
+(block (decl ) axiom "?" "Identity_Theorem" 
+(body (block (decl "xf" ) Assumption   ("aFunction" "xf") "__" 
+(body ))(block (decl ) Assumption   ( and ("isHolomorphic" "xf")("aRegion" ("szDzozmlpdtrp" "xf"))) "__" 
+(body ))(block (decl "xeps" "xz" ) Assumption   ( and ( and ("aRealNumber" "xeps")("isPositive" "xeps"))("aComplexNumber" "xz")) "__" 
+(body ))(block (decl ) Assumption   ("aSubsetOf" ("szBzazlzllpdtcmdtrp" "xeps" "xz") ("szDzozmlpdtrp" "xf")) "__" 
+(body ))(block (decl ) Posit   ( implies ("isConstantOn" "xf" ("szBzazlzllpdtcmdtrp" "xeps" "xz"))("isConstantOn" "xf" ("szDzozmlpdtrp" "xf"))) "__" 
+(body ))))
+(block (decl ) theorem "?" "Maximum_principle" 
+(body (block (decl "xf" ) Assumption   ("aFunction" "xf") "__" 
+(body ))(block (decl ) Assumption   ( and ("isHolomorphic" "xf")("aRegion" ("szDzozmlpdtrp" "xf"))) "__" 
+(body ))(block (decl ) Affirmation   ( implies (exists  ("aLocalMaximalPointOf" (DB 0) "xf"))("isConstantOn" "xf" ("szDzozmlpdtrp" "xf"))) "__" 
+(body (block (decl "xz" ) Assumption     ("aLocalMaximalPointOf" "xz" "xf") "__" 
+(body ))(block (decl "xeps" ) Selection     ( and ( and ("aRealNumber" "xeps")("isPositive" "xeps"))( and ("aSubsetOf" ("szBzazlzllpdtcmdtrp" "xeps" "xz") ("szDzozmlpdtrp" "xf"))(forall  ( implies ("aElementOf" (DB 0) ("szBzazlzllpdtcmdtrp" "xeps" "xz"))( or ("=" ("sbrdtbr" ("sdtlbdtrb" "xf" (DB 0))) ("sbrdtbr" ("sdtlbdtrb" "xf" "xz")))("sdtlsdt" ("sbrdtbr" ("sdtlbdtrb" "xf" (DB 0))) ("sbrdtbr" ("sdtlbdtrb" "xf" "xz")))))))) "__" 
+(body ))(block (decl ) Affirmation     ("isConstantOn" "xf" ("szBzazlzllpdtcmdtrp" "xeps" "xz")) "__" 
+(body (block (decl ) Assumption       (not ("#TH#")) "__" 
+(body ))(block (decl ) Affirmation       ("isOpen" ("sdtcflbdtrb" "xf" ("szBzazlzllpdtcmdtrp" "xeps" "xz"))) "__" 
+(body ))(block (decl "xdelta" ) Selection       ( and ( and ("aRealNumber" "xdelta")("isPositive" "xdelta"))("aSubsetOf" ("szBzazlzllpdtcmdtrp" "xdelta" ("sdtlbdtrb" "xf" "xz")) ("sdtcflbdtrb" "xf" ("szBzazlzllpdtcmdtrp" "xeps" "xz")))) "__" 
+(body ))(block (decl ) Affirmation       (exists  ( and ("aElementOf" (DB 0) ("szBzazlzllpdtcmdtrp" "xeps" "xz"))("sdtlsdt" ("sbrdtbr" ("sdtlbdtrb" "xf" "xz")) ("sbrdtbr" ("sdtlbdtrb" "xf" (DB 0)))))) "__" 
+(body ))(block (decl ) Affirmation       contradiction "__" 
+(body ))))(block (decl ) Affirmation     ("isConstantOn" "xf" ("szDzozmlpdtrp" "xf")) "__" 
+(body ))))))
+[Main] total 00:00.03
+[Parser] "examples/chinese.ftl"
+parsing successful
+[Main] String: examples
+[Main] typeOf: [Char] -> [Text] -> IO [Text]
+(block (decl ) signature "?" "ElmSort" 
+(body (block (decl ) Posit   (forall  ( implies (HeadTerm tag ("aElement" (DB 0)))truth)) "__" 
+(body ))))
+(block (decl ) signature "?" "SortsC" 
+(body (block (decl ) Posit   (forall  ( implies (HeadTerm tag ("=" (DB 0) ("sz0")))("aElement" (DB 0)))) "__" 
+(body ))))
+(block (decl ) signature "?" "SortsC" 
+(body (block (decl ) Posit   (forall  ( implies (HeadTerm tag ("=" (DB 0) ("sz1")))("aElement" (DB 0)))) "__" 
+(body ))))
+(block (decl ) signature "?" "SortsU" 
+(body (block (decl "xx" ) Assumption   ("aElement" "xx") "__" 
+(body ))(block (decl ) Posit   (forall  ( implies (HeadTerm tag ("=" (DB 0) ("smndt" "xx")))("aElement" (DB 0)))) "__" 
+(body ))))
+(block (decl ) signature "?" "SortsB" 
+(body (block (decl "xx" "xy" ) Assumption   ( and ("aElement" "xx")("aElement" "xy")) "__" 
+(body ))(block (decl ) Posit   (forall  ( implies (HeadTerm tag ("=" (DB 0) ("sdtpldt" "xx" "xy")))("aElement" (DB 0)))) "__" 
+(body ))))
+(block (decl ) signature "?" "SortsB" 
+(body (block (decl "xx" "xy" ) Assumption   ( and ("aElement" "xx")("aElement" "xy")) "__" 
+(body ))(block (decl ) Posit   (forall  ( implies (HeadTerm tag ("=" (DB 0) ("sdtasdt" "xx" "xy")))("aElement" (DB 0)))) "__" 
+(body ))))
+(block (decl ) axiom "?" "AddComm" 
+(body (block (decl "xx" "xy" ) Assumption   ( and ("aElement" "xx")("aElement" "xy")) "__" 
+(body ))(block (decl ) Posit   ("=" ("sdtpldt" "xx" "xy") ("sdtpldt" "xy" "xx")) "__" 
+(body ))))
+(block (decl ) axiom "?" "AddAsso" 
+(body (block (decl "xx" "xy" "xz" ) Assumption   ( and ( and ("aElement" "xx")("aElement" "xy"))("aElement" "xz")) "__" 
+(body ))(block (decl ) Posit   ("=" ("sdtpldt" ("sdtpldt" "xx" "xy") "xz") ("sdtpldt" "xx" ("sdtpldt" "xy" "xz"))) "__" 
+(body ))))
+(block (decl ) axiom "?" "AddBubble" 
+(body (block (decl "xx" "xy" "xz" ) Assumption   ( and ( and ("aElement" "xx")("aElement" "xy"))("aElement" "xz")) "__" 
+(body ))(block (decl ) Posit   ("=" ("sdtpldt" "xx" ("sdtpldt" "xy" "xz")) ("sdtpldt" "xy" ("sdtpldt" "xx" "xz"))) "__" 
+(body ))))
+(block (decl ) axiom "?" "AddZero" 
+(body (block (decl "xx" ) Assumption   ("aElement" "xx") "__" 
+(body ))(block (decl ) Posit   ( and ("=" ("sdtpldt" "xx" ("sz0")) "xx")("=" "xx" ("sdtpldt" ("sz0") "xx"))) "__" 
+(body ))))
+(block (decl ) axiom "?" "AddInvr" 
+(body (block (decl "xx" ) Assumption   ("aElement" "xx") "__" 
+(body ))(block (decl ) Posit   ( and ("=" ("sdtpldt" "xx" ("smndt" "xx")) ("sz0"))("=" ("sz0") ("sdtpldt" ("smndt" "xx") "xx"))) "__" 
+(body ))))
+(block (decl ) axiom "?" "MulComm" 
+(body (block (decl "xx" "xy" ) Assumption   ( and ("aElement" "xx")("aElement" "xy")) "__" 
+(body ))(block (decl ) Posit   ("=" ("sdtasdt" "xx" "xy") ("sdtasdt" "xy" "xx")) "__" 
+(body ))))
+(block (decl ) axiom "?" "MulAsso" 
+(body (block (decl "xx" "xy" "xz" ) Assumption   ( and ( and ("aElement" "xx")("aElement" "xy"))("aElement" "xz")) "__" 
+(body ))(block (decl ) Posit   ("=" ("sdtasdt" ("sdtasdt" "xx" "xy") "xz") ("sdtasdt" "xx" ("sdtasdt" "xy" "xz"))) "__" 
+(body ))))
+(block (decl ) axiom "?" "MulBubble" 
+(body (block (decl "xx" "xy" "xz" ) Assumption   ( and ( and ("aElement" "xx")("aElement" "xy"))("aElement" "xz")) "__" 
+(body ))(block (decl ) Posit   ("=" ("sdtasdt" "xx" ("sdtasdt" "xy" "xz")) ("sdtasdt" "xy" ("sdtasdt" "xx" "xz"))) "__" 
+(body ))))
+(block (decl ) axiom "?" "MulUnit" 
+(body (block (decl "xx" ) Assumption   ("aElement" "xx") "__" 
+(body ))(block (decl ) Posit   ( and ("=" ("sdtasdt" "xx" ("sz1")) "xx")("=" "xx" ("sdtasdt" ("sz1") "xx"))) "__" 
+(body ))))
+(block (decl ) axiom "?" "AMDistr1" 
+(body (block (decl "xx" "xy" "xz" ) Assumption   ( and ( and ("aElement" "xx")("aElement" "xy"))("aElement" "xz")) "__" 
+(body ))(block (decl ) Posit   ("=" ("sdtasdt" "xx" ("sdtpldt" "xy" "xz")) ("sdtpldt" ("sdtasdt" "xx" "xy") ("sdtasdt" "xx" "xz"))) "__" 
+(body ))))
+(block (decl ) axiom "?" "AMDistr2" 
+(body (block (decl "xy" "xz" "xx" ) Assumption   ( and ( and ("aElement" "xy")("aElement" "xz"))("aElement" "xx")) "__" 
+(body ))(block (decl ) Posit   ("=" ("sdtasdt" ("sdtpldt" "xy" "xz") "xx") ("sdtpldt" ("sdtasdt" "xy" "xx") ("sdtasdt" "xz" "xx"))) "__" 
+(body ))))
+(block (decl ) axiom "?" "MulMnOne" 
+(body (block (decl "xx" ) Assumption   ("aElement" "xx") "__" 
+(body ))(block (decl ) Posit   ( and ("=" ("sdtasdt" ("smndt" ("sz1")) "xx") ("smndt" "xx"))("=" ("smndt" "xx") ("sdtasdt" "xx" ("smndt" ("sz1"))))) "__" 
+(body ))))
+(block (decl ) theorem "?" "MulZero" 
+(body (block (decl "xx" ) Assumption   ("aElement" "xx") "__" 
+(body ))(block (decl ) Affirmation   ( and ("=" ("sdtasdt" "xx" ("sz0")) ("sz0"))("=" ("sz0") ("sdtasdt" ("sz0") "xx"))) "__" 
+(body (block (decl ) Affirmation     ("=" ("sdtasdt" "xx" ("sz0")) ("sz0")) "__" 
+(body (block (decl ) Affirmation       (EqualityChain tag ("=" ("sdtasdt" "xx" ("sz0")) ("sdtpldt" ("sdtasdt" "xx" ("sz0")) ("sdtasdt" "xx" ("sz0"))))) "__" 
+(body (block (decl ) Affirmation         (EqualityChain tag ("=" ("sdtasdt" "xx" ("sz0")) ("sdtasdt" "xx" ("sdtpldt" ("sz0") ("sz0"))))) "__" 
+(body ))(block (decl ) Affirmation         (EqualityChain tag ("=" ("sdtasdt" "xx" ("sdtpldt" ("sz0") ("sz0"))) ("sdtpldt" ("sdtasdt" "xx" ("sz0")) ("sdtasdt" "xx" ("sz0"))))) "__" 
+(body ))))))(block (decl ) Affirmation     ("=" ("sdtasdt" ("sz0") "xx") ("sz0")) "__" 
+(body (block (decl ) Affirmation       (EqualityChain tag ("=" ("sdtasdt" ("sz0") "xx") ("sdtpldt" ("sdtasdt" ("sz0") "xx") ("sdtasdt" ("sz0") "xx")))) "__" 
+(body (block (decl ) Affirmation         (EqualityChain tag ("=" ("sdtasdt" ("sz0") "xx") ("sdtasdt" ("sdtpldt" ("sz0") ("sz0")) "xx"))) "__" 
+(body ))(block (decl ) Affirmation         (EqualityChain tag ("=" ("sdtasdt" ("sdtpldt" ("sz0") ("sz0")) "xx") ("sdtpldt" ("sdtasdt" ("sz0") "xx") ("sdtasdt" ("sz0") "xx")))) "__" 
+(body ))))))))))
+(block (decl ) axiom "?" "Cancel" 
+(body (block (decl "xx" "xy" ) Assumption   ( and ("aElement" "xx")("aElement" "xy")) "__" 
+(body ))(block (decl ) Posit   ( implies ( and (not ("=" "xx" ("sz0")))(not ("=" "xy" ("sz0"))))(not ("=" ("sdtasdt" "xx" "xy") ("sz0")))) "__" 
+(body ))))
+(block (decl ) axiom "?" "UnNeZr" 
+(body (block (decl ) Posit   (not ("=" ("sz1") ("sz0"))) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xX" ) Assumption   ("aSet" "xX") "__" 
+(body ))(block (decl ) Posit   (forall  ( implies ("aElementOf" (DB 0) "xX")("aElement" (DB 0)))) "__" 
+(body ))))
+(block (decl ) axiom "?" "SetEq" 
+(body (block (decl "xX" "xY" ) Assumption   ( and ("aSet" "xX")("aSet" "xY")) "__" 
+(body ))(block (decl ) Posit   ( implies ( and (forall  ( implies ("aElementOf" (DB 0) "xX")("aElementOf" (DB 0) "xY")))(forall  ( implies ("aElementOf" (DB 0) "xY")("aElementOf" (DB 0) "xX"))))("=" "xX" "xY")) "__" 
+(body ))))
+(block (decl ) definition "?" "DefSSum" 
+(body (block (decl "xX" "xY" ) Assumption   ( and ("aSet" "xX")("aSet" "xY")) "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("=" (DB 0) ("sdtplqtdt" "xX" "xY")))( and ("aSet" (DB 0))(forall  ( implies ("aElement" (DB 0))( iff ("aElementOf" (DB 0) (DB 1))(exists  ( and ("aElementOf" (DB 0) "xX")(exists  ( and ("aElementOf" (DB 0) "xY")("=" (DB 2) ("sdtpldt" (DB 1) (DB 0))))))))))))) "__" 
+(body ))))
+(block (decl ) definition "?" "DefSInt" 
+(body (block (decl "xX" "xY" ) Assumption   ( and ("aSet" "xX")("aSet" "xY")) "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("=" (DB 0) ("sdtasasdt" "xX" "xY")))( and ("aSet" (DB 0))(forall  ( implies ("aElement" (DB 0))( iff ("aElementOf" (DB 0) ("sdtplqtdt" "xX" "xY"))( and ("aElementOf" (DB 0) "xX")("aElementOf" (DB 0) "xY")))))))) "__" 
+(body ))))
+(block (decl ) definition "?" "DefIdeal" 
+(body (block (decl ) Posit   (forall  ( iff (HeadTerm tag ("aIdeal" (DB 0)))( and ("aSet" (DB 0))(forall  ( implies ("aElementOf" (DB 0) (DB 1))( and (forall  ( implies ("aElementOf" (DB 0) (DB 2))("aElementOf" ("sdtpldt" (DB 1) (DB 0)) (DB 2))))(forall  ( implies ("aElement" (DB 0))("aElementOf" ("sdtasdt" (DB 0) (DB 1)) (DB 2)))))))))) "__" 
+(body ))))
+(block (decl ) theorem "?" "IdeSum" 
+(body (block (decl "xI" "xJ" ) Assumption   ( and ("aIdeal" "xI")("aIdeal" "xJ")) "__" 
+(body ))(block (decl ) Affirmation   ("aIdeal" ("sdtplqtdt" "xI" "xJ")) "__" 
+(body (block (decl "xx" ) Assumption     ("aElementOf" "xx" ("sdtplqtdt" "xI" "xJ")) "__" 
+(body ))(block (decl ) Affirmation     (forall  ( implies ("aElementOf" (DB 0) ("sdtplqtdt" "xI" "xJ"))("aElementOf" ("sdtpldt" "xx" (DB 0)) ("sdtplqtdt" "xI" "xJ")))) "__" 
+(body (block (decl "xy" ) Assumption       ("aElementOf" "xy" ("sdtplqtdt" "xI" "xJ")) "__" 
+(body ))(block (decl "xk" "xl" ) Selection       ( and ("aElementOf" "xk" "xI")( and ("aElementOf" "xl" "xJ")("=" "xx" ("sdtpldt" "xk" "xl")))) "1" 
+(body ))(block (decl "xm" "xn" ) Selection       ( and ("aElementOf" "xm" "xI")( and ("aElementOf" "xn" "xJ")("=" "xy" ("sdtpldt" "xm" "xn")))) "2" 
+(body ))(block (decl ) Affirmation       ( and ("aElementOf" ("sdtpldt" "xk" "xm") "xI")("aElementOf" ("sdtpldt" "xl" "xn") "xJ")) "__" 
+(body ))(block (decl ) Affirmation       (EqualityChain tag ("=" ("sdtpldt" "xx" "xy") ("sdtpldt" ("sdtpldt" "xk" "xm") ("sdtpldt" "xl" "xn")))) "__" 
+(body (block (decl ) Affirmation         (EqualityChain tag ("=" ("sdtpldt" "xx" "xy") ("sdtpldt" ("sdtpldt" "xk" "xm") ("sdtpldt" "xl" "xn")))) "__" 
+(body ))))(block (decl ) Affirmation       ("#TH#") "__" 
+(body ))))(block (decl ) Affirmation     (forall  ( implies ("aElement" (DB 0))("aElementOf" ("sdtasdt" (DB 0) "xx") ("sdtplqtdt" "xI" "xJ")))) "__" 
+(body (block (decl "xz" ) Assumption       ("aElement" "xz") "__" 
+(body ))(block (decl "xk" "xl" ) Selection       ( and ("aElementOf" "xk" "xI")( and ("aElementOf" "xl" "xJ")("=" "xx" ("sdtpldt" "xk" "xl")))) "1" 
+(body ))(block (decl ) Affirmation       ( and ("aElementOf" ("sdtasdt" "xz" "xk") "xI")("aElementOf" ("sdtasdt" "xz" "xl") "xJ")) "__" 
+(body ))(block (decl ) Affirmation       (EqualityChain tag ("=" ("sdtasdt" "xz" "xx") ("sdtpldt" ("sdtasdt" "xz" "xk") ("sdtasdt" "xz" "xl")))) "__" 
+(body (block (decl ) Affirmation         (EqualityChain tag ("=" ("sdtasdt" "xz" "xx") ("sdtpldt" ("sdtasdt" "xz" "xk") ("sdtasdt" "xz" "xl")))) "__" 
+(body ))))(block (decl ) Affirmation       ("#TH#") "__" 
+(body ))))))))
+(block (decl ) theorem "?" "IdeInt" 
+(body (block (decl "xI" "xJ" ) Assumption   ( and ("aIdeal" "xI")("aIdeal" "xJ")) "__" 
+(body ))(block (decl ) Affirmation   ("aIdeal" ("sdtasasdt" "xI" "xJ")) "__" 
+(body ))))
+(block (decl ) definition "?" "DefMod" 
+(body (block (decl "xx" "xy" "xI" ) Assumption   ( and ( and ("aElement" "xx")("aElement" "xy"))("aIdeal" "xI")) "__" 
+(body ))(block (decl ) Posit   ( iff (HeadTerm tag ("sdteqdtlpzmzozddtrp" "xx" "xy" "xI"))("aElementOf" ("sdtpldt" "xx" ("smndt" "xy")) "xI")) "__" 
+(body ))))
+(block (decl ) theorem "?" "ChineseRemainder" 
+(body (block (decl "xI" "xJ" ) Assumption   ( and ("aIdeal" "xI")("aIdeal" "xJ")) "__" 
+(body ))(block (decl ) Assumption   (forall  ( implies ("aElement" (DB 0))("aElementOf" (DB 0) ("sdtplqtdt" "xI" "xJ")))) "__" 
+(body ))(block (decl "xx" "xy" ) Assumption   ( and ("aElement" "xx")("aElement" "xy")) "__" 
+(body ))(block (decl ) Affirmation   (exists  ( and ("aElement" (DB 0))( and ("sdteqdtlpzmzozddtrp" (DB 0) "xx" "xI")("sdteqdtlpzmzozddtrp" (DB 0) "xy" "xJ")))) "__" 
+(body (block (decl "xa" "xb" ) Selection     ( and ("aElementOf" "xa" "xI")( and ("aElementOf" "xb" "xJ")("=" ("sdtpldt" "xa" "xb") ("sz1")))) "__" 
+(body ))(block (decl "xw" ) Selection     ("=" "xw" ("sdtpldt" ("sdtasdt" "xy" "xa") ("sdtasdt" "xx" "xb"))) "1" 
+(body ))(block (decl ) Affirmation     ( and ("sdteqdtlpzmzozddtrp" "xw" "xx" "xI")("sdteqdtlpzmzozddtrp" "xw" "xy" "xJ")) "__" 
+(body (block (decl ) Affirmation       ("aElementOf" ("sdtpldt" "xw" ("smndt" "xx")) "xI") "__" 
+(body (block (decl ) Affirmation         ("=" ("sdtpldt" "xw" ("smndt" "xx")) ("sdtpldt" ("sdtasdt" "xy" "xa") ("sdtpldt" ("sdtasdt" "xx" "xb") ("smndt" "xx")))) "__" 
+(body ))(block (decl ) Affirmation         ("aElementOf" ("sdtasdt" "xx" ("sdtpldt" "xb" ("smndt" ("sz1")))) "xI") "__" 
+(body ))))(block (decl ) Affirmation       ("aElementOf" ("sdtpldt" "xw" ("smndt" "xy")) "xJ") "__" 
+(body (block (decl ) Affirmation         ("=" ("sdtpldt" "xw" ("smndt" "xy")) ("sdtpldt" ("sdtasdt" "xx" "xb") ("sdtpldt" ("sdtasdt" "xy" "xa") ("smndt" "xy")))) "__" 
+(body ))(block (decl ) Affirmation         ("aElementOf" ("sdtasdt" "xy" ("sdtpldt" "xa" ("smndt" ("sz1")))) "xJ") "__" 
+(body ))))))))))
+(block (decl ) signature "?" "NatSort" 
+(body (block (decl ) Posit   (forall  ( implies (HeadTerm tag ("aNaturalNumber" (DB 0)))truth)) "__" 
+(body ))))
+(block (decl ) signature "?" "EucSort" 
+(body (block (decl "xx" ) Assumption   ( and ("aElement" "xx")(not ("=" "xx" ("sz0")))) "__" 
+(body ))(block (decl ) Posit   (forall  ( implies (HeadTerm tag ("=" (DB 0) ("sbrdtbr" "xx")))("aNaturalNumber" (DB 0)))) "__" 
+(body ))))
+(block (decl ) axiom "?" "Division" 
+(body (block (decl "xx" "xy" ) Assumption   ( and ( and ("aElement" "xx")("aElement" "xy"))(not ("=" "xy" ("sz0")))) "__" 
+(body ))(block (decl ) Posit   (exists  (exists  ( and ( and ("aElement" (DB 1))("aElement" (DB 0)))( and ("=" "xx" ("sdtpldt" ("sdtasdt" (DB 1) "xy") (DB 0)))( implies (not ("=" (DB 0) ("sz0")))("iLess" ("sbrdtbr" (DB 0)) ("sbrdtbr" "xy"))))))) "__" 
+(body ))))
+(block (decl ) definition "?" "DefDiv" 
+(body (block (decl "xx" "xy" ) Assumption   ( and ("aElement" "xx")("aElement" "xy")) "__" 
+(body ))(block (decl ) Posit   ( iff (HeadTerm tag ("doDivides" "xx" "xy"))(exists  ( and ("aElement" (DB 0))("=" ("sdtasdt" "xx" (DB 0)) "xy")))) "__" 
+(body ))))
+(block (decl ) definition "?" "DefDvs" 
+(body (block (decl "xx" ) Assumption   ("aElement" "xx") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("aDivisorOf" (DB 0) "xx"))( and ("aElement" (DB 0))("doDivides" (DB 0) "xx")))) "__" 
+(body ))))
+(block (decl ) definition "?" "DefGCD" 
+(body (block (decl "xx" "xy" ) Assumption   ( and ("aElement" "xx")("aElement" "xy")) "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("aGcdOfAnd" (DB 0) "xx" "xy"))( and ( and ("aDivisorOf" (DB 0) "xx")("aDivisorOf" (DB 0) "xy"))(forall  ( implies ( and ("aDivisorOf" (DB 0) "xx")("aDivisorOf" (DB 0) "xy"))("doDivides" (DB 0) (DB 1))))))) "__" 
+(body ))))
+(block (decl ) definition "?" "DefRel" 
+(body (block (decl "xx" "xy" ) Assumption   ( and ("aElement" "xx")("aElement" "xy")) "__" 
+(body ))(block (decl ) Posit   ( iff (HeadTerm tag ("misRelativelyPrime" "xx" "xy"))("aGcdOfAnd" ("sz1") "xx" "xy")) "__" 
+(body ))))
+(block (decl ) definition "?" "DefPrIdeal" 
+(body (block (decl "xc" ) Assumption   ("aElement" "xc") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("=" (DB 0) ("slsdtgt" "xc")))( and ("aSet" (DB 0))(forall  ( implies ("aElement" (DB 0))( iff ("aElementOf" (DB 0) (DB 1))(exists  ( and ("aElement" (DB 0))("=" (DB 1) ("sdtasdt" "xc" (DB 0))))))))))) "__" 
+(body ))))
+(block (decl ) theorem "?" "PrIdeal" 
+(body (block (decl "xc" ) Assumption   ("aElement" "xc") "__" 
+(body ))(block (decl ) Affirmation   ("aIdeal" ("slsdtgt" "xc")) "__" 
+(body (block (decl "xx" ) Assumption     ("aElementOf" "xx" ("slsdtgt" "xc")) "__" 
+(body ))(block (decl ) Affirmation     (forall  ( implies ("aElementOf" (DB 0) ("slsdtgt" "xc"))("aElementOf" ("sdtpldt" "xx" (DB 0)) ("slsdtgt" "xc")))) "__" 
+(body (block (decl "xy" ) Assumption       ("aElementOf" "xy" ("slsdtgt" "xc")) "__" 
+(body ))(block (decl "xu" ) Selection       ( and ("aElement" "xu")("=" ("sdtasdt" "xc" "xu") "xx")) "1" 
+(body ))(block (decl "xv" ) Selection       ( and ("aElement" "xv")("=" ("sdtasdt" "xc" "xv") "xy")) "2" 
+(body ))(block (decl ) Affirmation       (EqualityChain tag ("=" ("sdtpldt" "xx" "xy") ("sdtasdt" "xc" ("sdtpldt" "xu" "xv")))) "__" 
+(body (block (decl ) Affirmation         (EqualityChain tag ("=" ("sdtpldt" "xx" "xy") ("sdtasdt" "xc" ("sdtpldt" "xu" "xv")))) "__" 
+(body ))))(block (decl ) Affirmation       ("#TH#") "__" 
+(body ))))(block (decl ) Affirmation     (forall  ( implies ("aElement" (DB 0))("aElementOf" ("sdtasdt" (DB 0) "xx") ("slsdtgt" "xc")))) "__" 
+(body (block (decl "xz" ) Assumption       ("aElement" "xz") "__" 
+(body ))(block (decl "xu" ) Selection       ( and ("aElement" "xu")("=" ("sdtasdt" "xc" "xu") "xx")) "1" 
+(body ))(block (decl ) Affirmation       (EqualityChain tag ("=" ("sdtasdt" "xz" "xx") ("sdtasdt" "xc" ("sdtasdt" "xu" "xz")))) "__" 
+(body (block (decl ) Affirmation         (EqualityChain tag ("=" ("sdtasdt" "xz" "xx") ("sdtasdt" "xc" ("sdtasdt" "xu" "xz")))) "__" 
+(body ))))(block (decl ) Affirmation       ("#TH#") "__" 
+(body ))))))))
+(block (decl ) theorem "?" "GCDin" 
+(body (block (decl "xa" "xb" ) Assumption   ( and ("aElement" "xa")("aElement" "xb")) "__" 
+(body ))(block (decl ) Assumption   ( or (not ("=" "xa" ("sz0")))(not ("=" "xb" ("sz0")))) "__" 
+(body ))(block (decl "xc" ) Assumption   ("aGcdOfAnd" "xc" "xa" "xb") "__" 
+(body ))(block (decl ) Affirmation   ("aElementOf" "xc" ("sdtplqtdt" ("slsdtgt" "xa") ("slsdtgt" "xb"))) "__" 
+(body (block (decl "xI" ) Selection     ( and ("aIdeal" "xI")("=" "xI" ("sdtplqtdt" ("slsdtgt" "xa") ("slsdtgt" "xb")))) "__" 
+(body ))(block (decl ) Affirmation     ( and ( and ("aElementOf" ("sz0") ("slsdtgt" "xa"))("aElementOf" "xa" ("slsdtgt" "xa")))( and ("aElementOf" ("sz0") ("slsdtgt" "xb"))("aElementOf" "xb" ("slsdtgt" "xb")))) "__" 
+(body ))(block (decl ) Affirmation     (exists  ( and ("aElementOf" (DB 0) ("sdtplqtdt" ("slsdtgt" "xa") ("slsdtgt" "xb")))(not ("=" (DB 0) ("sz0"))))) "__" 
+(body (block (decl ) Affirmation       ( and ("aElementOf" "xa" ("sdtplqtdt" ("slsdtgt" "xa") ("slsdtgt" "xb")))("aElementOf" "xb" ("sdtplqtdt" ("slsdtgt" "xa") ("slsdtgt" "xb")))) "__" 
+(body ))))(block (decl "xu" ) Selection     ( and ("aElementOf" "xu" "xI")( and (not ("=" "xu" ("sz0")))(forall  ( implies ( and ("aElementOf" (DB 0) "xI")(not ("=" (DB 0) ("sz0"))))(not ("iLess" ("sbrdtbr" (DB 0)) ("sbrdtbr" "xu"))))))) "__" 
+(body (block (decl ) Assumption       (not ("#TH#")) "__" 
+(body ))(block (decl ) Affirmation       (forall  ( implies ( and ("aElementOf" (DB 0) "xI")(not ("=" (DB 0) ("sz0"))))( implies (InductionHypothesis tag (forall  ( implies ( and ("aElementOf" (DB 0) "xI")(not ("=" (DB 0) ("sz0"))))( implies ("iLess" ("sbrdtbr" (DB 0)) ("sbrdtbr" (DB 1)))(exists  ( and ("aElementOf" (DB 0) "xI")( and (not ("=" (DB 0) ("sz0")))(forall  ( implies ( and ("aElementOf" (DB 0) "xI")(not ("=" (DB 0) ("sz0"))))(not ("iLess" ("sbrdtbr" (DB 0)) ("sbrdtbr" (DB 1)))))))))))))(exists  ( and ("aElementOf" (DB 0) "xI")( and (not ("=" (DB 0) ("sz0")))(forall  ( implies ( and ("aElementOf" (DB 0) "xI")(not ("=" (DB 0) ("sz0"))))(not ("iLess" ("sbrdtbr" (DB 0)) ("sbrdtbr" (DB 1)))))))))))) "__" 
+(body ))))(block (decl ) Affirmation     ( and ("aDivisorOf" "xu" "xa")("aDivisorOf" "xu" "xb")) "__" 
+(body (block (decl ) Assumption       (not ("#TH#")) "__" 
+(body ))(block (decl ) Affirmation       (exists  (exists  ( and ( and ("aElement" (DB 1))("aElement" (DB 0)))("=" "xu" ("sdtpldt" ("sdtasdt" "xa" (DB 1)) ("sdtasdt" "xb" (DB 0))))))) "__" 
+(body (block (decl "xk" "xl" ) Selection         ( and ("aElementOf" "xk" ("slsdtgt" "xa"))( and ("aElementOf" "xl" ("slsdtgt" "xb"))("=" "xu" ("sdtpldt" "xk" "xl")))) "__" 
+(body ))(block (decl "xx" "xy" ) Selection         ( and ( and ("aElement" "xx")("aElement" "xy"))( and ("=" "xk" ("sdtasdt" "xa" "xx"))("=" "xl" ("sdtasdt" "xb" "xy")))) "__" 
+(body ))(block (decl ) Affirmation         ("#TH#") "__" 
+(body ))))(block (decl ) CaseHypothesis       ( implies (CaseHypothesis tag (not ("doDivides" "xu" "xa")))("#TH#")) "__" 
+(body (block (decl "xq" "xr" ) Selection         ( and ( and ("aElement" "xq")("aElement" "xr"))( and ("=" "xa" ("sdtpldt" ("sdtasdt" "xq" "xu") "xr"))( or ("=" "xr" ("sz0"))("iLess" ("sbrdtbr" "xr") ("sbrdtbr" "xu"))))) "__" 
+(body ))(block (decl ) Affirmation         (not ("=" "xr" ("sz0"))) "__" 
+(body ))(block (decl ) Affirmation         ("aElementOf" ("smndt" ("sdtasdt" "xq" "xu")) "xI") "__" 
+(body ))(block (decl ) Affirmation         ("aElementOf" "xa" "xI") "__" 
+(body ))(block (decl ) Affirmation         ("=" "xr" ("sdtpldt" ("smndt" ("sdtasdt" "xq" "xu")) "xa")) "__" 
+(body ))(block (decl ) Affirmation         ("aElementOf" "xr" "xI") "__" 
+(body ))))(block (decl ) CaseHypothesis       ( implies (CaseHypothesis tag (not ("doDivides" "xu" "xb")))("#TH#")) "__" 
+(body (block (decl "xq" "xr" ) Selection         ( and ( and ("aElement" "xq")("aElement" "xr"))( and ("=" "xb" ("sdtpldt" ("sdtasdt" "xq" "xu") "xr"))( or ("=" "xr" ("sz0"))("iLess" ("sbrdtbr" "xr") ("sbrdtbr" "xu"))))) "__" 
+(body ))(block (decl ) Affirmation         (not ("=" "xr" ("sz0"))) "__" 
+(body ))(block (decl ) Affirmation         ("aElementOf" ("smndt" ("sdtasdt" "xq" "xu")) "xI") "__" 
+(body ))(block (decl ) Affirmation         ("aElementOf" "xb" "xI") "__" 
+(body ))(block (decl ) Affirmation         ("=" "xr" ("sdtpldt" ("smndt" ("sdtasdt" "xq" "xu")) "xb")) "__" 
+(body ))(block (decl ) Affirmation         ("aElementOf" "xr" "xI") "__" 
+(body ))))))(block (decl ) Affirmation     ("doDivides" "xu" "xc") "__" 
+(body ))(block (decl ) Affirmation     ("#TH#") "__" 
+(body (block (decl "xz" ) Selection       ( and ("aElement" "xz")("=" "xc" ("sdtasdt" "xz" "xu"))) "__" 
+(body ))(block (decl ) Affirmation       ("aElementOf" "xc" "xI") "__" 
+(body ))))))))
+[Main] total 00:00.22
+[Parser] "examples/fuerst.ftl"
+parsing successful
+[Main] String: examples
+[Main] typeOf: [Char] -> [Text] -> IO [Text]
+(block (decl ) signature "?" "Integers" 
+(body (block (decl ) Posit   (forall  ( implies (HeadTerm tag ("aInteger" (DB 0)))truth)) "__" 
+(body ))))
+(block (decl ) signature "?" "IntZero" 
+(body (block (decl ) Posit   (forall  ( implies (HeadTerm tag ("=" (DB 0) ("sz0")))("aInteger" (DB 0)))) "__" 
+(body ))))
+(block (decl ) signature "?" "IntOne" 
+(body (block (decl ) Posit   (forall  ( implies (HeadTerm tag ("=" (DB 0) ("sz1")))("aInteger" (DB 0)))) "__" 
+(body ))))
+(block (decl ) signature "?" "IntNeg" 
+(body (block (decl "xa" ) Assumption   ("aInteger" "xa") "__" 
+(body ))(block (decl ) Posit   (forall  ( implies (HeadTerm tag ("=" (DB 0) ("smndt" "xa")))("aInteger" (DB 0)))) "__" 
+(body ))))
+(block (decl ) signature "?" "IntPlus" 
+(body (block (decl "xa" "xb" ) Assumption   ( and ("aInteger" "xa")("aInteger" "xb")) "__" 
+(body ))(block (decl ) Posit   (forall  ( implies (HeadTerm tag ("=" (DB 0) ("sdtpldt" "xa" "xb")))("aInteger" (DB 0)))) "__" 
+(body ))))
+(block (decl ) signature "?" "IntMult" 
+(body (block (decl "xa" "xb" ) Assumption   ( and ("aInteger" "xa")("aInteger" "xb")) "__" 
+(body ))(block (decl ) Posit   (forall  ( implies (HeadTerm tag ("=" (DB 0) ("sdtasdt" "xa" "xb")))("aInteger" (DB 0)))) "__" 
+(body ))))
+(block (decl ) axiom "?" "AddAsso" 
+(body (block (decl "xa" "xb" "xc" ) Assumption   ( and ( and ("aInteger" "xa")("aInteger" "xb"))("aInteger" "xc")) "__" 
+(body ))(block (decl ) Posit   ("=" ("sdtpldt" "xa" ("sdtpldt" "xb" "xc")) ("sdtpldt" ("sdtpldt" "xa" "xb") "xc")) "__" 
+(body ))))
+(block (decl ) axiom "?" "AddComm" 
+(body (block (decl "xa" "xb" ) Assumption   ( and ("aInteger" "xa")("aInteger" "xb")) "__" 
+(body ))(block (decl ) Posit   ("=" ("sdtpldt" "xa" "xb") ("sdtpldt" "xb" "xa")) "__" 
+(body ))))
+(block (decl ) axiom "?" "AddZero" 
+(body (block (decl "xa" ) Assumption   ("aInteger" "xa") "__" 
+(body ))(block (decl ) Posit   ( and ("=" ("sdtpldt" "xa" ("sz0")) "xa")("=" "xa" ("sdtpldt" ("sz0") "xa"))) "__" 
+(body ))))
+(block (decl ) axiom "?" "AddNeg" 
+(body (block (decl "xa" ) Assumption   ("aInteger" "xa") "__" 
+(body ))(block (decl ) Posit   ( and ("=" ("sdtpldt" "xa" ("smndt" "xa")) ("sz0"))("=" ("sz0") ("sdtpldt" ("smndt" "xa") "xa"))) "__" 
+(body ))))
+(block (decl ) axiom "?" "MulAsso" 
+(body (block (decl "xa" "xb" "xc" ) Assumption   ( and ( and ("aInteger" "xa")("aInteger" "xb"))("aInteger" "xc")) "__" 
+(body ))(block (decl ) Posit   ("=" ("sdtasdt" "xa" ("sdtasdt" "xb" "xc")) ("sdtasdt" ("sdtasdt" "xa" "xb") "xc")) "__" 
+(body ))))
+(block (decl ) axiom "?" "MulComm" 
+(body (block (decl "xa" "xb" ) Assumption   ( and ("aInteger" "xa")("aInteger" "xb")) "__" 
+(body ))(block (decl ) Posit   ("=" ("sdtasdt" "xa" "xb") ("sdtasdt" "xb" "xa")) "__" 
+(body ))))
+(block (decl ) axiom "?" "MulOne" 
+(body (block (decl "xa" ) Assumption   ("aInteger" "xa") "__" 
+(body ))(block (decl ) Posit   ( and ("=" ("sdtasdt" "xa" ("sz1")) "xa")("=" "xa" ("sdtasdt" ("sz1") "xa"))) "__" 
+(body ))))
+(block (decl ) axiom "?" "Distrib" 
+(body (block (decl "xa" "xb" "xc" ) Assumption   ( and ( and ("aInteger" "xa")("aInteger" "xb"))("aInteger" "xc")) "__" 
+(body ))(block (decl ) Posit   ( and ("=" ("sdtasdt" "xa" ("sdtpldt" "xb" "xc")) ("sdtpldt" ("sdtasdt" "xa" "xb") ("sdtasdt" "xa" "xc")))("=" ("sdtasdt" ("sdtpldt" "xa" "xb") "xc") ("sdtpldt" ("sdtasdt" "xa" "xc") ("sdtasdt" "xb" "xc")))) "__" 
+(body ))))
+(block (decl ) theorem "?" "MulZero" 
+(body (block (decl "xa" ) Assumption   ("aInteger" "xa") "__" 
+(body ))(block (decl ) Affirmation   ( and ("=" ("sdtasdt" "xa" ("sz0")) ("sz0"))("=" ("sz0") ("sdtasdt" ("sz0") "xa"))) "__" 
+(body ))))
+(block (decl ) theorem "?" "MulMinOne" 
+(body (block (decl "xa" ) Assumption   ("aInteger" "xa") "__" 
+(body ))(block (decl ) Affirmation   ( and ("=" ("sdtasdt" ("smndt" ("sz1")) "xa") ("smndt" "xa"))("=" ("smndt" "xa") ("sdtasdt" "xa" ("smndt" ("sz1"))))) "__" 
+(body ))))
+(block (decl ) axiom "?" "ZeroDiv" 
+(body (block (decl "xa" "xb" ) Assumption   ( and ("aInteger" "xa")("aInteger" "xb")) "__" 
+(body ))(block (decl ) Posit   ( implies ( and (not ("=" "xa" ("sz0")))(not ("=" "xb" ("sz0"))))(not ("=" ("sdtasdt" "xa" "xb") ("sz0")))) "__" 
+(body ))))
+(block (decl ) definition "?" "Divisor" 
+(body (block (decl "xb" ) Assumption   ("aInteger" "xb") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("aDivisorOf" (DB 0) "xb"))( and ("aInteger" (DB 0))( and (not ("=" (DB 0) ("sz0")))(exists  ( and ("aInteger" (DB 0))("=" ("sdtasdt" (DB 1) (DB 0)) "xb"))))))) "__" 
+(body ))))
+(block (decl ) definition "?" "EquMod" 
+(body (block (decl "xa" "xb" "xq" ) Assumption   ( and ( and ("aInteger" "xa")("aInteger" "xb"))( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))) "__" 
+(body ))(block (decl ) Posit   ( iff (HeadTerm tag ("sdteqdtlpzmzozddtrp" "xa" "xb" "xq"))("aDivisorOf" "xq" ("sdtpldt" "xa" ("smndt" "xb")))) "__" 
+(body ))))
+(block (decl ) theorem "?" "EquModRef" 
+(body (block (decl "xa" "xq" ) Assumption   ( and ("aInteger" "xa")( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))) "__" 
+(body ))(block (decl ) Affirmation   ("sdteqdtlpzmzozddtrp" "xa" "xa" "xq") "__" 
+(body ))))
+(block (decl ) theorem "?" "EquModSym" 
+(body (block (decl "xa" "xb" "xq" ) Assumption   ( and ( and ("aInteger" "xa")("aInteger" "xb"))( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))) "__" 
+(body ))(block (decl ) Affirmation   ( implies ("sdteqdtlpzmzozddtrp" "xa" "xb" "xq")("sdteqdtlpzmzozddtrp" "xb" "xa" "xq")) "__" 
+(body (block (decl ) Assumption     ("sdteqdtlpzmzozddtrp" "xa" "xb" "xq") "__" 
+(body ))(block (decl "xn" ) Selection     ( and ("aInteger" "xn")("=" ("sdtasdt" "xq" "xn") ("sdtpldt" "xa" ("smndt" "xb")))) "1" 
+(body ))(block (decl ) Affirmation     (EqualityChain tag ("=" ("sdtasdt" "xq" ("smndt" "xn")) ("sdtasdt" ("smndt" ("sz1")) ("sdtpldt" "xa" ("smndt" "xb"))))) "__" 
+(body (block (decl ) Affirmation       (EqualityChain tag ("=" ("sdtasdt" "xq" ("smndt" "xn")) ("sdtasdt" ("smndt" ("sz1")) ("sdtasdt" "xq" "xn")))) "__" 
+(body ))(block (decl ) Affirmation       (EqualityChain tag ("=" ("sdtasdt" ("smndt" ("sz1")) ("sdtasdt" "xq" "xn")) ("sdtasdt" ("smndt" ("sz1")) ("sdtpldt" "xa" ("smndt" "xb"))))) "__" 
+(body ))))))))
+(block (decl ) theorem "?" "EquModTrn" 
+(body (block (decl "xa" "xb" "xq" "xc" ) Assumption   ( and ( and ( and ("aInteger" "xa")("aInteger" "xb"))( and ("aInteger" "xq")(not ("=" "xq" ("sz0")))))("aInteger" "xc")) "__" 
+(body ))(block (decl ) Affirmation   ( implies ( and ("sdteqdtlpzmzozddtrp" "xa" "xb" "xq")("sdteqdtlpzmzozddtrp" "xb" "xc" "xq"))("sdteqdtlpzmzozddtrp" "xa" "xc" "xq")) "__" 
+(body (block (decl ) Assumption     ( and ("sdteqdtlpzmzozddtrp" "xa" "xb" "xq")("sdteqdtlpzmzozddtrp" "xb" "xc" "xq")) "__" 
+(body ))(block (decl "xn" ) Selection     ( and ("aInteger" "xn")("=" ("sdtasdt" "xq" "xn") ("sdtpldt" "xa" ("smndt" "xb")))) "__" 
+(body ))(block (decl "xm" ) Selection     ( and ("aInteger" "xm")("=" ("sdtasdt" "xq" "xm") ("sdtpldt" "xb" ("smndt" "xc")))) "__" 
+(body ))(block (decl ) Affirmation     ("=" ("sdtasdt" "xq" ("sdtpldt" "xn" "xm")) ("sdtpldt" "xa" ("smndt" "xc"))) "__" 
+(body ))))))
+(block (decl ) theorem "?" "EquModMul" 
+(body (block (decl "xa" "xb" "xp" "xq" ) Assumption   ( and ( and ( and ("aInteger" "xa")("aInteger" "xb"))( and ("aInteger" "xp")(not ("=" "xp" ("sz0")))))( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))) "__" 
+(body ))(block (decl ) Affirmation   ( implies ("sdteqdtlpzmzozddtrp" "xa" "xb" ("sdtasdt" "xp" "xq"))( and ("sdteqdtlpzmzozddtrp" "xa" "xb" "xp")("sdteqdtlpzmzozddtrp" "xa" "xb" "xq"))) "__" 
+(body (block (decl ) Assumption     ("sdteqdtlpzmzozddtrp" "xa" "xb" ("sdtasdt" "xp" "xq")) "__" 
+(body ))(block (decl "xm" ) Selection     ( and ("aInteger" "xm")("=" ("sdtasdt" ("sdtasdt" "xp" "xq") "xm") ("sdtpldt" "xa" ("smndt" "xb")))) "__" 
+(body ))(block (decl ) Affirmation     ( and ("=" ("sdtasdt" "xp" ("sdtasdt" "xq" "xm")) ("sdtpldt" "xa" ("smndt" "xb")))("=" ("sdtpldt" "xa" ("smndt" "xb")) ("sdtasdt" "xq" ("sdtasdt" "xp" "xm")))) "__" 
+(body ))))))
+(block (decl ) signature "?" "Prime" 
+(body (block (decl "xa" ) Assumption   ("aInteger" "xa") "__" 
+(body ))(block (decl ) Posit   ( implies (HeadTerm tag ("isPrime" "xa"))truth) "__" 
+(body ))))
+(block (decl ) axiom "?" "PrimeDivisor" 
+(body (block (decl "xn" ) Assumption   ("aInteger" "xn") "__" 
+(body ))(block (decl ) Posit   ( iff (exists  ( and ("aDivisorOf" (DB 0) "xn")("isPrime" (DB 0))))( and (not ("=" "xn" ("sz1")))(not ("=" "xn" ("smndt" ("sz1")))))) "__" 
+(body ))))
+(block (decl ) definition "?" "Subset" 
+(body (block (decl "xS" ) Assumption   ("aSet" "xS") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("aSubsetOf" (DB 0) "xS"))( and ("aSet" (DB 0))(forall  ( implies ("aElementOf" (DB 0) (DB 1))("aElementOf" (DB 0) "xS")))))) "__" 
+(body ))))
+(block (decl ) signature "?" "FinSet" 
+(body (block (decl "xS" ) Assumption   ("aSet" "xS") "__" 
+(body ))(block (decl ) Posit   ( implies (HeadTerm tag ("isFinite" "xS"))truth) "__" 
+(body ))))
+(block (decl ) definition "?"nil
+(body (block (decl ) Posit   (forall  ( iff (HeadTerm tag ("=" (DB 0) ("szIzNzT")))( and ("aSet" (DB 0))("=" (DB 0) (lambda  ("aInteger" (DB 0))))))) "__" 
+(body ))))
+(block (decl ) definition "?" "Union" 
+(body (block (decl "xA" "xB" ) Assumption   ( and ("aSubsetOf" "xA" ("szIzNzT"))("aSubsetOf" "xB" ("szIzNzT"))) "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("=" (DB 0) ("sdtbsmnsldt" "xA" "xB")))( and ("aSet" (DB 0))("=" (DB 0) (lambda  (Replacement tag ( and ("aInteger" (DB 0))( or ("aElementOf" (DB 0) "xA")("aElementOf" (DB 0) "xB"))))))))) "__" 
+(body ))))
+(block (decl ) definition "?" "Intersection" 
+(body (block (decl "xA" "xB" ) Assumption   ( and ("aSubsetOf" "xA" ("szIzNzT"))("aSubsetOf" "xB" ("szIzNzT"))) "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("=" (DB 0) ("sdtslmnbsdt" "xA" "xB")))( and ("aSet" (DB 0))("=" (DB 0) (lambda  (Replacement tag ( and ("aInteger" (DB 0))( and ("aElementOf" (DB 0) "xA")("aElementOf" (DB 0) "xB"))))))))) "__" 
+(body ))))
+(block (decl ) definition "?" "IntegerSets" 
+(body (block (decl ) Posit   (forall  ( iff (HeadTerm tag ("aFamilyOfIntegerSets" (DB 0)))( and ("aSet" (DB 0))(forall  ( implies ("aElementOf" (DB 0) (DB 1))("aSubsetOf" (DB 0) ("szIzNzT"))))))) "__" 
+(body ))))
+(block (decl ) definition "?" "UnionSet" 
+(body (block (decl "xS" ) Assumption   ("aFamilyOfIntegerSets" "xS") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("=" (DB 0) ("sbsmnsldt" "xS")))( and ("aSet" (DB 0))("=" (DB 0) (lambda  (Replacement tag ( and ("aInteger" (DB 0))(exists  ( and ("aElementOf" (DB 0) "xS")("aElementOf" (DB 1) (DB 0))))))))))) "__" 
+(body ))))
+(block (decl ) theorem "?"nil
+(body (block (decl "xS" ) Assumption   ("aFamilyOfIntegerSets" "xS") "__" 
+(body ))(block (decl ) Affirmation   ("aSubsetOf" ("sbsmnsldt" "xS") ("szIzNzT")) "__" 
+(body ))))
+(block (decl ) definition "?" "Complement" 
+(body (block (decl "xA" ) Assumption   ("aSubsetOf" "xA" ("szIzNzT")) "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("=" (DB 0) ("stldt" "xA")))( and ("aSet" (DB 0))("=" (DB 0) (lambda  (Replacement tag ( and ("aInteger" (DB 0))(not ("aElementOf" (DB 0) "xA"))))))))) "__" 
+(body ))))
+(block (decl ) theorem "?"nil
+(body (block (decl "xA" ) Assumption   ("aSubsetOf" "xA" ("szIzNzT")) "__" 
+(body ))(block (decl ) Affirmation   ("aSubsetOf" ("stldt" "xA") ("szIzNzT")) "__" 
+(body ))))
+(block (decl ) definition "?" "ArSeq" 
+(body (block (decl "xa" "xq" ) Assumption   ( and ("aInteger" "xa")( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))) "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("=" (DB 0) ("szAzrzSzezqlpdtcmdtrp" "xa" "xq")))( and ("aSet" (DB 0))("=" (DB 0) (lambda  (Replacement tag ( and ("aInteger" (DB 0))("sdteqdtlpzmzozddtrp" (DB 0) "xa" "xq")))))))) "__" 
+(body ))))
+(block (decl ) definition "?" "Open" 
+(body (block (decl "xA" ) Assumption   ("aSubsetOf" "xA" ("szIzNzT")) "__" 
+(body ))(block (decl ) Posit   ( iff (HeadTerm tag ("isOpen" "xA"))(forall  ( implies ("aElementOf" (DB 0) "xA")(exists  ( and ( and ("aInteger" (DB 0))(not ("=" (DB 0) ("sz0"))))("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" (DB 1) (DB 0)) "xA")))))) "__" 
+(body ))))
+(block (decl ) definition "?" "Closed" 
+(body (block (decl "xA" ) Assumption   ("aSubsetOf" "xA" ("szIzNzT")) "__" 
+(body ))(block (decl ) Posit   ( iff (HeadTerm tag ("isClosed" "xA"))("isOpen" ("stldt" "xA"))) "__" 
+(body ))))
+(block (decl ) definition "?" "OpenIntegerSets" 
+(body (block (decl ) Posit   (forall  ( iff (HeadTerm tag ("aOpenFamily" (DB 0)))( and ("aFamilyOfIntegerSets" (DB 0))(forall  ( implies ("aElementOf" (DB 0) (DB 1))("isOpen" (DB 0))))))) "__" 
+(body ))))
+(block (decl ) theorem "?" "UnionOpen" 
+(body (block (decl "xS" ) Assumption   ("aOpenFamily" "xS") "__" 
+(body ))(block (decl ) Affirmation   ("isOpen" ("sbsmnsldt" "xS")) "__" 
+(body (block (decl "xx" ) Assumption     ("aElementOf" "xx" ("sbsmnsldt" "xS")) "__" 
+(body ))(block (decl "xM" ) Selection     ( and ("aSet" "xM")( and ("aElementOf" "xM" "xS")("aElementOf" "xx" "xM"))) "__" 
+(body ))(block (decl "xq" ) Selection     ( and ( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xx" "xq") "xM")) "__" 
+(body ))(block (decl ) Affirmation     ("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xx" "xq") ("sbsmnsldt" "xS")) "__" 
+(body ))))))
+(block (decl ) theorem "?" "InterOpen" 
+(body (block (decl "xA" "xB" ) Assumption   ( and ( and ("aSubsetOf" "xA" ("szIzNzT"))("aSubsetOf" "xB" ("szIzNzT")))( and ("isOpen" "xA")("isOpen" "xB"))) "__" 
+(body ))(block (decl ) Affirmation   ( and ("aSubsetOf" ("sdtslmnbsdt" "xA" "xB") ("szIzNzT"))("isOpen" ("sdtslmnbsdt" "xA" "xB"))) "__" 
+(body (block (decl ) Affirmation     ("aSubsetOf" ("sdtslmnbsdt" "xA" "xB") ("szIzNzT")) "__" 
+(body ))(block (decl "xx" ) Assumption     ("aElementOf" "xx" ("sdtslmnbsdt" "xA" "xB")) "__" 
+(body ))(block (decl ) Affirmation     ("aInteger" "xx") "__" 
+(body ))(block (decl "xq" ) Selection     ( and ( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xx" "xq") "xA")) "__" 
+(body ))(block (decl "xp" ) Selection     ( and ( and ("aInteger" "xp")(not ("=" "xp" ("sz0"))))("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xx" "xp") "xB")) "__" 
+(body ))(block (decl ) Affirmation     ( and ( and ("aInteger" ("sdtasdt" "xp" "xq"))(not ("=" ("sdtasdt" "xp" "xq") ("sz0"))))("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xx" ("sdtasdt" "xp" "xq")) ("sdtslmnbsdt" "xA" "xB"))) "__" 
+(body (block (decl ) Affirmation       ( and ("aInteger" ("sdtasdt" "xp" "xq"))(not ("=" ("sdtasdt" "xp" "xq") ("sz0")))) "__" 
+(body ))(block (decl "xa" ) Assumption       ("aElementOf" "xa" ("szAzrzSzezqlpdtcmdtrp" "xx" ("sdtasdt" "xp" "xq"))) "__" 
+(body ))(block (decl ) Affirmation       ( and ("aElementOf" "xa" ("szAzrzSzezqlpdtcmdtrp" "xx" "xp"))("aElementOf" "xa" ("szAzrzSzezqlpdtcmdtrp" "xx" "xq"))) "__" 
+(body (block (decl ) Affirmation         ( and ("aInteger" "xx")("sdteqdtlpzmzozddtrp" "xa" "xx" ("sdtasdt" "xp" "xq"))) "__" 
+(body ))(block (decl ) Affirmation         ( and ("sdteqdtlpzmzozddtrp" "xa" "xx" "xp")("sdteqdtlpzmzozddtrp" "xa" "xx" "xq")) "__" 
+(body ))))(block (decl ) Affirmation       ( and ("aElementOf" "xa" "xA")("aElementOf" "xa" "xB")) "__" 
+(body ))(block (decl ) Affirmation       ("aElementOf" "xa" ("sdtslmnbsdt" "xA" "xB")) "__" 
+(body ))))))))
+(block (decl ) theorem "?" "UnionClosed" 
+(body (block (decl "xA" "xB" ) Assumption   ( and ( and ("aSubsetOf" "xA" ("szIzNzT"))("aSubsetOf" "xB" ("szIzNzT")))( and ("isClosed" "xA")("isClosed" "xB"))) "__" 
+(body ))(block (decl ) Affirmation   ("isClosed" ("sdtbsmnsldt" "xA" "xB")) "__" 
+(body (block (decl ) Affirmation     ( and ("aSubsetOf" ("stldt" "xA") ("szIzNzT"))("aSubsetOf" ("stldt" "xB") ("szIzNzT"))) "__" 
+(body ))(block (decl ) Affirmation     ("=" ("stldt" ("sdtbsmnsldt" "xA" "xB")) ("sdtslmnbsdt" ("stldt" "xA") ("stldt" "xB"))) "__" 
+(body ))))))
+(block (decl ) axiom "?" "UnionSClosed" 
+(body (block (decl "xS" ) Assumption   ( and ("aFamilyOfIntegerSets" "xS")( and ("isFinite" "xS")(forall  ( implies ("aElementOf" (DB 0) "xS")( and ("aSubsetOf" (DB 0) ("szIzNzT"))("isClosed" (DB 0))))))) "__" 
+(body ))(block (decl ) Posit   ("isClosed" ("sbsmnsldt" "xS")) "__" 
+(body ))))
+(block (decl ) theorem "?" "ArSeqClosed" 
+(body (block (decl "xa" "xq" ) Assumption   ( and ("aInteger" "xa")( and ("aInteger" "xq")(not ("=" "xq" ("sz0"))))) "__" 
+(body ))(block (decl ) Affirmation   ( and ("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xa" "xq") ("szIzNzT"))("isClosed" ("szAzrzSzezqlpdtcmdtrp" "xa" "xq"))) "__" 
+(body (block (decl ) Affirmation     ("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xa" "xq") ("szIzNzT")) "__" 
+(body ))(block (decl "xb" ) Assumption     ("aElementOf" "xb" ("stldt" ("szAzrzSzezqlpdtcmdtrp" "xa" "xq"))) "__" 
+(body ))(block (decl ) Affirmation     ("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" "xb" "xq") ("stldt" ("szAzrzSzezqlpdtcmdtrp" "xa" "xq"))) "__" 
+(body (block (decl "xc" ) Assumption       ("aElementOf" "xc" ("szAzrzSzezqlpdtcmdtrp" "xb" "xq")) "__" 
+(body ))(block (decl ) Assumption       (not ("aElementOf" "xc" ("stldt" ("szAzrzSzezqlpdtcmdtrp" "xa" "xq")))) "__" 
+(body ))(block (decl ) Affirmation       ( and ("sdteqdtlpzmzozddtrp" "xc" "xb" "xq")("sdteqdtlpzmzozddtrp" "xa" "xc" "xq")) "__" 
+(body ))(block (decl ) Affirmation       ("sdteqdtlpzmzozddtrp" "xb" "xa" "xq") "__" 
+(body ))(block (decl ) Affirmation       ("aElementOf" "xb" ("szAzrzSzezqlpdtcmdtrp" "xa" "xq")) "__" 
+(body ))(block (decl ) Affirmation       contradiction "__" 
+(body ))))))))
+(block (decl ) theorem "?" "Fuerstenberg" 
+(body (block (decl "xS" ) Assumption   ("aSet" "xS") "__" 
+(body ))(block (decl ) Assumption   (forall  ( iff ("aElementOf" (DB 0) "xS")(exists  ( and ( and ("aInteger" (DB 0))( and (not ("=" (DB 0) ("sz0")))("isPrime" (DB 0))))("=" (DB 1) ("szAzrzSzezqlpdtcmdtrp" ("sz0") (DB 0))))))) "__" 
+(body ))(block (decl ) Affirmation   (not ("isFinite" "xS")) "__" 
+(body (block (decl ) Affirmation     ("aFamilyOfIntegerSets" "xS") "__" 
+(body ))(block (decl ) Affirmation     (forall  ( iff ("aElementOf" (DB 0) ("stldt" ("sbsmnsldt" "xS")))( or ("=" (DB 0) ("sz1"))("=" (DB 0) ("smndt" ("sz1")))))) "__" 
+(body (block (decl ) Affirmation       (forall  ( implies ("aInteger" (DB 0))( iff ("aElementOf" (DB 0) ("sbsmnsldt" "xS"))(exists  ( and ("aDivisorOf" (DB 0) (DB 1))("isPrime" (DB 0))))))) "__" 
+(body (block (decl "xn" ) Assumption         ("aInteger" "xn") "__" 
+(body ))(block (decl ) Affirmation         ( implies (exists  ( and ("aDivisorOf" (DB 0) "xn")("isPrime" (DB 0))))("aElementOf" "xn" ("sbsmnsldt" "xS"))) "__" 
+(body (block (decl ) Assumption           (exists  ( and ("aDivisorOf" (DB 0) "xn")("isPrime" (DB 0)))) "__" 
+(body ))(block (decl "xp" ) Selection           ( and ("aDivisorOf" "xp" "xn")("isPrime" "xp")) "__" 
+(body ))(block (decl ) Affirmation           ("aElementOf" ("szAzrzSzezqlpdtcmdtrp" ("sz0") "xp") "xS") "__" 
+(body ))(block (decl ) Affirmation           ("aElementOf" "xn" ("szAzrzSzezqlpdtcmdtrp" ("sz0") "xp")) "__" 
+(body ))))(block (decl ) Affirmation         ( implies ("aElementOf" "xn" ("sbsmnsldt" "xS"))(exists  ( and ("aDivisorOf" (DB 0) "xn")("isPrime" (DB 0))))) "__" 
+(body (block (decl ) Assumption           ("aElementOf" "xn" ("sbsmnsldt" "xS")) "__" 
+(body ))(block (decl "xr" ) Selection           ( and ( and ("aInteger" "xr")( and (not ("=" "xr" ("sz0")))("isPrime" "xr")))("aElementOf" "xn" ("szAzrzSzezqlpdtcmdtrp" ("sz0") "xr"))) "__" 
+(body ))(block (decl ) Affirmation           ( and ("aDivisorOf" "xr" "xn")("isPrime" "xr")) "__" 
+(body ))))))))(block (decl ) Assumption     ("isFinite" "xS") "__" 
+(body ))(block (decl ) Affirmation     ( and ("isClosed" ("sbsmnsldt" "xS"))("isOpen" ("stldt" ("sbsmnsldt" "xS")))) "__" 
+(body ))(block (decl "xp" ) Selection     ( and ( and ("aInteger" "xp")(not ("=" "xp" ("sz0"))))("aSubsetOf" ("szAzrzSzezqlpdtcmdtrp" ("sz1") "xp") ("stldt" ("sbsmnsldt" "xS")))) "__" 
+(body ))(block (decl ) Affirmation     (exists  ( and ("aElementOf" (DB 0) ("szAzrzSzezqlpdtcmdtrp" ("sz1") "xp"))( and (not ("=" (DB 0) ("sz1")))(not ("=" (DB 0) ("smndt" ("sz1"))))))) "__" 
+(body (block (decl ) Affirmation       ( and ("aElementOf" ("sdtpldt" ("sz1") "xp") ("szAzrzSzezqlpdtcmdtrp" ("sz1") "xp"))("aElementOf" ("sdtpldt" ("sz1") ("smndt" "xp")) ("szAzrzSzezqlpdtcmdtrp" ("sz1") "xp"))) "__" 
+(body ))(block (decl ) Affirmation       ( and (not ("=" ("sdtpldt" ("sz1") "xp") ("sz1")))(not ("=" ("sdtpldt" ("sz1") ("smndt" "xp")) ("sz1")))) "__" 
+(body ))(block (decl ) Affirmation       ( or (not ("=" ("sdtpldt" ("sz1") "xp") ("smndt" ("sz1"))))(not ("=" ("sdtpldt" ("sz1") ("smndt" "xp")) ("smndt" ("sz1"))))) "__" 
+(body ))))(block (decl ) Affirmation     contradiction "__" 
+(body ))))))
+[Main] total 00:00.31
+[Parser] "examples/newman.ftl"
+parsing successful
+[Main] String: examples
+[Main] typeOf: [Char] -> [Text] -> IO [Text]
+(block (decl ) signature "?" "ElmSort" 
+(body (block (decl ) Posit   (forall  ( implies (HeadTerm tag ("aElement" (DB 0)))truth)) "__" 
+(body ))))
+(block (decl ) signature "?" "RelSort" 
+(body (block (decl ) Posit   (forall  ( implies (HeadTerm tag ("aRewritingSystem" (DB 0)))truth)) "__" 
+(body ))))
+(block (decl ) signature "?" "Reduct" 
+(body (block (decl "xx" "xR" ) Assumption   ( and ("aElement" "xx")("aRewritingSystem" "xR")) "__" 
+(body ))(block (decl ) Posit   (forall  ( implies (HeadTerm tag ("aReductOfIn" (DB 0) "xx" "xR"))("aElement" (DB 0)))) "__" 
+(body ))))
+(block (decl ) signature "?"nil
+(body (block (decl "xx" "xR" "xy" ) Assumption   ( and ( and ("aElement" "xx")("aRewritingSystem" "xR"))("aElement" "xy")) "__" 
+(body ))(block (decl ) Posit   ( implies (HeadTerm tag ("sdtmndtplgtdt" "xx" "xR" "xy"))truth) "__" 
+(body ))))
+(block (decl ) axiom "?" "TCDef" 
+(body (block (decl "xx" "xR" "xy" ) Assumption   ( and ( and ("aElement" "xx")("aRewritingSystem" "xR"))("aElement" "xy")) "__" 
+(body ))(block (decl ) Posit   ( iff ("sdtmndtplgtdt" "xx" "xR" "xy")( or ("aReductOfIn" "xy" "xx" "xR")(exists  ( and ("aElement" (DB 0))( and ("aReductOfIn" (DB 0) "xx" "xR")("sdtmndtplgtdt" (DB 0) "xR" "xy")))))) "__" 
+(body ))))
+(block (decl ) axiom "?" "TCTrans" 
+(body (block (decl "xx" "xR" "xy" "xz" ) Assumption   ( and ( and ( and ("aElement" "xx")("aRewritingSystem" "xR"))("aElement" "xy"))("aElement" "xz")) "__" 
+(body ))(block (decl ) Posit   ( implies ( and ("sdtmndtplgtdt" "xx" "xR" "xy")("sdtmndtplgtdt" "xy" "xR" "xz"))("sdtmndtplgtdt" "xx" "xR" "xz")) "__" 
+(body ))))
+(block (decl ) definition "?" "TCRDef" 
+(body (block (decl "xx" "xR" "xy" ) Assumption   ( and ( and ("aElement" "xx")("aRewritingSystem" "xR"))("aElement" "xy")) "__" 
+(body ))(block (decl ) Posit   ( iff (HeadTerm tag ("sdtmndtasgtdt" "xx" "xR" "xy"))( or ("=" "xx" "xy")("sdtmndtplgtdt" "xx" "xR" "xy"))) "__" 
+(body ))))
+(block (decl ) theorem "?" "TCRTrans" 
+(body (block (decl "xx" "xR" "xy" "xz" ) Assumption   ( and ( and ( and ("aElement" "xx")("aRewritingSystem" "xR"))("aElement" "xy"))("aElement" "xz")) "__" 
+(body ))(block (decl ) Affirmation   ( implies ( and ("sdtmndtasgtdt" "xx" "xR" "xy")("sdtmndtasgtdt" "xy" "xR" "xz"))("sdtmndtasgtdt" "xx" "xR" "xz")) "__" 
+(body ))))
+(block (decl ) definition "?" "CRDef" 
+(body (block (decl "xR" ) Assumption   ("aRewritingSystem" "xR") "__" 
+(body ))(block (decl ) Posit   ( iff (HeadTerm tag ("isConfluent" "xR"))(forall  (forall  (forall  ( implies ( and ( and ( and ("aElement" (DB 2))("aElement" (DB 1)))("aElement" (DB 0)))( and ("sdtmndtasgtdt" (DB 2) "xR" (DB 1))("sdtmndtasgtdt" (DB 2) "xR" (DB 0))))(exists  ( and ("aElement" (DB 0))( and ("sdtmndtasgtdt" (DB 2) "xR" (DB 0))("sdtmndtasgtdt" (DB 1) "xR" (DB 0)))))))))) "__" 
+(body ))))
+(block (decl ) definition "?" "WCRDef" 
+(body (block (decl "xR" ) Assumption   ("aRewritingSystem" "xR") "__" 
+(body ))(block (decl ) Posit   ( iff (HeadTerm tag ("isLocallyConfluent" "xR"))(forall  (forall  (forall  ( implies ( and ( and ( and ("aElement" (DB 2))("aElement" (DB 1)))("aElement" (DB 0)))( and ("aReductOfIn" (DB 1) (DB 2) "xR")("aReductOfIn" (DB 0) (DB 2) "xR")))(exists  ( and ("aElement" (DB 0))( and ("sdtmndtasgtdt" (DB 2) "xR" (DB 0))("sdtmndtasgtdt" (DB 1) "xR" (DB 0)))))))))) "__" 
+(body ))))
+(block (decl ) definition "?" "Termin" 
+(body (block (decl "xR" ) Assumption   ("aRewritingSystem" "xR") "__" 
+(body ))(block (decl ) Posit   ( iff (HeadTerm tag ("isTerminating" "xR"))(forall  (forall  ( implies ( and ("aElement" (DB 1))("aElement" (DB 0)))( implies ("sdtmndtplgtdt" (DB 1) "xR" (DB 0))("iLess" (DB 0) (DB 1))))))) "__" 
+(body ))))
+(block (decl ) definition "?" "NFRDef" 
+(body (block (decl "xx" "xR" ) Assumption   ( and ("aElement" "xx")("aRewritingSystem" "xR")) "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("aNormalFormOfIn" (DB 0) "xx" "xR"))( and ("aElement" (DB 0))( and ("sdtmndtasgtdt" "xx" "xR" (DB 0))(not (exists  ("aReductOfIn" (DB 0) (DB 1) "xR"))))))) "__" 
+(body ))))
+(block (decl ) theorem "?" "TermNF" 
+(body (block (decl "xR" ) Assumption   ( and ("aRewritingSystem" "xR")("isTerminating" "xR")) "__" 
+(body ))(block (decl ) Affirmation   (forall  ( implies ("aElement" (DB 0))( implies (InductionHypothesis tag (forall  ( implies ("aElement" (DB 0))( implies ("iLess" (DB 0) (DB 1))(exists  ("aNormalFormOfIn" (DB 0) (DB 1) "xR"))))))(exists  ("aNormalFormOfIn" (DB 0) (DB 1) "xR"))))) "__" 
+(body ))))
+(block (decl ) theorem "?" "Newman" 
+(body (block (decl ) Affirmation   (forall  ( implies ( and ("aRewritingSystem" (DB 0))( and ("isTerminating" (DB 0))("isLocallyConfluent" (DB 0))))("isConfluent" (DB 0)))) "__" 
+(body (block (decl "xR" ) Assumption     ("aRewritingSystem" "xR") "__" 
+(body ))(block (decl ) Assumption     ( and ("isLocallyConfluent" "xR")("isTerminating" "xR")) "__" 
+(body ))(block (decl ) Affirmation     (forall  (forall  (forall  ( implies ( and ( and ( and ("aElement" (DB 2))("aElement" (DB 1)))("aElement" (DB 0)))( and ("sdtmndtasgtdt" (DB 2) "xR" (DB 1))("sdtmndtasgtdt" (DB 2) "xR" (DB 0))))( implies (InductionHypothesis tag (forall  (forall  (forall  ( implies ( and ( and ( and ("aElement" (DB 2))("aElement" (DB 1)))("aElement" (DB 0)))( and ("sdtmndtasgtdt" (DB 2) "xR" (DB 1))("sdtmndtasgtdt" (DB 2) "xR" (DB 0))))( implies ("iLess" (DB 2) (DB 5))(exists  ( and ("aElement" (DB 0))( and ("sdtmndtasgtdt" (DB 2) "xR" (DB 0))("sdtmndtasgtdt" (DB 1) "xR" (DB 0)))))))))))(exists  ( and ("aElement" (DB 0))( and ("sdtmndtasgtdt" (DB 2) "xR" (DB 0))("sdtmndtasgtdt" (DB 1) "xR" (DB 0)))))))))) "__" 
+(body (block (decl "xa" "xb" "xc" ) Assumption       ( and ( and ("aElement" "xa")("aElement" "xb"))("aElement" "xc")) "__" 
+(body ))(block (decl ) Assumption       ( and ("sdtmndtplgtdt" "xa" "xR" "xb")("sdtmndtplgtdt" "xa" "xR" "xc")) "__" 
+(body ))(block (decl "xu" ) Selection       ( and ("aElement" "xu")( and ("aReductOfIn" "xu" "xa" "xR")("sdtmndtasgtdt" "xu" "xR" "xb"))) "__" 
+(body ))(block (decl "xv" ) Selection       ( and ("aElement" "xv")( and ("aReductOfIn" "xv" "xa" "xR")("sdtmndtasgtdt" "xv" "xR" "xc"))) "__" 
+(body ))(block (decl "xw" ) Selection       ( and ("aElement" "xw")( and ("sdtmndtasgtdt" "xu" "xR" "xw")("sdtmndtasgtdt" "xv" "xR" "xw"))) "__" 
+(body ))(block (decl "xd" ) Selection       ("aNormalFormOfIn" "xd" "xw" "xR") "__" 
+(body ))(block (decl ) Affirmation       ("sdtmndtasgtdt" "xb" "xR" "xd") "__" 
+(body (block (decl "xx" ) Selection         ( and ("aElement" "xx")( and ("sdtmndtasgtdt" "xb" "xR" "xx")("sdtmndtasgtdt" "xd" "xR" "xx"))) "__" 
+(body ))))(block (decl ) Affirmation       ("sdtmndtasgtdt" "xc" "xR" "xd") "__" 
+(body (block (decl "xy" ) Selection         ( and ("aElement" "xy")( and ("sdtmndtasgtdt" "xc" "xR" "xy")("sdtmndtasgtdt" "xd" "xR" "xy"))) "__" 
+(body ))))))))))
+[Main] total 00:00.25
+[Parser] "examples/powerset.ftl"
+parsing successful
+[Main] String: examples
+[Main] typeOf: [Char] -> [Text] -> IO [Text]
+(block (decl ) axiom "?"nil
+(body (block (decl "xf" ) Assumption   ("aFunction" "xf") "__" 
+(body ))(block (decl ) Posit   (forall  ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))("aSet" ("sdtlbdtrb" "xf" (DB 0))))) "__" 
+(body ))))
+(block (decl ) definition "?"nil
+(body (block (decl "xM" ) Assumption   ("aSet" "xM") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("aSubsetOf" (DB 0) "xM"))( and ("aSet" (DB 0))(forall  ( implies ("aElementOf" (DB 0) (DB 1))("aElementOf" (DB 0) "xM")))))) "__" 
+(body ))))
+(block (decl ) definition "?"nil
+(body (block (decl "xM" ) Assumption   ("aSet" "xM") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("=" (DB 0) ("tthePowersetOf" "xM")))( and ("aSet" (DB 0))("=" (DB 0) (lambda  ("aSubsetOf" (DB 0) "xM")))))) "__" 
+(body ))))
+(block (decl ) definition "?"nil
+(body (block (decl "xf" "xM" ) Assumption   ( and ("aFunction" "xf")("aSet" "xM")) "__" 
+(body ))(block (decl ) Posit   ( iff (HeadTerm tag ("doSurjectsOnto" "xf" "xM"))(forall  ( implies ("aElementOf" (DB 0) "xM")(exists  ( and ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))("=" (DB 1) ("sdtlbdtrb" "xf" (DB 0)))))))) "__" 
+(body ))))
+(block (decl ) theorem "?"nil
+(body (block (decl "xM" ) Assumption   ("aSet" "xM") "__" 
+(body ))(block (decl ) Affirmation   (forall  ( implies ( and ("aFunction" (DB 0))("=" ("szDzozmlpdtrp" (DB 0)) "xM"))(not ("doSurjectsOnto" (DB 0) ("tthePowersetOf" "xM"))))) "__" 
+(body (block (decl ) Assumption     (not ("#TH#")) "__" 
+(body ))(block (decl "xf" ) Selection     ( and ("aFunction" "xf")( and ("=" ("szDzozmlpdtrp" "xf") "xM")("doSurjectsOnto" "xf" ("tthePowersetOf" "xM")))) "__" 
+(body ))(block (decl "xN" ) LowDefinition     ( and ("aSet" "xN")("=" "xN" (lambda  ( and ("aElementOf" (DB 0) "xM")(not ("aElementOf" (DB 0) ("sdtlbdtrb" "xf" (DB 0)))))))) "__" 
+(body ))(block (decl ) Affirmation     (forall  ( implies ("aElementOf" (DB 0) "xM")(not ("=" "xN" ("sdtlbdtrb" "xf" (DB 0)))))) "__" 
+(body ))(block (decl ) Affirmation     contradiction "__" 
+(body ))))))
+[Main] total 00:00.00
+[Parser] "examples/prime_no_square.ftl"
+parsing successful
+[Main] String: examples
+[Main] typeOf: [Char] -> [Text] -> IO [Text]
+(block (decl ) signature "?"nil
+(body (block (decl ) Posit   (forall  ( implies (HeadTerm tag ("aRationalNumber" (DB 0)))truth)) "__" 
+(body ))))
+(block (decl ) signature "?"nil
+(body (block (decl "xr" "xq" ) Assumption   ( and ("aRationalNumber" "xr")("aRationalNumber" "xq")) "__" 
+(body ))(block (decl ) Posit   (forall  ( implies (HeadTerm tag ("=" (DB 0) ("sdtasdt" "xr" "xq")))("aRationalNumber" (DB 0)))) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xr" "xq" ) Assumption   ( and ("aRationalNumber" "xr")("aRationalNumber" "xq")) "__" 
+(body ))(block (decl ) Posit   ("=" ("sdtasdt" "xr" "xq") ("sdtasdt" "xq" "xr")) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xr" "xq" "xs" ) Assumption   ( and ( and ("aRationalNumber" "xr")("aRationalNumber" "xq"))("aRationalNumber" "xs")) "__" 
+(body ))(block (decl ) Posit   ("=" ("sdtasdt" "xr" ("sdtasdt" "xq" "xs")) ("sdtasdt" ("sdtasdt" "xr" "xq") "xs")) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xq" "xs" "xr" ) Assumption   ( and ( and ("aRationalNumber" "xq")("aRationalNumber" "xs"))("aRationalNumber" "xr")) "__" 
+(body ))(block (decl ) Posit   ( implies ("=" ("sdtasdt" "xq" "xs") ("sdtasdt" "xq" "xr"))("=" "xs" "xr")) "__" 
+(body ))))
+(block (decl ) signature "?"nil
+(body (block (decl ) Posit   (forall  ( implies (HeadTerm tag ("aNaturalNumber" (DB 0)))("aRationalNumber" (DB 0)))) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xn" "xm" ) Assumption   ( and ("aNaturalNumber" "xn")("aNaturalNumber" "xm")) "__" 
+(body ))(block (decl ) Posit   ("aNaturalNumber" ("sdtasdt" "xn" "xm")) "__" 
+(body ))))
+(block (decl ) definition "?"nil
+(body (block (decl "xn" "xm" ) Assumption   ( and ("aNaturalNumber" "xn")("aNaturalNumber" "xm")) "__" 
+(body ))(block (decl ) Posit   ( iff (HeadTerm tag ("sdtbrdt" "xn" "xm"))(exists  ( and ("aNaturalNumber" (DB 0))("=" ("sdtasdt" (DB 0) "xn") "xm")))) "__" 
+(body ))))
+(block (decl ) definition "?"nil
+(body (block (decl "xn" "xm" ) Assumption   ( and ("aNaturalNumber" "xn")("aNaturalNumber" "xm")) "__" 
+(body ))(block (decl ) Posit   ( iff (HeadTerm tag ("misCoprime" "xn" "xm"))(not (exists  ( and ("aNaturalNumber" (DB 0))( and ("sdtbrdt" (DB 0) "xn")("sdtbrdt" (DB 0) "xm")))))) "__" 
+(body ))))
+(block (decl ) signature "?"nil
+(body (block (decl "xn" ) Assumption   ("aNaturalNumber" "xn") "__" 
+(body ))(block (decl ) Posit   ( implies (HeadTerm tag ("isPrime" "xn"))truth) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xp" "xn" "xm" ) Assumption   ( and ( and ( and ("aNaturalNumber" "xp")("isPrime" "xp"))("aNaturalNumber" "xn"))("aNaturalNumber" "xm")) "__" 
+(body ))(block (decl ) Posit   ( implies ("sdtbrdt" "xp" ("sdtasdt" "xn" "xm"))( or ("sdtbrdt" "xp" "xn")("sdtbrdt" "xp" "xm"))) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xq" ) Assumption   ("aRationalNumber" "xq") "__" 
+(body ))(block (decl ) Posit   (exists  (exists  ( and ( and ("aNaturalNumber" (DB 1))("aNaturalNumber" (DB 0)))( and ("misCoprime" (DB 1) (DB 0))("=" ("sdtasdt" (DB 1) "xq") (DB 0)))))) "__" 
+(body ))))
+(block (decl ) theorem "?"nil
+(body (block (decl "xp" ) Assumption   ( and ("aNaturalNumber" "xp")("isPrime" "xp")) "__" 
+(body ))(block (decl ) Affirmation   (forall  ( implies ("aRationalNumber" (DB 0))(not ("=" "xp" ("sdtasdt" (DB 0) (DB 0)))))) "__" 
+(body (block (decl ) Assumption     (not ("#TH#")) "__" 
+(body ))(block (decl "xq" ) Selection     ( and ("aRationalNumber" "xq")("=" "xp" ("sdtasdt" "xq" "xq"))) "__" 
+(body ))(block (decl "xm" "xn" ) Selection     ( and ( and ("aNaturalNumber" "xm")("aNaturalNumber" "xn"))( and ("misCoprime" "xm" "xn")("=" ("sdtasdt" "xm" "xq") "xn"))) "__" 
+(body ))(block (decl ) Affirmation     ("=" ("sdtasdt" "xp" ("sdtasdt" "xm" "xm")) ("sdtasdt" "xn" "xn")) "__" 
+(body ))(block (decl ) Affirmation     ("sdtbrdt" "xp" "xn") "__" 
+(body ))(block (decl "xk" ) Selection     ( and ("aNaturalNumber" "xk")("=" "xn" ("sdtasdt" "xk" "xp"))) "__" 
+(body ))(block (decl ) Affirmation     ("=" ("sdtasdt" "xp" ("sdtasdt" "xm" "xm")) ("sdtasdt" "xp" ("sdtasdt" "xk" "xn"))) "__" 
+(body ))(block (decl ) Affirmation     ("=" ("sdtasdt" "xm" "xm") ("sdtasdt" "xp" ("sdtasdt" "xk" "xk"))) "__" 
+(body ))(block (decl ) Affirmation     ("sdtbrdt" "xp" "xm") "__" 
+(body ))(block (decl ) Affirmation     contradiction "__" 
+(body ))))))
+[Main] total 00:00.02
+[Parser] "examples/regular_successor.ftl"
+parsing successful
+[Main] String: examples
+[Main] typeOf: [Char] -> [Text] -> IO [Text]
+(block (decl ) axiom "?"nil
+(body (block (decl ) Posit   (forall  (forall  (forall  (forall  ( implies ( and ( and ( and truthtruth)truth)truth)( implies ("=" ("slpdtcmdtrp" (DB 3) (DB 2)) ("slpdtcmdtrp" (DB 1) (DB 0)))( and ("=" (DB 3) (DB 1))("=" (DB 2) (DB 0))))))))) "__" 
+(body ))))
+(block (decl ) definition "?"nil
+(body (block (decl "xM" "xN" ) Assumption   ( and ("aSet" "xM")("aSet" "xN")) "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("=" (DB 0) ("szPzrzozdlpdtcmdtrp" "xM" "xN")))( and ("aSet" (DB 0))("=" (DB 0) (lambda  (Replacement tag (exists  (exists  ( and ( and ("aElementOf" (DB 1) "xM")("aElementOf" (DB 0) "xN"))("=" (DB 2) ("slpdtcmdtrp" (DB 1) (DB 0)))))))))))) "__" 
+(body ))))
+(block (decl ) theorem "?"nil
+(body (block (decl "xx" "xy" ) Assumption   ( and truthtruth) "__" 
+(body ))(block (decl "xM" "xN" ) Assumption   ( and ("aSet" "xM")("aSet" "xN")) "__" 
+(body ))(block (decl ) Affirmation   ( implies ("aElementOf" ("slpdtcmdtrp" "xx" "xy") ("szPzrzozdlpdtcmdtrp" "xM" "xN"))( and ("aElementOf" "xx" "xM")("aElementOf" "xy" "xN"))) "__" 
+(body ))))
+(block (decl ) definition "?"nil
+(body (block (decl "xM" ) Assumption   ("aSet" "xM") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("aSubsetOf" (DB 0) "xM"))( and ("aSet" (DB 0))(forall  ( implies ("aElementOf" (DB 0) (DB 1))("aElementOf" (DB 0) "xM")))))) "__" 
+(body ))))
+(block (decl ) definition "?"nil
+(body (block (decl "xf" ) Assumption   ("aFunction" "xf") "__" 
+(body ))(block (decl "xM" ) Assumption   ("aSubsetOf" "xM" ("szDzozmlpdtrp" "xf")) "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("=" (DB 0) ("sdtcflbdtrb" "xf" "xM")))( and ("aSet" (DB 0))("=" (DB 0) (lambda  (Replacement tag (exists  ( and ("aElementOf" (DB 0) "xM")("=" (DB 1) ("sdtlbdtrb" "xf" (DB 0))))))))))) "__" 
+(body ))))
+(block (decl ) signature "?"nil
+(body (block (decl ) Posit   (forall  ( implies (HeadTerm tag ("aOrdinal" (DB 0)))("aSet" (DB 0)))) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xalpha" ) Assumption   ("aOrdinal" "xalpha") "__" 
+(body ))(block (decl ) Posit   (forall  ( implies ("aElementOf" (DB 0) "xalpha")("aOrdinal" (DB 0)))) "__" 
+(body ))))
+(block (decl ) signature "?"nil
+(body (block (decl ) Posit   (forall  ( implies (HeadTerm tag ("aCardinal" (DB 0)))("aOrdinal" (DB 0)))) "__" 
+(body ))))
+(block (decl ) signature "?"nil
+(body (block (decl "xalpha" "xbeta" ) Assumption   ( and ("aOrdinal" "xalpha")("aOrdinal" "xbeta")) "__" 
+(body ))(block (decl ) Posit   ( implies (HeadTerm tag ("sdtlsdt" "xalpha" "xbeta"))truth) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xalpha" "xbeta" ) Assumption   ( and ("aOrdinal" "xalpha")("aOrdinal" "xbeta")) "__" 
+(body ))(block (decl ) Posit   ( implies ("sdtlsdt" "xalpha" "xbeta")("aElementOf" "xalpha" "xbeta")) "__" 
+(body ))))
+(block (decl ) definition "?"nil
+(body (block (decl "xA" ) Assumption   ("aCardinal" "xA") "__" 
+(body ))(block (decl "xM" ) Assumption   ("aSubsetOf" "xM" "xA") "__" 
+(body ))(block (decl ) Posit   ( iff (HeadTerm tag ("isCofinalIn" "xM" "xA"))(forall  ( implies ("aElementOf" (DB 0) "xA")(exists  ( and ("aElementOf" (DB 0) "xM")("sdtlsdt" (DB 1) (DB 0))))))) "__" 
+(body ))))
+(block (decl ) signature "?"nil
+(body (block (decl "xM" ) Assumption   ("aSet" "xM") "__" 
+(body ))(block (decl ) Posit   (forall  ( implies (HeadTerm tag ("=" (DB 0) ("ttheCardinalityOf" "xM")))("aCardinal" (DB 0)))) "__" 
+(body ))))
+(block (decl ) axiom "?" "Surj_Exi" 
+(body (block (decl "xM" ) Assumption   ("aSet" "xM") "__" 
+(body ))(block (decl ) Assumption   (exists  ("aElementOf" (DB 0) "xM")) "__" 
+(body ))(block (decl "xN" ) Assumption   ("aSet" "xN") "__" 
+(body ))(block (decl ) Posit   ( iff ( or ("=" ("ttheCardinalityOf" "xM") ("ttheCardinalityOf" "xN"))("sdtlsdt" ("ttheCardinalityOf" "xM") ("ttheCardinalityOf" "xN")))(exists  ( and ("aFunction" (DB 0))( and ("=" ("szDzozmlpdtrp" (DB 0)) "xN")("=" ("sdtcflbdtrb" (DB 0) "xN") "xM"))))) "__" 
+(body ))))
+(block (decl ) axiom "?" "Transitivity" 
+(body (block (decl "xA" ) Assumption   ("aCardinal" "xA") "__" 
+(body ))(block (decl "xM" ) Assumption   ("aElementOf" "xM" "xA") "__" 
+(body ))(block (decl "xN" ) Assumption   ("aElementOf" "xN" "xM") "__" 
+(body ))(block (decl ) Posit   ("aElementOf" "xN" "xA") "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xM" ) Assumption   ("aSet" "xM") "__" 
+(body ))(block (decl ) Posit   ("=" ("ttheCardinalityOf" ("szPzrzozdlpdtcmdtrp" "xM" "xM")) ("ttheCardinalityOf" "xM")) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xA" ) Assumption   ("aCardinal" "xA") "__" 
+(body ))(block (decl ) Posit   ("=" ("ttheCardinalityOf" "xA") "xA") "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xM" ) Assumption   ("aSet" "xM") "__" 
+(body ))(block (decl "xN" ) Assumption   ("aSubsetOf" "xN" "xM") "__" 
+(body ))(block (decl ) Posit   ( or ("=" ("ttheCardinalityOf" "xN") ("ttheCardinalityOf" "xM"))("sdtlsdt" ("ttheCardinalityOf" "xN") ("ttheCardinalityOf" "xM"))) "__" 
+(body ))))
+(block (decl ) definition "?"nil
+(body (block (decl "xA" ) Assumption   ("aCardinal" "xA") "__" 
+(body ))(block (decl ) Posit   ( iff (HeadTerm tag ("isRegular" "xA"))(forall  ( implies ( and ("aSubsetOf" (DB 0) "xA")("isCofinalIn" (DB 0) "xA"))("=" ("ttheCardinalityOf" (DB 0)) "xA")))) "__" 
+(body ))))
+(block (decl ) signature "?"nil
+(body (block (decl "xA" ) Assumption   ("aCardinal" "xA") "__" 
+(body ))(block (decl ) Posit   (forall  ( implies (HeadTerm tag ("=" (DB 0) ("szSzuzczclpdtrp" "xA")))("aCardinal" (DB 0)))) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xalpha" "xbeta" ) Assumption   ( and ("aOrdinal" "xalpha")("aOrdinal" "xbeta")) "__" 
+(body ))(block (decl ) Posit   ( or ( or ("sdtlsdt" "xalpha" "xbeta")("sdtlsdt" "xbeta" "xalpha"))("=" "xbeta" "xalpha")) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xA" ) Assumption   ("aCardinal" "xA") "__" 
+(body ))(block (decl ) Posit   ("sdtlsdt" "xA" ("szSzuzczclpdtrp" "xA")) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xA" ) Assumption   ("aCardinal" "xA") "__" 
+(body ))(block (decl ) Posit   (forall  ( implies ("aElementOf" (DB 0) ("szSzuzczclpdtrp" "xA"))( or ("=" ("ttheCardinalityOf" (DB 0)) "xA")("sdtlsdt" ("ttheCardinalityOf" (DB 0)) "xA")))) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl ) Posit   (forall  (forall  ( implies ( and ("aCardinal" (DB 1))("aCardinal" (DB 0)))(not ( and ("sdtlsdt" (DB 1) (DB 0))("sdtlsdt" (DB 0) (DB 1))))))) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xA" ) Assumption   ("aCardinal" "xA") "__" 
+(body ))(block (decl ) Posit   (not (exists  ( and ("aCardinal" (DB 0))( and ("sdtlsdt" "xA" (DB 0))("sdtlsdt" (DB 0) ("szSzuzczclpdtrp" "xA")))))) "__" 
+(body ))))
+(block (decl ) definition "?"nil
+(body (block (decl ) Posit   (forall  ( iff (HeadTerm tag ("=" (DB 0) ("ttheEmptySet")))( and ("aCardinal" (DB 0))(forall  ( implies ( and ("aOrdinal" (DB 0))(exists  ("aElementOf" (DB 0) (DB 1))))("aElementOf" (DB 1) (DB 0))))))) "__" 
+(body ))))
+(block (decl ) definition "?"nil
+(body (block (decl "xM" ) Assumption   ("aSet" "xM") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("=" (DB 0) ("ttheConstantZeroOn" "xM")))( and ("aFunction" (DB 0))( and ("=" ("szDzozmlpdtrp" (DB 0)) "xM")(forall  ( implies ("aElementOf" (DB 0) "xM")("=" ("sdtlbdtrb" (DB 1) (DB 0)) ("ttheEmptySet")))))))) "__" 
+(body ))))
+(block (decl ) theorem "?"nil
+(body (block (decl "xA" ) Assumption   ("aCardinal" "xA") "__" 
+(body ))(block (decl ) Affirmation   ("isRegular" ("szSzuzczclpdtrp" "xA")) "__" 
+(body (block (decl ) Assumption     (not ("#TH#")) "__" 
+(body ))(block (decl "xx" ) Selection     ( and ( and ("aSubsetOf" "xx" ("szSzuzczclpdtrp" "xA"))("isCofinalIn" "xx" ("szSzuzczclpdtrp" "xA")))(not ("=" ("ttheCardinalityOf" "xx") ("szSzuzczclpdtrp" "xA")))) "__" 
+(body ))(block (decl ) Affirmation     ( or ("=" ("ttheCardinalityOf" "xx") "xA")("sdtlsdt" ("ttheCardinalityOf" "xx") "xA")) "__" 
+(body ))(block (decl "xf" ) Selection     ( and ("aFunction" "xf")( and ("=" ("szDzozmlpdtrp" "xf") "xA")("=" ("sdtcflbdtrb" "xf" "xA") "xx"))) "__" 
+(body (block (decl ) Affirmation       ( and (exists  ("aElementOf" (DB 0) "xx"))("=" ("ttheCardinalityOf" "xA") "xA")) "__" 
+(body ))))(block (decl "xg" ) LowDefinition     ( and ( and ("aFunction" "xg")(Domain tag ("=" ("szDzozmlpdtrp" "xg") ("szSzuzczclpdtrp" "xA"))))(forall  ( implies ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xg"))( and (Condition tag ( implies (exists  ("aElementOf" (DB 0) (DB 1)))(exists  ( and ( and ("aFunction" (DB 0))( and ("=" ("szDzozmlpdtrp" (DB 0)) "xA")("=" ("sdtcflbdtrb" (DB 0) "xA") (DB 1))))(Evaluation tag ("=" ("sdtlbdtrb" "xg" (DB 1)) (DB 0)))))))(Condition tag ( implies (not (exists  ("aElementOf" (DB 0) (DB 1))))(Evaluation tag ("=" ("sdtlbdtrb" "xg" (DB 0)) ("ttheConstantZeroOn" "xA"))))))))) "__" 
+(body ))(block (decl "xh" ) LowDefinition     ( and ( and ("aFunction" "xh")(Domain tag ("=" ("szDzozmlpdtrp" "xh") ("szPzrzozdlpdtcmdtrp" "xA" "xA"))))(forall  (forall  ( implies ("aElementOf" ("slpdtcmdtrp" (DB 1) (DB 0)) ("szDzozmlpdtrp" "xh"))(Evaluation tag ("=" ("sdtlbdtrb" "xh" ("slpdtcmdtrp" (DB 1) (DB 0))) ("sdtlbdtrb" ("sdtlbdtrb" "xg" ("sdtlbdtrb" "xf" (DB 1))) (DB 0)))))))) "__" 
+(body ))(block (decl ) Affirmation     ( and ("=" ("szDzozmlpdtrp" "xh") ("szPzrzozdlpdtcmdtrp" "xA" "xA"))("=" ("sdtcflbdtrb" "xh" ("szPzrzozdlpdtcmdtrp" "xA" "xA")) ("szSzuzczclpdtrp" "xA"))) "__" 
+(body (block (decl ) Affirmation       ("=" ("szDzozmlpdtrp" "xh") ("szPzrzozdlpdtcmdtrp" "xA" "xA")) "__" 
+(body ))(block (decl ) Affirmation       (forall  ( implies ("aElementOf" (DB 0) ("szSzuzczclpdtrp" "xA"))("aElementOf" (DB 0) ("sdtcflbdtrb" "xh" ("szPzrzozdlpdtcmdtrp" "xA" "xA"))))) "__" 
+(body (block (decl "xn" ) Assumption         ("aElementOf" "xn" ("szSzuzczclpdtrp" "xA")) "__" 
+(body ))(block (decl "xxi" ) Selection         ( and ("aElementOf" "xxi" "xA")("sdtlsdt" "xn" ("sdtlbdtrb" "xf" "xxi"))) "__" 
+(body ))(block (decl "xzeta" ) Selection         ( and ("aElementOf" "xzeta" "xA")("=" ("sdtlbdtrb" ("sdtlbdtrb" "xg" ("sdtlbdtrb" "xf" "xxi")) "xzeta") "xn")) "__" 
+(body ))(block (decl ) Affirmation         ("=" "xn" ("sdtlbdtrb" "xh" ("slpdtcmdtrp" "xxi" "xzeta"))) "__" 
+(body ))(block (decl ) Affirmation         ("#TH#") "__" 
+(body (block (decl ) Affirmation           ("aElementOf" ("slpdtcmdtrp" "xxi" "xzeta") ("szPzrzozdlpdtcmdtrp" "xA" "xA")) "__" 
+(body ))))))(block (decl ) Affirmation       (forall  ( implies ("aElementOf" (DB 0) ("sdtcflbdtrb" "xh" ("szPzrzozdlpdtcmdtrp" "xA" "xA")))("aElementOf" (DB 0) ("szSzuzczclpdtrp" "xA")))) "__" 
+(body (block (decl "xn" ) Assumption         ("aElementOf" "xn" ("sdtcflbdtrb" "xh" ("szPzrzozdlpdtcmdtrp" "xA" "xA"))) "__" 
+(body ))(block (decl "xa" "xb" ) Selection         ( and ( and ("aElementOf" "xa" "xA")("aElementOf" "xb" "xA"))("=" "xn" ("sdtlbdtrb" "xh" ("slpdtcmdtrp" "xa" "xb")))) "__" 
+(body ))(block (decl ) CaseHypothesis         ( implies (CaseHypothesis tag (exists  ("aElementOf" (DB 0) ("sdtlbdtrb" "xf" "xa"))))("#TH#")) "__" 
+(body ))(block (decl ) CaseHypothesis         ( implies (CaseHypothesis tag (not (exists  ("aElementOf" (DB 0) ("sdtlbdtrb" "xf" "xa")))))("#TH#")) "__" 
+(body ))))))(block (decl ) Affirmation     ( or ("=" ("szSzuzczclpdtrp" "xA") "xA")("sdtlsdt" ("szSzuzczclpdtrp" "xA") "xA")) "__" 
+(body ))(block (decl ) Affirmation     contradiction "__" 
+(body ))))))
+[Main] total 00:00.05
+[Parser] "examples/tarski.ftl"
+parsing successful
+[Main] String: examples
+[Main] typeOf: [Char] -> [Text] -> IO [Text]
+(block (decl ) signature "?" "ElmSort" 
+(body (block (decl ) Posit   (forall  ( implies (HeadTerm tag ("aElement" (DB 0)))truth)) "__" 
+(body ))))
+(block (decl ) axiom "?" "EOfElem" 
+(body (block (decl "xS" ) Assumption   ("aSet" "xS") "__" 
+(body ))(block (decl ) Posit   (forall  ( implies ("aElementOf" (DB 0) "xS")("aElement" (DB 0)))) "__" 
+(body ))))
+(block (decl ) definition "?" "DefEmpty" 
+(body (block (decl "xS" ) Assumption   ("aSet" "xS") "__" 
+(body ))(block (decl ) Posit   ( iff (HeadTerm tag ("isEmpty" "xS"))(not (exists  ("aElementOf" (DB 0) "xS")))) "__" 
+(body ))))
+(block (decl ) definition "?" "DefSub" 
+(body (block (decl "xS" ) Assumption   ("aSet" "xS") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("aSubsetOf" (DB 0) "xS"))( and ("aSet" (DB 0))(forall  ( implies ("aElementOf" (DB 0) (DB 1))("aElementOf" (DB 0) "xS")))))) "__" 
+(body ))))
+(block (decl ) signature "?" "LessRel" 
+(body (block (decl "xx" "xy" ) Assumption   ( and ("aElement" "xx")("aElement" "xy")) "__" 
+(body ))(block (decl ) Posit   ( implies (HeadTerm tag ("sdtlseqdt" "xx" "xy"))truth) "__" 
+(body ))))
+(block (decl ) axiom "?" "ARefl" 
+(body (block (decl "xx" ) Assumption   ("aElement" "xx") "__" 
+(body ))(block (decl ) Posit   ("sdtlseqdt" "xx" "xx") "__" 
+(body ))))
+(block (decl ) axiom "?" "ASymm" 
+(body (block (decl "xx" "xy" ) Assumption   ( and ("aElement" "xx")("aElement" "xy")) "__" 
+(body ))(block (decl ) Posit   ( implies ( and ("sdtlseqdt" "xx" "xy")("sdtlseqdt" "xy" "xx"))("=" "xx" "xy")) "__" 
+(body ))))
+(block (decl ) axiom "?" "Trans" 
+(body (block (decl "xx" "xy" "xz" ) Assumption   ( and ( and ("aElement" "xx")("aElement" "xy"))("aElement" "xz")) "__" 
+(body ))(block (decl ) Posit   ( implies ( and ("sdtlseqdt" "xx" "xy")("sdtlseqdt" "xy" "xz"))("sdtlseqdt" "xx" "xz")) "__" 
+(body ))))
+(block (decl ) definition "?" "DefLB" 
+(body (block (decl "xT" ) Assumption   ("aSet" "xT") "__" 
+(body ))(block (decl "xS" ) Assumption   ("aSubsetOf" "xS" "xT") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("aLowerBoundOfIn" (DB 0) "xS" "xT"))( and ("aElementOf" (DB 0) "xT")(forall  ( implies ("aElementOf" (DB 0) "xS")("sdtlseqdt" (DB 1) (DB 0))))))) "__" 
+(body ))))
+(block (decl ) definition "?" "DefUB" 
+(body (block (decl "xT" ) Assumption   ("aSet" "xT") "__" 
+(body ))(block (decl "xS" ) Assumption   ("aSubsetOf" "xS" "xT") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("aUpperBoundOfIn" (DB 0) "xS" "xT"))( and ("aElementOf" (DB 0) "xT")(forall  ( implies ("aElementOf" (DB 0) "xS")("sdtlseqdt" (DB 0) (DB 1))))))) "__" 
+(body ))))
+(block (decl ) definition "?" "DefInf" 
+(body (block (decl "xT" ) Assumption   ("aSet" "xT") "__" 
+(body ))(block (decl "xS" ) Assumption   ("aSubsetOf" "xS" "xT") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("aInfimumOfIn" (DB 0) "xS" "xT"))( and ("aElementOf" (DB 0) "xT")( and ("aLowerBoundOfIn" (DB 0) "xS" "xT")(forall  ( implies ("aLowerBoundOfIn" (DB 0) "xS" "xT")("sdtlseqdt" (DB 0) (DB 1)))))))) "__" 
+(body ))))
+(block (decl ) definition "?" "DefSup" 
+(body (block (decl "xT" ) Assumption   ("aSet" "xT") "__" 
+(body ))(block (decl "xS" ) Assumption   ("aSubsetOf" "xS" "xT") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("aSupremumOfIn" (DB 0) "xS" "xT"))( and ("aElementOf" (DB 0) "xT")( and ("aUpperBoundOfIn" (DB 0) "xS" "xT")(forall  ( implies ("aUpperBoundOfIn" (DB 0) "xS" "xT")("sdtlseqdt" (DB 1) (DB 0)))))))) "__" 
+(body ))))
+(block (decl ) theorem "?" "SupUn" 
+(body (block (decl "xT" ) Assumption   ("aSet" "xT") "__" 
+(body ))(block (decl "xS" ) Assumption   ("aSubsetOf" "xS" "xT") "__" 
+(body ))(block (decl "xu" "xv" ) Assumption   ( and ("aSupremumOfIn" "xu" "xS" "xT")("aSupremumOfIn" "xv" "xS" "xT")) "__" 
+(body ))(block (decl ) Affirmation   ("=" "xu" "xv") "__" 
+(body ))))
+(block (decl ) theorem "?" "InfUn" 
+(body (block (decl "xT" ) Assumption   ("aSet" "xT") "__" 
+(body ))(block (decl "xS" ) Assumption   ("aSubsetOf" "xS" "xT") "__" 
+(body ))(block (decl "xu" "xv" ) Assumption   ( and ("aInfimumOfIn" "xu" "xS" "xT")("aInfimumOfIn" "xv" "xS" "xT")) "__" 
+(body ))(block (decl ) Affirmation   ("=" "xu" "xv") "__" 
+(body ))))
+(block (decl ) definition "?" "DefCLat" 
+(body (block (decl ) Posit   (forall  ( iff (HeadTerm tag ("aCompleteLattice" (DB 0)))( and ("aSet" (DB 0))(forall  ( implies ("aSubsetOf" (DB 0) (DB 1))(exists  ( and ("aInfimumOfIn" (DB 0) (DB 1) (DB 2))(exists  ("aSupremumOfIn" (DB 0) (DB 2) (DB 3)))))))))) "__" 
+(body ))))
+(block (decl ) axiom "?"nil
+(body (block (decl "xf" ) Assumption   ("aFunction" "xf") "__" 
+(body ))(block (decl ) Posit   ("aSet" ("szDzozmlpdtrp" "xf")) "__" 
+(body ))))
+(block (decl ) signature "?" "RanSort" 
+(body (block (decl "xf" ) Assumption   ("aFunction" "xf") "__" 
+(body ))(block (decl ) Posit   (forall  ( implies (HeadTerm tag ("=" (DB 0) ("szRzaznlpdtrp" "xf")))("aSet" (DB 0)))) "__" 
+(body ))))
+(block (decl ) definition "?" "DefDom" 
+(body (block (decl "xf" "xS" ) Assumption   ( and ("aFunction" "xf")("aSet" "xS")) "__" 
+(body ))(block (decl ) Posit   ( iff (HeadTerm tag ("isOn" "xf" "xS"))( and ("=" ("szDzozmlpdtrp" "xf") ("szRzaznlpdtrp" "xf"))("=" ("szRzaznlpdtrp" "xf") "xS"))) "__" 
+(body ))))
+(block (decl ) axiom "?" "ImgSort" 
+(body (block (decl "xf" ) Assumption   ("aFunction" "xf") "__" 
+(body ))(block (decl "xx" ) Assumption   ("aElementOf" "xx" ("szDzozmlpdtrp" "xf")) "__" 
+(body ))(block (decl ) Posit   ("aElementOf" ("sdtlbdtrb" "xf" "xx") ("szRzaznlpdtrp" "xf")) "__" 
+(body ))))
+(block (decl ) definition "?" "DefFix" 
+(body (block (decl "xf" ) Assumption   ("aFunction" "xf") "__" 
+(body ))(block (decl ) Posit   (forall  ( iff (HeadTerm tag ("aFixedPointOf" (DB 0) "xf"))( and ("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf"))("=" ("sdtlbdtrb" "xf" (DB 0)) (DB 0))))) "__" 
+(body ))))
+(block (decl ) definition "?" "DefMonot" 
+(body (block (decl "xf" ) Assumption   ("aFunction" "xf") "__" 
+(body ))(block (decl ) Posit   ( iff (HeadTerm tag ("isMonotone" "xf"))(forall  (forall  ( implies ( and ("aElementOf" (DB 1) ("szDzozmlpdtrp" "xf"))("aElementOf" (DB 0) ("szDzozmlpdtrp" "xf")))( implies ("sdtlseqdt" (DB 1) (DB 0))("sdtlseqdt" ("sdtlbdtrb" "xf" (DB 1)) ("sdtlbdtrb" "xf" (DB 0)))))))) "__" 
+(body ))))
+(block (decl ) theorem "?" "Tarski" 
+(body (block (decl "xU" "xf" ) Assumption   ( and ("aCompleteLattice" "xU")( and ("aFunction" "xf")( and ("isMonotone" "xf")("isOn" "xf" "xU")))) "__" 
+(body ))(block (decl "xS" ) Assumption   ( and ("aSet" "xS")("=" "xS" (lambda  ("aFixedPointOf" (DB 0) "xf")))) "__" 
+(body ))(block (decl ) Affirmation   ("aCompleteLattice" "xS") "__" 
+(body (block (decl "xT" ) Assumption     ("aSubsetOf" "xT" "xS") "__" 
+(body ))(block (decl ) Affirmation     (exists  ("aSupremumOfIn" (DB 0) "xT" "xS")) "__" 
+(body (block (decl "xP" ) LowDefinition       ( and ("aSet" "xP")("=" "xP" (lambda  ( and ("aElementOf" (DB 0) "xU")( and ("sdtlseqdt" ("sdtlbdtrb" "xf" (DB 0)) (DB 0))("aUpperBoundOfIn" (DB 0) "xT" "xU")))))) "__" 
+(body ))(block (decl "xp" ) Selection       ("aInfimumOfIn" "xp" "xP" "xU") "__" 
+(body ))(block (decl ) Affirmation       ( and ("aLowerBoundOfIn" ("sdtlbdtrb" "xf" "xp") "xP" "xU")("aUpperBoundOfIn" ("sdtlbdtrb" "xf" "xp") "xT" "xU")) "__" 
+(body ))(block (decl ) Affirmation       ( and ("aFixedPointOf" "xp" "xf")("aSupremumOfIn" "xp" "xT" "xS")) "__" 
+(body ))))(block (decl ) Affirmation     (exists  ("aInfimumOfIn" (DB 0) "xT" "xS")) "__" 
+(body (block (decl "xQ" ) LowDefinition       ( and ("aSet" "xQ")("=" "xQ" (lambda  ( and ("aElementOf" (DB 0) "xU")( and ("sdtlseqdt" (DB 0) ("sdtlbdtrb" "xf" (DB 0)))("aLowerBoundOfIn" (DB 0) "xT" "xU")))))) "__" 
+(body ))(block (decl "xq" ) Selection       ("aSupremumOfIn" "xq" "xQ" "xU") "__" 
+(body ))(block (decl ) Affirmation       ( and ("aUpperBoundOfIn" ("sdtlbdtrb" "xf" "xq") "xQ" "xU")("aLowerBoundOfIn" ("sdtlbdtrb" "xf" "xq") "xT" "xU")) "__" 
+(body ))(block (decl ) Affirmation       ( and ("aFixedPointOf" "xq" "xf")("aInfimumOfIn" "xq" "xT" "xS")) "__" 
+(body ))))))))
+[Main] total 00:00.05
