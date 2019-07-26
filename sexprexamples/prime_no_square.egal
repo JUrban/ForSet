@@ -1,19 +1,25 @@
+(*** Generic Header ***)
+Variable aSet: set -> prop.
+Variable aFunction: set -> prop.
+Variable Dom: set -> set.
+Variable funap: set -> set -> set.
+Variable iLess: set -> set -> prop.
+
+(*** Main ***)
 Variable aRationalNumber : set -> prop.
-Hypothesis HaRationalNumber : (forall v106, ((aRationalNumber v106) -> True)).
 Variable sdtasdt : set -> set -> set.
-Hypothesis Hsdtasdt : (forall xr, (forall xq, (((aRationalNumber xr) /\ (aRationalNumber xq)) -> (forall v107, ((v107 = (sdtasdt xr xq)) -> (aRationalNumber v107)))))).
-Hypothesis A32: (forall xr, (forall xq, (((aRationalNumber xr) /\ (aRationalNumber xq)) -> ((sdtasdt xr xq) = (sdtasdt xq xr))))).
-Hypothesis A33: (forall xr, (forall xq, (forall xs, ((((aRationalNumber xr) /\ (aRationalNumber xq)) /\ (aRationalNumber xs)) -> ((sdtasdt xr (sdtasdt xq xs)) = (sdtasdt (sdtasdt xr xq) xs)))))).
-Hypothesis A34: (forall xq, (forall xs, (forall xr, ((((aRationalNumber xq) /\ (aRationalNumber xs)) /\ (aRationalNumber xr)) -> (((sdtasdt xq xs) = (sdtasdt xq xr)) -> (xs = xr)))))).
+Hypothesis H2 : (forall xr, (forall xq, (((aRationalNumber xr) /\ (aRationalNumber xq)) -> (forall v2, ((v2 = (sdtasdt xr xq)) -> (aRationalNumber v2)))))).
+Hypothesis A1: (forall xr, (forall xq, (((aRationalNumber xr) /\ (aRationalNumber xq)) -> ((sdtasdt xr xq) = (sdtasdt xq xr))))).
+Hypothesis A2: (forall xr, (forall xq, (forall xs, ((((aRationalNumber xr) /\ (aRationalNumber xq)) /\ (aRationalNumber xs)) -> ((sdtasdt xr (sdtasdt xq xs)) = (sdtasdt (sdtasdt xr xq) xs)))))).
+Hypothesis A3: (forall xq, (forall xs, (forall xr, ((((aRationalNumber xq) /\ (aRationalNumber xs)) /\ (aRationalNumber xr)) -> (((sdtasdt xq xs) = (sdtasdt xq xr)) -> (xs = xr)))))).
 Variable aNaturalNumber : set -> prop.
-Hypothesis HaNaturalNumber : (forall v108, ((aNaturalNumber v108) -> (aRationalNumber v108))).
-Hypothesis A35: (forall xn, (forall xm, (((aNaturalNumber xn) /\ (aNaturalNumber xm)) -> (aNaturalNumber (sdtasdt xn xm))))).
-Definition sdtbrdt : set -> set -> prop := (fun xn => (fun xm => (exists v109, ((aNaturalNumber v109) /\ ((sdtasdt v109 xn) = xm))))).
-Definition misCoprime : set -> set -> prop := (fun xn => (fun xm => (~ (exists v110, ((aNaturalNumber v110) /\ ((sdtbrdt v110 xn) /\ (sdtbrdt v110 xm))))))).
+Hypothesis H6 : (forall v3, ((aNaturalNumber v3) -> (aRationalNumber v3))).
+Hypothesis A4: (forall xn, (forall xm, (((aNaturalNumber xn) /\ (aNaturalNumber xm)) -> (aNaturalNumber (sdtasdt xn xm))))).
+Definition sdtbrdt : set -> set -> prop := (fun xn => (fun xm => (exists v4, ((aNaturalNumber v4) /\ ((sdtasdt v4 xn) = xm))))).
+Definition misCoprime : set -> set -> prop := (fun xn => (fun xm => (~ (exists v5, ((aNaturalNumber v5) /\ ((sdtbrdt v5 xn) /\ (sdtbrdt v5 xm))))))).
 Variable isPrime : set -> prop.
-Hypothesis HisPrime : (forall xn, ((aNaturalNumber xn) -> ((isPrime xn) -> True))).
-Hypothesis A36: (forall xp, (forall xn, (forall xm, (((((aNaturalNumber xp) /\ (isPrime xp)) /\ (aNaturalNumber xn)) /\ (aNaturalNumber xm)) -> ((sdtbrdt xp (sdtasdt xn xm)) -> ((sdtbrdt xp xn) \/ (sdtbrdt xp xm))))))).
-Hypothesis A37: (forall xq, ((aRationalNumber xq) -> (exists v111, (exists v112, (((aNaturalNumber v111) /\ (aNaturalNumber v112)) /\ ((misCoprime v111 v112) /\ ((sdtasdt v111 xq) = v112))))))).
-Theorem thm5: (forall xp, (((aNaturalNumber xp) /\ (isPrime xp)) -> (forall v113, ((aRationalNumber v113) -> (~ (xp = (sdtasdt v113 v113))))))).
+Hypothesis A5: (forall xp, (forall xn, (forall xm, (((((aNaturalNumber xp) /\ (isPrime xp)) /\ (aNaturalNumber xn)) /\ (aNaturalNumber xm)) -> ((sdtbrdt xp (sdtasdt xn xm)) -> ((sdtbrdt xp xn) \/ (sdtbrdt xp xm))))))).
+Hypothesis A6: (forall xq, ((aRationalNumber xq) -> (exists v6, (exists v7, (((aNaturalNumber v6) /\ (aNaturalNumber v7)) /\ ((misCoprime v6 v7) /\ ((sdtasdt v6 xq) = v7))))))).
+Theorem thm1: (forall xp, (((aNaturalNumber xp) /\ (isPrime xp)) -> (forall v8, ((aRationalNumber v8) -> (~ (xp = (sdtasdt v8 v8))))))).
 Admitted.
 

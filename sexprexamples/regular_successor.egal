@@ -1,0 +1,43 @@
+(*** Generic Header ***)
+Variable aSet: set -> prop.
+Variable aFunction: set -> prop.
+Variable Dom: set -> set.
+Variable funap: set -> set -> set.
+Variable iLess: set -> set -> prop.
+
+(*** Main ***)
+Hypothesis A1: (forall v1, (forall v2, (forall v3, (forall v4, ((((True /\ True) /\ True) /\ True) -> (((v1,v2) = (v3,v4)) -> ((v1 = v3) /\ (v2 = v4)))))))).
+Definition szPzrzozdlpdtcmdtrp : set -> set -> set := (fun xM => (fun xN => (some v6:set, ((aSet v6) /\ (forall v9, ((v9 :e v6) <-> (exists v7, (exists v8, (((v7 :e xM) /\ (v8 :e xN)) /\ (v6 = (v7,v8))))))))))).
+Theorem thm1: (forall xx, (forall xy, ((True /\ True) -> (forall xM, (forall xN, (((aSet xM) /\ (aSet xN)) -> (((xx,xy) :e (szPzrzozdlpdtcmdtrp xM xN)) -> ((xx :e xM) /\ (xy :e xN))))))))).
+Admitted.
+
+Definition aSubsetOf : set -> set -> prop := (fun v10 => (fun xM => ((aSet v10) /\ (forall v11, ((v11 :e v10) -> (v11 :e xM)))))).
+Definition sdtcflbdtrb : set -> set -> set := (fun xf => (fun xM => (some v13:set, ((aSet v13) /\ (forall v15, ((v15 :e v13) <-> (exists v14, ((v14 :e xM) /\ (v13 = (funap xf v14)))))))))).
+Variable aOrdinal : set -> prop.
+Hypothesis H7 : (forall v16, ((aOrdinal v16) -> (aSet v16))).
+Hypothesis A2: (forall xalpha, ((aOrdinal xalpha) -> (forall v17, ((v17 :e xalpha) -> (aOrdinal v17))))).
+Variable aCardinal : set -> prop.
+Hypothesis H9 : (forall v18, ((aCardinal v18) -> (aOrdinal v18))).
+Variable sdtlsdt : set -> set -> prop.
+Hypothesis A3: (forall xalpha, (forall xbeta, (((aOrdinal xalpha) /\ (aOrdinal xbeta)) -> ((sdtlsdt xalpha xbeta) -> (xalpha :e xbeta))))).
+Definition isCofinalIn : set -> set -> prop := (fun xM => (fun xA => (forall v19, ((v19 :e xA) -> (exists v20, ((v20 :e xM) /\ (sdtlsdt v19 v20))))))).
+Variable ttheCardinalityOf : set -> set.
+Hypothesis H15 : (forall xM, ((aSet xM) -> (forall v21, ((v21 = (ttheCardinalityOf xM)) -> (aCardinal v21))))).
+Hypothesis Surj_Exi: (forall xM, ((aSet xM) -> ((exists v22, (v22 :e xM)) -> (forall xN, ((aSet xN) -> ((((ttheCardinalityOf xM) = (ttheCardinalityOf xN)) \/ (sdtlsdt (ttheCardinalityOf xM) (ttheCardinalityOf xN))) <-> (exists v23, ((aFunction v23) /\ (((Dom v23) = xN) /\ ((sdtcflbdtrb v23 xN) = xM)))))))))).
+Hypothesis Transitivity: (forall xA, ((aCardinal xA) -> (forall xM, ((xM :e xA) -> (forall xN, ((xN :e xM) -> (xN :e xA))))))).
+Hypothesis A4: (forall xM, ((aSet xM) -> ((ttheCardinalityOf (szPzrzozdlpdtcmdtrp xM xM)) = (ttheCardinalityOf xM)))).
+Hypothesis A5: (forall xA, ((aCardinal xA) -> ((ttheCardinalityOf xA) = xA))).
+Hypothesis A6: (forall xM, ((aSet xM) -> (forall xN, ((aSubsetOf xN xM) -> (((ttheCardinalityOf xN) = (ttheCardinalityOf xM)) \/ (sdtlsdt (ttheCardinalityOf xN) (ttheCardinalityOf xM))))))).
+Definition isRegular : set -> prop := (fun xA => (forall v24, (((aSubsetOf v24 xA) /\ (isCofinalIn v24 xA)) -> ((ttheCardinalityOf v24) = xA)))).
+Variable szSzuzczclpdtrp : set -> set.
+Hypothesis H28 : (forall xA, ((aCardinal xA) -> (forall v25, ((v25 = (szSzuzczclpdtrp xA)) -> (aCardinal v25))))).
+Hypothesis A7: (forall xalpha, (forall xbeta, (((aOrdinal xalpha) /\ (aOrdinal xbeta)) -> (((sdtlsdt xalpha xbeta) \/ (sdtlsdt xbeta xalpha)) \/ (xbeta = xalpha))))).
+Hypothesis A8: (forall xA, ((aCardinal xA) -> (sdtlsdt xA (szSzuzczclpdtrp xA)))).
+Hypothesis A9: (forall xA, ((aCardinal xA) -> (forall v26, ((v26 :e (szSzuzczclpdtrp xA)) -> (((ttheCardinalityOf v26) = xA) \/ (sdtlsdt (ttheCardinalityOf v26) xA)))))).
+Hypothesis A10: (forall v27, (forall v28, (((aCardinal v27) /\ (aCardinal v28)) -> (~ ((sdtlsdt v27 v28) /\ (sdtlsdt v28 v27)))))).
+Hypothesis A11: (forall xA, ((aCardinal xA) -> (~ (exists v29, ((aCardinal v29) /\ ((sdtlsdt xA v29) /\ (sdtlsdt v29 (szSzuzczclpdtrp xA)))))))).
+Definition ttheEmptySet : set := (some v30:set, ((aCardinal v30) /\ (forall v31, (((aOrdinal v31) /\ (exists v32, (v32 :e v31))) -> (v30 :e v31))))).
+Definition ttheConstantZeroOn : set -> set := (fun xM => (some v33:set, ((aFunction v33) /\ (((Dom v33) = xM) /\ (forall v34, ((v34 :e xM) -> ((funap v33 v34) = ttheEmptySet))))))).
+Theorem thm2: (forall xA, ((aCardinal xA) -> (isRegular (szSzuzczclpdtrp xA)))).
+Admitted.
+

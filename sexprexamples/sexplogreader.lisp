@@ -1,25 +1,34 @@
 (defvar *skipproofs* nil)
 (defvar *ctx* nil)
 (defvar *sig* nil)
-(setq *goalstack* nil)
+(defvar *goalstack* nil)
 
-(setq *freshvarcount* 0)
+(defvar *genericbuiltin*
+      '(
+	(|aSet| |aSet| ("set" . "prop"))
+	(|aFunction| |aFunction| ("set" . "prop"))
+	(|szDzozmlpdtrp| |Dom| ("set" . "set"))
+	(|sdtlbdtrb| |funap| ("set" "set" . "set"))
+	(|iLess| |iLess| ("set" "set" . "prop"))
+	))
+
+(defvar *freshvarcount* 0)
 (defun fresh-var ()
   (intern (format nil "v~d" (incf *freshvarcount*))))
 
-(setq *freshthmcount* 0)
+(defvar *freshthmcount* 0)
 (defun fresh-thm-name ()
   (intern (format nil "thm~d" (incf *freshthmcount*))))
 
-(setq *freshhypcount* 0)
+(defvar *freshhypcount* 0)
 (defun fresh-hyp-name ()
   (intern (format nil "A~d" (incf *freshhypcount*))))
 
-(setq *freshassumecount* 0)
+(defvar *freshassumecount* 0)
 (defun fresh-assume-name ()
   (intern (format nil "H~d" (incf *freshassumecount*))))
 
-(setq *freshclaimcount* 0)
+(defvar *freshclaimcount* 0)
 (defun fresh-claim-name ()
   (intern (format nil "L~d" (incf *freshclaimcount*))))
 
@@ -141,7 +150,7 @@
 	     (cons (if (stringp (car m)) (intern (car m)) (car m)) (mapcar #'(lambda (n) (nss-trm n theta)) (cdr m)))))))
     (case m
 	  (TRUTH '(TRUTH))
-	  (FALSE '(FALSE))
+	  (CONTRADICTION '(FALSE))
 	  (t
 	   (if (stringp m) (intern m) m)))))
 
@@ -194,11 +203,16 @@
 
 (defun trm-str (m)
   (if (consp m)
-      (if (find-if #'(lambda (z) (and (consp z) (eq (car z) 'DECL) (eq (cadr z) (car m)))) *sig*)
-	  (if (cdr m)
-	      (format nil "(~d~d)" (car m) (spine-str (cdr m)))
-	    (format nil "~d" (car m)))
-	(case (car m)
+      (let ((z (find-if #'(lambda (z) (and (consp z) (eq (car z) (car m)))) *genericbuiltin*)))
+	(if z
+	    (if (cdr m)
+		(format nil "(~d~d)" (cadr z) (spine-str (cdr m)))
+	      (format nil "~d" (cadr z)))
+	  (if (find-if #'(lambda (z) (and (consp z) (eq (car z) 'DECL) (eq (cadr z) (car m)))) *sig*)
+	      (if (cdr m)
+		  (format nil "(~d~d)" (car m) (spine-str (cdr m)))
+		(format nil "~d" (car m)))
+	    (case (car m)
 	      (LAMBDA
 	       (format nil "(fun ~d => ~d)" (cadr m) (trm-str (caddr m))))
 	      (SEP
@@ -225,16 +239,12 @@
 	       (format nil "(~d = ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
 	      (|aElementOf|
 	       (format nil "(~d :e ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
-	      (|szDzozmlpdtrp|
-	       (format nil "(Dom ~d)" (trm-str (cadr m))))
-					;	(|szRzaznlpdtrp|
-					;	 (format nil "(Ran ~d)" (trm-str (cadr m))))
-	      (|sdtlbdtrb|
-	       (format nil "(funap ~d ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
+	      (|slpdtcmdtrp|
+	       (format nil "(~d,~d)" (trm-str (cadr m)) (trm-str (caddr m))))
 	      (t
 	       (if (cdr m)
 		   (format nil "(~d~d)" (car m) (spine-str (cdr m)))
-		 (format nil "~d" (car m))))))
+		 (format nil "~d" (car m))))))))
     (format nil "~d" m)))
   
 (defun spine-str (sp)
@@ -358,6 +368,15 @@
 	    (t nil))
     nil))
 
+(defun trivial-prop-p (w)
+  (if (consp w)
+      (case (car w)
+	(FORALL (trivial-prop-p (caddr w)))
+	(IMPLIES (trivial-prop-p (caddr w)))
+	(TRUTH t)
+	(t nil))
+    nil))
+
 (defun extract-reln-decl (w &optional (d 0))
   (if (consp w)
       (cond ((eq (car w) 'FORALL)
@@ -470,8 +489,10 @@
 				  (t (throw 'fail (list 'fail "bad ctx entry" h)))))
 			  (push (list 'DECL func tp) *sig*)
 			  (format g "Variable ~d : ~d.~%" func (tp-str tp))
-			  (push (list 'HYP (intern (format nil "H~d" func)) w2) *sig*)
-			  (format g "Hypothesis H~d : ~d.~%" func (trm-str w2)))
+			  (unless (trivial-prop-p w2)
+			    (let ((hn (fresh-assume-name)))
+			      (push (list 'HYP hn w2) *sig*)
+			      (format g "Hypothesis ~d : ~d.~%" hn (trm-str w2)))))
 		      (throw 'fail "not a known func decl"))))))
 	    (when fail
 	      (let ((fail
@@ -488,8 +509,10 @@
 				      (t (throw 'fail (list 'fail "bad ctx entry" h)))))
 			      (push (list 'DECL reln tp) *sig*)
 			      (format g "Variable ~d : ~d.~%" reln (tp-str tp))
-			      (push (list 'HYP (intern (format nil "H~d" reln)) w2) *sig*)
-			      (format g "Hypothesis H~d : ~d.~%" reln (trm-str w2)))
+			      (unless (trivial-prop-p w2)
+				(let ((hn (fresh-assume-name)))
+				  (push (list 'HYP hn w2) *sig*)
+				  (format g "Hypothesis ~d : ~d.~%" hn (trm-str w2)))))
 			  (throw 'fail "not a known reln decl"))))))
 		(when fail
 		  (throw 'fail (list 'fail "Unknown signature posit form" nm decl w))))))))))
@@ -645,7 +668,7 @@
 			    (cons (list 'SUBGOAL '(FALSE) (cons (list 'HYP hn (list 'NOT gth)) gctx))
 				  (cdr goalstack))
 			    d))
-		       (let ((hn (if (or (not nm) (equal nm "__")) (fresh-hyp-name) nm)))
+		       (let ((hn (if (or (not nm) (equal nm "__")) (fresh-assume-name) nm)))
 			 (indent g d)
 			 (if (and w (not (equal w "?")))
 			     (format g "assume ~d: ~d.~%" hn (trm-str (elab-prop (nss-trm w))))
@@ -672,7 +695,7 @@
 		       (let* ((w2 (elab-prop (nss-trm w)))
 			      (w3 w2)
 			      (gctx2 gctx)
-			      (hn (if (or (not nm) (equal nm "__")) (fresh-hyp-name) nm))
+			      (hn (if (or (not nm) (equal nm "__")) (fresh-assume-name) nm))
 			      (cn (fresh-claim-name)))
 			 (dolist (x (reverse svl)) (setq w3 (list 'EXISTS x w3)))
 			 (indent g d)
@@ -704,7 +727,7 @@
 		       (let* ((w2 (elab-prop (nss-trm w)))
 			      (w3 w2)
 			      (gctx2 gctx)
-			      (hn (if (or (not nm) (equal nm "__")) (fresh-hyp-name) nm))
+			      (hn (if (or (not nm) (equal nm "__")) (fresh-assume-name) nm))
 			      (cn (fresh-claim-name)))
 			 (dolist (x (reverse svl)) (setq w3 (list 'EXISTS x w3)))
 			 (indent g d)
@@ -744,7 +767,7 @@
 					   (list 'SUBGOAL '(FALSE) gctx)
 					   (cdr goalstack)) d)))
 			 (let* ((w2 (elab-prop (nss-trm w)))
-				(hn (if (or (not nm) (equal nm "__")) (fresh-hyp-name) nm)))
+				(hn (if (or (not nm) (equal nm "__")) (fresh-assume-name) nm)))
 			   (indent g d)
 			   (format g "claim ~d: ~d.~%" hn (trm-str w2))
 			   (if subpf
@@ -848,8 +871,17 @@
 	     
 (defun nss-to-egal (fs gs)
   (setq *sig* nil)
+  (setq *freshvarcount* 0)
+  (setq *freshthmcount* 0)
+  (setq *freshhypcount* 0)
+  (setq *freshassumecount* 0)
+  (setq *freshclaimcount* 0)
   (let ((f (open fs :direction :input))
 	(g (if gs (open gs :direction :output :if-exists :supersede :if-does-not-exist :create) t)))
+    (format g "(*** Generic Header ***)~%")
+    (dolist (x *genericbuiltin*)
+      (format g "Variable ~d: ~d.~%" (cadr x) (tp-str (caddr x))))
+    (format g "~%(*** Main ***)~%")
     (let ((fail
 	   (catch 'fail
 	     (loop while (setq l (read f nil nil)) do

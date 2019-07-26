@@ -16,6 +16,11 @@ Axiom and5I : forall P1 P2 P3 P4 P5: prop, P1 -> P2 -> P3 -> P4 -> P5 -> P1 /\ P
 Definition or : prop -> prop -> prop := fun A B : prop => forall P : prop , (A -> P) -> (B -> P) -> P.
 (* Unicode \/ "2228" *)
 Infix \/ 785 left  := or.
+Definition iff : prop -> prop -> prop := fun A B : prop => (A -> B) /\ (B -> A).
+Infix <-> 805 := iff.
+Axiom iffI : forall A B : prop , (A -> B) -> (B -> A) -> (A <-> B).
+Axiom iffEL : forall A B : prop , (A <-> B) -> A -> B.
+Axiom iffER : forall A B : prop , (A <-> B) -> B -> A.
 Section Poly1_eq.
 Variable A : SType.
 Definition eq : A -> A -> prop := fun x y => forall Q : A -> prop , Q x -> Q y.
@@ -193,7 +198,10 @@ Definition setexp : set->set->set := fun X Y:set => Pi_ y :e Y, X.
 (* Superscript :^: *)
 Infix :^: 430 left := setexp.
 
+(***
 Definition aSet : set -> prop := fun _ => True.
 Definition aFunction : set -> prop := fun f => tuple_p 3 f /\ f 0 :e f 2 :^: f 1.
 Definition Dom : set -> set := fun f => f 1.
 Definition funap : set -> set -> set := fun f x => f 0 x.
+Definition iLess : set -> set -> prop := fun x y => x :e y.
+***)

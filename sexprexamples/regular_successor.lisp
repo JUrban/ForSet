@@ -9,7 +9,7 @@
       (FORALL
        (FORALL
         (FORALL
-         (IMPLIES (AND (AND (AND TRUTHTRUTH) TRUTH) TRUTH)
+         (IMPLIES (AND (AND (AND TRUTH TRUTH) TRUTH) TRUTH)
           (IMPLIES
            ("=" ("slpdtcmdtrp" (DB 3) (DB 2)) ("slpdtcmdtrp" (DB 1) (DB 0)))
            (AND ("=" (DB 3) (DB 1)) ("=" (DB 2) (DB 0)))))))))
@@ -45,7 +45,7 @@
   THEOREM
   "?"
   NIL
-  (BODY (BLOCK (DECL "xx" "xy") ASSUMPTION (AND TRUTHTRUTH) "__" (BODY))
+  (BODY (BLOCK (DECL "xx" "xy") ASSUMPTION (AND TRUTH TRUTH) "__" (BODY))
    (BLOCK (DECL "xM" "xN")
      ASSUMPTION
      (AND ("aSet" "xM") ("aSet" "xN"))

@@ -1,31 +1,34 @@
-Definition aSubsetOf : set -> set -> prop := (fun v390 => (fun xM => ((aSet v390) /\ (forall v391, ((v391 :e v390) -> (v391 :e xM)))))).
-Definition sdtcflbdtrb : set -> set -> set := (fun xf => (fun xM => (some v393:set, ((aSet v393) /\ (forall v395, ((v395 :e v393) <-> (exists v394, ((v394 :e xM) /\ (v393 = (funap xf v394)))))))))).
+(*** Generic Header ***)
+Variable aSet: set -> prop.
+Variable aFunction: set -> prop.
+Variable Dom: set -> set.
+Variable funap: set -> set -> set.
+Variable iLess: set -> set -> prop.
+
+(*** Main ***)
+Definition aSubsetOf : set -> set -> prop := (fun v1 => (fun xM => ((aSet v1) /\ (forall v2, ((v2 :e v1) -> (v2 :e xM)))))).
+Definition sdtcflbdtrb : set -> set -> set := (fun xf => (fun xM => (some v4:set, ((aSet v4) /\ (forall v6, ((v6 :e v4) <-> (exists v5, ((v5 :e xM) /\ (v4 = (funap xf v5)))))))))).
 Variable aComplexNumber : set -> prop.
-Hypothesis HaComplexNumber : (forall v396, ((aComplexNumber v396) -> True)).
-Hypothesis A65: (forall xf, ((aFunction xf) -> ((forall v397, ((v397 :e (Dom xf)) -> (aComplexNumber v397))) /\ (forall v398, ((v398 :e (Dom xf)) -> (aComplexNumber (funap xf v398))))))).
-Hypothesis A66: (forall xM, ((aSet xM) -> (forall v399, ((v399 :e xM) -> (aComplexNumber v399))))).
+Hypothesis A1: (forall xf, ((aFunction xf) -> ((forall v8, ((v8 :e (Dom xf)) -> (aComplexNumber v8))) /\ (forall v9, ((v9 :e (Dom xf)) -> (aComplexNumber (funap xf v9))))))).
+Hypothesis A2: (forall xM, ((aSet xM) -> (forall v10, ((v10 :e xM) -> (aComplexNumber v10))))).
 Variable aRealNumber : set -> prop.
-Hypothesis HaRealNumber : (forall v400, ((aRealNumber v400) -> True)).
 Variable sbrdtbr : set -> set.
-Hypothesis Hsbrdtbr : (forall xz, ((aComplexNumber xz) -> (forall v401, ((v401 = (sbrdtbr xz)) -> (aRealNumber v401))))).
+Hypothesis H7 : (forall xz, ((aComplexNumber xz) -> (forall v12, ((v12 = (sbrdtbr xz)) -> (aRealNumber v12))))).
 Variable isPositive : set -> prop.
-Hypothesis HisPositive : (forall xx, ((aRealNumber xx) -> ((isPositive xx) -> True))).
 Variable sdtlsdt : set -> set -> prop.
-Hypothesis Hsdtlsdt : (forall xx, (forall xy, (((aRealNumber xx) /\ (aRealNumber xy)) -> ((sdtlsdt xx xy) -> True)))).
-Hypothesis A67: (forall xx, (forall xy, (((aRealNumber xx) /\ (aRealNumber xy)) -> ((sdtlsdt xx xy) -> (~ (sdtlsdt xy xx)))))).
+Hypothesis A3: (forall xx, (forall xy, (((aRealNumber xx) /\ (aRealNumber xy)) -> ((sdtlsdt xx xy) -> (~ (sdtlsdt xy xx)))))).
 Variable isHolomorphic : set -> prop.
-Hypothesis HisHolomorphic : (forall xf, ((aFunction xf) -> ((isHolomorphic xf) -> True))).
 Variable szBzazlzllpdtcmdtrp : set -> set -> set.
-Hypothesis HszBzazlzllpdtcmdtrp : (forall xeps, (forall xz, ((((aRealNumber xeps) /\ (isPositive xeps)) /\ (aComplexNumber xz)) -> (forall v402, ((v402 = (szBzazlzllpdtcmdtrp xeps xz)) -> ((aSet v402) /\ (xz :e v402))))))).
-Hypothesis A68: (forall xeps, (forall xz, ((((aRealNumber xeps) /\ (isPositive xeps)) /\ (aComplexNumber xz)) -> (exists v403, ((v403 :e (szBzazlzllpdtcmdtrp xeps xz)) /\ (sdtlsdt (sbrdtbr xz) (sbrdtbr v403))))))).
-Definition isOpen : set -> prop := (fun xM => (forall v404, ((v404 :e xM) -> (exists v405, (((aRealNumber v405) /\ (isPositive v405)) /\ (aSubsetOf (szBzazlzllpdtcmdtrp v405 v404) xM)))))).
-Hypothesis A69: (forall xeps, (forall xz, ((((aRealNumber xeps) /\ (isPositive xeps)) /\ (aComplexNumber xz)) -> (isOpen (szBzazlzllpdtcmdtrp xeps xz))))).
-Definition aLocalMaximalPointOf : set -> set -> prop := (fun v406 => (fun xf => ((v406 :e (Dom xf)) /\ (exists v407, (((aRealNumber v407) /\ (isPositive v407)) /\ ((aSubsetOf (szBzazlzllpdtcmdtrp v407 v406) (Dom xf)) /\ (forall v408, ((v408 :e (szBzazlzllpdtcmdtrp v407 v406)) -> (((sbrdtbr (funap xf v408)) = (sbrdtbr (funap xf v406))) \/ (sdtlsdt (sbrdtbr (funap xf v408)) (sbrdtbr (funap xf v406)))))))))))).
-Definition isConstantOn : set -> set -> prop := (fun xf => (fun xU => (exists v409, ((aComplexNumber v409) /\ (forall v410, ((v410 :e xU) -> ((funap xf v410) = v409))))))).
-Hypothesis A70: (forall xf, (forall xeps, (forall xz, ((((aFunction xf) /\ ((aRealNumber xeps) /\ (isPositive xeps))) /\ (aComplexNumber xz)) -> (((isHolomorphic xf) /\ (aSubsetOf (szBzazlzllpdtcmdtrp xeps xz) (Dom xf))) -> ((~ (isConstantOn xf (szBzazlzllpdtcmdtrp xeps xz))) -> (isOpen (sdtcflbdtrb xf (szBzazlzllpdtcmdtrp xeps xz))))))))).
+Hypothesis H13 : (forall xeps, (forall xz, ((((aRealNumber xeps) /\ (isPositive xeps)) /\ (aComplexNumber xz)) -> (forall v13, ((v13 = (szBzazlzllpdtcmdtrp xeps xz)) -> ((aSet v13) /\ (xz :e v13))))))).
+Hypothesis A4: (forall xeps, (forall xz, ((((aRealNumber xeps) /\ (isPositive xeps)) /\ (aComplexNumber xz)) -> (exists v14, ((v14 :e (szBzazlzllpdtcmdtrp xeps xz)) /\ (sdtlsdt (sbrdtbr xz) (sbrdtbr v14))))))).
+Definition isOpen : set -> prop := (fun xM => (forall v15, ((v15 :e xM) -> (exists v16, (((aRealNumber v16) /\ (isPositive v16)) /\ (aSubsetOf (szBzazlzllpdtcmdtrp v16 v15) xM)))))).
+Hypothesis A5: (forall xeps, (forall xz, ((((aRealNumber xeps) /\ (isPositive xeps)) /\ (aComplexNumber xz)) -> (isOpen (szBzazlzllpdtcmdtrp xeps xz))))).
+Definition aLocalMaximalPointOf : set -> set -> prop := (fun v17 => (fun xf => ((v17 :e (Dom xf)) /\ (exists v18, (((aRealNumber v18) /\ (isPositive v18)) /\ ((aSubsetOf (szBzazlzllpdtcmdtrp v18 v17) (Dom xf)) /\ (forall v19, ((v19 :e (szBzazlzllpdtcmdtrp v18 v17)) -> (((sbrdtbr (funap xf v19)) = (sbrdtbr (funap xf v17))) \/ (sdtlsdt (sbrdtbr (funap xf v19)) (sbrdtbr (funap xf v17)))))))))))).
+Definition isConstantOn : set -> set -> prop := (fun xf => (fun xU => (exists v20, ((aComplexNumber v20) /\ (forall v21, ((v21 :e xU) -> ((funap xf v21) = v20))))))).
+Hypothesis A6: (forall xf, (forall xeps, (forall xz, ((((aFunction xf) /\ ((aRealNumber xeps) /\ (isPositive xeps))) /\ (aComplexNumber xz)) -> (((isHolomorphic xf) /\ (aSubsetOf (szBzazlzllpdtcmdtrp xeps xz) (Dom xf))) -> ((~ (isConstantOn xf (szBzazlzllpdtcmdtrp xeps xz))) -> (isOpen (sdtcflbdtrb xf (szBzazlzllpdtcmdtrp xeps xz))))))))).
 Variable aRegion : set -> prop.
-Hypothesis HaRegion : (forall v411, ((aRegion v411) -> ((aSet v411) /\ (isOpen v411)))).
+Hypothesis H22 : (forall v22, ((aRegion v22) -> ((aSet v22) /\ (isOpen v22)))).
 Hypothesis Identity_Theorem: (forall xf, ((aFunction xf) -> (((isHolomorphic xf) /\ (aRegion (Dom xf))) -> (forall xeps, (forall xz, ((((aRealNumber xeps) /\ (isPositive xeps)) /\ (aComplexNumber xz)) -> ((aSubsetOf (szBzazlzllpdtcmdtrp xeps xz) (Dom xf)) -> ((isConstantOn xf (szBzazlzllpdtcmdtrp xeps xz)) -> (isConstantOn xf (Dom xf)))))))))).
-Theorem Maximum_principle: (forall xf, ((aFunction xf) -> (((isHolomorphic xf) /\ (aRegion (Dom xf))) -> ((exists v412, (aLocalMaximalPointOf v412 xf)) -> (isConstantOn xf (Dom xf)))))).
+Theorem Maximum_principle: (forall xf, ((aFunction xf) -> (((isHolomorphic xf) /\ (aRegion (Dom xf))) -> ((exists v23, (aLocalMaximalPointOf v23 xf)) -> (isConstantOn xf (Dom xf)))))).
 Admitted.
 

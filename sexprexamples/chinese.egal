@@ -1,0 +1,66 @@
+(*** Generic Header ***)
+Variable aSet: set -> prop.
+Variable aFunction: set -> prop.
+Variable Dom: set -> set.
+Variable funap: set -> set -> set.
+Variable iLess: set -> set -> prop.
+
+(*** Main ***)
+Variable aElement : set -> prop.
+Variable sz0 : set.
+Hypothesis H1 : (forall v2, ((v2 = sz0) -> (aElement v2))).
+Variable sz1 : set.
+Hypothesis H2 : (forall v3, ((v3 = sz1) -> (aElement v3))).
+Variable smndt : set -> set.
+Hypothesis H4 : (forall xx, ((aElement xx) -> (forall v4, ((v4 = (smndt xx)) -> (aElement v4))))).
+Variable sdtpldt : set -> set -> set.
+Hypothesis H6 : (forall xx, (forall xy, (((aElement xx) /\ (aElement xy)) -> (forall v5, ((v5 = (sdtpldt xx xy)) -> (aElement v5)))))).
+Variable sdtasdt : set -> set -> set.
+Hypothesis H8 : (forall xx, (forall xy, (((aElement xx) /\ (aElement xy)) -> (forall v6, ((v6 = (sdtasdt xx xy)) -> (aElement v6)))))).
+Hypothesis AddComm: (forall xx, (forall xy, (((aElement xx) /\ (aElement xy)) -> ((sdtpldt xx xy) = (sdtpldt xy xx))))).
+Hypothesis AddAsso: (forall xx, (forall xy, (forall xz, ((((aElement xx) /\ (aElement xy)) /\ (aElement xz)) -> ((sdtpldt (sdtpldt xx xy) xz) = (sdtpldt xx (sdtpldt xy xz))))))).
+Hypothesis AddBubble: (forall xx, (forall xy, (forall xz, ((((aElement xx) /\ (aElement xy)) /\ (aElement xz)) -> ((sdtpldt xx (sdtpldt xy xz)) = (sdtpldt xy (sdtpldt xx xz))))))).
+Hypothesis AddZero: (forall xx, ((aElement xx) -> (((sdtpldt xx sz0) = xx) /\ (xx = (sdtpldt sz0 xx))))).
+Hypothesis AddInvr: (forall xx, ((aElement xx) -> (((sdtpldt xx (smndt xx)) = sz0) /\ (sz0 = (sdtpldt (smndt xx) xx))))).
+Hypothesis MulComm: (forall xx, (forall xy, (((aElement xx) /\ (aElement xy)) -> ((sdtasdt xx xy) = (sdtasdt xy xx))))).
+Hypothesis MulAsso: (forall xx, (forall xy, (forall xz, ((((aElement xx) /\ (aElement xy)) /\ (aElement xz)) -> ((sdtasdt (sdtasdt xx xy) xz) = (sdtasdt xx (sdtasdt xy xz))))))).
+Hypothesis MulBubble: (forall xx, (forall xy, (forall xz, ((((aElement xx) /\ (aElement xy)) /\ (aElement xz)) -> ((sdtasdt xx (sdtasdt xy xz)) = (sdtasdt xy (sdtasdt xx xz))))))).
+Hypothesis MulUnit: (forall xx, ((aElement xx) -> (((sdtasdt xx sz1) = xx) /\ (xx = (sdtasdt sz1 xx))))).
+Hypothesis AMDistr1: (forall xx, (forall xy, (forall xz, ((((aElement xx) /\ (aElement xy)) /\ (aElement xz)) -> ((sdtasdt xx (sdtpldt xy xz)) = (sdtpldt (sdtasdt xx xy) (sdtasdt xx xz))))))).
+Hypothesis AMDistr2: (forall xy, (forall xz, (forall xx, ((((aElement xy) /\ (aElement xz)) /\ (aElement xx)) -> ((sdtasdt (sdtpldt xy xz) xx) = (sdtpldt (sdtasdt xy xx) (sdtasdt xz xx))))))).
+Hypothesis MulMnOne: (forall xx, ((aElement xx) -> (((sdtasdt (smndt sz1) xx) = (smndt xx)) /\ ((smndt xx) = (sdtasdt xx (smndt sz1)))))).
+Theorem MulZero: (forall xx, ((aElement xx) -> (((sdtasdt xx sz0) = sz0) /\ (sz0 = (sdtasdt sz0 xx))))).
+Admitted.
+
+Hypothesis Cancel: (forall xx, (forall xy, (((aElement xx) /\ (aElement xy)) -> (((~ (xx = sz0)) /\ (~ (xy = sz0))) -> (~ ((sdtasdt xx xy) = sz0)))))).
+Hypothesis UnNeZr: (~ (sz1 = sz0)).
+Hypothesis A1: (forall xX, ((aSet xX) -> (forall v7, ((v7 :e xX) -> (aElement v7))))).
+Hypothesis SetEq: (forall xX, (forall xY, (((aSet xX) /\ (aSet xY)) -> (((forall v8, ((v8 :e xX) -> (v8 :e xY))) /\ (forall v9, ((v9 :e xY) -> (v9 :e xX)))) -> (xX = xY))))).
+Definition sdtplqtdt : set -> set -> set := (fun xX => (fun xY => (some v10:set, ((aSet v10) /\ (forall v11, ((aElement v11) -> ((v11 :e v10) <-> (exists v12, ((v12 :e xX) /\ (exists v13, ((v13 :e xY) /\ (v11 = (sdtpldt v12 v13))))))))))))).
+Definition sdtasasdt : set -> set -> set := (fun xX => (fun xY => (some v14:set, ((aSet v14) /\ (forall v15, ((aElement v15) -> ((v15 :e (sdtplqtdt xX xY)) <-> ((v15 :e xX) /\ (v15 :e xY))))))))).
+Definition aIdeal : set -> prop := (fun v16 => ((aSet v16) /\ (forall v17, ((v17 :e v16) -> ((forall v18, ((v18 :e v16) -> ((sdtpldt v17 v18) :e v16))) /\ (forall v19, ((aElement v19) -> ((sdtasdt v19 v17) :e v16)))))))).
+Theorem IdeSum: (forall xI, (forall xJ, (((aIdeal xI) /\ (aIdeal xJ)) -> (aIdeal (sdtplqtdt xI xJ))))).
+Admitted.
+
+Theorem IdeInt: (forall xI, (forall xJ, (((aIdeal xI) /\ (aIdeal xJ)) -> (aIdeal (sdtasasdt xI xJ))))).
+Admitted.
+
+Definition sdteqdtlpzmzozddtrp : set -> set -> set -> prop := (fun xx => (fun xy => (fun xI => ((sdtpldt xx (smndt xy)) :e xI)))).
+Theorem ChineseRemainder: (forall xI, (forall xJ, (((aIdeal xI) /\ (aIdeal xJ)) -> ((forall v20, ((aElement v20) -> (v20 :e (sdtplqtdt xI xJ)))) -> (forall xx, (forall xy, (((aElement xx) /\ (aElement xy)) -> (exists v21, ((aElement v21) /\ ((sdteqdtlpzmzozddtrp v21 xx xI) /\ (sdteqdtlpzmzozddtrp v21 xy xJ))))))))))).
+Admitted.
+
+Variable aNaturalNumber : set -> prop.
+Variable sbrdtbr : set -> set.
+Hypothesis H34 : (forall xx, (((aElement xx) /\ (~ (xx = sz0))) -> (forall v23, ((v23 = (sbrdtbr xx)) -> (aNaturalNumber v23))))).
+Hypothesis Division: (forall xx, (forall xy, ((((aElement xx) /\ (aElement xy)) /\ (~ (xy = sz0))) -> (exists v24, (exists v25, (((aElement v24) /\ (aElement v25)) /\ ((xx = (sdtpldt (sdtasdt v24 xy) v25)) /\ ((~ (v25 = sz0)) -> (iLess (sbrdtbr v25) (sbrdtbr xy)))))))))).
+Definition doDivides : set -> set -> prop := (fun xx => (fun xy => (exists v26, ((aElement v26) /\ ((sdtasdt xx v26) = xy))))).
+Definition aDivisorOf : set -> set -> prop := (fun v27 => (fun xx => ((aElement v27) /\ (doDivides v27 xx)))).
+Definition aGcdOfAnd : set -> set -> set -> prop := (fun v28 => (fun xx => (fun xy => (((aDivisorOf v28 xx) /\ (aDivisorOf v28 xy)) /\ (forall v29, (((aDivisorOf v29 xx) /\ (aDivisorOf v29 xy)) -> (doDivides v29 v28))))))).
+Definition misRelativelyPrime : set -> set -> prop := (fun xx => (fun xy => (aGcdOfAnd sz1 xx xy))).
+Definition slsdtgt : set -> set := (fun xc => (some v30:set, ((aSet v30) /\ (forall v31, ((aElement v31) -> ((v31 :e v30) <-> (exists v32, ((aElement v32) /\ (v31 = (sdtasdt xc v32)))))))))).
+Theorem PrIdeal: (forall xc, ((aElement xc) -> (aIdeal (slsdtgt xc)))).
+Admitted.
+
+Theorem GCDin: (forall xa, (forall xb, (((aElement xa) /\ (aElement xb)) -> (((~ (xa = sz0)) \/ (~ (xb = sz0))) -> (forall xc, ((aGcdOfAnd xc xa xb) -> (xc :e (sdtplqtdt (slsdtgt xa) (slsdtgt xb))))))))).
+Admitted.
+

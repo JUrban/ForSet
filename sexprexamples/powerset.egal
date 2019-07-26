@@ -1,18 +1,26 @@
-Hypothesis A27: (forall xf, ((aFunction xf) -> (forall v73, ((v73 :e (Dom xf)) -> (aSet (funap xf v73)))))).
-Definition aSubsetOf : set -> set -> prop := (fun v74 => (fun xM => ((aSet v74) /\ (forall v75, ((v75 :e v74) -> (v75 :e xM)))))).
+(*** Generic Header ***)
+Variable aSet: set -> prop.
+Variable aFunction: set -> prop.
+Variable Dom: set -> set.
+Variable funap: set -> set -> set.
+Variable iLess: set -> set -> prop.
+
+(*** Main ***)
+Hypothesis A1: (forall xf, ((aFunction xf) -> (forall v1, ((v1 :e (Dom xf)) -> (aSet (funap xf v1)))))).
+Definition aSubsetOf : set -> set -> prop := (fun v2 => (fun xM => ((aSet v2) /\ (forall v3, ((v3 :e v2) -> (v3 :e xM)))))).
 Definition tthePowersetOf : set -> set := (fun xM => (Power xM)).
-Definition doSurjectsOnto : set -> set -> prop := (fun xf => (fun xM => (forall v78, ((v78 :e xM) -> (exists v79, ((v79 :e (Dom xf)) /\ (v78 = (funap xf v79)))))))).
-Theorem thm4: (forall xM, ((aSet xM) -> (forall v80, (((aFunction v80) /\ ((Dom v80) = xM)) -> (~ (doSurjectsOnto v80 (tthePowersetOf xM))))))).
+Definition doSurjectsOnto : set -> set -> prop := (fun xf => (fun xM => (forall v6, ((v6 :e xM) -> (exists v7, ((v7 :e (Dom xf)) /\ (v6 = (funap xf v7)))))))).
+Theorem thm1: (forall xM, ((aSet xM) -> (forall v8, (((aFunction v8) /\ ((Dom v8) = xM)) -> (~ (doSurjectsOnto v8 (tthePowersetOf xM))))))).
 let xM.
-assume H94: (aSet xM).
-apply NNPP. assume H95.
-claim L6: (exists xf, ((aFunction xf) /\ (((Dom xf) = xM) /\ (doSurjectsOnto xf (tthePowersetOf xM))))).
+assume H5: (aSet xM).
+apply NNPP. assume H6.
+claim L1: (exists xf, ((aFunction xf) /\ (((Dom xf) = xM) /\ (doSurjectsOnto xf (tthePowersetOf xM))))).
 admit.
-apply L6. let xf. assume A28.
-claim L7: (exists xN, ((aSet xN) /\ (xN = {v81 :e xM | (~ (v81 :e (funap xf v81)))}))).
+apply L1. let xf. assume H7.
+claim L2: (exists xN, ((aSet xN) /\ (xN = {v9 :e xM | (~ (v9 :e (funap xf v9)))}))).
 admit.
-apply L7. let xN. assume A29.
-claim A30: (forall v82, ((v82 :e xM) -> (~ (xN = (funap xf v82))))).
+apply L2. let xN. assume H8.
+claim H9: (forall v10, ((v10 :e xM) -> (~ (xN = (funap xf v10))))).
 admit.
 admit.
 Qed.

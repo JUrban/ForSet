@@ -1,0 +1,18 @@
+(load "sexplogreader.lisp")
+
+(setq *skipproofs* nil)
+(nss-to-egal "powerset.lisp" "powerset.egal")
+(setq *skipproofs* t)
+(nss-to-egal "tarski.lisp" "tarski.egal")
+(nss-to-egal "prime_no_square.lisp" "prime_no_square.egal")
+(nss-to-egal "fuerst.lisp" "fuerst.egal")
+(nss-to-egal "Maximum_principle.lisp" "Maximum_principle.egal")
+(nss-to-egal "regular_successor.lisp" "regular_successor.egal")
+
+egal -ind IndexJune2014 -I EgalPreamble.egal powerset.egal
+egal -ind IndexJune2014 -I EgalPreamble.egal tarski.egal
+egal -ind IndexJune2014 -I EgalPreamble.egal prime_no_square.egal
+egal -ind IndexJune2014 -I EgalPreamble.egal fuerst.egal
+egal -ind IndexJune2014 -I EgalPreamble.egal Maximum_principle.egal
+egal -ind IndexJune2014 -I EgalPreamble.egal regular_successor.egal
+

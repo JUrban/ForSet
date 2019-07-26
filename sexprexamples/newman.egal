@@ -1,0 +1,29 @@
+(*** Generic Header ***)
+Variable aSet: set -> prop.
+Variable aFunction: set -> prop.
+Variable Dom: set -> set.
+Variable funap: set -> set -> set.
+Variable iLess: set -> set -> prop.
+
+(*** Main ***)
+Variable aElement : set -> prop.
+Variable aRewritingSystem : set -> prop.
+Variable aReductOfIn : set -> set -> set -> prop.
+Hypothesis H2 : (forall xx, (forall xR, (((aElement xx) /\ (aRewritingSystem xR)) -> (forall v3, ((aReductOfIn v3 xx xR) -> (aElement v3)))))).
+Variable sdtmndtplgtdt : set -> set -> set -> prop.
+Hypothesis TCDef: (forall xx, (forall xR, (forall xy, ((((aElement xx) /\ (aRewritingSystem xR)) /\ (aElement xy)) -> ((sdtmndtplgtdt xx xR xy) <-> ((aReductOfIn xy xx xR) \/ (exists v4, ((aElement v4) /\ ((aReductOfIn v4 xx xR) /\ (sdtmndtplgtdt v4 xR xy)))))))))).
+Hypothesis TCTrans: (forall xx, (forall xR, (forall xy, (forall xz, (((((aElement xx) /\ (aRewritingSystem xR)) /\ (aElement xy)) /\ (aElement xz)) -> (((sdtmndtplgtdt xx xR xy) /\ (sdtmndtplgtdt xy xR xz)) -> (sdtmndtplgtdt xx xR xz))))))).
+Definition sdtmndtasgtdt : set -> set -> set -> prop := (fun xx => (fun xR => (fun xy => ((xx = xy) \/ (sdtmndtplgtdt xx xR xy))))).
+Theorem TCRTrans: (forall xx, (forall xR, (forall xy, (forall xz, (((((aElement xx) /\ (aRewritingSystem xR)) /\ (aElement xy)) /\ (aElement xz)) -> (((sdtmndtasgtdt xx xR xy) /\ (sdtmndtasgtdt xy xR xz)) -> (sdtmndtasgtdt xx xR xz))))))).
+Admitted.
+
+Definition isConfluent : set -> prop := (fun xR => (forall v5, (forall v6, (forall v7, (((((aElement v5) /\ (aElement v6)) /\ (aElement v7)) /\ ((sdtmndtasgtdt v5 xR v6) /\ (sdtmndtasgtdt v5 xR v7))) -> (exists v8, ((aElement v8) /\ ((sdtmndtasgtdt v6 xR v8) /\ (sdtmndtasgtdt v7 xR v8))))))))).
+Definition isLocallyConfluent : set -> prop := (fun xR => (forall v9, (forall v10, (forall v11, (((((aElement v9) /\ (aElement v10)) /\ (aElement v11)) /\ ((aReductOfIn v10 v9 xR) /\ (aReductOfIn v11 v9 xR))) -> (exists v12, ((aElement v12) /\ ((sdtmndtasgtdt v10 xR v12) /\ (sdtmndtasgtdt v11 xR v12))))))))).
+Definition isTerminating : set -> prop := (fun xR => (forall v13, (forall v14, (((aElement v13) /\ (aElement v14)) -> ((sdtmndtplgtdt v13 xR v14) -> (iLess v14 v13)))))).
+Definition aNormalFormOfIn : set -> set -> set -> prop := (fun v15 => (fun xx => (fun xR => ((aElement v15) /\ ((sdtmndtasgtdt xx xR v15) /\ (~ (exists v16, (aReductOfIn v16 v15 xR)))))))).
+Theorem TermNF: (forall xR, (((aRewritingSystem xR) /\ (isTerminating xR)) -> (forall v17, ((aElement v17) -> ((forall v18, ((aElement v18) -> ((iLess v18 v17) -> (exists v19, (aNormalFormOfIn v19 v18 xR))))) -> (exists v20, (aNormalFormOfIn v20 v17 xR))))))).
+Admitted.
+
+Theorem Newman: (forall v21, (((aRewritingSystem v21) /\ ((isTerminating v21) /\ (isLocallyConfluent v21))) -> (isConfluent v21))).
+Admitted.
+
