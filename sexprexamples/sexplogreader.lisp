@@ -1,3 +1,6 @@
+(defvar *skipproofs* nil)
+(defvar *ctx* nil)
+(defvar *sig* nil)
 (setq *goalstack* nil)
 
 (setq *freshvarcount* 0)
@@ -34,7 +37,6 @@
 
 (defun read-sexprs (fn)
   (let ((f (open fn :direction :input))
-	(inmain nil)
 	(l nil)
 	(rl nil))
     (loop while (setq l (read f nil nil)) do (push l rl))
@@ -121,7 +123,7 @@
 (defun nss-trm (m &optional theta)
   (if (consp m)
       (if (eq (cadr m) 'TAG)
-	  (nss-trm (caddr m))
+	  (nss-trm (caddr m) theta)
 	(case (car m)
 	  ((FORALL EXISTS LAMBDA CHOICE)
 	   (let ((v (fresh-var)))
@@ -183,47 +185,58 @@
 	(t (apply #'append (mapcar #'frees (cdr m)))))
     (list m)))
 
-(defun trm-str (m)
+(defun tp-str (m &optional p)
   (if (consp m)
-      (case (car m)
-	(LAMBDA
-	 (format nil "(fun ~d => ~d)" (cadr m) (trm-str (caddr m))))
-	(SEP
-	 (format nil "{~d :e ~d | ~d}" (cadr m) (trm-str (caddr m)) (trm-str (cadddr m))))
-	(CHOICE
-	 (format nil "(Eps set (fun ~d => ~d))" (cadr m) (trm-str (caddr m))))
-	(FORALL
-	 (format nil "(forall ~d, ~d)" (cadr m) (trm-str (caddr m))))
-	(EXISTS
-	 (format nil "(exists ~d, ~d)" (cadr m) (trm-str (caddr m))))
-	(TRUTH "Truth")
-	(FALSE "False")
-	(NOT
-	 (format nil "(~~ ~d)" (trm-str (cadr m))))
-	(AND
-	 (format nil "(~d /\\ ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
-	(OR
-	 (format nil "(~d \\/ ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
-	(IMPLIES
-	 (format nil "(~d -> ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
-	(IFF
-	 (format nil "(~d <-> ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
-	(=
-	 (format nil "(~d = ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
-	(|aElementOf|
-	 (format nil "(~d :e ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
-	(|szDzozmlpdtrp|
-	 (format nil "(Dom ~d)" (trm-str (cadr m))))
-	(|szRzaznlpdtrp|
-	 (format nil "(Ran ~d)" (trm-str (cadr m))))
-	(|sdtlbdtrb|
-	 (format nil "(funap ~d ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
-	(t
-	 (if (cdr m)
-	     (format nil "(~d~d)" (car m) (spine-str (cdr m)))
-	   (format nil "~d" (car m)))))
+      (if p
+	  (format nil "(~d -> ~d)" (tp-str (car m) t) (tp-str (cdr m) nil))
+	(format nil "~d -> ~d" (tp-str (car m) t) (tp-str (cdr m) nil)))
     (format nil "~d" m)))
 
+(defun trm-str (m)
+  (if (consp m)
+      (if (find-if #'(lambda (z) (and (consp z) (eq (car z) 'DECL) (eq (cadr z) (car m)))) *sig*)
+	  (if (cdr m)
+	      (format nil "(~d~d)" (car m) (spine-str (cdr m)))
+	    (format nil "~d" (car m)))
+	(case (car m)
+	      (LAMBDA
+	       (format nil "(fun ~d => ~d)" (cadr m) (trm-str (caddr m))))
+	      (SEP
+	       (format nil "{~d :e ~d | ~d}" (cadr m) (trm-str (caddr m)) (trm-str (cadddr m))))
+	      (CHOICE
+	       (format nil "(some ~d:set, ~d)" (cadr m) (trm-str (caddr m))))
+	      (FORALL
+	       (format nil "(forall ~d, ~d)" (cadr m) (trm-str (caddr m))))
+	      (EXISTS
+	       (format nil "(exists ~d, ~d)" (cadr m) (trm-str (caddr m))))
+	      (TRUTH "True")
+	      (FALSE "False")
+	      (NOT
+	       (format nil "(~~ ~d)" (trm-str (cadr m))))
+	      (AND
+	       (format nil "(~d /\\ ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
+	      (OR
+	       (format nil "(~d \\/ ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
+	      (IMPLIES
+	       (format nil "(~d -> ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
+	      (IFF
+	       (format nil "(~d <-> ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
+	      (=
+	       (format nil "(~d = ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
+	      (|aElementOf|
+	       (format nil "(~d :e ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
+	      (|szDzozmlpdtrp|
+	       (format nil "(Dom ~d)" (trm-str (cadr m))))
+					;	(|szRzaznlpdtrp|
+					;	 (format nil "(Ran ~d)" (trm-str (cadr m))))
+	      (|sdtlbdtrb|
+	       (format nil "(funap ~d ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
+	      (t
+	       (if (cdr m)
+		   (format nil "(~d~d)" (car m) (spine-str (cdr m)))
+		 (format nil "~d" (car m))))))
+    (format nil "~d" m)))
+  
 (defun spine-str (sp)
   (if sp
       (format nil " ~d~d" (trm-str (car sp)) (spine-str (cdr sp)))
@@ -314,7 +327,7 @@
 (defun extract-reln-defn (w &optional (d 0))
   (if (consp w)
       (cond ((eq (car w) 'FORALL)
-	     (extract-reln-defn (caddr w) (1+ d)))
+	     (extract-reln-defn (cadr w) (1+ d)))
 	    ((and (eq (car w) 'IFF) (consp (cadr w)) (eq (caadr w) 'HEADTERM) (eq (cadadr w) 'TAG))
 	     (let ((n (caddr (cadr w)))
 		   (p (caddr w)))
@@ -348,22 +361,29 @@
 (defun extract-reln-decl (w &optional (d 0))
   (if (consp w)
       (cond ((eq (car w) 'FORALL)
-	     (extract-reln-decl (caddr w) (1+ d)))
+	     (extract-reln-decl (cadr w) (1+ d)))
 	    ((and (eq (car w) 'IMPLIES)
 		  (consp (cadr w)) (eq (caadr w) 'HEADTERM) (eq (cadadr w) 'TAG)
 		  (or (equal (caddr w) '(TRUTH)) (eq (caddr w) 'TRUTH)))
 	     (let ((n (caddr (cadr w)))
 		   (tp "prop"))
-	       (dolist (a (cdddr (cadr w)))
-		 (setq tp (format nil "set -> ~d" tp)))
-	       (values n tp)))
+	       (dolist (a (cdr n))
+		 (setq tp (cons "set" tp)))
+	       (values (car n) tp nil)))
+	    ((and (eq (car w) 'IMPLIES)
+		  (consp (cadr w)) (eq (caadr w) 'HEADTERM) (eq (cadadr w) 'TAG))
+	     (let ((n (caddr (cadr w)))
+		   (tp "prop"))
+	       (dolist (a (cdr n))
+		 (setq tp (cons "set" tp)))
+	       (values (car n) tp t)))
 	    (t nil))
     nil))
 	     
 (defun extract-func-defn (w &optional (d 0))
   (if (consp w)
       (cond ((eq (car w) 'FORALL)
-	     (extract-func-defn (caddr w) (1+ d)))
+	     (extract-func-defn (cadr w) (1+ d)))
 	    ((and (eq (car w) 'IFF) (consp (cadr w)) (eq (caadr w) 'HEADTERM) (eq (cadadr w) 'TAG))
 	     (let ((n (caddr (cadr w)))
 		   (p (caddr w)))
@@ -388,7 +408,7 @@
 			       nil
 			     (let ((fvl (nss-frees p)))
 			       (if (subsetp fvl argvars :test #'equal)
-				   (values (car n2) (func-tp (length args)) (nss-trm-outerlam-set args (list 'CHOICE 'FAKE p))) ; rethink this -- p is not the right thing to use here
+				   (values (car n2) (func-tp (length args)) (nss-trm-outerlam-set args (list 'CHOICE p))) ; rethink this -- p is not the right thing to use here
 				 nil))))
 		       nil))
 		 nil)))
@@ -398,254 +418,444 @@
 (defun extract-func-decl (w &optional (d 0))
   (if (consp w)
       (cond ((eq (car w) 'FORALL)
-	     (extract-func-decl (caddr w) (1+ d)))
+	     (extract-func-decl (cadr w) (1+ d)))
 	    ((and (eq (car w) 'IMPLIES)
 		  (consp (cadr w)) (eq (caadr w) 'HEADTERM) (eq (cadadr w) 'TAG))
 	     (let ((n (caddr (cadr w)))
-		   (p (caddr w))
 		   (tp "set"))
 	       (if (and (> d 0) (consp n) (equal (car n) "=") (equal (cadr n) '(DB 0)) (consp (caddr n)) (stringp (caaddr n)))
 		   (let* ((n2 (caddr n))
 			  (args (cdr n2)))
 		     (dolist (a args)
-		       (setq tp (format nil "set -> ~d" tp)))
-		     (values (car n2) n2 tp p))
+		       (setq tp (cons "set" tp)))
+		     (values (car n2) n2 tp t))
 		 nil)))
 	    (t nil))
     nil))
+
+(defun nss-assumption (nm decl w)
+  (dolist (x (cdr decl)) (push (list 'VAR x) *ctx*))
+  (let ((hn (if (or (not nm) (equal nm "__")) (fresh-assume-name) nm)))
+    (push (list 'HYP hn (elab-prop (nss-trm w))) *ctx*)))
+
+(defun nss-posit-axiom (g nm decl w)
+  (dolist (x (cdr decl)) (push (list 'VAR x) *ctx*))
+  (let ((w2 (elab-prop (nss-trm w))))
+    (dolist (h *ctx*)
+      (case (car h)
+	    (VAR (setq w2 (list 'FORALL (cadr h) w2)))
+	    (HYP (setq w2 (list 'IMPLIES (caddr h) w2)))
+	    (t (throw 'fail (list 'fail "bad ctx entry" h)))))
+    (let ((hn (if (or (not nm) (equal nm "__")) (fresh-hyp-name) nm)))
+      (push (list 'AX hn w2) *sig*)
+      (format g "Hypothesis ~d: ~d.~%" hn (trm-str w2)))))
+
+(defun nss-posit-signature (g nm decl w)
+  (dolist (x (cdr decl)) (push (list 'VAR x) *ctx*))
+  (let ((htl (nss-headterms w)))
+    (if htl
+	(if (cdr htl)
+	    (throw 'fail (list 'fail "multiple headterm in posit of defn" htl nm w))
+	  (let ((fail
+		 (catch 'fail
+		   (multiple-value-bind
+		    (func n2 tp p)
+		    (extract-func-decl w)
+		    (if func
+			(let ((w2 (elab-prop (nss-trm w))))
+			  (dolist (h *ctx*)
+			    (case (car h)
+				  (VAR (setq w2 (list 'FORALL (cadr h) w2)))
+				  (HYP (setq w2 (list 'IMPLIES (caddr h) w2)))
+				  (t (throw 'fail (list 'fail "bad ctx entry" h)))))
+			  (push (list 'DECL func tp) *sig*)
+			  (format g "Variable ~d : ~d.~%" func (tp-str tp))
+			  (push (list 'HYP (intern (format nil "H~d" func)) w2) *sig*)
+			  (format g "Hypothesis H~d : ~d.~%" func (trm-str w2)))
+		      (throw 'fail "not a known func decl"))))))
+	    (when fail
+	      (let ((fail
+		     (catch 'fail
+		       (multiple-value-bind
+			(reln tp p)
+			(extract-reln-decl w)
+			(if reln
+			    (let ((w2 (elab-prop (nss-trm w))))
+			      (dolist (h *ctx*)
+				(case (car h)
+				      (VAR (setq w2 (list 'FORALL (cadr h) w2)))
+				      (HYP (setq w2 (list 'IMPLIES (caddr h) w2)))
+				      (t (throw 'fail (list 'fail "bad ctx entry" h)))))
+			      (push (list 'DECL reln tp) *sig*)
+			      (format g "Variable ~d : ~d.~%" reln (tp-str tp))
+			      (push (list 'HYP (intern (format nil "H~d" reln)) w2) *sig*)
+			      (format g "Hypothesis H~d : ~d.~%" reln (trm-str w2)))
+			  (throw 'fail "not a known reln decl"))))))
+		(when fail
+		  (throw 'fail (list 'fail "Unknown signature posit form" nm decl w))))))))))
+
+(defun nss-posit-definition (g nm decl w)
+  (dolist (x (cdr decl)) (push (list 'VAR x) *ctx*))
+  (let ((htl (nss-headterms w)))
+    (if htl
+	(if (cdr htl)
+	    (throw 'fail (list 'fail "multiple headterm in posit of defn" htl nm w))
+	  (let ((fail
+		 (catch 'fail
+		   (multiple-value-bind
+		    (reln tp def)
+		    (extract-reln-defn w)
+		    (if reln
+			(progn
+			  (push (list 'DEF reln tp def) *sig*)
+			  (format g "Definition ~d : ~d := ~d.~%" reln (tp-str tp) (trm-str def))
+			  )
+		      (throw 'fail "not a known reln defn"))))))
+	    (when fail
+	      (let ((fail
+		     (catch 'fail
+		       (multiple-value-bind
+			(func tp def)
+			(extract-func-defn w)
+			(if func
+			    (progn
+			      (push (list 'DEF func tp def) *sig*)
+			      (format g "Definition ~d : ~d := ~d.~%" func (tp-str tp) (trm-str def))
+			      )
+			  (throw 'fail "foo"))))))
+		(when fail
+		  (throw 'fail (list 'FAIL "not a known defn pattern" nm w)))))))
+      (throw 'fail (list 'fail "no headterm in posit of defn" w)))))
+
+(defun nss-axiom-body (g outernm body)
+  (if body
+      (if (and (consp (car body)) (eq (caar body) 'BLOCK))
+	  (let ((k (nth 2 (car body)))
+		(nm (nth 4 (car body)))
+		(decl (nth 1 (car body)))
+		(w (nth 3 (car body)))
+		(subbody (cdr (nth 5 (car body)))))
+	    (if (cdr body) ; all but the last one should be ASSUMPTION
+		(if (eq k 'ASSUMPTION)
+		    (if subbody
+			(throw 'fail (list 'FAIL "nonempty subbody in assumption in axiom" body))
+		      (progn
+			(nss-assumption nm decl w)
+			(nss-axiom-body g outernm (cdr body))))
+		  (throw 'fail (list 'FAIL "non assumption before last in axiom" body)))
+	      (if (eq k 'POSIT) ; last one should be a POSIT
+		  (if subbody
+		      (throw 'fail (list 'FAIL "nonempty subbody in posit in axiom" body))
+		    (nss-posit-axiom g outernm decl w))
+		(throw 'fail (list 'FAIL "end of axiom body was not a POSIT" body)))))
+	(throw 'fail (list 'FAIL "end of axiom body was not a block" body)))
+    (throw 'fail (list 'FAIL "axiom with empty body?"))))
+  
+(defun nss-signature-body (g outernm body)
+  (if body
+      (if (and (consp (car body)) (eq (caar body) 'BLOCK))
+	  (let ((k (nth 2 (car body)))
+		(nm (nth 4 (car body)))
+		(decl (nth 1 (car body)))
+		(w (nth 3 (car body)))
+		(subbody (cdr (nth 5 (car body)))))
+	    (if (cdr body) ; all but the last one should be ASSUMPTION
+		(if (eq k 'ASSUMPTION)
+		    (if subbody
+			(throw 'fail (list 'FAIL "nonempty subbody in assumption in signature" body))
+		      (progn
+			(nss-assumption nm decl w)
+			(nss-signature-body g outernm (cdr body))))
+		  (throw 'fail (list 'FAIL "non assumption before last in signature" body)))
+	      (if (eq k 'POSIT) ; last one should be a POSIT
+		  (if subbody
+		      (throw 'fail (list 'FAIL "nonempty subbody in posit in signature" body))
+		    (nss-posit-signature g outernm decl w))
+		(throw 'fail (list 'FAIL "end of signature body was not a POSIT" body)))))
+	(throw 'fail (list 'FAIL "end of signature body was not a block" body)))
+    (throw 'fail (list 'FAIL "signature with empty body?"))))
+
+(defun nss-definition-body (g outernm body)
+  (if body
+      (if (and (consp (car body)) (eq (caar body) 'BLOCK))
+	  (let ((k (nth 2 (car body)))
+		(nm (nth 4 (car body)))
+		(decl (nth 1 (car body)))
+		(w (nth 3 (car body)))
+		(subbody (cdr (nth 5 (car body)))))
+	    (if (cdr body) ; all but the last one should be ASSUMPTION
+		(if (eq k 'ASSUMPTION)
+		    (if subbody
+			(throw 'fail (list 'FAIL "nonempty subbody in assumption in definition" body))
+		      (progn
+			(nss-assumption nm decl w)
+			(nss-definition-body g outernm (cdr body))))
+		  (throw 'fail (list 'FAIL "non assumption before last in definition" body)))
+	      (if (eq k 'POSIT) ; last one should be a POSIT
+		  (if subbody
+		      (throw 'fail (list 'FAIL "nonempty subbody in posit in definition" body))
+		    (nss-posit-definition g outernm decl w))
+		(throw 'fail (list 'FAIL "end of definition body was not a POSIT" body)))))
+	(throw 'fail (list 'FAIL "end of definition body was not a block" body)))
+    (throw 'fail (list 'FAIL "definition with empty body?"))))
+
+(defun indent (g d)
+  (dotimes (i d) (format g " ")))
+
+(defun nss-proof (g pf goalstack d)
+  (if pf
+      (if (not (and (consp pf) (consp (car pf)) (eq (caar pf) 'BLOCK)))
+	  (throw 'fail (list 'fail "non block in pf" pf))
+	(let ((k (nth 2 (car pf)))
+	      (nm (nth 4 (car pf)))
+	      (decl (nth 1 (car pf)))
+	      (w (nth 3 (car pf)))
+	      (subpf (cdr (nth 5 (car pf)))))
+	  (if (not (and (consp goalstack) (consp (car goalstack)) (eq (caar goalstack) 'SUBGOAL)))
+	      (throw 'fail (list 'fail "pf step without a subgoal" pf goalstack))
+	    (let ((gth (nth 1 (car goalstack)))
+		  (gctx (nth 2 (car goalstack))))
+	      (case k
+		    (ASSUMPTION
+		     (let ((nvl (cdr decl)))
+		       (when nvl
+			 (indent g d)
+			 (format g "let")
+			 (dolist (x nvl)
+			   (format g " ~d" x)
+			   (if (and (consp gth) (eq (car gth) 'FORALL))
+			       (if (eq (cadr gth) x)
+				   (setq gth (caddr gth))
+				 (progn
+				   (format t "WARNING: Too lazy to implement capture avoiding substitution, so using fake thesis.")
+				   (setq gth 'FAKE)))
+			     (progn
+			       (format t "WARNING: Cannot see ~S as forall, so fake using thesis.~%" gth)
+			       (setq gth 'FAKE)))
+			   (push (list 'VAR x) gctx)
+			   )
+			 (format g ".~%")))
+		     (if (equal w '(NOT ("#TH#")))
+			 (let ((hn (if (or (not nm) (equal nm "__")) (fresh-assume-name) nm)))
+			   (indent g d)
+			   (format g "apply NNPP. assume ~d.~%" hn)
+			   (nss-proof
+			    g
+			    (cdr pf)
+			    (cons (list 'SUBGOAL '(FALSE) (cons (list 'HYP hn (list 'NOT gth)) gctx))
+				  (cdr goalstack))
+			    d))
+		       (let ((hn (if (or (not nm) (equal nm "__")) (fresh-hyp-name) nm)))
+			 (indent g d)
+			 (if (and w (not (equal w "?")))
+			     (format g "assume ~d: ~d.~%" hn (trm-str (elab-prop (nss-trm w))))
+			   (format g "assume ~d.~%"))
+			 (if (and (consp gth) (eq (car gth) 'IMPLIES))
+			     (nss-proof
+			      g
+			      (cdr pf)
+			      (cons (list 'SUBGOAL (caddr gth) (cons (list 'HYP hn (cadr gth)) gctx))
+				    (cdr goalstack))
+			      d)
+			   (progn
+			     (format t "WARNING: Cannot see ~S as implication matching assume in pf so setting thesis and assumption to fake.~%" gth)
+			     (nss-proof
+			      g
+			      (cdr pf)
+			      (cons (list 'SUBGOAL 'FAKE (cons (list 'HYP hn 'FAKE) gctx))
+				    (cdr goalstack))
+			      d))))))
+		    (SELECTION
+		     (let ((svl (cdr decl)))
+		       (unless svl
+			 (throw 'fail (list 'FAIL "selection step has no variables to select" pf)))
+		       (let* ((w2 (elab-prop (nss-trm w)))
+			      (w3 w2)
+			      (gctx2 gctx)
+			      (hn (if (or (not nm) (equal nm "__")) (fresh-hyp-name) nm))
+			      (cn (fresh-claim-name)))
+			 (dolist (x (reverse svl)) (setq w3 (list 'EXISTS x w3)))
+			 (indent g d)
+			 (format g "claim ~d: ~d.~%" cn (trm-str w3))
+			 (if subpf
+			     (progn
+			       (indent g d)
+			       (format g "{~%")
+			       (nss-proof g subpf (list (list 'SUBGOAL w3 gctx)) (1+ d))
+			       (indent g d)
+			       (format g "}~%"))
+			   (progn
+			     (indent g d)
+			     (format g "admit.~%")))
+			 (indent g d)
+			 (format g "apply ~d." cn)
+			 (dolist (x svl) (push (list 'VAR x) gctx2) (format g " let ~d. assume ~d." x hn))
+			 (format g "~%")
+			 (nss-proof
+			  g
+			  (cdr pf)
+			  (cons (list 'SUBGOAL gth (cons (list 'HYP hn w2) gctx2))
+				(cdr goalstack))
+			  d))))
+		    (LOWDEFINITION
+		     (let ((svl (cdr decl)))
+		       (unless svl
+			 (throw 'fail (list 'FAIL "lowdefinition step has no variables to define" pf)))
+		       (let* ((w2 (elab-prop (nss-trm w)))
+			      (w3 w2)
+			      (gctx2 gctx)
+			      (hn (if (or (not nm) (equal nm "__")) (fresh-hyp-name) nm))
+			      (cn (fresh-claim-name)))
+			 (dolist (x (reverse svl)) (setq w3 (list 'EXISTS x w3)))
+			 (indent g d)
+			 (format g "claim ~d: ~d.~%" cn (trm-str w3))
+			 (if subpf
+			     (progn
+			       (indent g d)
+			       (format g "{~%")
+			       (nss-proof g subpf (list (list 'SUBGOAL w3 gctx)) (1+ d))
+			       (indent g d)
+			       (format g "}~%"))
+			   (progn
+			     (indent g d)
+			     (format g "admit.~%")))
+			 (indent g d)
+			 (format g "apply ~d." cn)
+			 (dolist (x svl) (push (list 'VAR x) gctx2) (format g " let ~d. assume ~d." x hn))
+			 (format g "~%")
+			 (nss-proof
+			  g
+			  (cdr pf)
+			  (cons (list 'SUBGOAL gth (cons (list 'HYP hn w2) gctx2))
+				(cdr goalstack))
+			  d))))
+		    (AFFIRMATION
+		     (let ((svl (cdr decl)))
+		       (when svl
+			 (throw 'fail (list 'FAIL "cannot handle affirmation with new vars")))
+		       (if (eq w 'CONTRADICTION)
+			   (if (equal gth '(FALSE))
+			       (nss-proof g (cdr pf) goalstack d)
+			     (progn
+			       (indent g d)
+			       (format g "prove False.~%")
+			       (nss-proof g (cdr pf)
+					  (cons
+					   (list 'SUBGOAL '(FALSE) gctx)
+					   (cdr goalstack)) d)))
+			 (let* ((w2 (elab-prop (nss-trm w)))
+				(hn (if (or (not nm) (equal nm "__")) (fresh-hyp-name) nm)))
+			   (indent g d)
+			   (format g "claim ~d: ~d.~%" hn (trm-str w2))
+			   (if subpf
+			       (progn
+				 (indent g d)
+				 (format g "{~%")
+				 (nss-proof g subpf (list (list 'SUBGOAL w2 gctx)) (1+ d))
+				 (indent g d)
+				 (format g "}~%"))
+			     (progn
+			       (indent g d)
+			       (format g "admit.~%")))
+			   (nss-proof
+			    g
+			    (cdr pf)
+			    (cons (list 'SUBGOAL gth (cons (list 'HYP hn w2) gctx))
+				  (cdr goalstack))
+			    d)))))
+		    (t (throw 'fail (list 'fail "unhandled pf kind" pf))))))))
+    ; no more steps in the proof left. for each remaining subgoal, close it with admit.
+    (dolist (sg goalstack)
+      (indent g d)
+      (format g "admit.~%"))))
+
+(defun nss-affirmation-theorem (g nm decl w subbody)
+  (dolist (x (cdr decl)) (push (list 'VAR x) *ctx*))
+  (let* ((w2 (elab-prop (nss-trm w)))
+	 (goalstack (list (list 'SUBGOAL w2 *ctx*))))
+    (dolist (h *ctx*)
+      (case (car h)
+	    (VAR (setq w2 (list 'FORALL (cadr h) w2)))
+	    (HYP (setq w2 (list 'IMPLIES (caddr h) w2)))
+	    (t (throw 'fail (list 'fail "bad ctx entry" h)))))
+    (let ((thmname (if (or (not nm) (equal nm "__")) (fresh-thm-name) nm)))
+      (format g "Theorem ~d: ~d.~%" thmname (trm-str w2))
+      (if (and (not *skipproofs*) subbody) ; proof given
+	  (let ((lets nil))
+	    (dolist (h (reverse *ctx*))
+	      (case (car h)
+		    (VAR (push (cadr h) lets))
+		    (HYP
+		     (when lets
+		       (format g "let")
+		       (dolist (x (reverse lets)) (format g " ~d" x))
+		       (format g ".~%")
+		       (setq lets nil))
+		     (format g "assume ~d: ~d.~%" (cadr h) (trm-str (caddr h))))
+		    (t (throw 'fail (list 'fail "bad ctx entry" h)))))
+	    (when lets
+	      (format g "let")
+	      (dolist (x (reverse lets)) (format g " ~d" x))
+	      (format g ".~%")
+	      (setq lets nil))
+	    (nss-proof g subbody goalstack 0)
+	    (format g "Qed.~%"))
+	(format g "Admitted.~%~%"))))) ; no proof given
+  
+(defun nss-theorem-body (g outernm body)
+  (if body
+      (if (and (consp (car body)) (eq (caar body) 'BLOCK))
+	  (let ((k (nth 2 (car body)))
+		(nm (nth 4 (car body)))
+		(decl (nth 1 (car body)))
+		(w (nth 3 (car body)))
+		(subbody (cdr (nth 5 (car body)))))
+	    (if (cdr body) ; all but the last one should be ASSUMPTION
+		(if (eq k 'ASSUMPTION)
+		    (if subbody
+			(throw 'fail (list 'FAIL "nonempty subbody in assumption in theorem" body))
+		      (progn
+			(nss-assumption nm decl w)
+			(nss-theorem-body g outernm (cdr body))))
+		  (throw 'fail (list 'FAIL "non assumption before last in theorem" body)))
+	      (if (eq k 'AFFIRMATION) ; last one should be a AFFIRMATION
+		  (nss-affirmation-theorem g outernm decl w subbody)
+		(throw 'fail (list 'FAIL "end of theorem body was not an AFFIRMATION" body)))))
+	(throw 'fail (list 'FAIL "end of theorem body was not a block" body)))
+    (throw 'fail (list 'FAIL "theorem with empty body?"))))
+  
+(defun nss-toplevel-block (g k nm decl w body)
+  (setq *ctx* nil)
+  (case k
+	(AXIOM
+	 (if (and (not (cdr decl)) body)
+	     (nss-axiom-body g nm body)
+	   (throw 'fail (list 'FAIL "unexpected axiom case" decl body))))
+	(SIGNATURE
+	 (if (and (not (cdr decl)) body)
+	      (nss-signature-body g nm body)
+	    (throw 'fail (list 'FAIL "unexpected signature case" decl body))))
+	(DEFINITION
+	  (if (and (not (cdr decl)) body)
+	      (nss-definition-body g nm body)
+	    (throw 'fail (list 'FAIL "unexpected definition case" decl body))))
+	(THEOREM
+	  (if (and (not (cdr decl)) body)
+	      (nss-theorem-body g nm body)
+	    (throw 'fail (list 'FAIL "unexpected theorem case" decl body))))
+	(t
+	 (throw 'fail (list 'FAIL (format nil "To do top level kind ~d~%nm ~S~%decl ~S~%formula ~S~%body ~S~%" k nm decl w body))))))
 	     
 (defun nss-to-egal (fs gs)
+  (setq *sig* nil)
   (let ((f (open fs :direction :input))
-	(g (if gs (open gs :direction :output :if-exists :supersede :if-does-not-exist :create) t))
-	(inhyp nil)
-	(inconj nil)
-	(diddef nil)
-	(fvl nil)
-	(hl nil)
-	(l nil)
-	(prving nil)
-	(pflev nil))
-    (loop while (setq l (read f nil nil)) do
-					;	  (format t "=== ~S~%inhyp ~d~%inconj ~d~%fvl ~d~%hl ~d~%pflev ~d~%" l inhyp inconj fvl hl pflev)
-	  (unless (or (equal l "proof.") (not pflev))
-	    (loop while (and *goalstack* (equal (car *goalstack*) '(SUBPROOF))) do
-		  (pop *goalstack*)
-		  (pop *goalstack*)
-		  (dotimes (i pflev) (format g " "))
-		  (format g "admit.~%")
-		  (when (and *goalstack* (eq (caar *goalstack*) 'CONTINUEPF))
-		    (when (cadar *goalstack*) (format g "~d~%" (cadar *goalstack*)))
-		    (pop *goalstack*))))
-	  (loop while (and *goalstack* (eq (caar *goalstack*) 'CONTINUEPF)) do
-		(when (cadar *goalstack*) (format g "~d~%" (cadar *goalstack*)))
-		(pop *goalstack*))
-	  (if (consp l)
-	      (cond ((eq (car l) 'HYPOTHESIS)
-		     (when (and inhyp hl (not diddef)) ; treat the last hl as conclusion of a previous hypothesis
-		       (let ((w (car hl))
-			     (hr (cdr hl)))
-			 (dolist (h hr) (setq w (list 'IMPLIES h w)))
-			 (let ((w2 (nss-trm-outerall-prop fvl w)))
-			   (format g "Hypothesis ~d : ~d.~%"
-				   (if (equal inhyp "") (fresh-hyp-name) inhyp)
-				   (trm-str w2)))))
-		     (setq fvl nil hl nil diddef nil)
-		     (setq inhyp (cadr l) inconj nil))
-		    ((eq (car l) 'CONJECTURE)
-		     (setq fvl nil hl nil diddef nil)
-		     (setq inconj (cadr l) inhyp nil))
-		    ((equal (car l) "assume")
-		     (let* ((w (cadr l))
-			    (wvl (remove-duplicates (nss-frees w) :test #'equal))
-			    (wcl (remove-duplicates (nss-constrs w) :test #'equal))
-			    (whl (remove-duplicates (nss-headterms w) :test #'equal)))
-		       (cond (inhyp
-			      (if whl
-				  (if (cdr whl)
-				      (format t "~d probably defining ~d but surprised more than one~%" inhyp whl)
-				    (progn
-				      (setq diddef t)
-				      (let ((fail
-					     (catch 'fail
-					       (multiple-value-bind
-						(reln tp def)
-						(extract-reln-defn w)
-						(if reln
-						    (format g "Definition ~d : ~d := ~d.~%" reln tp (trm-str def))
-						  (throw 'fail "foo"))))))
-					(when fail
-					  (let ((fail
-						 (catch 'fail
-						   (multiple-value-bind
-						    (func tp def)
-						    (extract-func-defn w)
-						    (if func
-							(format g "Definition ~d : ~d := ~d.~%" func tp (trm-str def))
-						      (throw 'fail "foo"))))))
-					    (when fail
-					      (let ((fail
-						     (catch 'fail
-						       (multiple-value-bind
-							(reln tp)
-							(extract-reln-decl w)
-							(if reln
-							    (format g "Variable ~d: ~d.~%" reln tp)
-							  (throw 'fail "foo"))))))
-						(when fail
-						  (let ((fail
-							 (catch 'fail
-							   (multiple-value-bind
-							    (func funcap tp p)
-							    (extract-func-decl w)
-							    (if func
-								(let ((w2 nil))
-								  (setq w (nss-db-ssubst w (acons '0 funcap nil)))
-								  (dolist (x wvl) (unless (member x fvl :test #'equal) (push x fvl)))
-								  (dolist (h hl) (setq w (list 'IMPLIES h w)))
-								  (setq w2 (nss-trm-outerall-prop fvl w))
-								  (format g "Variable ~d: ~d.~%" func tp)
-								  (unless (equal p '(TRUTH))
-								    (format g "Hypothesis ~d: ~d.~%"
-									    (if (equal inhyp "") (fresh-hyp-name) inhyp)
-									    (trm-str w2))))
-							      (throw 'fail "foo"))))))
-						    (when fail
-						      (format t "Unknown defn pattern ~d in ~d probably defining ~d~%" w inhyp whl)))))))))))
-				(progn
-				  (dolist (x wvl) (unless (member x fvl :test #'equal) (push x fvl)))
-				  (push w hl))))
-			     (inconj
-			      (dolist (x wvl) (unless (member x fvl :test #'equal) (push x fvl)))
-			      (push w hl))
-			     (pflev
-			      (if (equal w '(NOT ("#TH#")))
-				  (let ((hn (fresh-assume-name))
-					(gth (caar *goalstack*))
-					(gvl (cadar *goalstack*))
-					(gll (caddar *goalstack*)))
-				    (setq *goalstack*
-					  (cons (list '(FALSE)
-						      gvl
-						      (acons hn (list 'NOT gth) gll))
-						(cdr *goalstack*)))
-				    (dotimes (i pflev) (format g " "))
-				    (format g "apply NNPP. assume ~d.~%" hn))
-				(progn
-				  (dotimes (i pflev) (format g " "))
-				  (format g "assume ~d: ~d.~%" (fresh-assume-name) (trm-str (nss-trm-outerall-prop nil w))))))
-			     (t nil))))
-		    ((eq (car l) 'FORMULA)
-		     (let* ((w (cadr l))
-			    (wvl (remove-duplicates (nss-frees w) :test #'equal))
-			    (wcl (remove-duplicates (nss-constrs w) :test #'equal))
-			    (whl (remove-duplicates (nss-headterms w) :test #'equal)))
-		       (cond (inhyp
-			      (format t "Surprise formula ~d in hyp ~d~%" w inhyp))
-			     (inconj
-			      (dolist (x wvl) (unless (member x fvl :test #'equal) (push x fvl)))
-			      (dolist (h hl) (setq w (list 'IMPLIES h w)))
-			      (let ((w2 (nss-trm-outerall-prop fvl w))
-				    (gvl nil)
-				    (gll nil))
-				(format g "Theorem ~d : ~d.~%"
-					(if (equal inconj "") (fresh-thm-name) inconj)
-					(trm-str w2))
-				(setq *freshassumecount* 0)
-				(setq *freshclaimcount* 0)
-				(when fvl
-				  (format g "let")
-				  (dolist (x fvl)
-				    (if (and (consp w2) (eq (car w2) 'FORALL))
-					(progn
-					  (format g " ~d" (cadr w2))
-					  (push (cadr w2) gvl)
-					  (setq w2 (caddr w2)))
-				      (throw 'fail (format nil "let problem at beginning of pf: ~S~%~S~%~S~%" x fvl w2))))
-				  (format g ".~%"))
-				(dolist (h hl)
-				  (if (and (consp w2) (eq (car w2) 'IMPLIES))
-				      (let ((hn (fresh-assume-name)))
-					(push (cons hn (cadr w2)) gll)
-					(format g "assume ~d: ~d.~%" hn (trm-str (cadr w2)))
-					(setq w2 (caddr w2)))
-				    (throw 'fail (format nil "assume problem at beginning of pf: ~S~%~S~%~S~%" h hl w2))))
-				(push (list w2 gvl gll) *goalstack*)))
-			     (pflev
-			      (let* ((cn (fresh-claim-name))
-				     (cn3 cn)
-				     (nvl nil)
-				     (nvl2 nil)
-				     (ppl nil)
-				     (gth (caar *goalstack*))
-				     (gvl (cadar *goalstack*))
-				     (gvl2 gvl)
-				     (gll (caddar *goalstack*)))
-				(dolist (x wvl)
-				  (unless (or (member x gvl :test #'equal) (member x nvl :test #'equal)) (push x nvl)))
-				(let ((w2 (nss-trm-outerex-prop nvl w)))
-				  (dotimes (i pflev) (format g " "))
-				  (format g "claim ~d: ~d.~%" cn (trm-str w2))
-				  (let ((w3 w2))
-				    (dolist (x nvl)
-				      (if (and (consp w3) (eq (car w3) 'EXISTS))
-					  (progn
-					    (push x gvl2)
-					    (push x nvl2)
-					    (setq w3 (caddr w3))
-					    (if ppl
-						(let ((hn (fresh-assume-name)))
-						  (setq ppl (format nil "~d apply ~d. let ~d. assume ~d." ppl cn3 x hn))
-						  (setq cn3 hn))
-					      (let ((hn (fresh-assume-name)))
-						(setq ppl "")
-						(dotimes (i pflev) (setq ppl (format nil "~d " ppl)))
-						(setq ppl (format nil "~dapply ~d. let ~d. assume ~d." ppl cn x hn))
-						(setq cn3 hn))))
-					(throw 'fail "claim exists problem")))
-				    (setq *goalstack*
-					  (append (list (list 'SUBPROOF)
-							(list w2 gvl gll)
-							(list 'CONTINUEPF ppl)
-							(list gth gvl2 (acons cn3 w3 gll)))
-						  (cdr *goalstack*)))))))
-			     (t nil))))
-		    (t (format t "% Skipping ~d~%" l)))
-	    (cond ((equal l "hypothesis.") (setq inhyp "" inconj nil))
-		  ((equal l "conjecture.") (setq inhyp nil inconj ""))
-		  ((equal l "contradiction.")
-		   (let* ((cn (fresh-claim-name))
-			  (ppl "")
-			  (gth (caar *goalstack*))
-			  (gvl (cadar *goalstack*))
-			  (gll (caddar *goalstack*)))
-		     (dotimes (i pflev) (format g " ") (setq ppl (format nil "~d " ppl)))
-		     (format g "prove False.~%")
-		     (setq *goalstack*
-			   (append (list (list 'SUBPROOF)
-					 (list '(FALSE) gvl gll))
-				   (cdr *goalstack*)))))
-		  ((equal l "proof.")
-		   (when (equal (car *goalstack*) '(SUBPROOF)) (pop *goalstack*))
-		   (if pflev
-		       (progn
-			 (dotimes (i pflev) (format g " "))
-			 (format g "{~%")
-			 (incf pflev))
-		     (progn
-		       (setq pflev 0 prving inconj)
-		       (setq inconj nil)
-		       )))
-		  ((equal l "qed.")
-		   (if pflev
-		       (if (> pflev 0)
-			   (progn
-			     (decf pflev)
-			     (dotimes (i pflev) (format g " "))
-			     (format g "}~%"))
-			 (progn
-			   (format g "Qed.~%~%")
-			   (setq pflev nil prving nil)))))
-		  (t
-		   (format t "% Skipping ~d~%" l)))))
-    (close f)
-    (when gs (close g))))
+	(g (if gs (open gs :direction :output :if-exists :supersede :if-does-not-exist :create) t)))
+    (let ((fail
+	   (catch 'fail
+	     (loop while (setq l (read f nil nil)) do
+		   (if (and (consp l) (eq (car l) 'BLOCK))
+		       (nss-toplevel-block g (nth 2 l) (nth 4 l) (nth 1 l) (nth 3 l) (cdr (nth 5 l)))
+		     (format t "Skipping nonblock ~S~%" l))))))
+      (when fail (format t "~S~%" fail))
+      (close f)
+      (when gs (close g)))))

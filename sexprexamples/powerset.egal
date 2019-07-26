@@ -1,0 +1,18 @@
+Hypothesis A27: (forall xf, ((aFunction xf) -> (forall v73, ((v73 :e (Dom xf)) -> (aSet (funap xf v73)))))).
+Definition aSubsetOf : set -> set -> prop := (fun v74 => (fun xM => ((aSet v74) /\ (forall v75, ((v75 :e v74) -> (v75 :e xM)))))).
+Definition tthePowersetOf : set -> set := (fun xM => (Power xM)).
+Definition doSurjectsOnto : set -> set -> prop := (fun xf => (fun xM => (forall v78, ((v78 :e xM) -> (exists v79, ((v79 :e (Dom xf)) /\ (v78 = (funap xf v79)))))))).
+Theorem thm4: (forall xM, ((aSet xM) -> (forall v80, (((aFunction v80) /\ ((Dom v80) = xM)) -> (~ (doSurjectsOnto v80 (tthePowersetOf xM))))))).
+let xM.
+assume H94: (aSet xM).
+apply NNPP. assume H95.
+claim L6: (exists xf, ((aFunction xf) /\ (((Dom xf) = xM) /\ (doSurjectsOnto xf (tthePowersetOf xM))))).
+admit.
+apply L6. let xf. assume A28.
+claim L7: (exists xN, ((aSet xN) /\ (xN = {v81 :e xM | (~ (v81 :e (funap xf v81)))}))).
+admit.
+apply L7. let xN. assume A29.
+claim A30: (forall v82, ((v82 :e xM) -> (~ (xN = (funap xf v82))))).
+admit.
+admit.
+Qed.
