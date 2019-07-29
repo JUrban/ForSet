@@ -6,11 +6,23 @@
 (defvar *genericbuiltin*
       '(
 	(|aSet| |aSet| ("set" . "prop"))
+	(|aElementOf| |aElementOf| ("set" "set" . "prop"))
+	(|aPowerset| |aPowerset| ("set" . "set"))
+	(|Separ| |Separ| ("set" ("set" . "prop") . "set"))
+	(|Replac| |Replac| ("set" ("set" . "set") . "set"))
+	(|Replac2| |Replac2| ("set" ("set" . "set") ("set" "set" . "set") . "set"))
+;	(|ReplSepar| |ReplSepar| ("set" ("set" . "set") ("set" . "prop") . "set"))
+;	(|ReplSepar2| |ReplSepar2| ("set" ("set" . "set") ("set" "set" . "set") ("set" "set" . "prop") . "set"))
+	(|Pair| |Pair| ("set" "set" . "set"))
 	(|aFunction| |aFunction| ("set" . "prop"))
 	(|szDzozmlpdtrp| |Dom| ("set" . "set"))
 	(|sdtlbdtrb| |funap| ("set" "set" . "set"))
 	(|iLess| |iLess| ("set" "set" . "prop"))
 	))
+
+(defvar *genericaxioms*
+  '(("aPowerset_ax" "forall X, aSet (aPowerset X) /\\ (forall Y, aElementOf Y (aPowerset X) <-> aSet Y /\\ forall Z, aElementOf Z Y -> aElementOf Z X)")))
+
 
 (defvar *freshvarcount* 0)
 (defun fresh-var ()
@@ -190,6 +202,10 @@
   (if (consp m)
       (case (car m)
 	(SEP (append (frees (caddr m)) (remove (cadr m) (frees (cadddr m)))))
+	(REPL (append (frees (caddr m)) (remove (cadr m) (frees (cadddr m)))))
+	(REPLSEP (append (frees (caddr m)) (remove (cadr m) (append (frees (cadddr m)) (frees (nth 4 m))))))
+	(REPL2 (append (frees (cadddr m)) (remove (cadr m) (frees (nth 4 m))) (set-difference (frees (nth 5 m)) (list (cadr m) (caddr m)))))
+	(REPLSEP2 (append (frees (cadddr m)) (remove (cadr m) (frees (nth 4 m))) (set-difference (append (frees (nth 5 m)) (frees (nth 6 m))) (list (cadr m) (caddr m)))))
 	((LAMBDA CHOICE FORALL EXISTS) (remove (cadr m) (frees (caddr m))))
 	(t (apply #'append (mapcar #'frees (cdr m)))))
     (list m)))
@@ -216,7 +232,15 @@
 	      (LAMBDA
 	       (format nil "(fun ~d => ~d)" (cadr m) (trm-str (caddr m))))
 	      (SEP
-	       (format nil "{~d :e ~d | ~d}" (cadr m) (trm-str (caddr m)) (trm-str (cadddr m))))
+	       (format nil "Separ ~d (fun ~d => ~d)" (trm-str (caddr m)) (cadr m) (trm-str (cadddr m))))
+	      (REPL
+	       (format nil "Replac ~d (fun ~d => ~d)" (trm-str (caddr m)) (cadr m) (trm-str (cadddr m))))
+	      (REPL2
+	       (format nil "Replac2 ~d (fun ~d => ~d) (fun ~d ~d => ~d)" (trm-str (cadddr m)) (cadr m) (trm-str (nth 4 m)) (cadr m) (caddr m) (trm-str (nth 5 m))))
+	      (REPLSEP
+	       (format nil "ReplSepar ~d (fun ~d => ~d) (fun ~d => ~d)" (trm-str (caddr m)) (cadr m) (trm-str (cadddr m)) (cadr m) (trm-str (nth 4 m))))
+	      (REPLSEP2
+	       (format nil "ReplSepar2 ~d (fun ~d => ~d) (fun ~d ~d => ~d) (fun ~d ~d => ~d)" (trm-str (cadddr m)) (cadr m) (trm-str (nth 4 m)) (cadr m) (caddr m) (trm-str (nth 5 m)) (cadr m) (caddr m) (trm-str (nth 6 m))))
 	      (CHOICE
 	       (format nil "(some ~d:set, ~d)" (cadr m) (trm-str (caddr m))))
 	      (FORALL
@@ -238,9 +262,9 @@
 	      (=
 	       (format nil "(~d = ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
 	      (|aElementOf|
-	       (format nil "(~d :e ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
+	       (format nil "(aElementOf ~d ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
 	      (|slpdtcmdtrp|
-	       (format nil "(~d,~d)" (trm-str (cadr m)) (trm-str (caddr m))))
+	       (format nil "(Pair ~d ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
 	      (t
 	       (if (cdr m)
 		   (format nil "(~d~d)" (car m) (spine-str (cdr m)))
@@ -255,7 +279,7 @@
 (defun elab-prop (m)
   (if (consp m)
       (case (car m)
-	(SEP (throw 'fail "Sep cannot be a prop"))
+	((SEP REPL REPLSEP REPL2 REPLSEP2) (throw 'fail "Set comprehension cannot be a prop"))
 	(LAMBDA (throw 'fail "Lambda cannot be a prop probably"))
 	(CHOICE (throw 'fail "Choice cannot be a prop probably"))
 	(FORALL (list 'FORALL (cadr m) (elab-prop (caddr m))))
@@ -289,44 +313,153 @@
 	 (caddr (caddr p)))
 	(t (list 'CHOICE x p))))
 
+(defun nss-conjs (p)
+  (if (and (consp p) (eq (car p) 'AND))
+      (append (nss-conjs (cadr p)) (nss-conjs (caddr p)))
+    (list p)))
+
+(defun nss-ex-conjs (p)
+  (if (and (consp p) (eq (car p) 'AND))
+      (multiple-value-bind
+	  (yl1 cl1)
+	  (nss-ex-conjs (cadr p))
+	(multiple-value-bind
+	    (yl2 cl2)
+	    (nss-ex-conjs (caddr p))
+	  (if (intersection yl1 yl2)
+	      (throw 'nss-ex-conjs-fail 'nss-ex-conjs-fail)
+	    (values (append yl1 yl2) (append cl1 cl2)))))
+    (if (and (consp p) (eq (car p) 'EXISTS))
+	(multiple-value-bind
+	    (yl1 cl1)
+	    (nss-ex-conjs (caddr p))
+	  (if (member (cadr p) yl1)
+	      (throw 'nss-ex-conjs-fail 'nss-ex-conjs-fail)
+	    (values (cons (cadr p) yl1) cl1)))
+      (values nil (list p)))))
+  
+(defun classify-setcomprehension (x p)
+  (if (consp p)
+      (case (car p)
+	(|aElementOf|
+	 (if (and (eq (cadr p) x) (not (member x (frees (caddr p)))))
+	     (list 'SEP (caddr p) nil)
+	   (list 'OTHER p)))
+	(|aSubsetOf|
+	 (if (and (eq (cadr p) x) (not (member x (frees (caddr p)))))
+	     (list 'SEPPOWER (caddr p) nil)
+	   (list 'OTHER p)))
+	(AND
+	 (let* ((cl (nss-conjs p))
+		(eltof (find-if #'(lambda (q) (and (consp q) (eq (car q) '|aElementOf|) (eq (cadr q) x) (not (member x (frees (caddr q)))))) cl))
+		(subof (find-if #'(lambda (q) (and (consp q) (eq (car q) '|aSubsetOf|) (eq (cadr q) x) (not (member x (frees (caddr q)))))) cl)))
+	   (if eltof
+	       (list 'SEP (caddr eltof) (remove eltof cl))
+	     (if subof
+		 (list 'SEPPOWER (caddr subof) (remove eltof cl))
+	       (list 'OTHER p)))))
+	(EXISTS
+	 (let ((z
+		(catch 'nss-ex-conjs-fail
+		  (multiple-value-bind
+		      (yl cl)
+		      (nss-ex-conjs p)
+		    (if (member x yl)
+			'nss-ex-conjs-fail
+		      (let ((eqto (find-if #'(lambda (q) (and (consp q) (eq (car q) '=) (eq (cadr q) x) (not (member x (frees (caddr q)))))) cl)))
+			(if (find-if #'(lambda (q) (and (not (eq q eqto)) (member x (frees (caddr q))))) cl)
+			    'nss-ex-conjs-fail
+			  (let ((ybdl nil)
+				(yl2 yl))
+			    (loop while yl2 do
+				  (let* ((y (car yl2))
+					 (ybd (or (find-if #'(lambda (q) (and (consp q) (eq (car q) '|aElementOf|) (eq (cadr q) y) (not (intersection yl2 (frees (caddr q)))))) cl)
+						  (find-if #'(lambda (q) (and (consp q) (eq (car q) '|aSubsetOf|) (eq (cadr q) y) (not (intersection yl2 (frees (caddr q)))))) cl))))
+				    (unless ybd (throw 'nss-ex-conjs-fail 'nss-ex-conjs-fail))
+				    (push (list y ybd) ybdl)
+				    (pop yl2)))
+			    (if (not (member (length ybdl) '(1 2) :test #'equal))
+				(throw 'nss-ex-conjs-fail 'nss-ex-conjs-fail)
+			      (list 'REPLSEP (reverse ybdl) eqto
+				    (set-difference cl (cons eqto (mapcar #'cadr ybdl)) :test #'equal)))))))))))
+	   (if (eq z 'nss-ex-conjs-fail)
+	       (list 'OTHER p)
+	     z)))
+	(t (list 'OTHER p)))
+    (list 'OTHER p)))
+
+(defun conj-props (pl)
+  (if pl
+      (if (cdr pl)
+	  (list 'AND (car pl) (conj-props (cdr pl)))
+	(car pl))
+    '(TRUTH)))
+
 (defun elab-set (m)
   (if (consp m)
       (case (car m)
 	(LAMBDA ; need to turn this into a set level binder somehow
-	 (let ((p (elab-prop (caddr m))))
-	   (format t "LAMBDA: ~S~%" p)
-	   (cond
-	    ((and (consp p)
-		  (eq (car p) '|aElementOf|)
-		  (eq (cadr p) (cadr m))
-		  (not (member (cadr m) (frees (caddr p)))))
-	     (elab-set (caddr p)))
-	    ((and (consp p)
-		  (eq (car p) '|aSubsetOf|)
-		  (eq (cadr p) (cadr m))
-		  (not (member (cadr m) (frees (caddr p)))))
-	     (list '|Power| (elab-set (caddr p))))
-	    ((and (consp p)
-		  (eq (car p) 'AND)
-		  (consp (cadr p))
-		  (eq (caadr p) '|aElementOf|)
-		  (eq (cadr (cadr p)) (cadr m))
-		  (not (member (cadr m) (frees (caddr (cadr p))))))
-	     (list 'SEP (cadr (cadr p)) (elab-set (caddr (cadr p))) (elab-prop (caddr p))))
-	    ((and (consp p)
-		  (eq (car p) 'AND)
-		  (consp (cadr p))
-		  (eq (caadr p) '|aSubsetOf|)
-		  (eq (cadr (cadr p)) (cadr m))
-		  (not (member (cadr m) (frees (caddr (cadr p))))))
-	     (list 'SEP (cadr (cadr p)) (cons '|Power| (elab-set (caddr (cadr p)))) (elab-prop (caddr p))))
-	    (t ; fallback use of choice to choose a set defined by the general comprehension scheme, if there is one
-	     (let ((v (fresh-var)))
-	       (list 'CHOICE (cadr m)
-		     (list 'AND
-			   (list '|aSet| (cadr m))
-			   (list 'FORALL v
-				 (list 'IFF (list '|aElementOf| v (cadr m)) p)))))))))
+	 (let* ((p (elab-prop (caddr m)))
+		(cla (classify-setcomprehension (cadr m) p)))
+	   (case (if (consp cla) (car cla) 'OTHER)
+	     (SEP
+	      (let ((bd (cadr cla))
+		    (cl (caddr cla)))
+		(if cl
+		    (list 'SEP (cadr m) (elab-set bd) (elab-prop (conj-props cl)))
+		  (elab-set bd))))
+	     (SEPPOWER
+	      (let ((bd (cadr cla))
+		    (cl (caddr cla)))
+		(if cl
+		    (list 'SEP (cadr m) (list '|aPowerset| (elab-set bd)) (elab-prop (conj-props cl)))
+		  (list '|aPowerset| (elab-set bd)))))
+	     (REPLSEP
+	      (let* ((ybdl (cadr cla))
+		     (eqto (caddr cla))
+		     (cl (cadddr cla))
+		     (n (length ybdl)))
+		(cond ((= n 1)
+		       (if cl
+			   (list 'REPLSEP (caar ybdl)
+				 (if (eq (caadar ybdl) 'aElementOf)
+				     (elab-set (caddr (cadar ybdl)))
+				   (list '|aPowerset| (elab-set (caddr (cadar ybdl)))))
+				 (elab-set (caddr eqto))
+				 (elab-prop (conj-props cl)))
+			 (list 'REPL (caar ybdl)
+			       (if (eq (caadar ybdl) 'aElementOf)
+				   (elab-set (caddr (cadar ybdl)))
+				 (list '|aPowerset| (elab-set (caddr (cadar ybdl)))))
+			       (elab-set (caddr eqto)))))
+		      ((= n 2)
+		       (if cl
+			   (list 'REPLSEP2 (caar ybdl) (caadr ybdl)
+				 (if (eq (caadar ybdl) 'aElementOf)
+				     (elab-set (caddr (cadar ybdl)))
+				   (list '|aPowerset| (elab-set (caddr (cadar ybdl)))))
+				 (if (eq (caadr (cadr ybdl)) 'aElementOf)
+				     (elab-set (caddr (cadadr ybdl)))
+				   (list '|aPowerset| (elab-set (caddr (cadadr ybdl)))))
+				 (elab-set (caddr eqto))
+				 (elab-prop (conj-props cl)))
+			 (list 'REPL2 (caar ybdl) (caadr ybdl)
+				 (if (eq (caadar ybdl) 'aElementOf)
+				     (elab-set (caddr (cadar ybdl)))
+				   (list '|aPowerset| (elab-set (caddr (cadar ybdl)))))
+				 (if (eq (caadr (cadr ybdl)) 'aElementOf)
+				     (elab-set (caddr (cadadr ybdl)))
+				   (list '|aPowerset| (elab-set (caddr (cadadr ybdl)))))
+				 (elab-set (caddr eqto)))))
+		      (t (break)))))
+	     (t ; fallback use of choice to choose a set defined by the general comprehension scheme, if there is one
+	      (format t "LAMBDA: ~S~%" p)
+	      (let ((v (fresh-var)))
+		(list 'CHOICE (cadr m)
+		      (list 'AND
+			    (list '|aSet| (cadr m))
+			    (list 'FORALL v
+				  (list 'IFF (list '|aElementOf| v (cadr m)) p)))))))))
 	(CHOICE (simplify-choice (cadr m) (elab-prop (caddr m))))
 	(SEP (list 'SEP (cadr m) (elab-set (caddr m)) (elab-prop (cadddr m))))
 	((FORALL EXISTS AND OR IMPLIES IFF =) (throw 'fail (format nil "~d cannot be set" (car m))))
@@ -881,6 +1014,8 @@
     (format g "(*** Generic Header ***)~%")
     (dolist (x *genericbuiltin*)
       (format g "Variable ~d: ~d.~%" (cadr x) (tp-str (caddr x))))
+    (dolist (x *genericaxioms*)
+      (format g "Hypothesis ~d: ~d.~%" (car x) (cadr x)))
     (format g "~%(*** Main ***)~%")
     (let ((fail
 	   (catch 'fail

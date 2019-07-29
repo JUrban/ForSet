@@ -1,34 +1,41 @@
 (*** Generic Header ***)
 Variable aSet: set -> prop.
+Variable aElementOf: set -> set -> prop.
+Variable aPowerset: set -> set.
+Variable Separ: set -> (set -> prop) -> set.
+Variable Replac: set -> (set -> set) -> set.
+Variable Replac2: set -> (set -> set) -> (set -> set -> set) -> set.
+Variable Pair: set -> set -> set.
 Variable aFunction: set -> prop.
 Variable Dom: set -> set.
 Variable funap: set -> set -> set.
 Variable iLess: set -> set -> prop.
+Hypothesis aPowerset_ax: forall X, aSet (aPowerset X) /\ (forall Y, aElementOf Y (aPowerset X) <-> aSet Y /\ forall Z, aElementOf Z Y -> aElementOf Z X).
 
 (*** Main ***)
-Definition aSubsetOf : set -> set -> prop := (fun v1 => (fun xM => ((aSet v1) /\ (forall v2, ((v2 :e v1) -> (v2 :e xM)))))).
-Definition sdtcflbdtrb : set -> set -> set := (fun xf => (fun xM => (some v4:set, ((aSet v4) /\ (forall v6, ((v6 :e v4) <-> (exists v5, ((v5 :e xM) /\ (v4 = (funap xf v5)))))))))).
+Definition aSubsetOf : set -> set -> prop := (fun v1 => (fun xM => ((aSet v1) /\ (forall v2, ((aElementOf v2 v1) -> (aElementOf v2 xM)))))).
+Definition sdtcflbdtrb : set -> set -> set := (fun xf => (fun xM => Replac (aPowerset xM) (fun v5 => (funap xf v5)))).
 Variable aComplexNumber : set -> prop.
-Hypothesis A1: (forall xf, ((aFunction xf) -> ((forall v8, ((v8 :e (Dom xf)) -> (aComplexNumber v8))) /\ (forall v9, ((v9 :e (Dom xf)) -> (aComplexNumber (funap xf v9))))))).
-Hypothesis A2: (forall xM, ((aSet xM) -> (forall v10, ((v10 :e xM) -> (aComplexNumber v10))))).
+Hypothesis A1: (forall xf, ((aFunction xf) -> ((forall v7, ((aElementOf v7 (Dom xf)) -> (aComplexNumber v7))) /\ (forall v8, ((aElementOf v8 (Dom xf)) -> (aComplexNumber (funap xf v8))))))).
+Hypothesis A2: (forall xM, ((aSet xM) -> (forall v9, ((aElementOf v9 xM) -> (aComplexNumber v9))))).
 Variable aRealNumber : set -> prop.
 Variable sbrdtbr : set -> set.
-Hypothesis H7 : (forall xz, ((aComplexNumber xz) -> (forall v12, ((v12 = (sbrdtbr xz)) -> (aRealNumber v12))))).
+Hypothesis H7 : (forall xz, ((aComplexNumber xz) -> (forall v11, ((v11 = (sbrdtbr xz)) -> (aRealNumber v11))))).
 Variable isPositive : set -> prop.
 Variable sdtlsdt : set -> set -> prop.
 Hypothesis A3: (forall xx, (forall xy, (((aRealNumber xx) /\ (aRealNumber xy)) -> ((sdtlsdt xx xy) -> (~ (sdtlsdt xy xx)))))).
 Variable isHolomorphic : set -> prop.
 Variable szBzazlzllpdtcmdtrp : set -> set -> set.
-Hypothesis H13 : (forall xeps, (forall xz, ((((aRealNumber xeps) /\ (isPositive xeps)) /\ (aComplexNumber xz)) -> (forall v13, ((v13 = (szBzazlzllpdtcmdtrp xeps xz)) -> ((aSet v13) /\ (xz :e v13))))))).
-Hypothesis A4: (forall xeps, (forall xz, ((((aRealNumber xeps) /\ (isPositive xeps)) /\ (aComplexNumber xz)) -> (exists v14, ((v14 :e (szBzazlzllpdtcmdtrp xeps xz)) /\ (sdtlsdt (sbrdtbr xz) (sbrdtbr v14))))))).
-Definition isOpen : set -> prop := (fun xM => (forall v15, ((v15 :e xM) -> (exists v16, (((aRealNumber v16) /\ (isPositive v16)) /\ (aSubsetOf (szBzazlzllpdtcmdtrp v16 v15) xM)))))).
+Hypothesis H13 : (forall xeps, (forall xz, ((((aRealNumber xeps) /\ (isPositive xeps)) /\ (aComplexNumber xz)) -> (forall v12, ((v12 = (szBzazlzllpdtcmdtrp xeps xz)) -> ((aSet v12) /\ (aElementOf xz v12))))))).
+Hypothesis A4: (forall xeps, (forall xz, ((((aRealNumber xeps) /\ (isPositive xeps)) /\ (aComplexNumber xz)) -> (exists v13, ((aElementOf v13 (szBzazlzllpdtcmdtrp xeps xz)) /\ (sdtlsdt (sbrdtbr xz) (sbrdtbr v13))))))).
+Definition isOpen : set -> prop := (fun xM => (forall v14, ((aElementOf v14 xM) -> (exists v15, (((aRealNumber v15) /\ (isPositive v15)) /\ (aSubsetOf (szBzazlzllpdtcmdtrp v15 v14) xM)))))).
 Hypothesis A5: (forall xeps, (forall xz, ((((aRealNumber xeps) /\ (isPositive xeps)) /\ (aComplexNumber xz)) -> (isOpen (szBzazlzllpdtcmdtrp xeps xz))))).
-Definition aLocalMaximalPointOf : set -> set -> prop := (fun v17 => (fun xf => ((v17 :e (Dom xf)) /\ (exists v18, (((aRealNumber v18) /\ (isPositive v18)) /\ ((aSubsetOf (szBzazlzllpdtcmdtrp v18 v17) (Dom xf)) /\ (forall v19, ((v19 :e (szBzazlzllpdtcmdtrp v18 v17)) -> (((sbrdtbr (funap xf v19)) = (sbrdtbr (funap xf v17))) \/ (sdtlsdt (sbrdtbr (funap xf v19)) (sbrdtbr (funap xf v17)))))))))))).
-Definition isConstantOn : set -> set -> prop := (fun xf => (fun xU => (exists v20, ((aComplexNumber v20) /\ (forall v21, ((v21 :e xU) -> ((funap xf v21) = v20))))))).
+Definition aLocalMaximalPointOf : set -> set -> prop := (fun v16 => (fun xf => ((aElementOf v16 (Dom xf)) /\ (exists v17, (((aRealNumber v17) /\ (isPositive v17)) /\ ((aSubsetOf (szBzazlzllpdtcmdtrp v17 v16) (Dom xf)) /\ (forall v18, ((aElementOf v18 (szBzazlzllpdtcmdtrp v17 v16)) -> (((sbrdtbr (funap xf v18)) = (sbrdtbr (funap xf v16))) \/ (sdtlsdt (sbrdtbr (funap xf v18)) (sbrdtbr (funap xf v16)))))))))))).
+Definition isConstantOn : set -> set -> prop := (fun xf => (fun xU => (exists v19, ((aComplexNumber v19) /\ (forall v20, ((aElementOf v20 xU) -> ((funap xf v20) = v19))))))).
 Hypothesis A6: (forall xf, (forall xeps, (forall xz, ((((aFunction xf) /\ ((aRealNumber xeps) /\ (isPositive xeps))) /\ (aComplexNumber xz)) -> (((isHolomorphic xf) /\ (aSubsetOf (szBzazlzllpdtcmdtrp xeps xz) (Dom xf))) -> ((~ (isConstantOn xf (szBzazlzllpdtcmdtrp xeps xz))) -> (isOpen (sdtcflbdtrb xf (szBzazlzllpdtcmdtrp xeps xz))))))))).
 Variable aRegion : set -> prop.
-Hypothesis H22 : (forall v22, ((aRegion v22) -> ((aSet v22) /\ (isOpen v22)))).
+Hypothesis H22 : (forall v21, ((aRegion v21) -> ((aSet v21) /\ (isOpen v21)))).
 Hypothesis Identity_Theorem: (forall xf, ((aFunction xf) -> (((isHolomorphic xf) /\ (aRegion (Dom xf))) -> (forall xeps, (forall xz, ((((aRealNumber xeps) /\ (isPositive xeps)) /\ (aComplexNumber xz)) -> ((aSubsetOf (szBzazlzllpdtcmdtrp xeps xz) (Dom xf)) -> ((isConstantOn xf (szBzazlzllpdtcmdtrp xeps xz)) -> (isConstantOn xf (Dom xf)))))))))).
-Theorem Maximum_principle: (forall xf, ((aFunction xf) -> (((isHolomorphic xf) /\ (aRegion (Dom xf))) -> ((exists v23, (aLocalMaximalPointOf v23 xf)) -> (isConstantOn xf (Dom xf)))))).
+Theorem Maximum_principle: (forall xf, ((aFunction xf) -> (((isHolomorphic xf) /\ (aRegion (Dom xf))) -> ((exists v22, (aLocalMaximalPointOf v22 xf)) -> (isConstantOn xf (Dom xf)))))).
 Admitted.
 

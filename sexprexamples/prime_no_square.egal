@@ -1,9 +1,16 @@
 (*** Generic Header ***)
 Variable aSet: set -> prop.
+Variable aElementOf: set -> set -> prop.
+Variable aPowerset: set -> set.
+Variable Separ: set -> (set -> prop) -> set.
+Variable Replac: set -> (set -> set) -> set.
+Variable Replac2: set -> (set -> set) -> (set -> set -> set) -> set.
+Variable Pair: set -> set -> set.
 Variable aFunction: set -> prop.
 Variable Dom: set -> set.
 Variable funap: set -> set -> set.
 Variable iLess: set -> set -> prop.
+Hypothesis aPowerset_ax: forall X, aSet (aPowerset X) /\ (forall Y, aElementOf Y (aPowerset X) <-> aSet Y /\ forall Z, aElementOf Z Y -> aElementOf Z X).
 
 (*** Main ***)
 Variable aRationalNumber : set -> prop.

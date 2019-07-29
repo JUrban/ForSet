@@ -1,23 +1,30 @@
 (*** Generic Header ***)
 Variable aSet: set -> prop.
+Variable aElementOf: set -> set -> prop.
+Variable aPowerset: set -> set.
+Variable Separ: set -> (set -> prop) -> set.
+Variable Replac: set -> (set -> set) -> set.
+Variable Replac2: set -> (set -> set) -> (set -> set -> set) -> set.
+Variable Pair: set -> set -> set.
 Variable aFunction: set -> prop.
 Variable Dom: set -> set.
 Variable funap: set -> set -> set.
 Variable iLess: set -> set -> prop.
+Hypothesis aPowerset_ax: forall X, aSet (aPowerset X) /\ (forall Y, aElementOf Y (aPowerset X) <-> aSet Y /\ forall Z, aElementOf Z Y -> aElementOf Z X).
 
 (*** Main ***)
 Variable aElement : set -> prop.
-Hypothesis EOfElem: (forall xS, ((aSet xS) -> (forall v2, ((v2 :e xS) -> (aElement v2))))).
-Definition isEmpty : set -> prop := (fun xS => (~ (exists v3, (v3 :e xS)))).
-Definition aSubsetOf : set -> set -> prop := (fun v4 => (fun xS => ((aSet v4) /\ (forall v5, ((v5 :e v4) -> (v5 :e xS)))))).
+Hypothesis EOfElem: (forall xS, ((aSet xS) -> (forall v2, ((aElementOf v2 xS) -> (aElement v2))))).
+Definition isEmpty : set -> prop := (fun xS => (~ (exists v3, (aElementOf v3 xS)))).
+Definition aSubsetOf : set -> set -> prop := (fun v4 => (fun xS => ((aSet v4) /\ (forall v5, ((aElementOf v5 v4) -> (aElementOf v5 xS)))))).
 Variable sdtlseqdt : set -> set -> prop.
 Hypothesis ARefl: (forall xx, ((aElement xx) -> (sdtlseqdt xx xx))).
 Hypothesis ASymm: (forall xx, (forall xy, (((aElement xx) /\ (aElement xy)) -> (((sdtlseqdt xx xy) /\ (sdtlseqdt xy xx)) -> (xx = xy))))).
 Hypothesis Trans: (forall xx, (forall xy, (forall xz, ((((aElement xx) /\ (aElement xy)) /\ (aElement xz)) -> (((sdtlseqdt xx xy) /\ (sdtlseqdt xy xz)) -> (sdtlseqdt xx xz)))))).
-Definition aLowerBoundOfIn : set -> set -> set -> prop := (fun v6 => (fun xS => (fun xT => ((v6 :e xT) /\ (forall v7, ((v7 :e xS) -> (sdtlseqdt v6 v7))))))).
-Definition aUpperBoundOfIn : set -> set -> set -> prop := (fun v8 => (fun xS => (fun xT => ((v8 :e xT) /\ (forall v9, ((v9 :e xS) -> (sdtlseqdt v9 v8))))))).
-Definition aInfimumOfIn : set -> set -> set -> prop := (fun v10 => (fun xS => (fun xT => ((v10 :e xT) /\ ((aLowerBoundOfIn v10 xS xT) /\ (forall v11, ((aLowerBoundOfIn v11 xS xT) -> (sdtlseqdt v11 v10)))))))).
-Definition aSupremumOfIn : set -> set -> set -> prop := (fun v12 => (fun xS => (fun xT => ((v12 :e xT) /\ ((aUpperBoundOfIn v12 xS xT) /\ (forall v13, ((aUpperBoundOfIn v13 xS xT) -> (sdtlseqdt v12 v13)))))))).
+Definition aLowerBoundOfIn : set -> set -> set -> prop := (fun v6 => (fun xS => (fun xT => ((aElementOf v6 xT) /\ (forall v7, ((aElementOf v7 xS) -> (sdtlseqdt v6 v7))))))).
+Definition aUpperBoundOfIn : set -> set -> set -> prop := (fun v8 => (fun xS => (fun xT => ((aElementOf v8 xT) /\ (forall v9, ((aElementOf v9 xS) -> (sdtlseqdt v9 v8))))))).
+Definition aInfimumOfIn : set -> set -> set -> prop := (fun v10 => (fun xS => (fun xT => ((aElementOf v10 xT) /\ ((aLowerBoundOfIn v10 xS xT) /\ (forall v11, ((aLowerBoundOfIn v11 xS xT) -> (sdtlseqdt v11 v10)))))))).
+Definition aSupremumOfIn : set -> set -> set -> prop := (fun v12 => (fun xS => (fun xT => ((aElementOf v12 xT) /\ ((aUpperBoundOfIn v12 xS xT) /\ (forall v13, ((aUpperBoundOfIn v13 xS xT) -> (sdtlseqdt v12 v13)))))))).
 Theorem SupUn: (forall xT, ((aSet xT) -> (forall xS, ((aSubsetOf xS xT) -> (forall xu, (forall xv, (((aSupremumOfIn xu xS xT) /\ (aSupremumOfIn xv xS xT)) -> (xu = xv)))))))).
 Admitted.
 
@@ -29,9 +36,9 @@ Hypothesis A1: (forall xf, ((aFunction xf) -> (aSet (Dom xf)))).
 Variable szRzaznlpdtrp : set -> set.
 Hypothesis H24 : (forall xf, ((aFunction xf) -> (forall v18, ((v18 = (szRzaznlpdtrp xf)) -> (aSet v18))))).
 Definition isOn : set -> set -> prop := (fun xf => (fun xS => (((Dom xf) = (szRzaznlpdtrp xf)) /\ ((szRzaznlpdtrp xf) = xS)))).
-Hypothesis ImgSort: (forall xf, ((aFunction xf) -> (forall xx, ((xx :e (Dom xf)) -> ((funap xf xx) :e (szRzaznlpdtrp xf)))))).
-Definition aFixedPointOf : set -> set -> prop := (fun v19 => (fun xf => ((v19 :e (Dom xf)) /\ ((funap xf v19) = v19)))).
-Definition isMonotone : set -> prop := (fun xf => (forall v20, (forall v21, (((v20 :e (Dom xf)) /\ (v21 :e (Dom xf))) -> ((sdtlseqdt v20 v21) -> (sdtlseqdt (funap xf v20) (funap xf v21))))))).
-Theorem Tarski: (forall xU, (forall xf, (((aCompleteLattice xU) /\ ((aFunction xf) /\ ((isMonotone xf) /\ (isOn xf xU)))) -> (forall xS, (((aSet xS) /\ (xS = (some v22:set, ((aSet v22) /\ (forall v23, ((v23 :e v22) <-> (aFixedPointOf v22 xf))))))) -> (aCompleteLattice xS)))))).
+Hypothesis ImgSort: (forall xf, ((aFunction xf) -> (forall xx, ((aElementOf xx (Dom xf)) -> (aElementOf (funap xf xx) (szRzaznlpdtrp xf)))))).
+Definition aFixedPointOf : set -> set -> prop := (fun v19 => (fun xf => ((aElementOf v19 (Dom xf)) /\ ((funap xf v19) = v19)))).
+Definition isMonotone : set -> prop := (fun xf => (forall v20, (forall v21, (((aElementOf v20 (Dom xf)) /\ (aElementOf v21 (Dom xf))) -> ((sdtlseqdt v20 v21) -> (sdtlseqdt (funap xf v20) (funap xf v21))))))).
+Theorem Tarski: (forall xU, (forall xf, (((aCompleteLattice xU) /\ ((aFunction xf) /\ ((isMonotone xf) /\ (isOn xf xU)))) -> (forall xS, (((aSet xS) /\ (xS = (some v22:set, ((aSet v22) /\ (forall v23, ((aElementOf v23 v22) <-> (aFixedPointOf v22 xf))))))) -> (aCompleteLattice xS)))))).
 Admitted.
 

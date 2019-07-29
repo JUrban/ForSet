@@ -1,37 +1,44 @@
 (*** Generic Header ***)
 Variable aSet: set -> prop.
+Variable aElementOf: set -> set -> prop.
+Variable aPowerset: set -> set.
+Variable Separ: set -> (set -> prop) -> set.
+Variable Replac: set -> (set -> set) -> set.
+Variable Replac2: set -> (set -> set) -> (set -> set -> set) -> set.
+Variable Pair: set -> set -> set.
 Variable aFunction: set -> prop.
 Variable Dom: set -> set.
 Variable funap: set -> set -> set.
 Variable iLess: set -> set -> prop.
+Hypothesis aPowerset_ax: forall X, aSet (aPowerset X) /\ (forall Y, aElementOf Y (aPowerset X) <-> aSet Y /\ forall Z, aElementOf Z Y -> aElementOf Z X).
 
 (*** Main ***)
-Definition aSubsetOf : set -> set -> prop := (fun v1 => (fun xM => ((aSet v1) /\ (forall v2, ((v2 :e v1) -> (v2 :e xM)))))).
-Definition sdtbsdt : set -> set -> set := (fun xM => (fun xN => {v4 :e xM | (~ (v4 :e xN))})).
-Definition sdtcflbdtrb : set -> set -> set := (fun xf => (fun xM => (some v6:set, ((aSet v6) /\ (forall v8, ((v8 :e v6) <-> (exists v7, ((v7 :e xM) /\ (v6 = (funap xf v7)))))))))).
+Definition aSubsetOf : set -> set -> prop := (fun v1 => (fun xM => ((aSet v1) /\ (forall v2, ((aElementOf v2 v1) -> (aElementOf v2 xM)))))).
+Definition sdtbsdt : set -> set -> set := (fun xM => (fun xN => Separ xM (fun v4 => (~ (aElementOf v4 xN))))).
+Definition sdtcflbdtrb : set -> set -> set := (fun xf => (fun xM => Replac (aPowerset xM) (fun v7 => (funap xf v7)))).
 Variable aCardinal : set -> prop.
-Hypothesis H5 : (forall v9, ((aCardinal v9) -> (aSet v9))).
+Hypothesis H5 : (forall v8, ((aCardinal v8) -> (aSet v8))).
 Variable sdtlsdt : set -> set -> prop.
 Hypothesis A1: (forall xA, (forall xB, (forall xC, ((((aCardinal xA) /\ (aCardinal xB)) /\ (aCardinal xC)) -> (((sdtlsdt xA xB) /\ (sdtlsdt xB xC)) -> (sdtlsdt xA xC)))))).
 Hypothesis A2: (forall xA, (forall xB, (((aCardinal xA) /\ (aCardinal xB)) -> (((sdtlsdt xA xB) \/ (sdtlsdt xB xA)) \/ (xB = xA))))).
 Variable ttheCardinalityOf : set -> set.
-Hypothesis H10 : (forall xM, ((aSet xM) -> (forall v10, ((v10 = (ttheCardinalityOf xM)) -> (aCardinal v10))))).
+Hypothesis H10 : (forall xM, ((aSet xM) -> (forall v9, ((v9 = (ttheCardinalityOf xM)) -> (aCardinal v9))))).
 Hypothesis Image_Card: (forall xf, ((aFunction xf) -> (forall xM, ((aSubsetOf xM (Dom xf)) -> (((ttheCardinalityOf (sdtcflbdtrb xf xM)) = (ttheCardinalityOf xM)) \/ (sdtlsdt (ttheCardinalityOf (sdtcflbdtrb xf xM)) (ttheCardinalityOf xM))))))).
-Hypothesis A3: (forall xN, (forall xM, (((aSet xN) /\ (aSet xM)) -> ((sdtlsdt (ttheCardinalityOf xN) (ttheCardinalityOf xM)) -> (exists v11, (v11 :e (sdtbsdt xM xN))))))).
-Hypothesis Surj_Exi: (forall xM, (forall xN, (((aSet xM) /\ (aSet xN)) -> ((((ttheCardinalityOf xM) = (ttheCardinalityOf xN)) \/ (sdtlsdt (ttheCardinalityOf xM) (ttheCardinalityOf xN))) -> ((exists v12, (v12 :e xM)) -> (exists v13, ((aFunction v13) /\ ((xN = (Dom v13)) /\ (xM = (sdtcflbdtrb v13 (Dom v13))))))))))).
+Hypothesis A3: (forall xN, (forall xM, (((aSet xN) /\ (aSet xM)) -> ((sdtlsdt (ttheCardinalityOf xN) (ttheCardinalityOf xM)) -> (exists v10, (aElementOf v10 (sdtbsdt xM xN))))))).
+Hypothesis Surj_Exi: (forall xM, (forall xN, (((aSet xM) /\ (aSet xN)) -> ((((ttheCardinalityOf xM) = (ttheCardinalityOf xN)) \/ (sdtlsdt (ttheCardinalityOf xM) (ttheCardinalityOf xN))) -> ((exists v11, (aElementOf v11 xM)) -> (exists v12, ((aFunction v12) /\ ((xN = (Dom v12)) /\ (xM = (sdtcflbdtrb v12 (Dom v12))))))))))).
 Hypothesis A4: (forall xA, ((aCardinal xA) -> ((ttheCardinalityOf xA) = xA))).
-Definition aSequenceOfCardinalsOn : set -> set -> prop := (fun v14 => (fun xD => ((aFunction v14) /\ (((Dom v14) = xD) /\ (forall v15, ((v15 :e xD) -> (aCardinal (funap v14 v15)))))))).
+Definition aSequenceOfCardinalsOn : set -> set -> prop := (fun v13 => (fun xD => ((aFunction v13) /\ (((Dom v13) = xD) /\ (forall v14, ((aElementOf v14 xD) -> (aCardinal (funap v13 v14)))))))).
 Variable szSzuzmzSzeztlpdtcmdtrp : set -> set -> set.
-Hypothesis H22 : (forall xD, ((aSet xD) -> (forall xkappa, ((aSequenceOfCardinalsOn xkappa xD) -> (forall v16, ((v16 = (szSzuzmzSzeztlpdtcmdtrp xkappa xD)) -> (aSet v16))))))).
-Hypothesis Sum_Def: (forall xD, ((aSet xD) -> (forall xkappa, ((aSequenceOfCardinalsOn xkappa xD) -> (forall v17, ((v17 :e (szSzuzmzSzeztlpdtcmdtrp xkappa xD)) <-> (exists v18, (exists v19, (((v19 :e xD) /\ (v18 :e (funap xkappa v19))) /\ (v17 = (v18,v19))))))))))).
+Hypothesis H22 : (forall xD, ((aSet xD) -> (forall xkappa, ((aSequenceOfCardinalsOn xkappa xD) -> (forall v15, ((v15 = (szSzuzmzSzeztlpdtcmdtrp xkappa xD)) -> (aSet v15))))))).
+Hypothesis Sum_Def: (forall xD, ((aSet xD) -> (forall xkappa, ((aSequenceOfCardinalsOn xkappa xD) -> (forall v16, ((aElementOf v16 (szSzuzmzSzeztlpdtcmdtrp xkappa xD)) <-> (exists v17, (exists v18, (((aElementOf v18 xD) /\ (aElementOf v17 (funap xkappa v18))) /\ (v16 = (Pair v17 v18))))))))))).
 Definition szSzuzmlpdtcmdtrp : set -> set -> set := (fun xkappa => (fun xD => (ttheCardinalityOf (szSzuzmzSzeztlpdtcmdtrp xkappa xD)))).
 Variable szPzrzozdzSzeztlpdtcmdtrp : set -> set -> set.
-Hypothesis H29 : (forall xD, ((aSet xD) -> (forall xkappa, ((aSequenceOfCardinalsOn xkappa xD) -> (forall v21, ((v21 = (szPzrzozdzSzeztlpdtcmdtrp xkappa xD)) -> (aSet v21))))))).
-Hypothesis Prod_Def: (forall xD, ((aSet xD) -> (forall xkappa, ((aSequenceOfCardinalsOn xkappa xD) -> (forall v22, ((v22 :e (szPzrzozdzSzeztlpdtcmdtrp xkappa xD)) <-> ((aFunction v22) /\ (((Dom v22) = xD) /\ (forall v23, ((v23 :e xD) -> ((funap v22 v23) :e (funap xkappa v23)))))))))))).
+Hypothesis H29 : (forall xD, ((aSet xD) -> (forall xkappa, ((aSequenceOfCardinalsOn xkappa xD) -> (forall v20, ((v20 = (szPzrzozdzSzeztlpdtcmdtrp xkappa xD)) -> (aSet v20))))))).
+Hypothesis Prod_Def: (forall xD, ((aSet xD) -> (forall xkappa, ((aSequenceOfCardinalsOn xkappa xD) -> (forall v21, ((aElementOf v21 (szPzrzozdzSzeztlpdtcmdtrp xkappa xD)) <-> ((aFunction v21) /\ (((Dom v21) = xD) /\ (forall v22, ((aElementOf v22 xD) -> (aElementOf (funap v21 v22) (funap xkappa v22)))))))))))).
 Definition szPzrzozdlpdtcmdtrp : set -> set -> set := (fun xkappa => (fun xD => (ttheCardinalityOf (szPzrzozdzSzeztlpdtcmdtrp xkappa xD)))).
-Theorem Choice: (forall xD, ((aSet xD) -> (forall xlambda, ((aSequenceOfCardinalsOn xlambda xD) -> ((forall v25, ((v25 :e xD) -> (exists v26, (v26 :e (funap xlambda v25))))) -> (exists v27, (v27 :e (szPzrzozdzSzeztlpdtcmdtrp xlambda xD)))))))).
+Theorem Choice: (forall xD, ((aSet xD) -> (forall xlambda, ((aSequenceOfCardinalsOn xlambda xD) -> ((forall v24, ((aElementOf v24 xD) -> (exists v25, (aElementOf v25 (funap xlambda v24))))) -> (exists v26, (aElementOf v26 (szPzrzozdzSzeztlpdtcmdtrp xlambda xD)))))))).
 Admitted.
 
-Theorem Koenig: (forall xD, ((aSet xD) -> (forall xkappa, (forall xlambda, (((aSequenceOfCardinalsOn xkappa xD) /\ (aSequenceOfCardinalsOn xlambda xD)) -> ((forall v28, ((v28 :e xD) -> (sdtlsdt (funap xkappa v28) (funap xlambda v28)))) -> (sdtlsdt (szSzuzmlpdtcmdtrp xkappa xD) (szPzrzozdlpdtcmdtrp xlambda xD)))))))).
+Theorem Koenig: (forall xD, ((aSet xD) -> (forall xkappa, (forall xlambda, (((aSequenceOfCardinalsOn xkappa xD) /\ (aSequenceOfCardinalsOn xlambda xD)) -> ((forall v27, ((aElementOf v27 xD) -> (sdtlsdt (funap xkappa v27) (funap xlambda v27)))) -> (sdtlsdt (szSzuzmlpdtcmdtrp xkappa xD) (szPzrzozdlpdtcmdtrp xlambda xD)))))))).
 Admitted.
 

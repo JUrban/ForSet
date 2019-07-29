@@ -1,9 +1,16 @@
 (*** Generic Header ***)
 Variable aSet: set -> prop.
+Variable aElementOf: set -> set -> prop.
+Variable aPowerset: set -> set.
+Variable Separ: set -> (set -> prop) -> set.
+Variable Replac: set -> (set -> set) -> set.
+Variable Replac2: set -> (set -> set) -> (set -> set -> set) -> set.
+Variable Pair: set -> set -> set.
 Variable aFunction: set -> prop.
 Variable Dom: set -> set.
 Variable funap: set -> set -> set.
 Variable iLess: set -> set -> prop.
+Hypothesis aPowerset_ax: forall X, aSet (aPowerset X) /\ (forall Y, aElementOf Y (aPowerset X) <-> aSet Y /\ forall Z, aElementOf Z Y -> aElementOf Z X).
 
 (*** Main ***)
 Variable aElement : set -> prop.
@@ -34,19 +41,19 @@ Admitted.
 
 Hypothesis Cancel: (forall xx, (forall xy, (((aElement xx) /\ (aElement xy)) -> (((~ (xx = sz0)) /\ (~ (xy = sz0))) -> (~ ((sdtasdt xx xy) = sz0)))))).
 Hypothesis UnNeZr: (~ (sz1 = sz0)).
-Hypothesis A1: (forall xX, ((aSet xX) -> (forall v7, ((v7 :e xX) -> (aElement v7))))).
-Hypothesis SetEq: (forall xX, (forall xY, (((aSet xX) /\ (aSet xY)) -> (((forall v8, ((v8 :e xX) -> (v8 :e xY))) /\ (forall v9, ((v9 :e xY) -> (v9 :e xX)))) -> (xX = xY))))).
-Definition sdtplqtdt : set -> set -> set := (fun xX => (fun xY => (some v10:set, ((aSet v10) /\ (forall v11, ((aElement v11) -> ((v11 :e v10) <-> (exists v12, ((v12 :e xX) /\ (exists v13, ((v13 :e xY) /\ (v11 = (sdtpldt v12 v13))))))))))))).
-Definition sdtasasdt : set -> set -> set := (fun xX => (fun xY => (some v14:set, ((aSet v14) /\ (forall v15, ((aElement v15) -> ((v15 :e (sdtplqtdt xX xY)) <-> ((v15 :e xX) /\ (v15 :e xY))))))))).
-Definition aIdeal : set -> prop := (fun v16 => ((aSet v16) /\ (forall v17, ((v17 :e v16) -> ((forall v18, ((v18 :e v16) -> ((sdtpldt v17 v18) :e v16))) /\ (forall v19, ((aElement v19) -> ((sdtasdt v19 v17) :e v16)))))))).
+Hypothesis A1: (forall xX, ((aSet xX) -> (forall v7, ((aElementOf v7 xX) -> (aElement v7))))).
+Hypothesis SetEq: (forall xX, (forall xY, (((aSet xX) /\ (aSet xY)) -> (((forall v8, ((aElementOf v8 xX) -> (aElementOf v8 xY))) /\ (forall v9, ((aElementOf v9 xY) -> (aElementOf v9 xX)))) -> (xX = xY))))).
+Definition sdtplqtdt : set -> set -> set := (fun xX => (fun xY => (some v10:set, ((aSet v10) /\ (forall v11, ((aElement v11) -> ((aElementOf v11 v10) <-> (exists v12, ((aElementOf v12 xX) /\ (exists v13, ((aElementOf v13 xY) /\ (v11 = (sdtpldt v12 v13))))))))))))).
+Definition sdtasasdt : set -> set -> set := (fun xX => (fun xY => (some v14:set, ((aSet v14) /\ (forall v15, ((aElement v15) -> ((aElementOf v15 (sdtplqtdt xX xY)) <-> ((aElementOf v15 xX) /\ (aElementOf v15 xY))))))))).
+Definition aIdeal : set -> prop := (fun v16 => ((aSet v16) /\ (forall v17, ((aElementOf v17 v16) -> ((forall v18, ((aElementOf v18 v16) -> (aElementOf (sdtpldt v17 v18) v16))) /\ (forall v19, ((aElement v19) -> (aElementOf (sdtasdt v19 v17) v16)))))))).
 Theorem IdeSum: (forall xI, (forall xJ, (((aIdeal xI) /\ (aIdeal xJ)) -> (aIdeal (sdtplqtdt xI xJ))))).
 Admitted.
 
 Theorem IdeInt: (forall xI, (forall xJ, (((aIdeal xI) /\ (aIdeal xJ)) -> (aIdeal (sdtasasdt xI xJ))))).
 Admitted.
 
-Definition sdteqdtlpzmzozddtrp : set -> set -> set -> prop := (fun xx => (fun xy => (fun xI => ((sdtpldt xx (smndt xy)) :e xI)))).
-Theorem ChineseRemainder: (forall xI, (forall xJ, (((aIdeal xI) /\ (aIdeal xJ)) -> ((forall v20, ((aElement v20) -> (v20 :e (sdtplqtdt xI xJ)))) -> (forall xx, (forall xy, (((aElement xx) /\ (aElement xy)) -> (exists v21, ((aElement v21) /\ ((sdteqdtlpzmzozddtrp v21 xx xI) /\ (sdteqdtlpzmzozddtrp v21 xy xJ))))))))))).
+Definition sdteqdtlpzmzozddtrp : set -> set -> set -> prop := (fun xx => (fun xy => (fun xI => (aElementOf (sdtpldt xx (smndt xy)) xI)))).
+Theorem ChineseRemainder: (forall xI, (forall xJ, (((aIdeal xI) /\ (aIdeal xJ)) -> ((forall v20, ((aElement v20) -> (aElementOf v20 (sdtplqtdt xI xJ)))) -> (forall xx, (forall xy, (((aElement xx) /\ (aElement xy)) -> (exists v21, ((aElement v21) /\ ((sdteqdtlpzmzozddtrp v21 xx xI) /\ (sdteqdtlpzmzozddtrp v21 xy xJ))))))))))).
 Admitted.
 
 Variable aNaturalNumber : set -> prop.
@@ -57,10 +64,10 @@ Definition doDivides : set -> set -> prop := (fun xx => (fun xy => (exists v26, 
 Definition aDivisorOf : set -> set -> prop := (fun v27 => (fun xx => ((aElement v27) /\ (doDivides v27 xx)))).
 Definition aGcdOfAnd : set -> set -> set -> prop := (fun v28 => (fun xx => (fun xy => (((aDivisorOf v28 xx) /\ (aDivisorOf v28 xy)) /\ (forall v29, (((aDivisorOf v29 xx) /\ (aDivisorOf v29 xy)) -> (doDivides v29 v28))))))).
 Definition misRelativelyPrime : set -> set -> prop := (fun xx => (fun xy => (aGcdOfAnd sz1 xx xy))).
-Definition slsdtgt : set -> set := (fun xc => (some v30:set, ((aSet v30) /\ (forall v31, ((aElement v31) -> ((v31 :e v30) <-> (exists v32, ((aElement v32) /\ (v31 = (sdtasdt xc v32)))))))))).
+Definition slsdtgt : set -> set := (fun xc => (some v30:set, ((aSet v30) /\ (forall v31, ((aElement v31) -> ((aElementOf v31 v30) <-> (exists v32, ((aElement v32) /\ (v31 = (sdtasdt xc v32)))))))))).
 Theorem PrIdeal: (forall xc, ((aElement xc) -> (aIdeal (slsdtgt xc)))).
 Admitted.
 
-Theorem GCDin: (forall xa, (forall xb, (((aElement xa) /\ (aElement xb)) -> (((~ (xa = sz0)) \/ (~ (xb = sz0))) -> (forall xc, ((aGcdOfAnd xc xa xb) -> (xc :e (sdtplqtdt (slsdtgt xa) (slsdtgt xb))))))))).
+Theorem GCDin: (forall xa, (forall xb, (((aElement xa) /\ (aElement xb)) -> (((~ (xa = sz0)) \/ (~ (xb = sz0))) -> (forall xc, ((aGcdOfAnd xc xa xb) -> (aElementOf xc (sdtplqtdt (slsdtgt xa) (slsdtgt xb))))))))).
 Admitted.
 
