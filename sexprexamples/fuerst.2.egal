@@ -1,0 +1,80 @@
+(*** Generic Header ***)
+Variable iLess: set -> set -> prop.
+
+(*** Main ***)
+Variable aInteger : set -> prop.
+Variable sz0 : set.
+Hypothesis H1 : (forall v2, ((v2 = sz0) -> (aInteger v2))).
+Variable sz1 : set.
+Hypothesis H2 : (forall v3, ((v3 = sz1) -> (aInteger v3))).
+Variable smndt : set -> set.
+Hypothesis H4 : (forall xa, ((aInteger xa) -> (forall v4, ((v4 = (smndt xa)) -> (aInteger v4))))).
+Variable sdtpldt : set -> set -> set.
+Hypothesis H6 : (forall xa, (forall xb, (((aInteger xa) /\ (aInteger xb)) -> (forall v5, ((v5 = (sdtpldt xa xb)) -> (aInteger v5)))))).
+Variable sdtasdt : set -> set -> set.
+Hypothesis H8 : (forall xa, (forall xb, (((aInteger xa) /\ (aInteger xb)) -> (forall v6, ((v6 = (sdtasdt xa xb)) -> (aInteger v6)))))).
+Hypothesis AddAsso: (forall xa, (forall xb, (forall xc, ((((aInteger xa) /\ (aInteger xb)) /\ (aInteger xc)) -> ((sdtpldt xa (sdtpldt xb xc)) = (sdtpldt (sdtpldt xa xb) xc)))))).
+Hypothesis AddComm: (forall xa, (forall xb, (((aInteger xa) /\ (aInteger xb)) -> ((sdtpldt xa xb) = (sdtpldt xb xa))))).
+Hypothesis AddZero: (forall xa, ((aInteger xa) -> (((sdtpldt xa sz0) = xa) /\ (xa = (sdtpldt sz0 xa))))).
+Hypothesis AddNeg: (forall xa, ((aInteger xa) -> (((sdtpldt xa (smndt xa)) = sz0) /\ (sz0 = (sdtpldt (smndt xa) xa))))).
+Hypothesis MulAsso: (forall xa, (forall xb, (forall xc, ((((aInteger xa) /\ (aInteger xb)) /\ (aInteger xc)) -> ((sdtasdt xa (sdtasdt xb xc)) = (sdtasdt (sdtasdt xa xb) xc)))))).
+Hypothesis MulComm: (forall xa, (forall xb, (((aInteger xa) /\ (aInteger xb)) -> ((sdtasdt xa xb) = (sdtasdt xb xa))))).
+Hypothesis MulOne: (forall xa, ((aInteger xa) -> (((sdtasdt xa sz1) = xa) /\ (xa = (sdtasdt sz1 xa))))).
+Hypothesis Distrib: (forall xa, (forall xb, (forall xc, ((((aInteger xa) /\ (aInteger xb)) /\ (aInteger xc)) -> (((sdtasdt xa (sdtpldt xb xc)) = (sdtpldt (sdtasdt xa xb) (sdtasdt xa xc))) /\ ((sdtasdt (sdtpldt xa xb) xc) = (sdtpldt (sdtasdt xa xc) (sdtasdt xb xc)))))))).
+Theorem MulZero: (forall xa, ((aInteger xa) -> (((sdtasdt xa sz0) = sz0) /\ (sz0 = (sdtasdt sz0 xa))))).
+Admitted.
+
+Theorem MulMinOne: (forall xa, ((aInteger xa) -> (((sdtasdt (smndt sz1) xa) = (smndt xa)) /\ ((smndt xa) = (sdtasdt xa (smndt sz1)))))).
+Admitted.
+
+Hypothesis ZeroDiv: (forall xa, (forall xb, (((aInteger xa) /\ (aInteger xb)) -> (((~ (xa = sz0)) /\ (~ (xb = sz0))) -> (~ ((sdtasdt xa xb) = sz0)))))).
+Definition aDivisorOf : set -> set -> prop := (fun v7 => (fun xb => ((aInteger v7) /\ ((~ (v7 = sz0)) /\ (exists v8, ((aInteger v8) /\ ((sdtasdt v7 v8) = xb))))))).
+Definition sdteqdtlpzmzozddtrp : set -> set -> set -> prop := (fun xa => (fun xb => (fun xq => (aDivisorOf xq (sdtpldt xa (smndt xb)))))).
+Theorem EquModRef: (forall xa, (forall xq, (((aInteger xa) /\ ((aInteger xq) /\ (~ (xq = sz0)))) -> (sdteqdtlpzmzozddtrp xa xa xq)))).
+Admitted.
+
+Theorem EquModSym: (forall xa, (forall xb, (forall xq, ((((aInteger xa) /\ (aInteger xb)) /\ ((aInteger xq) /\ (~ (xq = sz0)))) -> ((sdteqdtlpzmzozddtrp xa xb xq) -> (sdteqdtlpzmzozddtrp xb xa xq)))))).
+Admitted.
+
+Theorem EquModTrn: (forall xa, (forall xb, (forall xq, (forall xc, (((((aInteger xa) /\ (aInteger xb)) /\ ((aInteger xq) /\ (~ (xq = sz0)))) /\ (aInteger xc)) -> (((sdteqdtlpzmzozddtrp xa xb xq) /\ (sdteqdtlpzmzozddtrp xb xc xq)) -> (sdteqdtlpzmzozddtrp xa xc xq))))))).
+Admitted.
+
+Theorem EquModMul: (forall xa, (forall xb, (forall xp, (forall xq, (((((aInteger xa) /\ (aInteger xb)) /\ ((aInteger xp) /\ (~ (xp = sz0)))) /\ ((aInteger xq) /\ (~ (xq = sz0)))) -> ((sdteqdtlpzmzozddtrp xa xb (sdtasdt xp xq)) -> ((sdteqdtlpzmzozddtrp xa xb xp) /\ (sdteqdtlpzmzozddtrp xa xb xq)))))))).
+Admitted.
+
+Variable isPrime : set -> prop.
+Hypothesis PrimeDivisor: (forall xn, ((aInteger xn) -> ((exists v9, ((aDivisorOf v9 xn) /\ (isPrime v9))) <-> ((~ (xn = sz1)) /\ (~ (xn = (smndt sz1))))))).
+Definition aSubsetOf : set -> set -> prop := (fun v10 => (fun xS => ((aSet v10) /\ (forall v11, ((v11 :e v10) -> (v11 :e xS)))))).
+Variable isFinite : set -> prop.
+Definition szIzNzT : set := (some v13:set, ((aSet v13) /\ (forall v14, ((v14 :e v13) <-> (aInteger v13))))).
+Definition sdtbsmnsldt : set -> set -> set := (fun xA => (fun xB => (some v16:set, ((aSet v16) /\ (forall v17, ((v17 :e v16) <-> ((aInteger v16) /\ ((v16 :e xA) \/ (v16 :e xB))))))))).
+Definition sdtslmnbsdt : set -> set -> set := (fun xA => (fun xB => {v19 :e xA | ((aInteger v19) /\ (v19 :e xB))})).
+Definition aFamilyOfIntegerSets : set -> prop := (fun v20 => ((aSet v20) /\ (forall v21, ((v21 :e v20) -> (aSubsetOf v21 szIzNzT))))).
+Definition sbsmnsldt : set -> set := (fun xS => (some v23:set, ((aSet v23) /\ (forall v25, ((v25 :e v23) <-> ((aInteger v23) /\ (exists v24, ((v24 :e xS) /\ (v23 :e v24))))))))).
+Theorem thm1: (forall xS, ((aFamilyOfIntegerSets xS) -> (aSubsetOf (sbsmnsldt xS) szIzNzT))).
+Admitted.
+
+Definition stldt : set -> set := (fun xA => (some v27:set, ((aSet v27) /\ (forall v28, ((v28 :e v27) <-> ((aInteger v27) /\ (~ (v27 :e xA)))))))).
+Theorem thm2: (forall xA, ((aSubsetOf xA szIzNzT) -> (aSubsetOf (stldt xA) szIzNzT))).
+Admitted.
+
+Definition szAzrzSzezqlpdtcmdtrp : set -> set -> set := (fun xa => (fun xq => (some v30:set, ((aSet v30) /\ (forall v31, ((v31 :e v30) <-> ((aInteger v30) /\ (sdteqdtlpzmzozddtrp v30 xa xq)))))))).
+Definition isOpen : set -> prop := (fun xA => (forall v32, ((v32 :e xA) -> (exists v33, (((aInteger v33) /\ (~ (v33 = sz0))) /\ (aSubsetOf (szAzrzSzezqlpdtcmdtrp v32 v33) xA)))))).
+Definition isClosed : set -> prop := (fun xA => (isOpen (stldt xA))).
+Definition aOpenFamily : set -> prop := (fun v34 => ((aFamilyOfIntegerSets v34) /\ (forall v35, ((v35 :e v34) -> (isOpen v35))))).
+Theorem UnionOpen: (forall xS, ((aOpenFamily xS) -> (isOpen (sbsmnsldt xS)))).
+Admitted.
+
+Theorem InterOpen: (forall xA, (forall xB, ((((aSubsetOf xA szIzNzT) /\ (aSubsetOf xB szIzNzT)) /\ ((isOpen xA) /\ (isOpen xB))) -> ((aSubsetOf (sdtslmnbsdt xA xB) szIzNzT) /\ (isOpen (sdtslmnbsdt xA xB)))))).
+Admitted.
+
+Theorem UnionClosed: (forall xA, (forall xB, ((((aSubsetOf xA szIzNzT) /\ (aSubsetOf xB szIzNzT)) /\ ((isClosed xA) /\ (isClosed xB))) -> (isClosed (sdtbsmnsldt xA xB))))).
+Admitted.
+
+Hypothesis UnionSClosed: (forall xS, (((aFamilyOfIntegerSets xS) /\ ((isFinite xS) /\ (forall v36, ((v36 :e xS) -> ((aSubsetOf v36 szIzNzT) /\ (isClosed v36)))))) -> (isClosed (sbsmnsldt xS)))).
+Theorem ArSeqClosed: (forall xa, (forall xq, (((aInteger xa) /\ ((aInteger xq) /\ (~ (xq = sz0)))) -> ((aSubsetOf (szAzrzSzezqlpdtcmdtrp xa xq) szIzNzT) /\ (isClosed (szAzrzSzezqlpdtcmdtrp xa xq)))))).
+Admitted.
+
+Theorem Fuerstenberg: (forall xS, ((aSet xS) -> ((forall v37, ((v37 :e xS) <-> (exists v38, (((aInteger v38) /\ ((~ (v38 = sz0)) /\ (isPrime v38))) /\ (v37 = (szAzrzSzezqlpdtcmdtrp sz0 v38)))))) -> (~ (isFinite xS))))).
+Admitted.
+

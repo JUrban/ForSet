@@ -5,24 +5,10 @@
 
 (defvar *genericbuiltin*
       '(
-	(|aSet| |aSet| ("set" . "prop"))
-	(|aElementOf| |aElementOf| ("set" "set" . "prop"))
-	(|aPowerset| |aPowerset| ("set" . "set"))
-	(|Separ| |Separ| ("set" ("set" . "prop") . "set"))
-	(|Replac| |Replac| ("set" ("set" . "set") . "set"))
-	(|Replac2| |Replac2| ("set" ("set" . "set") ("set" "set" . "set") . "set"))
-;	(|ReplSepar| |ReplSepar| ("set" ("set" . "set") ("set" . "prop") . "set"))
-;	(|ReplSepar2| |ReplSepar2| ("set" ("set" . "set") ("set" "set" . "set") ("set" "set" . "prop") . "set"))
-	(|Pair| |Pair| ("set" "set" . "set"))
-	(|aFunction| |aFunction| ("set" . "prop"))
-	(|szDzozmlpdtrp| |Dom| ("set" . "set"))
-	(|sdtlbdtrb| |funap| ("set" "set" . "set"))
 	(|iLess| |iLess| ("set" "set" . "prop"))
 	))
 
-(defvar *genericaxioms*
-  '(("aPowerset_ax" "forall X, aSet (aPowerset X) /\\ (forall Y, aElementOf Y (aPowerset X) <-> aSet Y /\\ forall Z, aElementOf Z Y -> aElementOf Z X)")))
-
+(defvar *genericaxioms* nil)
 
 (defvar *freshvarcount* 0)
 (defun fresh-var ()
@@ -202,6 +188,7 @@
   (if (consp m)
       (case (car m)
 	(SEP (append (frees (caddr m)) (remove (cadr m) (frees (cadddr m)))))
+	(SIGMA (append (frees (caddr m)) (remove (cadr m) (frees (cadddr m)))))
 	(REPL (append (frees (caddr m)) (remove (cadr m) (frees (cadddr m)))))
 	(REPLSEP (append (frees (caddr m)) (remove (cadr m) (append (frees (cadddr m)) (frees (nth 4 m))))))
 	(REPL2 (append (frees (cadddr m)) (remove (cadr m) (frees (nth 4 m))) (set-difference (frees (nth 5 m)) (list (cadr m) (caddr m)))))
@@ -231,16 +218,19 @@
 	    (case (car m)
 	      (LAMBDA
 	       (format nil "(fun ~d => ~d)" (cadr m) (trm-str (caddr m))))
+	      (SIGMA
+	       (format nil "(Sigma_ ~d :e ~d, ~d)" (cadr m) (trm-str (caddr m)) (trm-str (cadddr m))))
 	      (SEP
-	       (format nil "Separ ~d (fun ~d => ~d)" (trm-str (caddr m)) (cadr m) (trm-str (cadddr m))))
+	       (format nil "{~d :e ~d | ~d}" (cadr m) (trm-str (caddr m)) (trm-str (cadddr m))))
 	      (REPL
-	       (format nil "Replac ~d (fun ~d => ~d)" (trm-str (caddr m)) (cadr m) (trm-str (cadddr m))))
+	       (format nil "{~d | ~d :e ~d}" (trm-str (cadddr m)) (cadr m) (trm-str (caddr m))))
 	      (REPL2
-	       (format nil "Replac2 ~d (fun ~d => ~d) (fun ~d ~d => ~d)" (trm-str (cadddr m)) (cadr m) (trm-str (nth 4 m)) (cadr m) (caddr m) (trm-str (nth 5 m))))
+	       (let ((v (fresh-var)))
+		 (format nil "{(fun ~d ~d : set => ~d) (~d 0) (~d 1) | ~d :e Sigma_ ~d :e ~d, ~d}"
+			 (cadr m) (caddr m) (trm-str (nth 5 m)) v v v (cadr m) (trm-str (nth 3 m)) (trm-str (nth 4 m)))))
 	      (REPLSEP
-	       (format nil "ReplSepar ~d (fun ~d => ~d) (fun ~d => ~d)" (trm-str (caddr m)) (cadr m) (trm-str (cadddr m)) (cadr m) (trm-str (nth 4 m))))
-	      (REPLSEP2
-	       (format nil "ReplSepar2 ~d (fun ~d => ~d) (fun ~d ~d => ~d) (fun ~d ~d => ~d)" (trm-str (cadddr m)) (cadr m) (trm-str (nth 4 m)) (cadr m) (caddr m) (trm-str (nth 5 m)) (cadr m) (caddr m) (trm-str (nth 6 m))))
+	       (format nil "{~d | ~d :e ~d; ~d}" (trm-str (cadddr m)) (cadr m) (trm-str (caddr m)) (trm-str (nth 4 m))))
+	      (REPLSEP2 (throw 'fail 'todo))
 	      (CHOICE
 	       (format nil "(some ~d:set, ~d)" (cadr m) (trm-str (caddr m))))
 	      (FORALL
@@ -262,9 +252,17 @@
 	      (=
 	       (format nil "(~d = ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
 	      (|aElementOf|
-	       (format nil "(aElementOf ~d ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
+	       (format nil "(~d :e ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
+	      (|aPowerset|
+	       (format nil "(Power ~d)" (trm-str (cadr m))))
 	      (|slpdtcmdtrp|
-	       (format nil "(Pair ~d ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
+	       (format nil "(~d,~d)" (trm-str (cadr m)) (trm-str (caddr m))))
+	      (|szDzozmlpdtrp|
+	       (if (cdr m)
+		   (format nil "(Dom~d)" (spine-str (cdr m)))
+		 "Dom"))
+	      (|sdtlbdtrb|
+	       (format nil "(~d ~d)" (trm-str (cadr m)) (trm-str (caddr m))))
 	      (t
 	       (if (cdr m)
 		   (format nil "(~d~d)" (car m) (spine-str (cdr m)))
@@ -443,14 +441,23 @@
 				   (list '|aPowerset| (elab-set (caddr (cadadr ybdl)))))
 				 (elab-set (caddr eqto))
 				 (elab-prop (conj-props cl)))
-			 (list 'REPL2 (caar ybdl) (caadr ybdl)
-				 (if (eq (caadar ybdl) '|aElementOf|)
-				     (elab-set (caddr (cadar ybdl)))
-				   (list '|aPowerset| (elab-set (caddr (cadar ybdl)))))
-				 (if (eq (caadr (cadr ybdl)) '|aElementOf|)
-				     (elab-set (caddr (cadadr ybdl)))
-				   (list '|aPowerset| (elab-set (caddr (cadadr ybdl)))))
-				 (elab-set (caddr eqto)))))
+			 (let ((f (elab-set (caddr eqto))))
+			   (if (equal f (list '|slpdtcmdtrp| (caar ybdl) (caadr ybdl))) ; can be simplified
+			       (let ((bdset1 (if (eq (caadar ybdl) '|aElementOf|)
+						 (elab-set (caddr (cadar ybdl)))
+					       (list '|aPowerset| (elab-set (caddr (cadar ybdl))))))
+				     (bdset2 (if (eq (caadr (cadr ybdl)) '|aElementOf|)
+						 (elab-set (caddr (cadadr ybdl)))
+					       (list '|aPowerset| (elab-set (caddr (cadadr ybdl)))))))
+				 (list 'SIGMA (caar ybdl) bdset1 bdset2))
+			     (list 'REPL2 (caar ybdl) (caadr ybdl)
+				   (if (eq (caadar ybdl) '|aElementOf|)
+				       (elab-set (caddr (cadar ybdl)))
+				     (list '|aPowerset| (elab-set (caddr (cadar ybdl)))))
+				   (if (eq (caadr (cadr ybdl)) '|aElementOf|)
+				       (elab-set (caddr (cadadr ybdl)))
+				     (list '|aPowerset| (elab-set (caddr (cadadr ybdl)))))
+				   f)))))
 		      (t (break)))))
 	     (t ; fallback use of choice to choose a set defined by the general comprehension scheme, if there is one
 	      (format t "LAMBDA: ~S~%" p)

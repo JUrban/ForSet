@@ -187,6 +187,12 @@ Axiom beta0 : forall X : set , forall F : set -> set , forall x : set , x /:e X 
 (* Parameter tuple_p MMSrb3B6FZ15WbrfCy3juMY5aXFwGJTscGvs8rmeo9bwEVV1 *)
 Parameter tuple_p : set->set->prop.
 Axiom tuple_p_4_tuple : forall x y z w:set, tuple_p 4 (x,y,z,w).
+
+(* Parameter Sigma MGNw2qbBL6u6B4yyFAmQMbqdhyHwqynrhYepMxjLsK829eTU*)
+Parameter Sigma : set -> (set -> set) -> set.
+(* Unicode Sigma_ "2211" *)
+Binder+ Sigma_ , := Sigma.
+
 (* Parameter Pi MJpkETdrSTs1ka5JreVM3TLryhJZfjq9E69cXcHoU8Da4Fnp *)
 Parameter Pi : set -> (set -> set) -> set.
 (* Unicode Pi_ "220f" *)
@@ -198,10 +204,11 @@ Definition setexp : set->set->set := fun X Y:set => Pi_ y :e Y, X.
 (* Superscript :^: *)
 Infix :^: 430 left := setexp.
 
-(***
 Definition aSet : set -> prop := fun _ => True.
 Definition aFunction : set -> prop := fun f => tuple_p 3 f /\ f 0 :e f 2 :^: f 1.
 Definition Dom : set -> set := fun f => f 1.
 Definition funap : set -> set -> set := fun f x => f 0 x.
+
+(**
 Definition iLess : set -> set -> prop := fun x y => x :e y.
-***)
+**)

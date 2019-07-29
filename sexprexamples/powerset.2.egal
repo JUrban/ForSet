@@ -1,0 +1,22 @@
+(*** Generic Header ***)
+Variable iLess: set -> set -> prop.
+
+(*** Main ***)
+Hypothesis A1: (forall xf, ((aFunction xf) -> (forall v1, ((v1 :e (Dom xf)) -> (aSet (xf v1)))))).
+Definition aSubsetOf : set -> set -> prop := (fun v2 => (fun xM => ((aSet v2) /\ (forall v3, ((v3 :e v2) -> (v3 :e xM)))))).
+Definition tthePowersetOf : set -> set := (fun xM => (Power xM)).
+Definition doSurjectsOnto : set -> set -> prop := (fun xf => (fun xM => (forall v6, ((v6 :e xM) -> (exists v7, ((v7 :e (Dom xf)) /\ (v6 = (xf v7)))))))).
+Theorem thm1: (forall xM, ((aSet xM) -> (forall v8, (((aFunction v8) /\ ((Dom v8) = xM)) -> (~ (doSurjectsOnto v8 (tthePowersetOf xM))))))).
+let xM.
+assume H5: (aSet xM).
+apply NNPP. assume H6.
+claim L1: (exists xf, ((aFunction xf) /\ (((Dom xf) = xM) /\ (doSurjectsOnto xf (tthePowersetOf xM))))).
+admit.
+apply L1. let xf. assume H7.
+claim L2: (exists xN, ((aSet xN) /\ (xN = {v9 :e xM | (~ (v9 :e (xf v9)))}))).
+admit.
+apply L2. let xN. assume H8.
+claim H9: (forall v10, ((v10 :e xM) -> (~ (xN = (xf v10))))).
+admit.
+admit.
+Qed.
