@@ -1,3 +1,5 @@
+First version using abstract notions as much as possible:
+
 (load "sexplogreader.lisp")
 
 (setq *skipproofs* nil)
@@ -21,3 +23,29 @@ egal -ind IndexJune2014 -I EgalPreamble.egal Maximum_principle.egal
 egal -ind IndexJune2014 -I EgalPreamble.egal newman.egal
 egal -ind IndexJune2014 -I EgalPreamble.egal prime_no_square.egal
 egal -ind IndexJune2014 -I EgalPreamble.egal regular_successor.egal
+
+Second version relying on Egal's library when possible:
+
+(load "sexplogreader2.lisp")
+
+(setq *skipproofs* nil)
+(nss-to-egal "powerset.lisp" "powerset.2.egal")
+(setq *skipproofs* t)
+(nss-to-egal "tarski.lisp" "tarski.2.egal")
+(nss-to-egal "chinese.lisp" "chinese.2.egal")
+(nss-to-egal "fuerst.lisp" "fuerst.2.egal")
+(nss-to-egal "Koenigs_lemma.lisp" "Koenigs_lemma.2.egal")
+(nss-to-egal "Maximum_principle.lisp" "Maximum_principle.2.egal")
+(nss-to-egal "newman.lisp" "newman.2.egal")
+(nss-to-egal "prime_no_square.lisp" "prime_no_square.2.egal")
+(nss-to-egal "regular_successor.lisp" "regular_successor.2.egal")
+
+egal -ind IndexJune2014 -I EgalPreamble.2.egal powerset.2.egal
+egal -ind IndexJune2014 -I EgalPreamble.2.egal tarski.2.egal
+egal -ind IndexJune2014 -I EgalPreamble.2.egal chinese.2.egal
+egal -ind IndexJune2014 -I EgalPreamble.2.egal fuerst.2.egal
+egal -ind IndexJune2014 -I EgalPreamble.2.egal Koenigs_lemma.2.egal
+egal -ind IndexJune2014 -I EgalPreamble.2.egal Maximum_principle.2.egal
+egal -ind IndexJune2014 -I EgalPreamble.2.egal newman.2.egal
+egal -ind IndexJune2014 -I EgalPreamble.2.egal prime_no_square.2.egal
+egal -ind IndexJune2014 -I EgalPreamble.2.egal regular_successor.2.egal
