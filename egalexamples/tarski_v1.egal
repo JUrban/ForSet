@@ -1,0 +1,433 @@
+(** ported by hand from Naproche-SAD/examples/tarski.ftl to egal **)
+(** attempting to faithfully follow the tarski.ftl version, within reason,
+    and adding a part at the end to "package" complete lattices as sets. **)
+
+Definition fixed_point : set -> set -> prop := fun f x => f x = x.
+
+Section Poset.
+
+Variable Elt: set -> prop.
+
+Variable Leq: set -> set -> prop.
+Infix <= 400 := Leq.
+
+Definition Refl: prop := forall x, Elt x -> x <= x.
+Hypothesis HRefl: Refl.
+
+Definition ASymm: prop := forall x y, Elt x -> Elt y -> x <= y -> y <= x -> x = y.
+Hypothesis HASymm: ASymm.
+
+Definition Trans: prop := forall x y z, Elt x -> Elt y -> Elt z -> x <= y -> y <= z -> x <= z.
+Hypothesis HTrans: Trans.
+
+(** Definition MetaPoset : set -> prop := Refl /\ ASymm /\ Trans. **)
+
+Section CompleteLattice.
+
+Variable S T:set.
+Hypothesis SElt: forall x :e S, Elt x.
+Hypothesis TElt: forall x :e T, Elt x.
+Hypothesis ST: S c= T.
+
+Definition a_lower_bound: set -> prop := fun u => u :e T /\ forall x :e S, u <= x.
+Definition an_upper_bound: set -> prop := fun u => u :e T /\ forall x :e S, x <= u.
+Definition an_inf: set -> prop := fun u => u :e T /\ a_lower_bound u /\ forall v, a_lower_bound v -> v <= u.
+Definition a_sup: set -> prop := fun u => u :e T /\ an_upper_bound u /\ forall v, an_upper_bound v -> u <= v.
+
+Lemma SupUn: forall u v, a_sup u -> a_sup v -> u = v.
+let u v. assume Hu. assume Hv.
+apply Hu. assume Hu12. apply Hu12.
+assume Hu1: u :e T.
+assume Hu2: an_upper_bound u.
+assume Hu3: forall w, an_upper_bound w -> u <= w.
+apply Hv. assume Hv12. apply Hv12.
+assume Hv1: v :e T.
+assume Hv2: an_upper_bound v.
+assume Hv3: forall w, an_upper_bound w -> v <= w.
+claim Luv: u <= v.
+{ apply Hu3. exact Hv2. }
+claim Lvu: v <= u.
+{ apply Hv3. exact Hu2. }
+apply HASymm.
+- exact (TElt u Hu1).
+- exact (TElt v Hv1).
+- exact Luv.
+- exact Lvu.
+Qed.
+
+Lemma InfUn: forall u v, an_inf u -> an_inf v -> u = v.
+let u v. assume Hu. assume Hv.
+apply Hu. assume Hu12. apply Hu12.
+assume Hu1: u :e T.
+assume Hu2: a_lower_bound u.
+assume Hu3: forall w, a_lower_bound w -> w <= u.
+apply Hv. assume Hv12. apply Hv12.
+assume Hv1: v :e T.
+assume Hv2: a_lower_bound v.
+assume Hv3: forall w, a_lower_bound w -> w <= v.
+claim Luv: u <= v.
+{ apply Hv3. exact Hu2. }
+claim Lvu: v <= u.
+{ apply Hu3. exact Hv2. }
+apply HASymm.
+- exact (TElt u Hu1).
+- exact (TElt v Hv1).
+- exact Luv.
+- exact Lvu.
+Qed.
+
+End CompleteLattice.
+
+Definition MetaCompleteLattice : set -> prop :=
+  fun S => (forall x :e S, Elt x) /\
+  forall S' c= S, (exists u, an_inf S' S u) /\ (exists v, a_sup S' S v).
+
+(** Since this definition is in the Poset section, it unfortunately depends on Leq. **)
+Definition Meta_on : (set -> set) -> set -> prop := fun f D => (forall x :e D, f x :e D).
+
+Definition Meta_monotone : (set -> set) -> set -> prop := fun f D => forall x y :e D, x <= y -> f x <= f y.
+
+Section MetaKnasterTarski.
+
+Variable U:set.
+Hypothesis HU: MetaCompleteLattice U.
+Variable f:set -> set.
+Hypothesis Hf1: Meta_on f U.
+Hypothesis Hf2: Meta_monotone f U.
+Let S := {x :e U | f x = x}.
+
+Theorem MetaKnasterTarski: MetaCompleteLattice S.
+prove (forall x :e S, Elt x) /\ forall S' c= S, (exists u, an_inf S' S u) /\ (exists v, a_sup S' S v).
+apply HU.
+assume HU1: forall x :e U, Elt x.
+assume HU2: forall S' c= U, (exists u, an_inf S' U u) /\ (exists v, a_sup S' U v).
+claim LSU: S c= U.
+{ exact Sep_Subq U (fun x => f x = x). }
+apply andI.
+- prove forall x :e S, Elt x.
+  let x. assume Hx. apply HU1. exact SepE1 U (fun x => f x = x) x Hx.
+- let T. assume HT: T c= S.
+  claim Lsup: exists v, a_sup T S v.
+  { set P := { x :e U | f x <= x /\ an_upper_bound T U x }.
+    claim L1: P c= U.
+    { apply Sep_Subq. }
+    claim L2: exists p, an_inf P U p.
+    { apply HU2 P L1. exact (fun H _ => H). }
+    apply L2. let p. assume Hp: an_inf P U p.
+    apply Hp. assume Hp12. apply Hp12.
+    assume Hp1: p :e U.
+    assume Hp2: a_lower_bound P U p.
+    assume Hp3: forall v, a_lower_bound P U v -> v <= p.
+    apply Hp2.
+    assume _.
+    assume Hp2b: forall x :e P, p <= x.
+    claim L3: a_lower_bound P U p.
+    { prove p :e U /\ forall x :e P, p <= x.
+      apply andI.
+      - exact Hp1.
+      - exact Hp2b.
+    }
+    claim L4: an_upper_bound T U p.
+    { prove p :e U /\ forall x :e T, x <= p.
+      apply andI.
+      - exact Hp1.
+      - let x. assume Hx: x :e T. prove x <= p.
+        claim HxS: x :e S.
+	{ exact HT x Hx. }
+        apply SepE U (fun x => f x = x) x HxS.
+	assume HxU: x :e U.
+	assume _.
+        apply Hp3.
+	prove a_lower_bound P U x.
+	prove x :e U /\ forall y :e P, x <= y.
+	apply andI.
+	+ exact HxU.
+	+ let y. assume Hy: y :e P.
+          apply SepE U (fun x => f x <= x /\ an_upper_bound T U x) y Hy.
+	  assume HyU: y :e U.
+	  assume Hy23. apply Hy23.
+	  assume Hy2: f y <= y.
+	  assume Hy3: an_upper_bound T U y.
+	  prove x <= y.
+	  apply Hy3.
+	  assume _.
+	  assume Hy3b: forall z :e T, z <= y.
+	  apply Hy3b.
+	  exact Hx.
+    }
+    claim L5: f p = p.
+    { claim L5a: f p <= p.
+      { apply Hp3.
+        prove a_lower_bound P U (f p).
+	prove f p :e U /\ forall x :e P, f p <= x.
+	apply andI.
+	- exact Hf1 p Hp1.
+	- let x. assume Hx: x :e P.
+	  apply SepE U (fun x => f x <= x /\ an_upper_bound T U x) x Hx.
+	  assume HxU: x :e U.
+	  assume Hx23: f x <= x /\ an_upper_bound T U x.
+	  apply Hx23.
+	  assume Hx2: f x <= x.
+	  assume Hx3: an_upper_bound T U x.
+	  prove f p <= x.
+	  apply HTrans (f p) (f x) x (HU1 (f p) (Hf1 p Hp1)) (HU1 (f x) (Hf1 x HxU)) (HU1 x HxU).
+	  + prove f p <= f x. apply Hf2 p Hp1 x HxU.
+	    prove p <= x. apply L3. assume _ L3b.
+	    apply L3b.
+	    prove x :e P.
+	    exact Hx.
+	  + exact Hx2.
+      }
+      apply HASymm (f p) p (HU1 (f p) (Hf1 p Hp1)) (HU1 p Hp1).
+      - prove f p <= p. exact L5a.
+      - prove p <= f p. apply Hp2b.
+        prove f p :e P.
+	apply SepI.
+	+ prove f p :e U. exact Hf1 p Hp1.
+	+ prove f (f p) <= f p /\ an_upper_bound T U (f p).
+	  apply andI.
+	  * prove f (f p) <= f p. apply Hf2 (f p) (Hf1 p Hp1) p Hp1.
+	    prove f p <= p.
+	    exact L5a.
+	  * { prove an_upper_bound T U (f p).
+	      prove f p :e U /\ forall x :e T, x <= f p.
+	      apply andI.
+	      - exact Hf1 p Hp1.
+	      - let x. assume Hx: x :e T. prove x <= f p.
+	      	claim HxS: x :e S.
+		{ exact HT x Hx. }
+                apply SepE U (fun x => f x = x) x HxS.
+		assume HxU: x :e U.
+		assume Hxfp: f x = x.
+	        apply HTrans x (f x) (f p) (HU1 x HxU) (HU1 (f x) (Hf1 x HxU)) (HU1 (f p) (Hf1 p Hp1)).
+	        + prove x <= f x. rewrite Hxfp. exact HRefl x (HU1 x HxU).
+		+ prove f x <= f p. apply Hf2 x HxU p Hp1.
+		  prove x <= p.
+		  apply L4. assume _ L4b.
+		  apply L4b.
+		  exact Hx.
+            }
+    }
+    claim L6: p :e S.
+    { prove p :e {x :e U | f x = x}.
+      apply SepI.
+      - prove p :e U. exact Hp1.
+      - prove f p = p. exact L5.
+    }
+    witness p.
+    prove a_sup T S p.
+    prove p :e S /\ an_upper_bound T S p /\ forall v, an_upper_bound T S v -> p <= v.
+    apply and3I.
+    - exact L6.
+    - prove an_upper_bound T S p.
+      prove p :e S /\ forall x :e T, x <= p.
+      apply andI.
+      + exact L6.
+      + apply L4. exact (fun _ H => H).
+    - prove forall v, an_upper_bound T S v -> p <= v.
+      let v.
+      assume H3: v :e S /\ forall x :e T, x <= v.
+      claim LvP: v :e P.
+      { apply H3.
+        assume Hv: v :e S.
+        assume H4: forall x :e T, x <= v.
+	apply SepE U (fun x => f x = x) v Hv.
+	assume HvU: v :e U.
+	assume Hvfp: f v = v.
+	apply SepI.
+	- prove v :e U. exact HvU.
+	- prove f v <= v /\ an_upper_bound T U v.
+	  apply andI.
+          + prove f v <= v.
+	    rewrite Hvfp.
+	    apply HRefl.
+	    apply HU1.
+	    exact HvU.
+	  + prove v :e U /\ forall x :e T, x <= v.
+	    apply andI.
+	    * exact HvU.
+	    * exact H4.
+      }
+      prove p <= v.
+      exact Hp2b v LvP.
+  }
+  claim Linf: exists u, an_inf T S u.
+  { set P := { x :e U | x <= f x /\ a_lower_bound T U x }.
+    claim L1: P c= U.
+    { apply Sep_Subq. }
+    claim L2: exists p, a_sup P U p.
+    { apply HU2 P L1. exact (fun _ H => H). }
+    apply L2. let p. assume Hp: a_sup P U p.
+    apply Hp. assume Hp12. apply Hp12.
+    assume Hp1: p :e U.
+    assume Hp2: an_upper_bound P U p.
+    assume Hp3: forall v, an_upper_bound P U v -> p <= v.
+    apply Hp2.
+    assume _.
+    assume Hp2b: forall x :e P, x <= p.
+    claim L3: an_upper_bound P U p.
+    { prove p :e U /\ forall x :e P, x <= p.
+      apply andI.
+      - exact Hp1.
+      - exact Hp2b.
+    }
+    claim L4: a_lower_bound T U p.
+    { prove p :e U /\ forall x :e T, p <= x.
+      apply andI.
+      - exact Hp1.
+      - let x. assume Hx: x :e T. prove p <= x.
+        claim HxS: x :e S.
+	{ exact HT x Hx. }
+        apply SepE U (fun x => f x = x) x HxS.
+	assume HxU: x :e U.
+	assume _.
+        apply Hp3.
+	prove an_upper_bound P U x.
+	prove x :e U /\ forall y :e P, y <= x.
+	apply andI.
+	+ exact HxU.
+	+ let y. assume Hy: y :e P.
+          apply SepE U (fun x => x <= f x /\ a_lower_bound T U x) y Hy.
+	  assume HyU: y :e U.
+	  assume Hy23. apply Hy23.
+	  assume Hy2: y <= f y.
+	  assume Hy3: a_lower_bound T U y.
+	  prove y <= x.
+	  apply Hy3.
+	  assume _.
+	  assume Hy3b: forall z :e T, y <= z.
+	  apply Hy3b.
+	  exact Hx.
+    }
+    claim L5: f p = p.
+    { claim L5a: p <= f p.
+      { apply Hp3.
+        prove an_upper_bound P U (f p).
+	prove f p :e U /\ forall x :e P, x <= f p.
+	apply andI.
+	- exact Hf1 p Hp1.
+	- let x. assume Hx: x :e P.
+	  apply SepE U (fun x => x <= f x /\ a_lower_bound T U x) x Hx.
+	  assume HxU: x :e U.
+	  assume Hx23: x <= f x /\ a_lower_bound T U x.
+	  apply Hx23.
+	  assume Hx2: x <= f x.
+	  assume Hx3: a_lower_bound T U x.
+	  prove x <= f p.
+	  apply HTrans x (f x) (f p) (HU1 x HxU) (HU1 (f x) (Hf1 x HxU)) (HU1 (f p) (Hf1 p Hp1)).
+	  + exact Hx2.
+	  + prove f x <= f p. apply Hf2 x HxU p Hp1.
+	    prove x <= p. apply L3. assume _ L3b.
+	    apply L3b.
+	    prove x :e P.
+	    exact Hx.
+      }
+      apply HASymm (f p) p (HU1 (f p) (Hf1 p Hp1)) (HU1 p Hp1).
+      - prove f p <= p. apply Hp2b.
+        prove f p :e P.
+	apply SepI.
+	+ prove f p :e U. exact Hf1 p Hp1.
+	+ prove f p <= f (f p) /\ a_lower_bound T U (f p).
+	  apply andI.
+	  * prove f p <= f (f p). apply Hf2 p Hp1 (f p) (Hf1 p Hp1).
+	    prove p <= f p.
+	    exact L5a.
+	  * { prove a_lower_bound T U (f p).
+	      prove f p :e U /\ forall x :e T, f p <= x.
+	      apply andI.
+	      - exact Hf1 p Hp1.
+	      - let x. assume Hx: x :e T. prove f p <= x.
+	      	claim HxS: x :e S.
+		{ exact HT x Hx. }
+                apply SepE U (fun x => f x = x) x HxS.
+		assume HxU: x :e U.
+		assume Hxfp: f x = x.
+	        apply HTrans (f p) (f x) x (HU1 (f p) (Hf1 p Hp1)) (HU1 (f x) (Hf1 x HxU)) (HU1 x HxU).
+		+ prove f p <= f x. apply Hf2 p Hp1 x HxU.
+		  prove p <= x.
+		  apply L4. assume _ L4b.
+		  apply L4b.
+		  exact Hx.
+	        + prove f x <= x. rewrite Hxfp. exact HRefl x (HU1 x HxU).
+            }
+      - prove p <= f p. exact L5a.
+    }
+    claim L6: p :e S.
+    { prove p :e {x :e U | f x = x}.
+      apply SepI.
+      - prove p :e U. exact Hp1.
+      - prove f p = p. exact L5.
+    }
+    witness p.
+    prove an_inf T S p.
+    prove p :e S /\ a_lower_bound T S p /\ forall v, a_lower_bound T S v -> v <= p.
+    apply and3I.
+    - exact L6.
+    - prove a_lower_bound T S p.
+      prove p :e S /\ forall x :e T, p <= x.
+      apply andI.
+      + exact L6.
+      + apply L4. exact (fun _ H => H).
+    - prove forall v, a_lower_bound T S v -> v <= p.
+      let v.
+      assume H3: v :e S /\ forall x :e T, v <= x.
+      claim LvP: v :e P.
+      { apply H3.
+        assume Hv: v :e S.
+        assume H4: forall x :e T, v <= x.
+	apply SepE U (fun x => f x = x) v Hv.
+	assume HvU: v :e U.
+	assume Hvfp: f v = v.
+	apply SepI.
+	- prove v :e U. exact HvU.
+	- prove v <= f v /\ a_lower_bound T U v.
+	  apply andI.
+          + prove v <= f v.
+	    rewrite Hvfp.
+	    apply HRefl.
+	    apply HU1.
+	    exact HvU.
+	  + prove v :e U /\ forall x :e T, v <= x.
+	    apply andI.
+	    * exact HvU.
+	    * exact H4.
+      }
+      prove v <= p.
+      exact Hp2b v LvP.
+  }
+  apply andI.
+  + exact Linf.
+  + exact Lsup.
+Qed.
+
+End MetaKnasterTarski.
+
+End Poset.
+
+(** This is the end of the part that closely follows tarski.ftl **)
+(** The rest is to reasonably package the information in a way that could be used outside the section above. **)
+
+(** A Poset is a pair (T,<=) where <= is most easily used as Leq:set->set->prop,
+    but is secretly packaged as {(x,y) | x :e T, y :e T, Leq x y} in the second component.
+    **)
+Definition Poset : set -> prop := fun P =>
+  struct_r P /\
+  unpack_r prop P
+    (fun T Leq => Refl (fun x => x :e T) Leq /\ ASymm (fun x => x :e T) Leq /\ Trans (fun x => x :e T) Leq).
+
+(** A complete lattice is a poset that unpacks to be a "meta complete lattice" as defined above. **)
+(** Note that when using MetaCompleteLattice,
+  T plays the role of both the class of "elements"
+  and as the underlying set of the lattice. **)
+Definition CompleteLattice : set -> prop := fun L =>
+  Poset L /\
+  unpack_r prop L
+    (fun T Leq => MetaCompleteLattice (fun x => x :e T) Leq T).
+
+Theorem KnasterTarski: forall L, CompleteLattice L ->
+  unpack_r prop L
+   (fun T Leq =>
+     forall f:set -> set, Meta_on (fun x => x :e T) Leq f T -> Meta_monotone (fun x => x :e T) Leq f T ->
+     forall S, S = {x :e T|f x = x} -> CompleteLattice (pack_r S Leq)).
+admit.
+Qed.

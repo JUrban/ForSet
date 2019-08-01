@@ -1,0 +1,3 @@
+egal -ind IndexJune2014 -indout Index2019 -I EgalPreamble.egal Extras2019.egal
+
+egal -ind Index2019 -I EgalPreamble2019.egal tarski_v1.egal
