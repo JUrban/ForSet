@@ -226,6 +226,7 @@ Parameter unpack_r_1 : set -> set -> set -> prop.
 (* Parameter struct_r MKRobQhSXJRf2zS2wcrh4SZDgAF8cbuPpPVQbsbqE5QXjBiU *)
 Parameter struct_r : set -> prop.
 
+Axiom pack_r_eq : forall X, forall R R':set -> set -> prop, (forall x y :e X, R x y <-> R' x y) -> pack_r X R = pack_r X R'.
 Axiom pack_struct_r: forall X, forall R:set -> set -> prop, struct_r (pack_r X R).
 Axiom struct_r_eta: forall S, struct_r S -> S = pack_r (S 0) (unpack_r_1 S).
 

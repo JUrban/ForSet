@@ -1,0 +1,120 @@
+(** ported by hand from Naproche-SAD/examples/tarski.ftl to egal **)
+(** attempting to faithfully follow the tarski.ftl version, within reason,
+    and adding a part at the end to "package" complete lattices as sets. **)
+(** This version omits the proofs and omits some lemmas. The full proofs are in tarski_v1.egal **)
+
+Definition fixed_point : set -> set -> prop := fun f x => f x = x.
+
+Section Poset.
+
+Variable Elt: set -> prop.
+
+Variable Leq: set -> set -> prop.
+Infix <= 400 := Leq.
+
+Definition Refl: prop := forall x, Elt x -> x <= x.
+Hypothesis HRefl: Refl.
+
+Definition ASymm: prop := forall x y, Elt x -> Elt y -> x <= y -> y <= x -> x = y.
+Hypothesis HASymm: ASymm.
+
+Definition Trans: prop := forall x y z, Elt x -> Elt y -> Elt z -> x <= y -> y <= z -> x <= z.
+Hypothesis HTrans: Trans.
+
+(** Definition MetaPoset : set -> prop := Refl /\ ASymm /\ Trans. **)
+
+Section CompleteLattice.
+
+Variable S T:set.
+Hypothesis SElt: forall x :e S, Elt x.
+Hypothesis TElt: forall x :e T, Elt x.
+Hypothesis ST: S c= T.
+
+Definition a_lower_bound: set -> prop := fun u => u :e T /\ forall x :e S, u <= x.
+Definition an_upper_bound: set -> prop := fun u => u :e T /\ forall x :e S, x <= u.
+Definition an_inf: set -> prop := fun u => u :e T /\ a_lower_bound u /\ forall v, a_lower_bound v -> v <= u.
+Definition a_sup: set -> prop := fun u => u :e T /\ an_upper_bound u /\ forall v, an_upper_bound v -> u <= v.
+
+Lemma SupUn: forall u v, a_sup u -> a_sup v -> u = v.
+Admitted.
+
+Lemma InfUn: forall u v, an_inf u -> an_inf v -> u = v.
+Admitted.
+
+End CompleteLattice.
+
+Definition MetaCompleteLattice : set -> prop :=
+  fun S => (forall x :e S, Elt x) /\
+  forall S' c= S, (exists u, an_inf S' S u) /\ (exists v, a_sup S' S v).
+
+(** Since this definition is in the Poset section, it unfortunately depends on Leq. **)
+Definition Meta_on : (set -> set) -> set -> prop := fun f D => (forall x :e D, f x :e D).
+
+Definition Meta_monotone : (set -> set) -> set -> prop := fun f D => forall x y :e D, x <= y -> f x <= f y.
+
+Section MetaKnasterTarski.
+
+Variable U:set.
+Hypothesis HU: MetaCompleteLattice U.
+Variable f:set -> set.
+Hypothesis Hf1: Meta_on f U.
+Hypothesis Hf2: Meta_monotone f U.
+Let S := {x :e U | f x = x}.
+
+Theorem MetaKnasterTarski: MetaCompleteLattice S.
+prove (forall x :e S, Elt x) /\ forall S' c= S, (exists u, an_inf S' S u) /\ (exists v, a_sup S' S v).
+Admitted.
+
+End MetaKnasterTarski.
+
+End Poset.
+
+(** This is the end of the part that closely follows tarski.ftl **)
+(** The rest is to reasonably package the information in a way that could be used outside the section above. **)
+
+(** A Poset is a pair (T,<=) where <= is most easily used as Leq:set->set->prop,
+    but is secretly packaged as {(x,y) | x :e T, y :e T, Leq x y} in the second component.
+    **)
+Definition Poset : set -> prop := fun P =>
+  struct_r P /\
+  unpack_r prop P
+    (fun T Leq => Refl (fun x => x :e T) Leq /\ ASymm (fun x => x :e T) Leq /\ Trans (fun x => x :e T) Leq).
+
+Theorem Poset_equiv : forall P,
+  Poset P <-> exists T, exists Leq:set -> set -> prop,
+                     P = pack_r T Leq
+		  /\ Refl (fun x => x :e T) Leq
+		  /\ ASymm (fun x => x :e T) Leq
+		  /\ Trans (fun x => x :e T) Leq.
+Admitted.
+
+(** A complete lattice is a poset that unpacks to be a "meta complete lattice" as defined above. **)
+(** Note that when using MetaCompleteLattice,
+  T plays the role of both the class of "elements"
+  and as the underlying set of the lattice. **)
+Definition CompleteLattice : set -> prop := fun L =>
+  Poset L /\
+  unpack_r prop L
+    (fun T Leq => MetaCompleteLattice (fun x => x :e T) Leq T).
+
+Theorem CompleteLattice_equiv : forall L,
+  CompleteLattice L <->
+     exists T, exists Leq:set -> set -> prop,
+          L = pack_r T Leq /\ Poset L
+          /\ (forall S c= T, exists u, an_inf (fun x => x :e T) Leq S T u)
+          /\ (forall S c= T, exists v, a_sup (fun x => x :e T) Leq S T v).
+Admitted.
+
+Theorem KnasterTarski_a: forall L, CompleteLattice L ->
+  forall T, forall Leq:set -> set -> prop,
+  L = pack_r T Leq ->
+  forall f:set -> set, Meta_on (fun x => x :e T) Leq f T -> Meta_monotone (fun x => x :e T) Leq f T ->
+  forall S, S = {x :e T|f x = x} -> CompleteLattice (pack_r S Leq).
+Admitted.
+
+Theorem KnasterTarski_b: forall L, CompleteLattice L ->
+  unpack_r prop L
+   (fun T Leq =>
+     forall f:set -> set, Meta_on (fun x => x :e T) Leq f T -> Meta_monotone (fun x => x :e T) Leq f T ->
+     forall S, S = {x :e T|f x = x} -> CompleteLattice (pack_r S Leq)).
+Admitted.

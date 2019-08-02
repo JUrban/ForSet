@@ -678,6 +678,18 @@ Definition unpack_r_1 : set -> set -> set -> prop := fun S x y => (x,y) :e S 1.
 
 Definition struct_r : set -> prop := fun S => exists X:set, exists R:set -> set -> prop, S = pack_r X R.
 
+Theorem pack_r_eq : forall X, forall R R':set -> set -> prop,
+     (forall x y :e X, R x y <-> R' x y)
+  -> pack_r X R = pack_r X R'.
+let X R R'.
+assume H1: forall x y :e X, R x y <-> R' x y.
+claim L1: Sep2 X (fun _ => X) R = Sep2 X (fun _ => X) R'.
+{ apply Sep2_ext. exact H1. }
+prove (X,Sep2 X (fun _ => X) R) = (X,Sep2 X (fun _ => X) R').
+rewrite L1.
+apply eqI set.
+Qed.
+
 Theorem struct_r_0_eq : forall S X, forall R:set -> set -> prop, S = pack_r X R -> X = S 0.
 let S X R.
 assume H1: S = (X,Sep2 X (fun _ => X) R).
