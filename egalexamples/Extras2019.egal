@@ -296,6 +296,233 @@ let y. assume Hy.
 exact H1 x Hx y Hy.
 Qed.
 
+Definition pack_c : set -> ((set -> prop) -> prop) -> set := fun X C => (X,Sep (Power X) (fun U => (C (fun x => x :e U)))).
+
+Definition unpack_c_1 : set -> (set -> prop) -> prop := fun S U => (forall x, U x -> x :e S 0) /\ (Sep (S 0) U) :e S 1.
+
+Definition struct_c : set -> prop := fun S => exists X:set, exists C:(set -> prop) -> prop, S = pack_c X C.
+
+Theorem pack_c_eq : forall X, forall C C':(set -> prop) -> prop,
+     (forall U:set -> prop, (forall x, U x -> x :e X) -> (C U <-> C' U))
+  -> pack_c X C = pack_c X C'.
+let X C C'. assume H1.
+claim L1: Sep (Power X) (fun U => (C (fun x => x :e U))) = Sep (Power X) (fun U => (C' (fun x => x :e U))).
+{ apply set_ext.
+  - let U. assume H2. apply SepE (Power X) (fun U => (C (fun x => x :e U))) U H2.
+    assume H3: U :e Power X.
+    assume H4: C (fun x => x :e U).
+    claim LUx: forall x, x :e U -> x :e X.
+    { exact PowerE X U H3. }
+    apply SepI.
+    + exact H3.
+    + prove C' (fun x => x :e U).
+      apply H1 (fun x => x :e U) LUx. assume H5 _. exact H5 H4.
+  - let U. assume H2. apply SepE (Power X) (fun U => (C' (fun x => x :e U))) U H2.
+    assume H3: U :e Power X.
+    assume H4: C' (fun x => x :e U).
+    claim LUx: forall x, x :e U -> x :e X.
+    { exact PowerE X U H3. }
+    apply SepI.
+    + exact H3.
+    + prove C (fun x => x :e U).
+      apply H1 (fun x => x :e U) LUx. assume _ H5. exact H5 H4.
+}
+prove (X,Sep (Power X) (fun U => (C (fun x => x :e U)))) = (X,Sep (Power X) (fun U => (C' (fun x => x :e U)))).
+rewrite <- L1.
+apply eqI set.
+Qed.
+
+Theorem struct_c_0_eq : forall S X, forall C:(set -> prop) -> prop, S = pack_c X C -> X = S 0.
+let S X C.
+assume H1: S = (X,Sep (Power X) (fun U => (C (fun x => x :e U)))).
+prove X = S 0.
+rewrite H1.
+apply eq_sym set.
+apply tuple_2_0_eq.
+Qed.
+
+Theorem struct_c_1_I : forall S X, forall C:(set -> prop) -> prop, S = pack_c X C -> forall U:set -> prop, (forall x, U x -> x :e X) -> C U -> unpack_c_1 S U.
+let S X C.
+assume H1: S = (X,Sep (Power X) (fun U => (C (fun x => x :e U)))).
+let U.
+assume HU: forall x, U x -> x :e X.
+assume H2: C U.
+prove (forall x, U x -> x :e S 0) /\ Sep (S 0) U :e S 1.
+rewrite <- struct_c_0_eq S X C H1.
+prove (forall x, U x -> x :e X) /\ Sep X U :e S 1.
+apply andI (forall x, U x -> x :e X) (Sep X U :e S 1) HU.
+prove Sep X U :e S 1.
+rewrite H1.
+prove Sep X U :e (X,Sep (Power X) (fun U => (C (fun x => x :e U)))) 1.
+rewrite tuple_2_1_eq.
+prove Sep X U :e Sep (Power X) (fun U => (C (fun x => x :e U))).
+apply SepI.
+- prove Sep X U :e Power X. apply Sep_In_Power.
+- prove C (fun x => x :e Sep X U).
+  claim LU: U = fun x => x :e Sep X U.
+  { apply pred_ext set.
+    - let x. assume H3: U x. prove x :e Sep X U. apply SepI.
+      + apply HU. exact H3.
+      + exact H3.
+    - exact SepE2 X U.
+  }
+  exact LU C H2.
+Qed.
+
+Theorem struct_c_1_E : forall S X, forall C:(set -> prop) -> prop, S = pack_c X C -> forall U:set -> prop, unpack_c_1 S U -> (forall x, U x -> x :e X) /\ C U.
+let S X C.
+assume H1: S = (X,Sep (Power X) (fun U => (C (fun x => x :e U)))).
+let U.
+prove (forall x, U x -> x :e S 0) /\ Sep (S 0) U :e S 1 -> (forall x, U x -> x :e X) /\ C U.
+rewrite <- struct_c_0_eq S X C H1.
+prove (forall x, U x -> x :e X) /\ Sep X U :e S 1 -> (forall x, U x -> x :e X) /\ C U.
+assume H1a. apply H1a.
+assume HU: forall x, U x -> x :e X.
+rewrite H1.
+prove Sep X U :e (X,Sep (Power X) (fun U => (C (fun x => x :e U)))) 1 -> (forall x, U x -> x :e X) /\ C U.
+rewrite tuple_2_1_eq.
+prove Sep X U :e Sep (Power X) (fun U => (C (fun x => x :e U))) -> (forall x, U x -> x :e X) /\ C U.
+assume H2.
+apply SepE (Power X) (fun U => (C (fun x => x :e U))) (Sep X U) H2.
+assume H3: Sep X U :e Power X.
+assume H4: C (fun x => x :e Sep X U).
+prove (forall x, U x -> x :e X) /\ C U.
+apply andI.
+- exact HU.
+- prove C U.
+  claim LU: (fun x : set => x :e Sep X U) = U.
+  { apply pred_ext set.
+    - exact SepE2 X U.
+    - let x. assume H3: U x. prove x :e Sep X U. apply SepI.
+      + apply HU. exact H3.
+      + exact H3.
+  }
+  exact LU C H4.
+Qed.
+
+Theorem struct_c_1_E1 : forall S X, forall C:(set -> prop) -> prop, S = pack_c X C -> forall U:set -> prop, unpack_c_1 S U -> forall x, U x -> x :e X.
+let S X C. assume H1. let U. assume H2. apply struct_c_1_E S X C H1 U H2. exact (fun H _ => H).
+Qed.
+
+Theorem struct_c_1_E2 : forall S X, forall C:(set -> prop) -> prop, S = pack_c X C -> forall U:set -> prop, unpack_c_1 S U -> C U.
+let S X C. assume H1. let U. assume H2. apply struct_c_1_E S X C H1 U H2. exact (fun _ H => H).
+Qed.
+
+Theorem pack_struct_c: forall X, forall C:(set -> prop) -> prop, struct_c (pack_c X C).
+let X C.
+prove exists X':set, exists C':(set -> prop) -> prop, pack_c X C = pack_c X' C'.
+witness X. witness C.
+apply eqI set.
+Qed.
+
+Theorem struct_c_eta: forall S, struct_c S -> S = pack_c (S 0) (unpack_c_1 S).
+let S. assume H1. apply H1. let X. assume H2. apply H2. let C.
+assume H3: S = pack_c X C.
+claim L1: X = S 0.
+{ rewrite H3.
+  prove X = (X,Sep (Power X) (fun U => (C (fun x => x :e U)))) 0.
+  apply eq_sym set.
+  apply tuple_2_0_eq.
+}
+claim L2: Sep (Power X) (fun U => (C (fun x => x :e U))) = Sep (Power X) (fun U => unpack_c_1 S (fun x => x :e U)).
+{ apply set_ext.
+  - let U. assume HU: U :e Sep (Power X) (fun U => (C (fun x => x :e U))).
+    apply SepE (Power X) (fun U => (C (fun x => x :e U))) U HU.
+    assume HUPX: U :e Power X.
+    assume HU2: C (fun x => x :e U).
+    claim LUsX: U c= X.
+    { exact PowerE X U HUPX. }
+    claim LU2: U = Sep X (fun x => x :e U).
+    { apply set_ext.
+      - let x. assume Hx: x :e U. apply SepI.
+        + exact LUsX x Hx.
+	+ exact Hx.
+      - exact SepE2 X (fun x => x :e U).
+    }
+    apply SepI.
+    + exact HUPX.
+    + prove unpack_c_1 S (fun x => x :e U).
+      prove (forall x, x :e U -> x :e S 0) /\ Sep (S 0) (fun x => x :e U) :e S 1.
+      rewrite H3.
+      prove (forall x, x :e U -> x :e (X,Sep (Power X) (fun U => (C (fun x => x :e U)))) 0) /\ Sep ((X,Sep (Power X) (fun U => (C (fun x => x :e U)))) 0) (fun x => x :e U) :e (X,Sep (Power X) (fun U => (C (fun x => x :e U)))) 1.
+      rewrite tuple_2_0_eq.
+      rewrite tuple_2_0_eq.
+      prove (forall x, x :e U -> x :e X) /\ Sep X (fun x => x :e U) :e (X,Sep (Power X) (fun U => (C (fun x => x :e U)))) 1.
+      apply andI.
+      * exact LUsX.
+      * { rewrite tuple_2_1_eq.
+          prove Sep X (fun x => x :e U) :e Sep (Power X) (fun U => (C (fun x => x :e U))).
+          rewrite <- LU2.
+          prove U :e Sep (Power X) (fun U => (C (fun x => x :e U))).
+  	  apply SepI.
+	  - prove U :e Power X. exact HUPX.
+	  - prove C (fun x => x :e U). exact HU2.
+	}
+  - let U. assume HU: U :e Sep (Power X) (fun U => unpack_c_1 S (fun x => x :e U)).
+    apply SepE (Power X) (fun U => unpack_c_1 S (fun x => x :e U)) U HU.
+    assume HUPX: U :e Power X.
+    assume HU2.
+    claim LUsX: U c= X.
+    { exact PowerE X U HUPX. }
+    claim LU2: U = Sep X (fun x => x :e U).
+    { apply set_ext.
+      - let x. assume Hx: x :e U. apply SepI.
+        + exact LUsX x Hx.
+	+ exact Hx.
+      - exact SepE2 X (fun x => x :e U).
+    }
+    claim LU3: U = Sep (S 0) (fun x => x :e U).
+    { rewrite H3.
+      prove U = Sep ((X,Sep (Power X) (fun U => (C (fun x => x :e U)))) 0) (fun x => x :e U).
+      rewrite tuple_2_0_eq.
+      exact LU2.
+    }
+    apply HU2. assume _.
+    prove (Sep (S 0) (fun x => x :e U)) :e S 1 -> U :e Sep (Power X) (fun U => (C (fun x => x :e U))).
+    rewrite <- LU3.
+    rewrite H3.
+    prove U :e (X,Sep (Power X) (fun U => (C (fun x => x :e U)))) 1 -> U :e Sep (Power X) (fun U => (C (fun x => x :e U))).
+    rewrite tuple_2_1_eq.
+    exact (fun H => H).
+}
+prove S = pack_c (S 0) (unpack_c_1 S).
+rewrite H3 at 1.
+prove pack_c X C = pack_c (S 0) (unpack_c_1 S).
+prove (X,Sep (Power X) (fun U => (C (fun x => x :e U))))
+    = (S 0,Sep (Power (S 0)) (fun U => unpack_c_1 S (fun x => x :e U))).
+rewrite <- L1.
+prove (X,Sep (Power X) (fun U => (C (fun x => x :e U))))
+    = (X,Sep (Power X) (fun U => unpack_c_1 S (fun x => x :e U))).
+rewrite <- L2.
+apply eqI set.
+Qed.
+
+Section unpack_c.
+Variable A:SType.
+
+Definition unpack_c : set -> (set -> ((set -> prop) -> prop) -> A) -> A := fun S Phi => Phi (S 0) (unpack_c_1 S).
+
+Theorem unpack_c_eq : forall Phi:set -> ((set -> prop) -> prop) -> A,
+  (forall X, forall C C':(set -> prop) -> prop, (forall U:set -> prop, (forall x, U x -> x :e X) -> (C U <-> C' U)) -> Phi X C = Phi X C')
+  ->
+  forall X, forall C:(set -> prop) -> prop, unpack_c (pack_c X C) Phi = Phi X C.
+let Phi.  
+assume H1.
+let X C.
+prove unpack_c (pack_c X C) Phi = Phi X C.
+prove Phi (pack_c X C 0) (unpack_c_1 (pack_c X C)) = Phi X C.
+rewrite <- struct_c_0_eq (pack_c X C) X C (eqI set (pack_c X C)).
+prove Phi X (unpack_c_1 (pack_c X C)) = Phi X C.
+apply H1.
+let x. assume Hx.
+prove unpack_c_1 (pack_c X C) x <-> C x.
+apply iffI.
+- exact struct_c_1_E2 (pack_c X C) X C (eqI set (pack_c X C)) x.
+- exact struct_c_1_I (pack_c X C) X C (eqI set (pack_c X C)) x Hx.
+Qed.
+
+End unpack_c.
+
 Definition pack_e : set -> set -> set := fun X c => (X,c).
 
 Definition struct_e : set -> prop := fun S => exists X:set, exists c:set, c :e X /\ S = pack_e X c.
@@ -383,6 +610,17 @@ Definition unpack_u_1 : set -> set -> set := fun S x => S 1 x.
 
 Definition struct_u : set -> prop := fun S => exists X:set, exists F:set -> set, (forall x :e X, F x :e X) /\ S = pack_u X F.
 
+Theorem pack_u_eq : forall X, forall F F':set -> set,
+     (forall x :e X, F x = F' x)
+  -> pack_u X F = pack_u X F'.
+let X F F'. assume H1.
+claim L1: lam X F = lam X F'.
+{ apply lam_ext. exact H1. }
+prove (X,lam X F) = (X,lam X F').
+rewrite <- L1.
+apply eqI set.
+Qed.
+
 Theorem struct_u_0_eq : forall S X, forall F:set -> set, S = pack_u X F -> X = S 0.
 let S X F.
 assume H1: S = (X,lam X F).
@@ -465,6 +703,17 @@ Definition pack_b : set -> (set -> set -> set) -> set := fun X F => (X,lam2 X (f
 Definition unpack_b_1 : set -> set -> set -> set := fun S x y => S 1 x y.
 
 Definition struct_b : set -> prop := fun S => exists X:set, exists F:set -> set -> set, (forall x y :e X, F x y :e X) /\ S = pack_b X F.
+
+Theorem pack_b_eq : forall X, forall F F':set -> set -> set,
+     (forall x y :e X, F x y = F' x y)
+  -> pack_b X F = pack_b X F'.
+let X F F'. assume H1.
+claim L1: lam2 X (fun _ => X) F = lam2 X (fun _ => X) F'.
+{ apply lam2_ext. exact H1. }
+prove (X,lam2 X (fun _ => X) F) = (X,lam2 X (fun _ => X) F').
+rewrite <- L1.
+apply eqI set.
+Qed.
 
 Theorem struct_b_0_eq : forall S X, forall F:set -> set -> set, S = pack_b X F -> X = S 0.
 let S X F.
@@ -550,6 +799,25 @@ Definition pack_p : set -> (set -> prop) -> set := fun X R => (X,Sep X R).
 Definition unpack_p_1 : set -> set -> prop := fun S x => x :e S 1.
 
 Definition struct_p : set -> prop := fun S => exists X:set, exists R:set -> prop, S = pack_p X R.
+
+Theorem pack_p_eq : forall X, forall R R':set -> prop,
+     (forall x :e X, R x <-> R' x)
+  -> pack_p X R = pack_p X R'.
+let X R R'.
+assume H1: forall x :e X, R x <-> R' x.
+claim L1: Sep X R = Sep X R'.
+{ apply set_ext.
+  - let x. assume H2. apply SepE X R x H2. assume H3 H4. apply SepI.
+    + exact H3.
+    + prove R' x. apply H1 x H3. assume H5 _. exact H5 H4.
+  - let x. assume H2. apply SepE X R' x H2. assume H3 H4. apply SepI.
+    + exact H3.
+    + prove R x. apply H1 x H3. assume _ H5. exact H5 H4.
+}
+prove (X,Sep X R) = (X,Sep X R').
+rewrite L1.
+apply eqI set.
+Qed.
 
 Theorem struct_p_0_eq : forall S X, forall R:set -> prop, S = pack_p X R -> X = S 0.
 let S X R.
