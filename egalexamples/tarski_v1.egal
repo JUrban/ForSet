@@ -2,8 +2,6 @@
 (** attempting to faithfully follow the tarski.ftl version, within reason,
     and adding a part at the end to "package" complete lattices as sets. **)
 
-Definition fixed_point : set -> set -> prop := fun f x => f x = x.
-
 Section Poset.
 
 Variable Elt: set -> prop.
@@ -19,8 +17,6 @@ Hypothesis HASymm: ASymm.
 
 Definition Trans: prop := forall x y z, Elt x -> Elt y -> Elt z -> x <= y -> y <= z -> x <= z.
 Hypothesis HTrans: Trans.
-
-(** Definition MetaPoset : set -> prop := Refl /\ ASymm /\ Trans. **)
 
 Section CompleteLattice.
 
