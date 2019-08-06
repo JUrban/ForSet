@@ -1,0 +1,29 @@
+(**
+ egal -ind Index2019 -I EgalPreamble2019.egal fermatslasttheorem_v1.egal
+ **)
+
+(** Fermat's Last Theorem stated using finite ordinals as natural numbers.
+    The Egal library has basic information about finite ordinals,
+    including a primrec operator used to define add_nat and mul_nat.
+    To state Fermat's Last Theorem, we still have to define exponentiation.
+    It would be nice if I would define > so that I could say x > 0 and n > 2,
+    but I will be lazy and write 0 :e x and 2 :e n instead.
+ **)
+
+Definition exp_nat : set -> set -> set := fun x n => nat_primrec 1 (fun _ v => v * x) n.
+
+Infix ^ 330 left := exp_nat.
+
+(** Sanity checking exp def (note that we take 0 ^ 0 = 1) **)
+Theorem exp_nat_0 : forall x, x ^ 0 = 1.
+let x.
+exact nat_primrec_0 1 (fun _ v => v * x).
+Qed.
+
+Theorem exp_nat_S : forall x, forall n :e omega, x ^ (ordsucc n) = x ^ n * x.
+let x. let n. assume Hn: n :e omega.
+exact nat_primrec_S 1 (fun _ v => v * x) n (omega_nat_p n Hn).
+Qed.
+
+Theorem Fermats_Last_Theorem: forall x y z n :e omega, 0 :e x -> 0 :e y -> 2 :e n -> x ^ n + y ^ n <> z ^ n.
+Admitted.

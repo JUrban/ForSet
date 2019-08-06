@@ -122,6 +122,27 @@ Notation Repl Repl.
 Axiom ReplE : forall X : set , forall F : set -> set , forall y : set , y :e {F x|x :e X} -> exists x : set , x :e X /\ y = F x.
 Axiom ReplE2 : forall X : set , forall F : set -> set , forall y : set , y :e {F x|x :e X} -> forall p : prop , (forall x : set , x :e X -> y = F x -> p) -> p.
 Axiom ReplI : forall X : set , forall F : set -> set , forall x : set , x :e X -> F x :e {F x|x :e X}.
+
+Definition TransSet : set->prop := fun U:set => forall X:set, X :e U -> X c= U.
+
+Definition Union_closed : set->prop := fun U:set => forall X:set, X :e U -> Union X :e U.
+Definition Power_closed : set->prop := fun U:set => forall X:set, X :e U -> Power X :e U.
+Definition Repl_closed : set->prop := fun U:set => forall X:set, X :e U -> forall F:set->set,
+   (forall x:set, x :e X -> F x :e U) -> {F x|x :e X} :e U.
+Definition ZF_closed : set->prop := fun U:set =>
+   Union_closed U
+/\ Power_closed U
+/\ Repl_closed U.
+
+Parameter UnivOf : set->set.
+Axiom UnivOf_In : forall N:set, N :e UnivOf N.
+Axiom UnivOf_TransSet : forall N:set, TransSet (UnivOf N).
+Axiom UnivOf_ZF_closed : forall N:set, ZF_closed (UnivOf N).
+Axiom UnivOf_Min : forall N U:set, N :e U
+  -> TransSet U
+  -> ZF_closed U
+  -> UnivOf N c= U.
+
 (* Parameter UPair MHANdqNd8qPYjgPJug4t52j3JL41cLUy5KCibeyEq5yq3ytH *)
 Parameter UPair : set -> set -> set.
 Notation SetEnum2 UPair.
@@ -176,6 +197,31 @@ Axiom nat_1 : nat_p 1.
 Axiom nat_2 : nat_p 2.
 Axiom nat_0_in_ordsucc : forall n, nat_p n -> 0 :e ordsucc n.
 Axiom nat_ordsucc_in_ordsucc : forall n, nat_p n -> forall m :e n, ordsucc m :e ordsucc n.
+Axiom nat_ind : forall p : set -> prop , p 0 -> (forall n , nat_p n -> p n -> p (ordsucc n)) -> forall n , nat_p n -> p n.
+
+Definition omega : set := {n :e UnivOf Empty|nat_p n}.
+Axiom omega_nat_p : forall n :e omega, nat_p n.
+Axiom nat_p_omega : forall n:set, nat_p n -> n :e omega.
+
+(* Parameter nat_primrec MH1PhR4nvTH9RtLNfcEMuKTZM5rLrJkGArrPzhCt6yHhFJjP *)
+Parameter nat_primrec:set -> (set -> set -> set) -> set -> set.
+Axiom nat_primrec_0 : forall z, forall f:set -> set -> set, nat_primrec z f 0 = z.
+Axiom nat_primrec_S : forall z, forall f:set -> set -> set, forall n:set, nat_p n -> nat_primrec z f (ordsucc n) = f n (nat_primrec z f n).
+
+(* Parameter add_nat MJC9zELvgcK8NgZVFMwkTCkumeG1MfPNBu7U2AwrhUkd85vb *)
+Parameter add_nat : set->set->set.
+Infix + 360 right := add_nat.
+Axiom add_nat_p : forall n:set, nat_p n -> forall m:set, nat_p m -> nat_p (n + m).
+Axiom add_nat_0R : forall n:set, n + 0 = n.
+Axiom add_nat_SR : forall n m:set, nat_p m -> n + ordsucc m = ordsucc (n + m).
+
+(* Parameter mul_nat MGgDk5BE7pAfKP8LBjCB4qhNfWeMH5nckQsnX5yL3XBMrvJm *)
+Parameter mul_nat : set->set->set.
+Infix * 355 right := mul_nat.
+Axiom mul_nat_p : forall n:set, nat_p n -> forall m:set, nat_p m -> nat_p (n * m).
+Axiom mul_nat_0R : forall n:set, n * 0 = 0.
+Axiom mul_nat_SR : forall n m:set, nat_p m -> n * ordsucc m = n + n * m.
+
 (* Parameter pair MKKGnKnC1quGLGnWpwB65MgQ7bPbCPc48zaQUdmq8s3fSrjf *)
 Parameter pair : set -> set -> set.
 (* Parameter lam MGNw2qbBL6u6B4yyFAmQMbqdhyHwqynrhYepMxjLsK829eTU *)
@@ -219,8 +265,107 @@ Axiom tuple_2_1_eq : forall x y, (x,y) 1 = y.
 Axiom tuple_2_Sigma : forall X:set, forall Y:set -> set, forall x :e X, forall y :e Y x, (x,y) :e Sigma_ x :e X, Y x.
 Axiom tuple_2_setprod : forall X:set, forall Y:set, forall x :e X, forall y :e Y, (x,y) :e X :*: Y.
 
+Axiom lam_ext: forall X, forall F G:set -> set, (forall x :e X, F x = G x) -> (fun x :e X => F x) = (fun x :e X => G x).
+Axiom lam_eta: forall X, forall F:set -> set, (fun x :e X => (fun x :e X => F x) x) = (fun x :e X => F x).
+
+(* Parameter pack_e MLpQUFTRLTFhWmkhaDvcVaeGkhkdqV9s2MmoXk6TvGoFHbzB *)
+Parameter pack_e : set -> set -> set.
+Axiom pack_e_eta : forall X c, (fun i :e 2 => pack_e X c i) = pack_e X c.
+
+(* Parameter struct_e MHRv9ytEw8vQa85GxQyvoRg7wLskCpDmf9KpNfQMb4SzsCVd *)
+Parameter struct_e : set -> prop.
+
+Axiom pack_struct_e: forall X, forall c:set, c :e X -> struct_e (pack_e X c).
+Axiom struct_e_eta: forall S, struct_e S -> S = pack_e (S 0) (S 1).
+
+Section unpack_e.
+Variable A:SType.
+
+Definition unpack_e : set -> (set -> set -> A) -> A := fun S c => c (S 0) (S 1).
+
+Axiom unpack_e_eq : forall Phi:set -> set -> A,
+  forall X, forall c:set, unpack_e (pack_e X c) Phi = Phi X c.
+
+End unpack_e.
+
+(* Parameter pack_u MJnGhddRV4VKokL4Ed5HWnkPPdeAYM3r2SarvMEtmaPHjCWr *)
+Parameter pack_u : set -> (set -> set) -> set.
+Axiom pack_u_eta : forall X, forall F:set -> set, (fun i :e 2 => pack_u X F i) = pack_u X F.
+
+(* Parameter unpack_u_1 MKwmFK4yMX7auTJYk2tkdoULv7Wr89LbCoEU2Hhewf5e2Pdx *)
+Parameter unpack_u_1 : set -> set -> set.
+(* Parameter struct_u MMbUGXVUu3bJtyAPQL6MsjrMbuhTPSQVfqeQsMEVmDvmyVAX *)
+Parameter struct_u : set -> prop.
+
+Axiom pack_u_eq : forall X, forall F F':set -> set, (forall x :e X, F x = F' x) -> pack_u X F = pack_u X F'.
+Axiom struct_u_eta: forall S, struct_u S -> S = pack_u (S 0) (unpack_u_1 S).
+
+Section unpack_u.
+Variable A:SType.
+
+Definition unpack_u : set -> (set -> (set -> set) -> A) -> A := fun S F => F (S 0) (unpack_u_1 S).
+
+Axiom unpack_u_eq : forall Phi:set -> (set -> set) -> A,
+  (forall X, forall F F':set -> set, (forall x :e X, F x = F' x) -> Phi X F = Phi X F')
+  ->
+  forall X, forall F:set -> set, unpack_u (pack_u X F) Phi = Phi X F.
+
+End unpack_u.
+
+(* Parameter pack_b MGSXcsosKJPaBhj2mTSdaz7zR4QKeVKkyRRAnF86sC2i7N8s *)
+Parameter pack_b : set -> (set -> set -> set) -> set.
+Axiom pack_b_eta : forall X, forall F:set -> set -> set, (fun i :e 2 => pack_b X F i) = pack_b X F.
+
+(* Parameter unpack_b_1 MLz44wmKLs7La2nmoH9hMrz7GQGPX6syw1hFB2V3B7NmuPzE *)
+Parameter unpack_b_1 : set -> set -> set -> set.
+(* Parameter struct_b MJcWvkNbHVQjaMSJgPdQiegnFmEykjLtqKPwPwG7koxG72T8 *)
+Parameter struct_b : set -> prop.
+
+Axiom pack_b_eq : forall X, forall F F':set -> set -> set, (forall x y :e X, F x y = F' x y) -> pack_b X F = pack_b X F'.
+Axiom pack_struct_b: forall X, forall F:set -> set -> set, (forall x y :e X, F x y :e X) -> struct_b (pack_b X F).
+Axiom struct_b_eta: forall S, struct_b S -> S = pack_b (S 0) (unpack_b_1 S).
+
+Section unpack_b.
+Variable A:SType.
+
+Definition unpack_b : set -> (set -> (set -> set -> set) -> A) -> A := fun S F => F (S 0) (unpack_b_1 S).
+
+Axiom unpack_b_eq : forall Phi:set -> (set -> set -> set) -> A,
+  (forall X, forall F F':set -> set -> set, (forall x y :e X, F x y = F' x y) -> Phi X F = Phi X F')
+  ->
+  forall X, forall F:set -> set -> set, unpack_b (pack_b X F) Phi = Phi X F.
+
+End unpack_b.
+
+(* Parameter pack_p MHJGp4oYEAbpt4Vg43YvWbeDzkinCqo9KvJNZXZiUmkfr4ti *)
+Parameter pack_p : set -> (set -> prop) -> set.
+Axiom pack_p_eta : forall X, forall R:set -> prop, (fun i :e 2 => pack_p X R i) = pack_p X R.
+
+(* Parameter unpack_p_1 MMFgYzJrsGnGqxsWMgjpewTBvMozg2dMntjxgyTw7VEWfyy4 *)
+Parameter unpack_p_1 : set -> set -> prop.
+(* Parameter struct_p MLfts8KKCxA97fwYthi4DvfhJqBr2o5YF2zot42bJoUNNzHk *)
+Parameter struct_p : set -> prop.
+
+Axiom pack_p_eq : forall X, forall R R':set -> prop, (forall x :e X, R x <-> R' x) -> pack_p X R = pack_p X R'.
+Axiom pack_struct_p: forall X, forall R:set -> prop, struct_p (pack_p X R).
+Axiom struct_p_eta: forall S, struct_p S -> S = pack_p (S 0) (unpack_p_1 S).
+
+Section unpack_p.
+Variable A:SType.
+
+Definition unpack_p : set -> (set -> (set -> prop) -> A) -> A := fun S Phi => Phi (S 0) (unpack_p_1 S).
+
+Axiom unpack_p_eq : forall Phi:set -> (set -> prop) -> A,
+  (forall X, forall R R':set -> prop, (forall x :e X, R x <-> R' x) -> Phi X R = Phi X R')
+  ->
+  forall X, forall R:set -> prop, unpack_p (pack_p X R) Phi = Phi X R.
+
+End unpack_p.
+
 (* Parameter pack_r MKJrmfMiutWpYLJtyqLf7veyu7P89FExEsunM3tmCnLVcnrc *)
 Parameter pack_r : set -> (set -> set -> prop) -> set.
+Axiom pack_r_eta : forall X, forall R:set -> set -> prop, (fun i :e 2 => pack_r X R i) = pack_r X R.
+
 (* Parameter unpack_r_1 MKpPDQZuUqw13f1qZsRhRsyxEUPiXSQggfEtEsd5nfeUxSgS *)
 Parameter unpack_r_1 : set -> set -> set -> prop.
 (* Parameter struct_r MKRobQhSXJRf2zS2wcrh4SZDgAF8cbuPpPVQbsbqE5QXjBiU *)
@@ -241,3 +386,28 @@ Axiom unpack_r_eq : forall Phi:set -> (set -> set -> prop) -> A,
   forall X, forall R:set -> set -> prop, unpack_r (pack_r X R) Phi = Phi X R.
 
 End unpack_r.
+
+(* Parameter pack_c MFqbJbgPSGaGrJwcKwYqxX6SbQCz8XiwwW1sMy2sZKkPpz4Z *)
+Parameter pack_c : set -> ((set -> prop) -> prop) -> set.
+Axiom pack_c_eta : forall X, forall C:(set -> prop) -> prop, (fun i :e 2 => pack_c X C i) = pack_c X C.
+
+(* Parameter unpack_c_1 MHGCroTVKjJHzcudwmQmAt9JFfwpHdQjcgK5SeRdqveBVUcg *)
+Parameter unpack_c_1 : set -> (set -> prop) -> prop.
+(* Parameter struct_c MHwDVNMMFshgU5Cx27LkN9HLSJodPP8yaxpsbr2tMKCKhZ8V *)
+Parameter struct_c : set -> prop.
+
+Axiom pack_c_eq : forall X, forall C C':(set -> prop) -> prop, (forall U:set -> prop, (forall x, U x -> x :e X) -> (C U <-> C' U)) -> pack_c X C = pack_c X C'.
+Axiom pack_struct_c: forall X, forall C:(set -> prop) -> prop, struct_c (pack_c X C).
+Axiom struct_c_eta: forall S, struct_c S -> S = pack_c (S 0) (unpack_c_1 S).
+
+Section unpack_c.
+Variable A:SType.
+
+Definition unpack_c : set -> (set -> ((set -> prop) -> prop) -> A) -> A := fun S Phi => Phi (S 0) (unpack_c_1 S).
+
+Axiom unpack_c_eq : forall Phi:set -> ((set -> prop) -> prop) -> A,
+  (forall X, forall C C':(set -> prop) -> prop, (forall U:set -> prop, (forall x, U x -> x :e X) -> (C U <-> C' U)) -> Phi X C = Phi X C')
+  ->
+  forall X, forall C:(set -> prop) -> prop, unpack_c (pack_c X C) Phi = Phi X C.
+
+End unpack_c.
