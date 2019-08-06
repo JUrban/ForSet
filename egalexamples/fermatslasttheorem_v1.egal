@@ -25,5 +25,10 @@ let x. let n. assume Hn: n :e omega.
 exact nat_primrec_S 1 (fun _ v => v * x) n (omega_nat_p n Hn).
 Qed.
 
-Theorem Fermats_Last_Theorem: forall x y z n :e omega, 0 :e x -> 0 :e y -> 2 :e n -> x ^ n + y ^ n <> z ^ n.
+(** Define > on nat using converse of membership. **)
+Definition nat_geq : set -> set -> prop := fun n m => m :e n.
+
+Infix > 490 := nat_geq.
+
+Theorem Fermats_Last_Theorem: forall x y z n :e omega, x > 0 -> y > 0 -> n > 2 -> x ^ n + y ^ n <> z ^ n.
 Admitted.
