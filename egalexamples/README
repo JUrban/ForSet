@@ -19,3 +19,4 @@ egal -ind Index2019p4 -I EgalPreamble2019p2.egal fermatslasttheorem_v1.egal
 egal -ind Index2019p4 -I EgalPreamble2019p2.egal fermatslasttheorem_v2.egal
 egal -ind Index2019p7 -I EgalPreamble2019p2.egal fermatslasttheorem_v3.egal
 
+egal -ind Index2019p8 -I EgalPreamble2019p2.egal RealStruct.egal

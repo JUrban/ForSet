@@ -1,0 +1,102 @@
+(** (Mostly) Following Dieudonne _Foundations of Modern Analysis_ Chapter 2 **)
+Section Reals.
+
+Variable R:set.
+
+Variable plus: set -> set -> set.
+Infix + 360 right := plus.
+
+Variable zer: set.
+
+Variable minus: set -> set.
+
+Variable mult: set -> set -> set.
+Infix * 355 right := mult.
+
+Variable one: set.
+
+Variable le:set -> set -> prop.
+Infix <= 400 := le.
+
+Definition OrderedField : prop :=
+  (forall x y z :e R, x + (y + z) = (x + y) + z)
+  /\
+  (forall x y :e R, x + y = y + x)
+  /\
+  (forall x :e R, zer + x = x)
+  /\
+  (forall x :e R, x + minus x = zer)
+  /\
+  (forall x y z :e R, x * (y * z) = (x * y) * z)
+  /\
+  (forall x y :e R, x * y = y * x)
+  /\
+  one <> zer
+  /\
+  (forall x :e R, x <> zer -> exists y :e R, x * y = one)
+  /\
+  (forall x y z :e R, x * (y + z) = x * y + x * z)
+  /\
+  (forall x y z :e R, x <= y -> y <= z -> x <= z)
+  /\
+  (forall x y :e R, x <= y -> y <= x -> x = y)
+  /\
+  (forall x :e R, x <= x)
+  /\
+  (forall x y :e R, x <= y \/ y <= x)
+  /\
+  (forall x y z :e R, x <= y -> x + z <= y + z)
+  /\
+  (forall x y :e R, zer <= x -> zer <= y -> zer <= x * y).
+
+Definition NaturalReal : set -> prop := fun m =>
+  forall p:set -> prop, p one -> (forall n :e R, p n -> p (n + 1)) -> p m.
+
+Definition Archimedean : prop :=
+  forall x y :e R, zer <= x -> x <> zer -> zer <= y -> exists n, NaturalReal n /\ y <= n * x.
+
+Definition NestedIntervals : prop :=
+  forall a b :e R :^: omega,
+   (forall n :e omega, a n <= b n) ->
+   (forall n :e omega, a n <= a (ordsucc n)) ->
+   (forall n :e omega, b (ordsucc n) <= b n) ->
+   exists x :e R, forall n :e omega, a n <= x /\ x <= b n.
+
+Definition MetaReal_p : prop := OrderedField /\ Archimedean /\ NestedIntervals.
+
+End Reals.
+
+(*** Real Struct: carrier, two binary operations (plus, mult), a unary operation (minus), a binary relation (<=), two distinguished elements (0,1) **)
+Definition pack_b_b_u_r_e_e : set -> (set -> set -> set) -> (set -> set -> set) -> (set -> set) -> (set -> set -> prop) -> set -> set -> set := fun X f g i R c d => (X,encode_b X f,encode_b X g,encode_u X i,encode_r X R,c,d).
+
+Definition struct_b_b_u_r_e_e : set -> prop := fun S => exists X:set, exists f:set -> set -> set, exists g:set -> set -> set, exists i:set -> set, exists R:set -> set -> prop, exists c:set, exists d:set, (forall x y :e X, f x y :e X) /\ (forall x y :e X, g x y :e X) /\ (forall x :e X, i x :e X) /\ c :e X /\ d :e X /\ S = pack_b_b_u_r_e_e X f g i R c d.
+
+Axiom pack_b_b_u_r_e_e_ext : forall X, forall f f':set -> set -> set, forall g g':set -> set -> set, forall i i':set -> set, forall R R':set -> set -> prop, forall c, forall d,
+ (forall x y :e X, f x y = f' x y) ->
+ (forall x y :e X, g x y = g' x y) ->
+ (forall x :e X, i x = i' x) ->
+ (forall x y :e X, R x y <-> R' x y) ->
+ pack_b_b_u_r_e_e X f g i R c d = pack_b_b_u_r_e_e X f' g' i' R' c d.
+
+Axiom pack_struct_b_b_u_r_e_e: forall X, forall f:set -> set -> set, forall g:set -> set -> set, forall i:set -> set, forall R:set -> set -> prop, forall c:set, forall d:set, (forall x y :e X, f x y :e X) -> (forall x y :e X, g x y :e X) -> (forall x :e X, i x :e X) -> c :e X -> d :e X -> struct_b_b_u_r_e_e (pack_b_b_u_r_e_e X f g i R c d).
+
+Axiom struct_b_b_u_r_e_e_eta: forall S, struct_b_b_u_r_e_e S -> S = pack_b_b_u_r_e_e (S 0) (decode_b (S 1)) (decode_b (S 2)) (decode_u (S 3)) (decode_r (S 4)) (S 5) (S 6).
+
+Section unpack_b_b_u_r_e_e.
+
+Variable A:SType.
+
+Definition unpack_b_b_u_r_e_e : set -> (set -> (set -> set -> set) -> (set -> set -> set) -> (set -> set) -> (set -> set -> prop) -> set -> set -> A) -> A := fun S Phi => Phi (S 0) (decode_b (S 1)) (decode_b (S 2)) (decode_u (S 3)) (decode_r (S 4)) (S 5) (S 6).
+
+Axiom unpack_b_b_u_r_e_e_eq : forall Phi:set -> (set -> set -> set) -> (set -> set -> set) -> (set -> set) -> (set -> set -> prop) -> set -> set -> A,
+  (forall X, forall f f':set -> set -> set, (forall x y :e X, f x y = f' x y) ->  forall g g':set -> set -> set, (forall x y :e X, g x y = g' x y) ->  forall i i':set -> set, (forall x :e X, i x = i' x) ->  forall R R':set -> set -> prop, (forall x y :e X, R x y <-> R' x y) ->  forall c, forall d,Phi X f g i R c d = Phi X f' g' i' R' c d)
+  ->
+  forall X, forall f:set -> set -> set, forall g:set -> set -> set, forall i:set -> set, forall R:set -> set -> prop, forall c:set, forall d:set, unpack_b_b_u_r_e_e (pack_b_b_u_r_e_e X f g i R c d) Phi = Phi X f g i R c d.
+
+End unpack_b_b_u_r_e_e.
+
+Definition RealStruct : set -> prop := fun Re =>
+    struct_b_b_u_r_e_e Re
+ /\ unpack_b_b_u_r_e_e prop Re
+      (fun R plus mult minus le zer one =>
+        MetaReal_p R plus zer minus mult one le).
