@@ -1,0 +1,96 @@
+(**
+ egal -ind Index2019 -I EgalPreamble2019.egal fermatslasttheorem_v2.egal
+ **)
+
+(** Fermat's Last Theorem stated using a Peano structure (starting from 1 instead of 0). **)
+
+Section Peano.
+
+Variable N: set.
+Variable S: set -> set.
+Variable one: set.
+
+Variable plus: set -> set -> set.
+Infix + 360 right := plus.
+
+Definition plus_p : prop :=
+  (forall n m :e N, n + m :e N)
+  /\
+  (forall n :e N, n + one = S n)
+  /\
+  (forall n m :e N, n + (S m) = S (n + m)).
+
+Variable mult: set -> set -> set.
+Infix * 355 right := mult.
+
+Definition mult_p : prop :=
+  (forall n m :e N, n * m :e N)
+  /\
+  (forall n :e N, n * one = n)
+  /\
+  (forall n m :e N, n * (S m) = n * m + n).
+
+Variable exp: set -> set -> set.
+Infix ^ 330 := exp.
+
+Definition exp_p : prop :=
+  (forall n m :e N, n ^ m :e N)
+  /\
+  (forall n :e N, n ^ one = n)
+  /\
+  (forall n m :e N, n ^ (S m) = n ^ m * n).
+
+Definition Fermat_last_prop : prop :=
+  forall x y z n :e N, n <> one /\ n <> S one -> x ^ n + y ^ n <> z ^ n.
+
+End Peano.
+
+(** struct_b_b_b_u_e -- structure with three binary operations, one unary function and one distinguished element. Axioms are theorems proven elsewhere. **)
+Definition pack_b_b_b_u_e : set -> (set -> set -> set) -> (set -> set -> set) -> (set -> set -> set) -> (set -> set) -> set -> set := fun X f g h i c => (X,encode_b X f,encode_b X g,encode_b X h,encode_u X i,c).
+
+Definition struct_b_b_b_u_e : set -> prop := fun S => exists X:set, exists f:set -> set -> set, exists g:set -> set -> set, exists h:set -> set -> set, exists i:set -> set, exists c:set, (forall x y :e X, f x y :e X) /\ (forall x y :e X, g x y :e X) /\ (forall x y :e X, h x y :e X) /\ (forall x :e X, i x :e X) /\ c :e X /\ S = pack_b_b_b_u_e X f g h i c.
+
+Axiom pack_b_b_b_u_e_ext : forall X, forall f f':set -> set -> set, forall g g':set -> set -> set, forall h h':set -> set -> set, forall i i':set -> set, forall c,
+ (forall x y :e X, f x y = f' x y) ->
+ (forall x y :e X, g x y = g' x y) ->
+ (forall x y :e X, h x y = h' x y) ->
+ (forall x :e X, i x = i' x) ->
+ pack_b_b_b_u_e X f g h i c = pack_b_b_b_u_e X f' g' h' i' c.
+
+Axiom pack_struct_b_b_b_u_e: forall X, forall f:set -> set -> set, forall g:set -> set -> set, forall h:set -> set -> set, forall i:set -> set, forall c:set, (forall x y :e X, f x y :e X) -> (forall x y :e X, g x y :e X) -> (forall x y :e X, h x y :e X) -> (forall x :e X, i x :e X) -> c :e X -> struct_b_b_b_u_e (pack_b_b_b_u_e X f g h i c).
+
+Axiom struct_b_b_b_u_e_eta: forall S, struct_b_b_b_u_e S -> S = pack_b_b_b_u_e (S 0) (decode_b (S 1)) (decode_b (S 2)) (decode_b (S 3)) (decode_u (S 4)) (S 5).
+
+Section unpack_b_b_b_u_e.
+
+Variable A:SType.
+
+Definition unpack_b_b_b_u_e : set -> (set -> (set -> set -> set) -> (set -> set -> set) -> (set -> set -> set) -> (set -> set) -> set -> A) -> A := fun S Phi => Phi (S 0) (decode_b (S 1)) (decode_b (S 2)) (decode_b (S 3)) (decode_u (S 4)) (S 5).
+
+Axiom unpack_b_b_b_u_e_eq : forall Phi:set -> (set -> set -> set) -> (set -> set -> set) -> (set -> set -> set) -> (set -> set) -> set -> A,
+  (forall X, forall f f':set -> set -> set, (forall x y :e X, f x y = f' x y) ->  forall g g':set -> set -> set, (forall x y :e X, g x y = g' x y) ->  forall h h':set -> set -> set, (forall x y :e X, h x y = h' x y) ->  forall i i':set -> set, (forall x :e X, i x = i' x) ->  forall c,Phi X f g h i c = Phi X f' g' h' i' c)
+  ->
+  forall X, forall f:set -> set -> set, forall g:set -> set -> set, forall h:set -> set -> set, forall i:set -> set, forall c:set, unpack_b_b_b_u_e (pack_b_b_b_u_e X f g h i c) Phi = Phi X f g h i c.
+
+End unpack_b_b_b_u_e.
+
+(** Arithmetic structure **)
+Definition Arithmetic_struct : set -> prop := fun P =>
+    struct_b_b_b_u_e P
+ /\ unpack_b_b_b_u_e prop P
+     (fun N plus mult exp S one =>
+        (forall n :e N, S n <> one)
+	/\
+	(forall n m :e N, S n = S m -> n = m)
+	/\
+	(forall p:set -> prop, p one -> (forall n :e N, p n -> p (S n)) -> forall n :e N, p n)
+	/\
+	plus_p N S one plus ->
+	mult_p N S one plus mult ->
+	exp_p N S one plus mult exp).
+
+Theorem Fermats_Last_Theorem: forall P, Arithmetic_struct P ->
+  unpack_b_b_b_u_e prop P
+    (fun N plus mult exp S one =>
+        Fermat_last_prop N S one plus mult exp).
+Admitted.

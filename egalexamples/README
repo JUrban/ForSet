@@ -15,3 +15,7 @@ egal -ind Index2019p3 -I EgalPreamble2019p2.egal tarski_v2.egal
 egal -ind Index2019p3 -I EgalPreamble2019p2.egal tarski_v2_nopfs.egal
 egal -ind Index2019p3 -I EgalPreamble2019p2.egal tarski_v2_minimal.egal
 
+egal -ind Index2019p4 -I EgalPreamble2019p2.egal fermatslasttheorem_v1.egal
+egal -ind Index2019p4 -I EgalPreamble2019p2.egal fermatslasttheorem_v2.egal
+egal -ind Index2019p7 -I EgalPreamble2019p2.egal fermatslasttheorem_v3.egal
+

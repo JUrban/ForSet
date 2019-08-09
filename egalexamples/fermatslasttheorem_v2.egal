@@ -1,0 +1,93 @@
+(**
+ egal -ind Index2019 -I EgalPreamble2019.egal fermatslasttheorem_v2.egal
+ **)
+
+(** Fermat's Last Theorem stated using a Peano structure (starting from 1 instead of 0). **)
+
+Section Peano.
+
+Variable N: set.
+Variable S: set -> set.
+Variable one: set.
+
+Variable plus: set -> set -> set.
+Infix + 360 right := plus.
+
+Definition plus_p : prop :=
+  (forall n m :e N, n + m :e N)
+  /\
+  (forall n :e N, n + one = S n)
+  /\
+  (forall n m :e N, n + (S m) = S (n + m)).
+
+Variable mult: set -> set -> set.
+Infix * 355 right := mult.
+
+Definition mult_p : prop :=
+  (forall n m :e N, n * m :e N)
+  /\
+  (forall n :e N, n * one = n)
+  /\
+  (forall n m :e N, n * (S m) = n * m + n).
+
+Variable exp: set -> set -> set.
+Infix ^ 330 := exp.
+
+Definition exp_p : prop :=
+  (forall n m :e N, n ^ m :e N)
+  /\
+  (forall n :e N, n ^ one = n)
+  /\
+  (forall n m :e N, n ^ (S m) = n ^ m * n).
+
+Definition Fermat_last_prop : prop :=
+  forall x y z n :e N, n <> one /\ n <> S one -> x ^ n + y ^ n <> z ^ n.
+
+End Peano.
+
+(** struct_u_e -- structure with one unary function and one distinguished element. Axioms are theorems proven elsewhere. **)
+Definition pack_u_e : set -> (set -> set) -> set -> set := fun X i c => (X,encode_u X i,c).
+
+Definition struct_u_e : set -> prop := fun S => exists X:set, exists i:set -> set, exists c:set, (forall x :e X, i x :e X) /\ c :e X /\ S = pack_u_e X i c.
+
+Axiom pack_u_e_ext : forall X, forall i i':set -> set, forall c,
+ (forall x :e X, i x = i' x) ->
+ pack_u_e X i c = pack_u_e X i' c.
+
+Axiom pack_struct_u_e: forall X, forall i:set -> set, forall c:set, (forall x :e X, i x :e X) -> c :e X -> struct_u_e (pack_u_e X i c).
+
+Axiom struct_u_e_eta: forall S, struct_u_e S -> S = pack_u_e (S 0) (decode_u (S 1)) (S 2).
+
+Section unpack_u_e.
+
+Variable A:SType.
+
+Definition unpack_u_e : set -> (set -> (set -> set) -> set -> A) -> A := fun S Phi => Phi (S 0) (decode_u (S 1)) (S 2).
+
+Axiom unpack_u_e_eq : forall Phi:set -> (set -> set) -> set -> A,
+  (forall X, forall i i':set -> set, (forall x :e X, i x = i' x) ->  forall c,Phi X i c = Phi X i' c)
+  ->
+  forall X, forall i:set -> set, forall c:set, unpack_u_e (pack_u_e X i c) Phi = Phi X i c.
+
+End unpack_u_e.
+
+(** Peano structure **)
+Definition Peano_struct : set -> prop := fun P =>
+    struct_u_e P
+ /\ unpack_u_e prop P
+     (fun N S one =>
+        (forall n :e N, S n <> one)
+	/\
+	(forall n m :e N, S n = S m -> n = m)
+	/\
+	(forall p:set -> prop, p one -> (forall n :e N, p n -> p (S n)) -> forall n :e N, p n)).
+
+Theorem Fermats_Last_Theorem: forall P, Peano_struct P ->
+  unpack_u_e prop P
+    (fun N S one =>
+      forall plus mult exp:set -> set -> set,
+	plus_p N S one plus ->
+	mult_p N S one plus mult ->
+	exp_p N S one plus mult exp ->
+        Fermat_last_prop N S one plus mult exp).
+Admitted.
