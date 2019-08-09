@@ -1,4 +1,17 @@
-egal -ind IndexJune2014 -indout Index2019 -I EgalPreamble.egal Extras2019.egal
+egal -ind IndexJune2014 -indout Index2019p1 -I EgalPreamble.egal Extras2019.egal
 
-egal -ind Index2019 -I EgalPreamble2019.egal tarski_v1.egal
-egal -ind Index2019 -I EgalPreamble2019.egal tarski_v1_nopfs.egal
+egal -ind Index2019p1 -indout Index2019p2 -I EgalPreamble2019p1.egal Encodings.egal
+egal -ind Index2019p2 -indout Index2019p3 -I EgalPreamble2019p2.egal Structs.egal
+egal -ind Index2019p3 -indout Index2019p4 -I EgalPreamble2019p2.egal Structs2.egal
+egal -ind Index2019p4 -indout Index2019p5 -I EgalPreamble2019p2.egal Structs3.egal
+egal -ind Index2019p5 -indout Index2019p6 -I EgalPreamble2019p2.egal Structs4.egal
+egal -ind Index2019p6 -indout Index2019p7 -I EgalPreamble2019p2.egal Structs5.egal
+egal -ind Index2019p7 -indout Index2019p8 -I EgalPreamble2019p2.egal Structs6.egal
+
+egal -ind Index2019p3 -I EgalPreamble2019p2.egal tarski_v1.egal
+egal -ind Index2019p3 -I EgalPreamble2019p2.egal tarski_v1_nopfs.egal
+egal -ind Index2019p3 -I EgalPreamble2019p2.egal tarski_v1_minimal.egal
+egal -ind Index2019p3 -I EgalPreamble2019p2.egal tarski_v2.egal
+egal -ind Index2019p3 -I EgalPreamble2019p2.egal tarski_v2_nopfs.egal
+egal -ind Index2019p3 -I EgalPreamble2019p2.egal tarski_v2_minimal.egal
+

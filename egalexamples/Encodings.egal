@@ -1,0 +1,159 @@
+Definition encode_u : set -> (set -> set) -> set := lam.
+Definition decode_u : set -> set -> set := ap.
+
+Definition encode_b : set -> (set -> set -> set) -> set := fun X F => lam2 X (fun _ => X) F.
+Definition decode_b : set -> set -> set -> set := fun F x y => F x y.
+
+Definition encode_p : set -> (set -> prop) -> set := fun X P => Sep X P.
+Definition decode_p : set -> set -> prop := fun P x => x :e P.
+
+Definition encode_r : set -> (set -> set -> prop) -> set := fun X R => Sep2 X (fun _ => X) R.
+Definition decode_r : set -> set -> set -> prop := fun R x y => (x,y) :e R.
+
+Definition encode_c : set -> ((set -> prop) -> prop) -> set := fun X C => Sep (Power X) (fun U => (C (fun x => x :e U))).
+Definition decode_c : set -> (set -> prop) -> prop := fun C U => exists V, (forall x, U x <-> x :e V) /\ V :e C.
+
+Theorem decode_encode_u : forall X, forall F:set -> set, forall x :e X, decode_u (encode_u X F) x = F x.
+exact beta.
+Qed.
+
+Theorem encode_u_ext : forall X, forall F F':set -> set, (forall x :e X, F x = F' x) -> encode_u X F = encode_u X F'.
+exact lam_ext.
+Qed.
+
+Theorem decode_encode_b : forall X, forall F:set -> set -> set, forall x y :e X, decode_b (encode_b X F) x y = F x y.
+let X.
+exact beta2 X (fun _ => X).
+Qed.
+
+Theorem encode_b_ext : forall X, forall F F':set -> set -> set, (forall x y :e X, F x y = F' x y) -> encode_b X F = encode_b X F'.
+let X F F'. assume H1.
+prove (fun x :e X => fun y :e X => F x y) = (fun x :e X => fun y :e X => F' x y).
+apply lam_ext.
+let x. assume Hx.
+prove (fun y :e X => F x y) = (fun y :e X => F' x y).
+apply lam_ext.
+let y. assume Hy.
+exact H1 x Hx y Hy.
+Qed.
+
+Theorem decode_encode_p : forall X, forall P:set -> prop, forall x :e X, (decode_p (encode_p X P) x) = (P x).
+let X P x. assume Hx.
+apply prop_ext2.
+- assume H1: x :e Sep X P.
+  prove P x.
+  exact SepE2 X P x H1.
+- assume H1: P x.
+  prove x :e Sep X P.
+  apply SepI.
+  + exact Hx.
+  + exact H1.
+Qed.
+
+Theorem encode_p_ext : forall X, forall P P':set -> prop, (forall x :e X, P x <-> P' x) -> encode_p X P = encode_p X P'.
+let X P P'. assume H1.
+prove Sep X P = Sep X P'.
+apply set_ext.
+- let x. assume H2: x :e Sep X P. apply SepE X P x H2.
+  assume H3: x :e X.
+  assume H4: P x.
+  prove x :e Sep X P'.
+  apply SepI.
+  + exact H3.
+  + apply H1 x H3. assume H5 _. exact H5 H4.
+- let x. assume H2: x :e Sep X P'. apply SepE X P' x H2.
+  assume H3: x :e X.
+  assume H4: P' x.
+  prove x :e Sep X P.
+  apply SepI.
+  + exact H3.
+  + apply H1 x H3. assume _ H5. exact H5 H4.
+Qed.
+
+Theorem decode_encode_r : forall X, forall R:set -> set -> prop, forall x y :e X, (decode_r (encode_r X R) x y) = (R x y).
+let X R x. assume Hx. let y. assume Hy.
+apply prop_ext2.
+- assume H1: (x,y) :e Sep2 X (fun _ => X) R.
+  prove R x y.
+  exact Sep2E'3 X (fun _ => X) R x y H1.
+- assume H1: R x y.
+  prove (x,y) :e Sep2 X (fun _ => X) R.
+  apply Sep2I.
+  + exact Hx.
+  + exact Hy.
+  + exact H1.
+Qed.
+
+Theorem encode_r_ext : forall X, forall R R':set -> set -> prop, (forall x y :e X, R x y <-> R' x y) -> encode_r X R = encode_r X R'.
+let X. exact Sep2_ext X (fun _ => X).
+Qed.
+
+Theorem decode_encode_c : forall X, forall C:(set -> prop) -> prop, forall U:set -> prop, (forall x, U x -> x :e X) -> (decode_c (encode_c X C) U) = (C U).
+let X C U. assume HU.
+apply prop_ext2.
+- assume H1. apply H1.
+  let V. assume H2. apply H2.
+  assume H3: forall x, U x <-> x :e V.
+  assume H4: V :e encode_c X C.
+  prove C U.
+  claim L1: C (fun x => x :e V).
+  { exact SepE2 (Power X) (fun U => (C (fun x => x :e U))) V H4. }
+  claim L2: (fun x:set => x :e V) = U.
+  { apply pred_ext set.
+    - let x. apply H3 x. exact (fun _ H => H).
+    - let x. apply H3 x. exact (fun H _ => H).
+  }
+  rewrite <- L2.
+  exact L1.
+- assume H1: C U.
+  prove exists V, (forall x, U x <-> x :e V) /\ V :e (encode_c X C).
+  witness Sep X U.
+  apply andI.
+  + prove forall x, U x <-> x :e Sep X U.
+    let x. apply iffI.
+    * { assume H2: U x. apply SepI.
+        - exact HU x H2.
+	- exact H2.
+      }
+    * assume H2: x :e Sep X U.
+      exact SepE2 X U x H2.
+  + prove Sep X U :e encode_c X C.
+    prove Sep X U :e Sep (Power X) (fun U => (C (fun x => x :e U))).
+    apply SepI.
+    * prove Sep X U :e Power X. exact Sep_In_Power X U.
+    * prove C (fun x => x :e Sep X U).
+      claim L3: U = (fun x:set => x :e Sep X U).
+      { apply pred_ext set.
+        - let x. assume H3: U x. prove x :e Sep X U. apply SepI.
+	  + exact HU x H3.
+	  + exact H3.
+	- let x. assume H3: x :e Sep X U.
+	  exact SepE2 X U x H3.
+      }
+      rewrite <- L3.
+      exact H1.
+Qed.
+
+Theorem encode_c_ext : forall X, forall C C':(set -> prop) -> prop, (forall U:set -> prop, (forall x, U x -> x :e X) -> (C U <-> C' U)) -> encode_c X C = encode_c X C'.
+let X C C'. assume H1.
+prove Sep (Power X) (fun U => (C (fun x => x :e U))) = Sep (Power X) (fun U => (C' (fun x => x :e U))).
+apply set_ext.
+- let U. assume H2. apply SepE (Power X) (fun U => (C (fun x => x :e U))) U H2.
+  assume H3: U :e Power X.
+  assume H4: C (fun x => x :e U).
+  prove U :e Sep (Power X) (fun U => (C' (fun x => x :e U))).
+  apply SepI.
+  + exact H3.
+  + prove C' (fun x => x :e U).
+    apply H1 (fun x => x :e U) (PowerE X U H3).
+    assume H5 _. exact H5 H4.
+- let U. assume H2. apply SepE (Power X) (fun U => (C' (fun x => x :e U))) U H2.
+  assume H3: U :e Power X.
+  assume H4: C' (fun x => x :e U).
+  prove U :e Sep (Power X) (fun U => (C (fun x => x :e U))).
+  apply SepI.
+  + exact H3.
+  + prove C (fun x => x :e U).
+    apply H1 (fun x => x :e U) (PowerE X U H3).
+    assume _ H5. exact H5 H4.
+Qed.

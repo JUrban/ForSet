@@ -1,28 +1,765 @@
 (** A few extra results not in the Egal library from 2014 **)
 
-Section Tuple2.
-
-Variable x y: set.
-
-Lemma tuple_2_0_eq : (x,y) 0 = x.
-prove (fun i :e 2 => if i = 0 then x else y) 0 = x.
-rewrite beta 2 (fun i => if i = 0 then x else y).
-- prove (if 0 = 0 then x else y) = x.
-  apply If_1 set.
-  apply eqI set.
-- prove 0 :e 2. exact In_0_2.
+Theorem In_0_3: 0 :e 3.
+exact ordsuccI1 2 0 In_0_2.
 Qed.
 
-Lemma tuple_2_1_eq : (x,y) 1 = y.
-prove (fun i :e 2 => if i = 0 then x else y) 1 = y.
-rewrite beta 2 (fun i => if i = 0 then x else y).
-- prove (if 1 = 0 then x else y) = y.
-  apply If_0 set.
-  apply neq_1_0.
-- prove 1 :e 2. exact In_1_2.
+Theorem In_1_3: 1 :e 3.
+exact ordsuccI1 2 1 In_1_2.
 Qed.
 
-End Tuple2.
+Theorem In_2_3: 2 :e 3.
+exact ordsuccI2 2.
+Qed.
+
+Theorem In_0_4: 0 :e 4.
+exact ordsuccI1 3 0 In_0_3.
+Qed.
+
+Theorem In_1_4: 1 :e 4.
+exact ordsuccI1 3 1 In_1_3.
+Qed.
+
+Theorem In_2_4: 2 :e 4.
+exact ordsuccI1 3 2 In_2_3.
+Qed.
+
+Theorem In_3_4: 3 :e 4.
+exact ordsuccI2 3.
+Qed.
+
+Theorem In_0_5: 0 :e 5.
+exact ordsuccI1 4 0 In_0_4.
+Qed.
+
+Theorem In_1_5: 1 :e 5.
+exact ordsuccI1 4 1 In_1_4.
+Qed.
+
+Theorem In_2_5: 2 :e 5.
+exact ordsuccI1 4 2 In_2_4.
+Qed.
+
+Theorem In_3_5: 3 :e 5.
+exact ordsuccI1 4 3 In_3_4.
+Qed.
+
+Theorem In_4_5: 4 :e 5.
+exact ordsuccI2 4.
+Qed.
+
+Theorem In_0_6: 0 :e 6.
+exact ordsuccI1 5 0 In_0_5.
+Qed.
+
+Theorem In_1_6: 1 :e 6.
+exact ordsuccI1 5 1 In_1_5.
+Qed.
+
+Theorem In_2_6: 2 :e 6.
+exact ordsuccI1 5 2 In_2_5.
+Qed.
+
+Theorem In_3_6: 3 :e 6.
+exact ordsuccI1 5 3 In_3_5.
+Qed.
+
+Theorem In_4_6: 4 :e 6.
+exact ordsuccI1 5 4 In_4_5.
+Qed.
+
+Theorem In_5_6: 5 :e 6.
+exact ordsuccI2 5.
+Qed.
+
+Theorem In_0_7: 0 :e 7.
+exact ordsuccI1 6 0 In_0_6.
+Qed.
+
+Theorem In_1_7: 1 :e 7.
+exact ordsuccI1 6 1 In_1_6.
+Qed.
+
+Theorem In_2_7: 2 :e 7.
+exact ordsuccI1 6 2 In_2_6.
+Qed.
+
+Theorem In_3_7: 3 :e 7.
+exact ordsuccI1 6 3 In_3_6.
+Qed.
+
+Theorem In_4_7: 4 :e 7.
+exact ordsuccI1 6 4 In_4_6.
+Qed.
+
+Theorem In_5_7: 5 :e 7.
+exact ordsuccI1 6 5 In_5_6.
+Qed.
+
+Theorem In_6_7: 6 :e 7.
+exact ordsuccI2 6.
+Qed.
+
+Theorem In_0_8: 0 :e 8.
+exact ordsuccI1 7 0 In_0_7.
+Qed.
+
+Theorem In_1_8: 1 :e 8.
+exact ordsuccI1 7 1 In_1_7.
+Qed.
+
+Theorem In_2_8: 2 :e 8.
+exact ordsuccI1 7 2 In_2_7.
+Qed.
+
+Theorem In_3_8: 3 :e 8.
+exact ordsuccI1 7 3 In_3_7.
+Qed.
+
+Theorem In_4_8: 4 :e 8.
+exact ordsuccI1 7 4 In_4_7.
+Qed.
+
+Theorem In_5_8: 5 :e 8.
+exact ordsuccI1 7 5 In_5_7.
+Qed.
+
+Theorem In_6_8: 6 :e 8.
+exact ordsuccI1 7 6 In_6_7.
+Qed.
+
+Theorem In_7_8: 7 :e 8.
+exact ordsuccI2 7.
+Qed.
+
+Theorem In_0_9: 0 :e 9.
+exact ordsuccI1 8 0 In_0_8.
+Qed.
+
+Theorem In_1_9: 1 :e 9.
+exact ordsuccI1 8 1 In_1_8.
+Qed.
+
+Theorem In_2_9: 2 :e 9.
+exact ordsuccI1 8 2 In_2_8.
+Qed.
+
+Theorem In_3_9: 3 :e 9.
+exact ordsuccI1 8 3 In_3_8.
+Qed.
+
+Theorem In_4_9: 4 :e 9.
+exact ordsuccI1 8 4 In_4_8.
+Qed.
+
+Theorem In_5_9: 5 :e 9.
+exact ordsuccI1 8 5 In_5_8.
+Qed.
+
+Theorem In_6_9: 6 :e 9.
+exact ordsuccI1 8 6 In_6_8.
+Qed.
+
+Theorem In_7_9: 7 :e 9.
+exact ordsuccI1 8 7 In_7_8.
+Qed.
+
+Theorem In_8_9: 8 :e 9.
+exact ordsuccI2 8.
+Qed.
+
+Theorem cases_1: forall i :e 1, forall p:set->prop, p 0 -> p i.
+let i. assume Hi. let p. assume Hp0.
+apply ordsuccE 0 i Hi.
+- assume Hil: i :e 0.
+  apply EmptyE i Hil.
+- assume Hie: i = 0.
+  rewrite Hie. exact Hp0.
+Qed.
+
+Theorem cases_2: forall i :e 2, forall p:set->prop, p 0 -> p 1 -> p i.
+let i. assume Hi. let p. assume Hp0 Hp1.
+apply ordsuccE 1 i Hi.
+- assume Hil: i :e 1.
+  exact cases_1 i Hil p Hp0.
+- assume Hie: i = 1.
+  rewrite Hie. exact Hp1.
+Qed.
+
+Theorem cases_3: forall i :e 3, forall p:set->prop, p 0 -> p 1 -> p 2 -> p i.
+let i. assume Hi. let p. assume Hp0 Hp1 Hp2.
+apply ordsuccE 2 i Hi.
+- assume Hil: i :e 2.
+  exact cases_2 i Hil p Hp0 Hp1.
+- assume Hie: i = 2.
+  rewrite Hie. exact Hp2.
+Qed.
+
+Theorem cases_4: forall i :e 4, forall p:set->prop, p 0 -> p 1 -> p 2 -> p 3 -> p i.
+let i. assume Hi. let p. assume Hp0 Hp1 Hp2 Hp3.
+apply ordsuccE 3 i Hi.
+- assume Hil: i :e 3.
+  exact cases_3 i Hil p Hp0 Hp1 Hp2.
+- assume Hie: i = 3.
+  rewrite Hie. exact Hp3.
+Qed.
+
+Theorem cases_5: forall i :e 5, forall p:set->prop, p 0 -> p 1 -> p 2 -> p 3 -> p 4 -> p i.
+let i. assume Hi. let p. assume Hp0 Hp1 Hp2 Hp3 Hp4.
+apply ordsuccE 4 i Hi.
+- assume Hil: i :e 4.
+  exact cases_4 i Hil p Hp0 Hp1 Hp2 Hp3.
+- assume Hie: i = 4.
+  rewrite Hie. exact Hp4.
+Qed.
+
+Theorem cases_6: forall i :e 6, forall p:set->prop, p 0 -> p 1 -> p 2 -> p 3 -> p 4 -> p 5 -> p i.
+let i. assume Hi. let p. assume Hp0 Hp1 Hp2 Hp3 Hp4 Hp5.
+apply ordsuccE 5 i Hi.
+- assume Hil: i :e 5.
+  exact cases_5 i Hil p Hp0 Hp1 Hp2 Hp3 Hp4.
+- assume Hie: i = 5.
+  rewrite Hie. exact Hp5.
+Qed.
+
+Theorem cases_7: forall i :e 7, forall p:set->prop, p 0 -> p 1 -> p 2 -> p 3 -> p 4 -> p 5 -> p 6 -> p i.
+let i. assume Hi. let p. assume Hp0 Hp1 Hp2 Hp3 Hp4 Hp5 Hp6.
+apply ordsuccE 6 i Hi.
+- assume Hil: i :e 6.
+  exact cases_6 i Hil p Hp0 Hp1 Hp2 Hp3 Hp4 Hp5.
+- assume Hie: i = 6.
+  rewrite Hie. exact Hp6.
+Qed.
+
+Theorem cases_8: forall i :e 8, forall p:set->prop, p 0 -> p 1 -> p 2 -> p 3 -> p 4 -> p 5 -> p 6 -> p 7 -> p i.
+let i. assume Hi. let p. assume Hp0 Hp1 Hp2 Hp3 Hp4 Hp5 Hp6 Hp7.
+apply ordsuccE 7 i Hi.
+- assume Hil: i :e 7.
+  exact cases_7 i Hil p Hp0 Hp1 Hp2 Hp3 Hp4 Hp5 Hp6.
+- assume Hie: i = 7.
+  rewrite Hie. exact Hp7.
+Qed.
+
+Theorem cases_9: forall i :e 9, forall p:set->prop, p 0 -> p 1 -> p 2 -> p 3 -> p 4 -> p 5 -> p 6 -> p 7 -> p 8 -> p i.
+let i. assume Hi. let p. assume Hp0 Hp1 Hp2 Hp3 Hp4 Hp5 Hp6 Hp7 Hp8.
+apply ordsuccE 8 i Hi.
+- assume Hil: i :e 8.
+  exact cases_8 i Hil p Hp0 Hp1 Hp2 Hp3 Hp4 Hp5 Hp6 Hp7.
+- assume Hie: i = 8.
+  rewrite Hie. exact Hp8.
+Qed.
+
+Theorem neq_3_0: 3 <> 0.
+apply neq_ordsucc_0.
+Qed.
+
+Theorem neq_3_1: 3 <> 1.
+apply ordsucc_inj_contra. exact neq_2_0.
+Qed.
+
+Theorem neq_3_2: 3 <> 2.
+apply ordsucc_inj_contra. exact neq_2_1.
+Qed.
+
+Theorem neq_4_0: 4 <> 0.
+apply neq_ordsucc_0.
+Qed.
+
+Theorem neq_4_1: 4 <> 1.
+apply ordsucc_inj_contra. exact neq_3_0.
+Qed.
+
+Theorem neq_4_2: 4 <> 2.
+apply ordsucc_inj_contra. exact neq_3_1.
+Qed.
+
+Theorem neq_4_3: 4 <> 3.
+apply ordsucc_inj_contra. exact neq_3_2.
+Qed.
+
+Theorem neq_5_0: 5 <> 0.
+apply neq_ordsucc_0.
+Qed.
+
+Theorem neq_5_1: 5 <> 1.
+apply ordsucc_inj_contra. exact neq_4_0.
+Qed.
+
+Theorem neq_5_2: 5 <> 2.
+apply ordsucc_inj_contra. exact neq_4_1.
+Qed.
+
+Theorem neq_5_3: 5 <> 3.
+apply ordsucc_inj_contra. exact neq_4_2.
+Qed.
+
+Theorem neq_5_4: 5 <> 4.
+apply ordsucc_inj_contra. exact neq_4_3.
+Qed.
+
+Theorem neq_6_0: 6 <> 0.
+apply neq_ordsucc_0.
+Qed.
+
+Theorem neq_6_1: 6 <> 1.
+apply ordsucc_inj_contra. exact neq_5_0.
+Qed.
+
+Theorem neq_6_2: 6 <> 2.
+apply ordsucc_inj_contra. exact neq_5_1.
+Qed.
+
+Theorem neq_6_3: 6 <> 3.
+apply ordsucc_inj_contra. exact neq_5_2.
+Qed.
+
+Theorem neq_6_4: 6 <> 4.
+apply ordsucc_inj_contra. exact neq_5_3.
+Qed.
+
+Theorem neq_6_5: 6 <> 5.
+apply ordsucc_inj_contra. exact neq_5_4.
+Qed.
+
+Theorem neq_7_0: 7 <> 0.
+apply neq_ordsucc_0.
+Qed.
+
+Theorem neq_7_1: 7 <> 1.
+apply ordsucc_inj_contra. exact neq_6_0.
+Qed.
+
+Theorem neq_7_2: 7 <> 2.
+apply ordsucc_inj_contra. exact neq_6_1.
+Qed.
+
+Theorem neq_7_3: 7 <> 3.
+apply ordsucc_inj_contra. exact neq_6_2.
+Qed.
+
+Theorem neq_7_4: 7 <> 4.
+apply ordsucc_inj_contra. exact neq_6_3.
+Qed.
+
+Theorem neq_7_5: 7 <> 5.
+apply ordsucc_inj_contra. exact neq_6_4.
+Qed.
+
+Theorem neq_7_6: 7 <> 6.
+apply ordsucc_inj_contra. exact neq_6_5.
+Qed.
+
+Theorem neq_8_0: 8 <> 0.
+apply neq_ordsucc_0.
+Qed.
+
+Theorem neq_8_1: 8 <> 1.
+apply ordsucc_inj_contra. exact neq_7_0.
+Qed.
+
+Theorem neq_8_2: 8 <> 2.
+apply ordsucc_inj_contra. exact neq_7_1.
+Qed.
+
+Theorem neq_8_3: 8 <> 3.
+apply ordsucc_inj_contra. exact neq_7_2.
+Qed.
+
+Theorem neq_8_4: 8 <> 4.
+apply ordsucc_inj_contra. exact neq_7_3.
+Qed.
+
+Theorem neq_8_5: 8 <> 5.
+apply ordsucc_inj_contra. exact neq_7_4.
+Qed.
+
+Theorem neq_8_6: 8 <> 6.
+apply ordsucc_inj_contra. exact neq_7_5.
+Qed.
+
+Theorem neq_8_7: 8 <> 7.
+apply ordsucc_inj_contra. exact neq_7_6.
+Qed.
+
+Theorem neq_9_0: 9 <> 0.
+apply neq_ordsucc_0.
+Qed.
+
+Theorem neq_9_1: 9 <> 1.
+apply ordsucc_inj_contra. exact neq_8_0.
+Qed.
+
+Theorem neq_9_2: 9 <> 2.
+apply ordsucc_inj_contra. exact neq_8_1.
+Qed.
+
+Theorem neq_9_3: 9 <> 3.
+apply ordsucc_inj_contra. exact neq_8_2.
+Qed.
+
+Theorem neq_9_4: 9 <> 4.
+apply ordsucc_inj_contra. exact neq_8_3.
+Qed.
+
+Theorem neq_9_5: 9 <> 5.
+apply ordsucc_inj_contra. exact neq_8_4.
+Qed.
+
+Theorem neq_9_6: 9 <> 6.
+apply ordsucc_inj_contra. exact neq_8_5.
+Qed.
+
+Theorem neq_9_7: 9 <> 7.
+apply ordsucc_inj_contra. exact neq_8_6.
+Qed.
+
+Theorem neq_9_8: 9 <> 8.
+apply ordsucc_inj_contra. exact neq_8_7.
+Qed.
+
+Section Tuples.
+
+Variable x0 x1: set.
+Theorem tuple_2_0_eq: (x0,x1) 0 = x0.
+rewrite beta 2 (fun i => if i = 0 then x0 else x1) 0 In_0_2.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_2_1_eq: (x0,x1) 1 = x1.
+rewrite beta 2 (fun i => if i = 0 then x0 else x1) 1 In_1_2.
+apply If_0 set. apply neq_1_0.
+Qed.
+
+Variable x2: set.
+Theorem tuple_3_0_eq: (x0,x1,x2) 0 = x0.
+rewrite beta 3 (fun i => if i = 0 then x0 else if i = 1 then x1 else x2) 0 In_0_3.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_3_1_eq: (x0,x1,x2) 1 = x1.
+rewrite beta 3 (fun i => if i = 0 then x0 else if i = 1 then x1 else x2) 1 In_1_3.
+rewrite If_0 set (1 = 0) x0 (if 1 = 1 then x1 else x2) neq_1_0.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_3_2_eq: (x0,x1,x2) 2 = x2.
+rewrite beta 3 (fun i => if i = 0 then x0 else if i = 1 then x1 else x2) 2 In_2_3.
+rewrite If_0 set (2 = 0) x0 (if 2 = 1 then x1 else x2) neq_2_0.
+apply If_0 set. apply neq_2_1.
+Qed.
+
+Variable x3: set.
+Theorem tuple_4_0_eq: (x0,x1,x2,x3) 0 = x0.
+rewrite beta 4 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else x3) 0 In_0_4.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_4_1_eq: (x0,x1,x2,x3) 1 = x1.
+rewrite beta 4 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else x3) 1 In_1_4.
+rewrite If_0 set (1 = 0) x0 (if 1 = 1 then x1 else if 1 = 2 then x2 else x3) neq_1_0.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_4_2_eq: (x0,x1,x2,x3) 2 = x2.
+rewrite beta 4 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else x3) 2 In_2_4.
+rewrite If_0 set (2 = 0) x0 (if 2 = 1 then x1 else if 2 = 2 then x2 else x3) neq_2_0.
+rewrite If_0 set (2 = 1) x1 (if 2 = 2 then x2 else x3) neq_2_1.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_4_3_eq: (x0,x1,x2,x3) 3 = x3.
+rewrite beta 4 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else x3) 3 In_3_4.
+rewrite If_0 set (3 = 0) x0 (if 3 = 1 then x1 else if 3 = 2 then x2 else x3) neq_3_0.
+rewrite If_0 set (3 = 1) x1 (if 3 = 2 then x2 else x3) neq_3_1.
+apply If_0 set. apply neq_3_2.
+Qed.
+
+Variable x4: set.
+Theorem tuple_5_0_eq: (x0,x1,x2,x3,x4) 0 = x0.
+rewrite beta 5 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else x4) 0 In_0_5.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_5_1_eq: (x0,x1,x2,x3,x4) 1 = x1.
+rewrite beta 5 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else x4) 1 In_1_5.
+rewrite If_0 set (1 = 0) x0 (if 1 = 1 then x1 else if 1 = 2 then x2 else if 1 = 3 then x3 else x4) neq_1_0.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_5_2_eq: (x0,x1,x2,x3,x4) 2 = x2.
+rewrite beta 5 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else x4) 2 In_2_5.
+rewrite If_0 set (2 = 0) x0 (if 2 = 1 then x1 else if 2 = 2 then x2 else if 2 = 3 then x3 else x4) neq_2_0.
+rewrite If_0 set (2 = 1) x1 (if 2 = 2 then x2 else if 2 = 3 then x3 else x4) neq_2_1.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_5_3_eq: (x0,x1,x2,x3,x4) 3 = x3.
+rewrite beta 5 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else x4) 3 In_3_5.
+rewrite If_0 set (3 = 0) x0 (if 3 = 1 then x1 else if 3 = 2 then x2 else if 3 = 3 then x3 else x4) neq_3_0.
+rewrite If_0 set (3 = 1) x1 (if 3 = 2 then x2 else if 3 = 3 then x3 else x4) neq_3_1.
+rewrite If_0 set (3 = 2) x2 (if 3 = 3 then x3 else x4) neq_3_2.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_5_4_eq: (x0,x1,x2,x3,x4) 4 = x4.
+rewrite beta 5 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else x4) 4 In_4_5.
+rewrite If_0 set (4 = 0) x0 (if 4 = 1 then x1 else if 4 = 2 then x2 else if 4 = 3 then x3 else x4) neq_4_0.
+rewrite If_0 set (4 = 1) x1 (if 4 = 2 then x2 else if 4 = 3 then x3 else x4) neq_4_1.
+rewrite If_0 set (4 = 2) x2 (if 4 = 3 then x3 else x4) neq_4_2.
+apply If_0 set. apply neq_4_3.
+Qed.
+
+Variable x5: set.
+Theorem tuple_6_0_eq: (x0,x1,x2,x3,x4,x5) 0 = x0.
+rewrite beta 6 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else x5) 0 In_0_6.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_6_1_eq: (x0,x1,x2,x3,x4,x5) 1 = x1.
+rewrite beta 6 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else x5) 1 In_1_6.
+rewrite If_0 set (1 = 0) x0 (if 1 = 1 then x1 else if 1 = 2 then x2 else if 1 = 3 then x3 else if 1 = 4 then x4 else x5) neq_1_0.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_6_2_eq: (x0,x1,x2,x3,x4,x5) 2 = x2.
+rewrite beta 6 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else x5) 2 In_2_6.
+rewrite If_0 set (2 = 0) x0 (if 2 = 1 then x1 else if 2 = 2 then x2 else if 2 = 3 then x3 else if 2 = 4 then x4 else x5) neq_2_0.
+rewrite If_0 set (2 = 1) x1 (if 2 = 2 then x2 else if 2 = 3 then x3 else if 2 = 4 then x4 else x5) neq_2_1.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_6_3_eq: (x0,x1,x2,x3,x4,x5) 3 = x3.
+rewrite beta 6 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else x5) 3 In_3_6.
+rewrite If_0 set (3 = 0) x0 (if 3 = 1 then x1 else if 3 = 2 then x2 else if 3 = 3 then x3 else if 3 = 4 then x4 else x5) neq_3_0.
+rewrite If_0 set (3 = 1) x1 (if 3 = 2 then x2 else if 3 = 3 then x3 else if 3 = 4 then x4 else x5) neq_3_1.
+rewrite If_0 set (3 = 2) x2 (if 3 = 3 then x3 else if 3 = 4 then x4 else x5) neq_3_2.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_6_4_eq: (x0,x1,x2,x3,x4,x5) 4 = x4.
+rewrite beta 6 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else x5) 4 In_4_6.
+rewrite If_0 set (4 = 0) x0 (if 4 = 1 then x1 else if 4 = 2 then x2 else if 4 = 3 then x3 else if 4 = 4 then x4 else x5) neq_4_0.
+rewrite If_0 set (4 = 1) x1 (if 4 = 2 then x2 else if 4 = 3 then x3 else if 4 = 4 then x4 else x5) neq_4_1.
+rewrite If_0 set (4 = 2) x2 (if 4 = 3 then x3 else if 4 = 4 then x4 else x5) neq_4_2.
+rewrite If_0 set (4 = 3) x3 (if 4 = 4 then x4 else x5) neq_4_3.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_6_5_eq: (x0,x1,x2,x3,x4,x5) 5 = x5.
+rewrite beta 6 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else x5) 5 In_5_6.
+rewrite If_0 set (5 = 0) x0 (if 5 = 1 then x1 else if 5 = 2 then x2 else if 5 = 3 then x3 else if 5 = 4 then x4 else x5) neq_5_0.
+rewrite If_0 set (5 = 1) x1 (if 5 = 2 then x2 else if 5 = 3 then x3 else if 5 = 4 then x4 else x5) neq_5_1.
+rewrite If_0 set (5 = 2) x2 (if 5 = 3 then x3 else if 5 = 4 then x4 else x5) neq_5_2.
+rewrite If_0 set (5 = 3) x3 (if 5 = 4 then x4 else x5) neq_5_3.
+apply If_0 set. apply neq_5_4.
+Qed.
+
+Variable x6: set.
+Theorem tuple_7_0_eq: (x0,x1,x2,x3,x4,x5,x6) 0 = x0.
+rewrite beta 7 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else x6) 0 In_0_7.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_7_1_eq: (x0,x1,x2,x3,x4,x5,x6) 1 = x1.
+rewrite beta 7 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else x6) 1 In_1_7.
+rewrite If_0 set (1 = 0) x0 (if 1 = 1 then x1 else if 1 = 2 then x2 else if 1 = 3 then x3 else if 1 = 4 then x4 else if 1 = 5 then x5 else x6) neq_1_0.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_7_2_eq: (x0,x1,x2,x3,x4,x5,x6) 2 = x2.
+rewrite beta 7 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else x6) 2 In_2_7.
+rewrite If_0 set (2 = 0) x0 (if 2 = 1 then x1 else if 2 = 2 then x2 else if 2 = 3 then x3 else if 2 = 4 then x4 else if 2 = 5 then x5 else x6) neq_2_0.
+rewrite If_0 set (2 = 1) x1 (if 2 = 2 then x2 else if 2 = 3 then x3 else if 2 = 4 then x4 else if 2 = 5 then x5 else x6) neq_2_1.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_7_3_eq: (x0,x1,x2,x3,x4,x5,x6) 3 = x3.
+rewrite beta 7 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else x6) 3 In_3_7.
+rewrite If_0 set (3 = 0) x0 (if 3 = 1 then x1 else if 3 = 2 then x2 else if 3 = 3 then x3 else if 3 = 4 then x4 else if 3 = 5 then x5 else x6) neq_3_0.
+rewrite If_0 set (3 = 1) x1 (if 3 = 2 then x2 else if 3 = 3 then x3 else if 3 = 4 then x4 else if 3 = 5 then x5 else x6) neq_3_1.
+rewrite If_0 set (3 = 2) x2 (if 3 = 3 then x3 else if 3 = 4 then x4 else if 3 = 5 then x5 else x6) neq_3_2.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_7_4_eq: (x0,x1,x2,x3,x4,x5,x6) 4 = x4.
+rewrite beta 7 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else x6) 4 In_4_7.
+rewrite If_0 set (4 = 0) x0 (if 4 = 1 then x1 else if 4 = 2 then x2 else if 4 = 3 then x3 else if 4 = 4 then x4 else if 4 = 5 then x5 else x6) neq_4_0.
+rewrite If_0 set (4 = 1) x1 (if 4 = 2 then x2 else if 4 = 3 then x3 else if 4 = 4 then x4 else if 4 = 5 then x5 else x6) neq_4_1.
+rewrite If_0 set (4 = 2) x2 (if 4 = 3 then x3 else if 4 = 4 then x4 else if 4 = 5 then x5 else x6) neq_4_2.
+rewrite If_0 set (4 = 3) x3 (if 4 = 4 then x4 else if 4 = 5 then x5 else x6) neq_4_3.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_7_5_eq: (x0,x1,x2,x3,x4,x5,x6) 5 = x5.
+rewrite beta 7 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else x6) 5 In_5_7.
+rewrite If_0 set (5 = 0) x0 (if 5 = 1 then x1 else if 5 = 2 then x2 else if 5 = 3 then x3 else if 5 = 4 then x4 else if 5 = 5 then x5 else x6) neq_5_0.
+rewrite If_0 set (5 = 1) x1 (if 5 = 2 then x2 else if 5 = 3 then x3 else if 5 = 4 then x4 else if 5 = 5 then x5 else x6) neq_5_1.
+rewrite If_0 set (5 = 2) x2 (if 5 = 3 then x3 else if 5 = 4 then x4 else if 5 = 5 then x5 else x6) neq_5_2.
+rewrite If_0 set (5 = 3) x3 (if 5 = 4 then x4 else if 5 = 5 then x5 else x6) neq_5_3.
+rewrite If_0 set (5 = 4) x4 (if 5 = 5 then x5 else x6) neq_5_4.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_7_6_eq: (x0,x1,x2,x3,x4,x5,x6) 6 = x6.
+rewrite beta 7 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else x6) 6 In_6_7.
+rewrite If_0 set (6 = 0) x0 (if 6 = 1 then x1 else if 6 = 2 then x2 else if 6 = 3 then x3 else if 6 = 4 then x4 else if 6 = 5 then x5 else x6) neq_6_0.
+rewrite If_0 set (6 = 1) x1 (if 6 = 2 then x2 else if 6 = 3 then x3 else if 6 = 4 then x4 else if 6 = 5 then x5 else x6) neq_6_1.
+rewrite If_0 set (6 = 2) x2 (if 6 = 3 then x3 else if 6 = 4 then x4 else if 6 = 5 then x5 else x6) neq_6_2.
+rewrite If_0 set (6 = 3) x3 (if 6 = 4 then x4 else if 6 = 5 then x5 else x6) neq_6_3.
+rewrite If_0 set (6 = 4) x4 (if 6 = 5 then x5 else x6) neq_6_4.
+apply If_0 set. apply neq_6_5.
+Qed.
+
+Variable x7: set.
+Theorem tuple_8_0_eq: (x0,x1,x2,x3,x4,x5,x6,x7) 0 = x0.
+rewrite beta 8 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else if i = 6 then x6 else x7) 0 In_0_8.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_8_1_eq: (x0,x1,x2,x3,x4,x5,x6,x7) 1 = x1.
+rewrite beta 8 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else if i = 6 then x6 else x7) 1 In_1_8.
+rewrite If_0 set (1 = 0) x0 (if 1 = 1 then x1 else if 1 = 2 then x2 else if 1 = 3 then x3 else if 1 = 4 then x4 else if 1 = 5 then x5 else if 1 = 6 then x6 else x7) neq_1_0.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_8_2_eq: (x0,x1,x2,x3,x4,x5,x6,x7) 2 = x2.
+rewrite beta 8 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else if i = 6 then x6 else x7) 2 In_2_8.
+rewrite If_0 set (2 = 0) x0 (if 2 = 1 then x1 else if 2 = 2 then x2 else if 2 = 3 then x3 else if 2 = 4 then x4 else if 2 = 5 then x5 else if 2 = 6 then x6 else x7) neq_2_0.
+rewrite If_0 set (2 = 1) x1 (if 2 = 2 then x2 else if 2 = 3 then x3 else if 2 = 4 then x4 else if 2 = 5 then x5 else if 2 = 6 then x6 else x7) neq_2_1.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_8_3_eq: (x0,x1,x2,x3,x4,x5,x6,x7) 3 = x3.
+rewrite beta 8 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else if i = 6 then x6 else x7) 3 In_3_8.
+rewrite If_0 set (3 = 0) x0 (if 3 = 1 then x1 else if 3 = 2 then x2 else if 3 = 3 then x3 else if 3 = 4 then x4 else if 3 = 5 then x5 else if 3 = 6 then x6 else x7) neq_3_0.
+rewrite If_0 set (3 = 1) x1 (if 3 = 2 then x2 else if 3 = 3 then x3 else if 3 = 4 then x4 else if 3 = 5 then x5 else if 3 = 6 then x6 else x7) neq_3_1.
+rewrite If_0 set (3 = 2) x2 (if 3 = 3 then x3 else if 3 = 4 then x4 else if 3 = 5 then x5 else if 3 = 6 then x6 else x7) neq_3_2.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_8_4_eq: (x0,x1,x2,x3,x4,x5,x6,x7) 4 = x4.
+rewrite beta 8 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else if i = 6 then x6 else x7) 4 In_4_8.
+rewrite If_0 set (4 = 0) x0 (if 4 = 1 then x1 else if 4 = 2 then x2 else if 4 = 3 then x3 else if 4 = 4 then x4 else if 4 = 5 then x5 else if 4 = 6 then x6 else x7) neq_4_0.
+rewrite If_0 set (4 = 1) x1 (if 4 = 2 then x2 else if 4 = 3 then x3 else if 4 = 4 then x4 else if 4 = 5 then x5 else if 4 = 6 then x6 else x7) neq_4_1.
+rewrite If_0 set (4 = 2) x2 (if 4 = 3 then x3 else if 4 = 4 then x4 else if 4 = 5 then x5 else if 4 = 6 then x6 else x7) neq_4_2.
+rewrite If_0 set (4 = 3) x3 (if 4 = 4 then x4 else if 4 = 5 then x5 else if 4 = 6 then x6 else x7) neq_4_3.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_8_5_eq: (x0,x1,x2,x3,x4,x5,x6,x7) 5 = x5.
+rewrite beta 8 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else if i = 6 then x6 else x7) 5 In_5_8.
+rewrite If_0 set (5 = 0) x0 (if 5 = 1 then x1 else if 5 = 2 then x2 else if 5 = 3 then x3 else if 5 = 4 then x4 else if 5 = 5 then x5 else if 5 = 6 then x6 else x7) neq_5_0.
+rewrite If_0 set (5 = 1) x1 (if 5 = 2 then x2 else if 5 = 3 then x3 else if 5 = 4 then x4 else if 5 = 5 then x5 else if 5 = 6 then x6 else x7) neq_5_1.
+rewrite If_0 set (5 = 2) x2 (if 5 = 3 then x3 else if 5 = 4 then x4 else if 5 = 5 then x5 else if 5 = 6 then x6 else x7) neq_5_2.
+rewrite If_0 set (5 = 3) x3 (if 5 = 4 then x4 else if 5 = 5 then x5 else if 5 = 6 then x6 else x7) neq_5_3.
+rewrite If_0 set (5 = 4) x4 (if 5 = 5 then x5 else if 5 = 6 then x6 else x7) neq_5_4.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_8_6_eq: (x0,x1,x2,x3,x4,x5,x6,x7) 6 = x6.
+rewrite beta 8 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else if i = 6 then x6 else x7) 6 In_6_8.
+rewrite If_0 set (6 = 0) x0 (if 6 = 1 then x1 else if 6 = 2 then x2 else if 6 = 3 then x3 else if 6 = 4 then x4 else if 6 = 5 then x5 else if 6 = 6 then x6 else x7) neq_6_0.
+rewrite If_0 set (6 = 1) x1 (if 6 = 2 then x2 else if 6 = 3 then x3 else if 6 = 4 then x4 else if 6 = 5 then x5 else if 6 = 6 then x6 else x7) neq_6_1.
+rewrite If_0 set (6 = 2) x2 (if 6 = 3 then x3 else if 6 = 4 then x4 else if 6 = 5 then x5 else if 6 = 6 then x6 else x7) neq_6_2.
+rewrite If_0 set (6 = 3) x3 (if 6 = 4 then x4 else if 6 = 5 then x5 else if 6 = 6 then x6 else x7) neq_6_3.
+rewrite If_0 set (6 = 4) x4 (if 6 = 5 then x5 else if 6 = 6 then x6 else x7) neq_6_4.
+rewrite If_0 set (6 = 5) x5 (if 6 = 6 then x6 else x7) neq_6_5.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_8_7_eq: (x0,x1,x2,x3,x4,x5,x6,x7) 7 = x7.
+rewrite beta 8 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else if i = 6 then x6 else x7) 7 In_7_8.
+rewrite If_0 set (7 = 0) x0 (if 7 = 1 then x1 else if 7 = 2 then x2 else if 7 = 3 then x3 else if 7 = 4 then x4 else if 7 = 5 then x5 else if 7 = 6 then x6 else x7) neq_7_0.
+rewrite If_0 set (7 = 1) x1 (if 7 = 2 then x2 else if 7 = 3 then x3 else if 7 = 4 then x4 else if 7 = 5 then x5 else if 7 = 6 then x6 else x7) neq_7_1.
+rewrite If_0 set (7 = 2) x2 (if 7 = 3 then x3 else if 7 = 4 then x4 else if 7 = 5 then x5 else if 7 = 6 then x6 else x7) neq_7_2.
+rewrite If_0 set (7 = 3) x3 (if 7 = 4 then x4 else if 7 = 5 then x5 else if 7 = 6 then x6 else x7) neq_7_3.
+rewrite If_0 set (7 = 4) x4 (if 7 = 5 then x5 else if 7 = 6 then x6 else x7) neq_7_4.
+rewrite If_0 set (7 = 5) x5 (if 7 = 6 then x6 else x7) neq_7_5.
+apply If_0 set. apply neq_7_6.
+Qed.
+
+Variable x8: set.
+Theorem tuple_9_0_eq: (x0,x1,x2,x3,x4,x5,x6,x7,x8) 0 = x0.
+rewrite beta 9 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else if i = 6 then x6 else if i = 7 then x7 else x8) 0 In_0_9.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_9_1_eq: (x0,x1,x2,x3,x4,x5,x6,x7,x8) 1 = x1.
+rewrite beta 9 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else if i = 6 then x6 else if i = 7 then x7 else x8) 1 In_1_9.
+rewrite If_0 set (1 = 0) x0 (if 1 = 1 then x1 else if 1 = 2 then x2 else if 1 = 3 then x3 else if 1 = 4 then x4 else if 1 = 5 then x5 else if 1 = 6 then x6 else if 1 = 7 then x7 else x8) neq_1_0.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_9_2_eq: (x0,x1,x2,x3,x4,x5,x6,x7,x8) 2 = x2.
+rewrite beta 9 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else if i = 6 then x6 else if i = 7 then x7 else x8) 2 In_2_9.
+rewrite If_0 set (2 = 0) x0 (if 2 = 1 then x1 else if 2 = 2 then x2 else if 2 = 3 then x3 else if 2 = 4 then x4 else if 2 = 5 then x5 else if 2 = 6 then x6 else if 2 = 7 then x7 else x8) neq_2_0.
+rewrite If_0 set (2 = 1) x1 (if 2 = 2 then x2 else if 2 = 3 then x3 else if 2 = 4 then x4 else if 2 = 5 then x5 else if 2 = 6 then x6 else if 2 = 7 then x7 else x8) neq_2_1.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_9_3_eq: (x0,x1,x2,x3,x4,x5,x6,x7,x8) 3 = x3.
+rewrite beta 9 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else if i = 6 then x6 else if i = 7 then x7 else x8) 3 In_3_9.
+rewrite If_0 set (3 = 0) x0 (if 3 = 1 then x1 else if 3 = 2 then x2 else if 3 = 3 then x3 else if 3 = 4 then x4 else if 3 = 5 then x5 else if 3 = 6 then x6 else if 3 = 7 then x7 else x8) neq_3_0.
+rewrite If_0 set (3 = 1) x1 (if 3 = 2 then x2 else if 3 = 3 then x3 else if 3 = 4 then x4 else if 3 = 5 then x5 else if 3 = 6 then x6 else if 3 = 7 then x7 else x8) neq_3_1.
+rewrite If_0 set (3 = 2) x2 (if 3 = 3 then x3 else if 3 = 4 then x4 else if 3 = 5 then x5 else if 3 = 6 then x6 else if 3 = 7 then x7 else x8) neq_3_2.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_9_4_eq: (x0,x1,x2,x3,x4,x5,x6,x7,x8) 4 = x4.
+rewrite beta 9 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else if i = 6 then x6 else if i = 7 then x7 else x8) 4 In_4_9.
+rewrite If_0 set (4 = 0) x0 (if 4 = 1 then x1 else if 4 = 2 then x2 else if 4 = 3 then x3 else if 4 = 4 then x4 else if 4 = 5 then x5 else if 4 = 6 then x6 else if 4 = 7 then x7 else x8) neq_4_0.
+rewrite If_0 set (4 = 1) x1 (if 4 = 2 then x2 else if 4 = 3 then x3 else if 4 = 4 then x4 else if 4 = 5 then x5 else if 4 = 6 then x6 else if 4 = 7 then x7 else x8) neq_4_1.
+rewrite If_0 set (4 = 2) x2 (if 4 = 3 then x3 else if 4 = 4 then x4 else if 4 = 5 then x5 else if 4 = 6 then x6 else if 4 = 7 then x7 else x8) neq_4_2.
+rewrite If_0 set (4 = 3) x3 (if 4 = 4 then x4 else if 4 = 5 then x5 else if 4 = 6 then x6 else if 4 = 7 then x7 else x8) neq_4_3.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_9_5_eq: (x0,x1,x2,x3,x4,x5,x6,x7,x8) 5 = x5.
+rewrite beta 9 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else if i = 6 then x6 else if i = 7 then x7 else x8) 5 In_5_9.
+rewrite If_0 set (5 = 0) x0 (if 5 = 1 then x1 else if 5 = 2 then x2 else if 5 = 3 then x3 else if 5 = 4 then x4 else if 5 = 5 then x5 else if 5 = 6 then x6 else if 5 = 7 then x7 else x8) neq_5_0.
+rewrite If_0 set (5 = 1) x1 (if 5 = 2 then x2 else if 5 = 3 then x3 else if 5 = 4 then x4 else if 5 = 5 then x5 else if 5 = 6 then x6 else if 5 = 7 then x7 else x8) neq_5_1.
+rewrite If_0 set (5 = 2) x2 (if 5 = 3 then x3 else if 5 = 4 then x4 else if 5 = 5 then x5 else if 5 = 6 then x6 else if 5 = 7 then x7 else x8) neq_5_2.
+rewrite If_0 set (5 = 3) x3 (if 5 = 4 then x4 else if 5 = 5 then x5 else if 5 = 6 then x6 else if 5 = 7 then x7 else x8) neq_5_3.
+rewrite If_0 set (5 = 4) x4 (if 5 = 5 then x5 else if 5 = 6 then x6 else if 5 = 7 then x7 else x8) neq_5_4.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_9_6_eq: (x0,x1,x2,x3,x4,x5,x6,x7,x8) 6 = x6.
+rewrite beta 9 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else if i = 6 then x6 else if i = 7 then x7 else x8) 6 In_6_9.
+rewrite If_0 set (6 = 0) x0 (if 6 = 1 then x1 else if 6 = 2 then x2 else if 6 = 3 then x3 else if 6 = 4 then x4 else if 6 = 5 then x5 else if 6 = 6 then x6 else if 6 = 7 then x7 else x8) neq_6_0.
+rewrite If_0 set (6 = 1) x1 (if 6 = 2 then x2 else if 6 = 3 then x3 else if 6 = 4 then x4 else if 6 = 5 then x5 else if 6 = 6 then x6 else if 6 = 7 then x7 else x8) neq_6_1.
+rewrite If_0 set (6 = 2) x2 (if 6 = 3 then x3 else if 6 = 4 then x4 else if 6 = 5 then x5 else if 6 = 6 then x6 else if 6 = 7 then x7 else x8) neq_6_2.
+rewrite If_0 set (6 = 3) x3 (if 6 = 4 then x4 else if 6 = 5 then x5 else if 6 = 6 then x6 else if 6 = 7 then x7 else x8) neq_6_3.
+rewrite If_0 set (6 = 4) x4 (if 6 = 5 then x5 else if 6 = 6 then x6 else if 6 = 7 then x7 else x8) neq_6_4.
+rewrite If_0 set (6 = 5) x5 (if 6 = 6 then x6 else if 6 = 7 then x7 else x8) neq_6_5.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_9_7_eq: (x0,x1,x2,x3,x4,x5,x6,x7,x8) 7 = x7.
+rewrite beta 9 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else if i = 6 then x6 else if i = 7 then x7 else x8) 7 In_7_9.
+rewrite If_0 set (7 = 0) x0 (if 7 = 1 then x1 else if 7 = 2 then x2 else if 7 = 3 then x3 else if 7 = 4 then x4 else if 7 = 5 then x5 else if 7 = 6 then x6 else if 7 = 7 then x7 else x8) neq_7_0.
+rewrite If_0 set (7 = 1) x1 (if 7 = 2 then x2 else if 7 = 3 then x3 else if 7 = 4 then x4 else if 7 = 5 then x5 else if 7 = 6 then x6 else if 7 = 7 then x7 else x8) neq_7_1.
+rewrite If_0 set (7 = 2) x2 (if 7 = 3 then x3 else if 7 = 4 then x4 else if 7 = 5 then x5 else if 7 = 6 then x6 else if 7 = 7 then x7 else x8) neq_7_2.
+rewrite If_0 set (7 = 3) x3 (if 7 = 4 then x4 else if 7 = 5 then x5 else if 7 = 6 then x6 else if 7 = 7 then x7 else x8) neq_7_3.
+rewrite If_0 set (7 = 4) x4 (if 7 = 5 then x5 else if 7 = 6 then x6 else if 7 = 7 then x7 else x8) neq_7_4.
+rewrite If_0 set (7 = 5) x5 (if 7 = 6 then x6 else if 7 = 7 then x7 else x8) neq_7_5.
+rewrite If_0 set (7 = 6) x6 (if 7 = 7 then x7 else x8) neq_7_6.
+apply If_1 set. apply eqI set.
+Qed.
+
+Theorem tuple_9_8_eq: (x0,x1,x2,x3,x4,x5,x6,x7,x8) 8 = x8.
+rewrite beta 9 (fun i => if i = 0 then x0 else if i = 1 then x1 else if i = 2 then x2 else if i = 3 then x3 else if i = 4 then x4 else if i = 5 then x5 else if i = 6 then x6 else if i = 7 then x7 else x8) 8 In_8_9.
+rewrite If_0 set (8 = 0) x0 (if 8 = 1 then x1 else if 8 = 2 then x2 else if 8 = 3 then x3 else if 8 = 4 then x4 else if 8 = 5 then x5 else if 8 = 6 then x6 else if 8 = 7 then x7 else x8) neq_8_0.
+rewrite If_0 set (8 = 1) x1 (if 8 = 2 then x2 else if 8 = 3 then x3 else if 8 = 4 then x4 else if 8 = 5 then x5 else if 8 = 6 then x6 else if 8 = 7 then x7 else x8) neq_8_1.
+rewrite If_0 set (8 = 2) x2 (if 8 = 3 then x3 else if 8 = 4 then x4 else if 8 = 5 then x5 else if 8 = 6 then x6 else if 8 = 7 then x7 else x8) neq_8_2.
+rewrite If_0 set (8 = 3) x3 (if 8 = 4 then x4 else if 8 = 5 then x5 else if 8 = 6 then x6 else if 8 = 7 then x7 else x8) neq_8_3.
+rewrite If_0 set (8 = 4) x4 (if 8 = 5 then x5 else if 8 = 6 then x6 else if 8 = 7 then x7 else x8) neq_8_4.
+rewrite If_0 set (8 = 5) x5 (if 8 = 6 then x6 else if 8 = 7 then x7 else x8) neq_8_5.
+rewrite If_0 set (8 = 6) x6 (if 8 = 7 then x7 else x8) neq_8_6.
+apply If_0 set. apply neq_8_7.
+Qed.
+
+End Tuples.
 
 Axiom pair_Sigma : forall X : set , forall Y : set -> set , forall x :e X , forall y :e Y x , pair x y :e Sigma_ x :e X , Y x.
 Axiom tuple_pair : forall x y : set , pair x y = (x,y).
@@ -306,814 +1043,4 @@ apply lam_ext.
 let y. assume Hy.
 exact H1 x Hx y Hy.
 Qed.
-
-Definition pack_e : set -> set -> set := fun X c => (X,c).
-
-Theorem pack_e_eta : forall X c, (fun i :e 2 => pack_e X c i) = pack_e X c.
-exact tuple_2_eta.
-Qed.
-
-Definition struct_e : set -> prop := fun S => exists X:set, exists c:set, c :e X /\ S = pack_e X c.
-
-Theorem struct_e_0_eq : forall S X, forall c:set, S = pack_e X c -> X = S 0.
-let S X c.
-assume H1: S = (X,c).
-prove X = S 0.
-rewrite H1.
-apply eq_sym set.
-apply tuple_2_0_eq.
-Qed.
-
-Theorem struct_e_1_eq : forall S X, forall c:set, S = pack_e X c -> c = S 1.
-let S X c.
-assume H1: S = (X,c).
-prove c = S 1.
-rewrite H1.
-apply eq_sym set.
-apply tuple_2_1_eq.
-Qed.
-
-Theorem pack_struct_e: forall X, forall c:set, c :e X -> struct_e (pack_e X c).
-let X c. assume Hc.
-prove struct_e (pack_e X c).
-prove exists X':set, exists c':set, c' :e X' /\ pack_e X c = pack_e X' c'.
-witness X. witness c.
-apply andI.
-- exact Hc.
-- apply eqI set.
-Qed.
-
-Theorem struct_e_eta: forall S, struct_e S -> S = pack_e (S 0) (S 1).
-let S. assume H1. apply H1. let X. assume H2. apply H2. let c. assume H3. apply H3.
-assume H4: c :e X.
-assume H5: S = pack_e X c.
-claim L1: X = S 0.
-{ rewrite H5.
-  prove X = (X,c) 0.
-  apply eq_sym set.
-  apply tuple_2_0_eq.
-}
-claim L2: c = S 1.
-{ rewrite H5.
-  prove c = (X,c) 1.
-  apply eq_sym set.
-  apply tuple_2_1_eq.
-}
-prove S = pack_e (S 0) (S 1).
-rewrite H5 at 1.
-prove pack_e X c = pack_e (S 0) (S 1).
-prove (X,c)
-    = (S 0,S 1).
-rewrite <- L1.
-prove (X,c)
-    = (X,S 1).
-rewrite <- L2.
-apply eqI set.
-Qed.
-
-Section unpack_e.
-
-Variable A:SType.
-
-Definition unpack_e : set -> (set -> set -> A) -> A := fun S c => c (S 0) (S 1).
-
-Theorem unpack_e_eq : forall Phi:set -> set -> A,
-  forall X, forall c:set, unpack_e (pack_e X c) Phi = Phi X c.
-let Phi.
-let X c.
-prove unpack_e (pack_e X c) Phi = Phi X c.
-prove Phi (pack_e X c 0) (pack_e X c 1) = Phi X c.
-rewrite <- struct_e_0_eq (pack_e X c) X c (eqI set (pack_e X c)).
-prove Phi X (pack_e X c 1) = Phi X c.
-rewrite <- struct_e_1_eq (pack_e X c) X c (eqI set (pack_e X c)).
-prove Phi X c = Phi X c.
-apply eqI A.
-Qed.
-
-End unpack_e.
-
-Definition pack_u : set -> (set -> set) -> set := fun X F => (X,lam X F).
-
-Theorem pack_u_eta : forall X, forall F:set -> set, (fun i :e 2 => pack_u X F i) = pack_u X F.
-let X F.
-exact tuple_2_eta X (lam X F).
-Qed.
-
-Definition unpack_u_1 : set -> set -> set := fun S x => S 1 x.
-
-Definition struct_u : set -> prop := fun S => exists X:set, exists F:set -> set, (forall x :e X, F x :e X) /\ S = pack_u X F.
-
-Theorem pack_u_eq : forall X, forall F F':set -> set,
-     (forall x :e X, F x = F' x)
-  -> pack_u X F = pack_u X F'.
-let X F F'. assume H1.
-claim L1: lam X F = lam X F'.
-{ apply lam_ext. exact H1. }
-prove (X,lam X F) = (X,lam X F').
-rewrite <- L1.
-apply eqI set.
-Qed.
-
-Theorem struct_u_0_eq : forall S X, forall F:set -> set, S = pack_u X F -> X = S 0.
-let S X F.
-assume H1: S = (X,lam X F).
-prove X = S 0.
-rewrite H1.
-apply eq_sym set.
-apply tuple_2_0_eq.
-Qed.
-
-Theorem struct_u_1_eq : forall S X, forall F:set -> set, S = pack_u X F -> forall x :e X, F x = unpack_u_1 S x.
-let S X F.
-assume H1: S = (X,lam X F).
-let x. assume Hx: x :e X.
-prove F x = unpack_u_1 S x.
-rewrite H1.
-prove F x = (X,lam X F) 1 x.
-rewrite tuple_2_1_eq.
-apply eq_sym set. apply beta. exact Hx.
-Qed.
-
-Theorem pack_struct_u: forall X, forall F:set -> set, (forall x :e X, F x :e X) -> struct_u (pack_u X F).
-let X F.
-assume HF.
-prove exists X':set, exists F':set -> set, (forall x :e X', F' x :e X') /\ pack_u X F = pack_u X' F'.
-witness X. witness F.
-apply andI.
-- exact HF.
-- apply eqI set.
-Qed.
-
-Theorem struct_u_eta: forall S, struct_u S -> S = pack_u (S 0) (unpack_u_1 S).
-let S. assume H1. apply H1. let X. assume H2. apply H2. let F. assume H3. apply H3.
-assume H4: forall x :e X, F x :e X.
-assume H5: S = pack_u X F.
-claim L1: X = S 0.
-{ exact struct_u_0_eq S X F H5. }
-claim L2: lam X F = lam X (fun x => unpack_u_1 S x).
-{ apply lam_ext.
-  exact struct_u_1_eq S X F H5.
-}
-prove S = pack_u (S 0) (unpack_u_1 S).
-rewrite H5 at 1.
-prove pack_u X F = pack_u (S 0) (unpack_u_1 S).
-prove (X,lam X F)
-    = (S 0,lam (S 0) (unpack_u_1 S)).
-rewrite <- L1.
-prove (X,lam X F)
-    = (X,lam X (fun x => unpack_u_1 S x)).
-rewrite <- L2.
-apply eqI set.
-Qed.
-
-Section unpack_u.
-Variable A:SType.
-
-Definition unpack_u : set -> (set -> (set -> set) -> A) -> A := fun S F => F (S 0) (unpack_u_1 S).
-
-Theorem unpack_u_eq : forall Phi:set -> (set -> set) -> A,
-  (forall X, forall F F':set -> set, (forall x :e X, F x = F' x) -> Phi X F = Phi X F')
-  ->
-  forall X, forall F:set -> set, unpack_u (pack_u X F) Phi = Phi X F.
-let Phi.
-assume H1.
-let X F.
-prove unpack_u (pack_u X F) Phi = Phi X F.
-prove Phi (pack_u X F 0) (unpack_u_1 (pack_u X F)) = Phi X F.
-rewrite <- struct_u_0_eq (pack_u X F) X F (eqI set (pack_u X F)).
-prove Phi X (unpack_u_1 (pack_u X F)) = Phi X F.
-apply H1.
-let x. assume Hx.
-prove unpack_u_1 (pack_u X F) x = F x.
-apply eq_sym set.
-exact struct_u_1_eq (pack_u X F) X F (eqI set (pack_u X F)) x Hx.
-Qed.
-
-End unpack_u.
-
-Definition pack_b : set -> (set -> set -> set) -> set := fun X F => (X,lam2 X (fun _ => X) F).
-
-Theorem pack_b_eta : forall X, forall F:set -> set -> set, (fun i :e 2 => pack_b X F i) = pack_b X F.
-let X F.
-exact tuple_2_eta X (lam2 X (fun _ => X) F).
-Qed.
-
-Definition unpack_b_1 : set -> set -> set -> set := fun S x y => S 1 x y.
-
-Definition struct_b : set -> prop := fun S => exists X:set, exists F:set -> set -> set, (forall x y :e X, F x y :e X) /\ S = pack_b X F.
-
-Theorem pack_b_eq : forall X, forall F F':set -> set -> set,
-     (forall x y :e X, F x y = F' x y)
-  -> pack_b X F = pack_b X F'.
-let X F F'. assume H1.
-claim L1: lam2 X (fun _ => X) F = lam2 X (fun _ => X) F'.
-{ apply lam2_ext. exact H1. }
-prove (X,lam2 X (fun _ => X) F) = (X,lam2 X (fun _ => X) F').
-rewrite <- L1.
-apply eqI set.
-Qed.
-
-Theorem struct_b_0_eq : forall S X, forall F:set -> set -> set, S = pack_b X F -> X = S 0.
-let S X F.
-assume H1: S = (X,lam2 X (fun _ => X) F).
-prove X = S 0.
-rewrite H1.
-apply eq_sym set.
-apply tuple_2_0_eq.
-Qed.
-
-Theorem struct_b_1_eq : forall S X, forall F:set -> set -> set, S = pack_b X F -> forall x y :e X, F x y = unpack_b_1 S x y.
-let S X F.
-assume H1: S = (X,lam2 X (fun _ => X) F).
-let x. assume Hx: x :e X.
-let y. assume Hy: y :e X.
-prove F x y = unpack_b_1 S x y.
-rewrite H1.
-prove F x y = (X,lam2 X (fun _ => X) F) 1 x y.
-rewrite tuple_2_1_eq.
-apply eq_sym set. apply beta2.
-- exact Hx.
-- exact Hy.
-Qed.
-
-Theorem pack_struct_b: forall X, forall F:set -> set -> set, (forall x y :e X, F x y :e X) -> struct_b (pack_b X F).
-let X F.
-assume HF.
-prove exists X':set, exists F':set -> set -> set, (forall x y :e X', F' x y :e X') /\ pack_b X F = pack_b X' F'.
-witness X. witness F. apply andI.
-- exact HF.
-- apply eqI set.
-Qed.
-
-Theorem struct_b_eta: forall S, struct_b S -> S = pack_b (S 0) (unpack_b_1 S).
-let S. assume H1. apply H1. let X. assume H2. apply H2. let F. assume H3. apply H3.
-assume H4: forall x y :e X, F x y :e X.
-assume H5: S = pack_b X F.
-claim L1: X = S 0.
-{ exact struct_b_0_eq S X F H5. }
-claim L2: lam2 X (fun _ => X) F = lam2 X (fun _ => X) (fun x y => unpack_b_1 S x y).
-{ apply lam2_ext.
-  exact struct_b_1_eq S X F H5.
-}
-prove S = pack_b (S 0) (unpack_b_1 S).
-rewrite H5 at 1.
-prove pack_b X F = pack_b (S 0) (unpack_b_1 S).
-prove (X,lam2 X (fun _ => X) F)
-    = (S 0,lam2 (S 0) (fun _ => S 0) (unpack_b_1 S)).
-rewrite <- L1.
-prove (X,lam2 X (fun _ => X) F)
-    = (X,lam2 X (fun _ => X) (fun x y => unpack_b_1 S x y)).
-rewrite <- L2.
-apply eqI set.
-Qed.
-
-Section unpack_b.
-Variable A:SType.
-
-Definition unpack_b : set -> (set -> (set -> set -> set) -> A) -> A := fun S F => F (S 0) (unpack_b_1 S).
-
-Theorem unpack_b_eq : forall Phi:set -> (set -> set -> set) -> A,
-  (forall X, forall F F':set -> set -> set, (forall x y :e X, F x y = F' x y) -> Phi X F = Phi X F')
-  ->
-  forall X, forall F:set -> set -> set, unpack_b (pack_b X F) Phi = Phi X F.
-let Phi.
-assume H1.
-let X F.
-prove unpack_b (pack_b X F) Phi = Phi X F.
-prove Phi (pack_b X F 0) (unpack_b_1 (pack_b X F)) = Phi X F.
-rewrite <- struct_b_0_eq (pack_b X F) X F (eqI set (pack_b X F)).
-prove Phi X (unpack_b_1 (pack_b X F)) = Phi X F.
-apply H1.
-let x. assume Hx. let y. assume Hy.
-prove unpack_b_1 (pack_b X F) x y = F x y.
-apply eq_sym set.
-exact struct_b_1_eq (pack_b X F) X F (eqI set (pack_b X F)) x Hx y Hy.
-Qed.
-
-End unpack_b.
-
-Definition pack_p : set -> (set -> prop) -> set := fun X R => (X,Sep X R).
-
-Theorem pack_p_eta : forall X, forall R:set -> prop, (fun i :e 2 => pack_p X R i) = pack_p X R.
-let X R.
-exact tuple_2_eta X (Sep X R).
-Qed.
-
-Definition unpack_p_1 : set -> set -> prop := fun S x => x :e S 1.
-
-Definition struct_p : set -> prop := fun S => exists X:set, exists R:set -> prop, S = pack_p X R.
-
-Theorem pack_p_eq : forall X, forall R R':set -> prop,
-     (forall x :e X, R x <-> R' x)
-  -> pack_p X R = pack_p X R'.
-let X R R'.
-assume H1: forall x :e X, R x <-> R' x.
-claim L1: Sep X R = Sep X R'.
-{ apply set_ext.
-  - let x. assume H2. apply SepE X R x H2. assume H3 H4. apply SepI.
-    + exact H3.
-    + prove R' x. apply H1 x H3. assume H5 _. exact H5 H4.
-  - let x. assume H2. apply SepE X R' x H2. assume H3 H4. apply SepI.
-    + exact H3.
-    + prove R x. apply H1 x H3. assume _ H5. exact H5 H4.
-}
-prove (X,Sep X R) = (X,Sep X R').
-rewrite L1.
-apply eqI set.
-Qed.
-
-Theorem struct_p_0_eq : forall S X, forall R:set -> prop, S = pack_p X R -> X = S 0.
-let S X R.
-assume H1: S = (X,Sep X R).
-prove X = S 0.
-rewrite H1.
-apply eq_sym set.
-apply tuple_2_0_eq.
-Qed.
-
-Theorem struct_p_1_I : forall S X, forall R:set -> prop, S = pack_p X R -> forall x :e X, R x -> unpack_p_1 S x.
-let S X R.
-assume H1: S = (X,Sep X R).
-let x. assume Hx: x :e X.
-assume H2: R x.
-prove x :e S 1.
-rewrite H1.
-prove x :e (X,Sep X R) 1.
-rewrite tuple_2_1_eq.
-prove x :e Sep X R.
-apply SepI.
-- exact Hx.
-- exact H2.
-Qed.
-
-Theorem struct_p_1_E : forall S X, forall R:set -> prop, S = pack_p X R -> forall x, unpack_p_1 S x -> x :e X /\ R x.
-let S X R.
-assume H1: S = (X,Sep X R).
-let x.
-prove x :e S 1 -> x :e X /\ R x.
-rewrite H1.
-prove x :e (X,Sep X R) 1 -> x :e X /\ R x.
-rewrite tuple_2_1_eq.
-prove x :e Sep X R -> x :e X /\ R x.
-exact SepE X R x.
-Qed.
-
-Theorem struct_p_1_E1 : forall S X, forall R:set -> prop, S = pack_p X R -> forall x, unpack_p_1 S x -> x :e X.
-let S X R. assume H1. let x. assume H2. apply struct_p_1_E S X R H1 x H2. exact (fun H _ => H).
-Qed.
-
-Theorem struct_p_1_E2 : forall S X, forall R:set -> prop, S = pack_p X R -> forall x, unpack_p_1 S x -> R x.
-let S X R. assume H1. let x. assume H2. apply struct_p_1_E S X R H1 x H2. exact (fun _ H => H).
-Qed.
-
-Theorem pack_struct_p: forall X, forall R:set -> prop, struct_p (pack_p X R).
-let X R.
-prove exists X':set, exists R':set -> prop, pack_p X R = pack_p X' R'.
-witness X. witness R.
-apply eqI set.
-Qed.
-
-Theorem struct_p_eta: forall S, struct_p S -> S = pack_p (S 0) (unpack_p_1 S).
-let S. assume H1. apply H1. let X. assume H2. apply H2. let R.
-assume H3: S = pack_p X R.
-claim L1: X = S 0.
-{ rewrite H3.
-  prove X = (X,Sep X R) 0.
-  apply eq_sym set.
-  apply tuple_2_0_eq.
-}
-claim L2: Sep X R = Sep X (fun x => unpack_p_1 S x).
-{ apply set_ext.
-  - let x. assume Hx: x :e Sep X R.
-    apply SepI.
-    + exact SepE1 X R x Hx.
-    + prove unpack_p_1 S x.
-      prove x :e S 1.
-      rewrite H3.
-      prove x :e (X,Sep X R) 1.
-      rewrite tuple_2_1_eq.
-      prove x :e Sep X R.
-      exact Hx.
-  - let x. assume Hx: x :e Sep X (fun x => unpack_p_1 S x).
-    apply SepE X (fun x => unpack_p_1 S x) x Hx.
-    prove x :e X -> unpack_p_1 S x -> x :e Sep X R.
-    assume _.
-    prove x :e S 1 -> x :e Sep X R.
-    rewrite H3.
-    prove x :e (X,Sep X R) 1 -> x :e Sep X R.
-    rewrite tuple_2_1_eq.
-    prove x :e Sep X R -> x :e Sep X R.
-    exact (fun H => H).
-}
-prove S = pack_p (S 0) (unpack_p_1 S).
-rewrite H3 at 1.
-prove pack_p X R = pack_p (S 0) (unpack_p_1 S).
-prove (X,Sep X R)
-    = (S 0,Sep (S 0) (unpack_p_1 S)).
-rewrite <- L1.
-prove (X,Sep X R)
-    = (X,Sep X (fun x => unpack_p_1 S x)).
-rewrite <- L2.
-apply eqI set.
-Qed.
-
-Section unpack_p.
-Variable A:SType.
-
-Definition unpack_p : set -> (set -> (set -> prop) -> A) -> A := fun S Phi => Phi (S 0) (unpack_p_1 S).
-
-Theorem unpack_p_eq : forall Phi:set -> (set -> prop) -> A,
-  (forall X, forall R R':set -> prop, (forall x :e X, R x <-> R' x) -> Phi X R = Phi X R')
-  ->
-  forall X, forall R:set -> prop, unpack_p (pack_p X R) Phi = Phi X R.
-let Phi.  
-assume H1.
-let X R.
-prove unpack_p (pack_p X R) Phi = Phi X R.
-prove Phi (pack_p X R 0) (unpack_p_1 (pack_p X R)) = Phi X R.
-rewrite <- struct_p_0_eq (pack_p X R) X R (eqI set (pack_p X R)).
-prove Phi X (unpack_p_1 (pack_p X R)) = Phi X R.
-apply H1.
-let x. assume Hx.
-prove unpack_p_1 (pack_p X R) x <-> R x.
-apply iffI.
-- exact struct_p_1_E2 (pack_p X R) X R (eqI set (pack_p X R)) x.
-- exact struct_p_1_I (pack_p X R) X R (eqI set (pack_p X R)) x Hx.
-Qed.
-
-End unpack_p.
-
-Definition pack_r : set -> (set -> set -> prop) -> set := fun X R => (X,Sep2 X (fun _ => X) R).
-
-Theorem pack_r_eta : forall X, forall R:set -> set -> prop, (fun i :e 2 => pack_r X R i) = pack_r X R.
-let X R.
-exact tuple_2_eta X (Sep2 X (fun _ => X) R).
-Qed.
-
-Definition unpack_r_1 : set -> set -> set -> prop := fun S x y => (x,y) :e S 1.
-
-Definition struct_r : set -> prop := fun S => exists X:set, exists R:set -> set -> prop, S = pack_r X R.
-
-Theorem pack_r_eq : forall X, forall R R':set -> set -> prop,
-     (forall x y :e X, R x y <-> R' x y)
-  -> pack_r X R = pack_r X R'.
-let X R R'.
-assume H1: forall x y :e X, R x y <-> R' x y.
-claim L1: Sep2 X (fun _ => X) R = Sep2 X (fun _ => X) R'.
-{ apply Sep2_ext. exact H1. }
-prove (X,Sep2 X (fun _ => X) R) = (X,Sep2 X (fun _ => X) R').
-rewrite L1.
-apply eqI set.
-Qed.
-
-Theorem struct_r_0_eq : forall S X, forall R:set -> set -> prop, S = pack_r X R -> X = S 0.
-let S X R.
-assume H1: S = (X,Sep2 X (fun _ => X) R).
-prove X = S 0.
-rewrite H1.
-apply eq_sym set.
-apply tuple_2_0_eq.
-Qed.
-
-Theorem struct_r_1_I : forall S X, forall R:set -> set -> prop, S = pack_r X R -> forall x y :e X, R x y -> unpack_r_1 S x y.
-let S X R.
-assume H1: S = (X,Sep2 X (fun _ => X) R).
-let x. assume Hx: x :e X.
-let y. assume Hy: y :e X.
-assume H2: R x y.
-prove (x,y) :e S 1.
-rewrite H1.
-prove (x,y) :e (X,Sep2 X (fun _ => X) R) 1.
-rewrite tuple_2_1_eq.
-prove (x,y) :e Sep2 X (fun _ => X) R.
-apply Sep2I.
-- exact Hx.
-- exact Hy.
-- exact H2.
-Qed.
-
-Theorem struct_r_1_E : forall S X, forall R:set -> set -> prop, S = pack_r X R -> forall x y, unpack_r_1 S x y -> x :e X /\ y :e X /\ R x y.
-let S X R.
-assume H1: S = (X,Sep2 X (fun _ => X) R).
-let x y.
-prove (x,y) :e S 1 -> x :e X /\ y :e X /\ R x y.
-rewrite H1.
-prove (x,y) :e (X,Sep2 X (fun _ => X) R) 1 -> x :e X /\ y :e X /\ R x y.
-rewrite tuple_2_1_eq.
-prove (x,y) :e Sep2 X (fun _ => X) R -> x :e X /\ y :e X /\ R x y.
-exact Sep2E' X (fun _ => X) R x y.
-Qed.
-
-Theorem struct_r_1_E1 : forall S X, forall R:set -> set -> prop, S = pack_r X R -> forall x y, unpack_r_1 S x y -> x :e X.
-let S X R. assume H1. let x y. assume H2. apply struct_r_1_E S X R H1 x y H2. assume H3 H4. apply H3. exact (fun H _ => H).
-Qed.
-
-Theorem struct_r_1_E2 : forall S X, forall R:set -> set -> prop, S = pack_r X R -> forall x y, unpack_r_1 S x y -> y :e X.
-let S X R. assume H1. let x y. assume H2. apply struct_r_1_E S X R H1 x y H2. assume H3 H4. apply H3. exact (fun _ H => H).
-Qed.
-
-Theorem struct_r_1_E3 : forall S X, forall R:set -> set -> prop, S = pack_r X R -> forall x y, unpack_r_1 S x y -> R x y.
-let S X R. assume H1. let x y. assume H2. apply struct_r_1_E S X R H1 x y H2. assume H3 H4. exact H4.
-Qed.
-
-Theorem pack_struct_r: forall X, forall R:set -> set -> prop, struct_r (pack_r X R).
-let X R.
-prove exists X':set, exists R':set -> set -> prop, pack_r X R = pack_r X' R'.
-witness X. witness R.
-apply eqI set.
-Qed.
-
-Theorem struct_r_eta: forall S, struct_r S -> S = pack_r (S 0) (unpack_r_1 S).
-let S. assume H1. apply H1. let X. assume H2. apply H2. let R.
-assume H3: S = pack_r X R.
-claim L1: X = S 0.
-{ rewrite H3.
-  prove X = (X,Sep2 X (fun _ => X) R) 0.
-  apply eq_sym set.
-  apply tuple_2_0_eq.
-}
-claim L2: Sep2 X (fun _ => X) R = Sep2 X (fun _ => X) (fun x y => unpack_r_1 S x y).
-{ apply Sep2_ext. let x. assume Hx. let y. assume Hy.
-  prove R x y <-> unpack_r_1 S x y.
-  rewrite H3.
-  prove R x y <-> unpack_r_1 (pack_r X R) x y.
-  prove R x y <-> (x,y) :e (X,Sep2 X (fun _ => X) R) 1.
-  rewrite tuple_2_1_eq.
-  prove R x y <-> (x,y) :e Sep2 X (fun _ => X) R.
-  apply iffI.
-  - assume H4: R x y. apply Sep2I.
-    + exact Hx.
-    + exact Hy.
-    + exact H4.
-  - exact Sep2E'3 X (fun _ => X) R x y.
-}
-prove S = pack_r (S 0) (unpack_r_1 S).
-rewrite H3 at 1.
-prove pack_r X R = pack_r (S 0) (unpack_r_1 S).
-prove (X,Sep2 X (fun _ => X) R)
-    = (S 0,Sep2 (S 0) (fun _ => S 0) (unpack_r_1 S)).
-rewrite <- L1.
-prove (X,Sep2 X (fun _ => X) R)
-    = (X,Sep2 X (fun _ => X) (fun x y => unpack_r_1 S x y)).
-rewrite <- L2.
-apply eqI set.
-Qed.
-
-Section unpack_r.
-Variable A:SType.
-
-Definition unpack_r : set -> (set -> (set -> set -> prop) -> A) -> A := fun S Phi => Phi (S 0) (unpack_r_1 S).
-
-Theorem unpack_r_eq : forall Phi:set -> (set -> set -> prop) -> A,
-  (forall X, forall R R':set -> set -> prop, (forall x y :e X, R x y <-> R' x y) -> Phi X R = Phi X R')
-  ->
-  forall X, forall R:set -> set -> prop, unpack_r (pack_r X R) Phi = Phi X R.
-let Phi.  
-assume H1.
-let X R.
-prove unpack_r (pack_r X R) Phi = Phi X R.
-prove Phi (pack_r X R 0) (unpack_r_1 (pack_r X R)) = Phi X R.
-rewrite <- struct_r_0_eq (pack_r X R) X R (eqI set (pack_r X R)).
-prove Phi X (unpack_r_1 (pack_r X R)) = Phi X R.
-apply H1.
-let x. assume Hx. let y. assume Hy.
-prove unpack_r_1 (pack_r X R) x y <-> R x y.
-apply iffI.
-- exact struct_r_1_E3 (pack_r X R) X R (eqI set (pack_r X R)) x y.
-- exact struct_r_1_I (pack_r X R) X R (eqI set (pack_r X R)) x Hx y Hy.
-Qed.
-
-End unpack_r.
-
-Definition pack_c : set -> ((set -> prop) -> prop) -> set := fun X C => (X,Sep (Power X) (fun U => (C (fun x => x :e U)))).
-
-Theorem pack_c_eta : forall X, forall C:(set -> prop) -> prop, (fun i :e 2 => pack_c X C i) = pack_c X C.
-let X C.
-exact tuple_2_eta X (Sep (Power X) (fun U => (C (fun x => x :e U)))).
-Qed.
-
-Definition unpack_c_1 : set -> (set -> prop) -> prop := fun S U => (forall x, U x -> x :e S 0) /\ (Sep (S 0) U) :e S 1.
-
-Definition struct_c : set -> prop := fun S => exists X:set, exists C:(set -> prop) -> prop, S = pack_c X C.
-
-Theorem pack_c_eq : forall X, forall C C':(set -> prop) -> prop,
-     (forall U:set -> prop, (forall x, U x -> x :e X) -> (C U <-> C' U))
-  -> pack_c X C = pack_c X C'.
-let X C C'. assume H1.
-claim L1: Sep (Power X) (fun U => (C (fun x => x :e U))) = Sep (Power X) (fun U => (C' (fun x => x :e U))).
-{ apply set_ext.
-  - let U. assume H2. apply SepE (Power X) (fun U => (C (fun x => x :e U))) U H2.
-    assume H3: U :e Power X.
-    assume H4: C (fun x => x :e U).
-    claim LUx: forall x, x :e U -> x :e X.
-    { exact PowerE X U H3. }
-    apply SepI.
-    + exact H3.
-    + prove C' (fun x => x :e U).
-      apply H1 (fun x => x :e U) LUx. assume H5 _. exact H5 H4.
-  - let U. assume H2. apply SepE (Power X) (fun U => (C' (fun x => x :e U))) U H2.
-    assume H3: U :e Power X.
-    assume H4: C' (fun x => x :e U).
-    claim LUx: forall x, x :e U -> x :e X.
-    { exact PowerE X U H3. }
-    apply SepI.
-    + exact H3.
-    + prove C (fun x => x :e U).
-      apply H1 (fun x => x :e U) LUx. assume _ H5. exact H5 H4.
-}
-prove (X,Sep (Power X) (fun U => (C (fun x => x :e U)))) = (X,Sep (Power X) (fun U => (C' (fun x => x :e U)))).
-rewrite <- L1.
-apply eqI set.
-Qed.
-
-Theorem struct_c_0_eq : forall S X, forall C:(set -> prop) -> prop, S = pack_c X C -> X = S 0.
-let S X C.
-assume H1: S = (X,Sep (Power X) (fun U => (C (fun x => x :e U)))).
-prove X = S 0.
-rewrite H1.
-apply eq_sym set.
-apply tuple_2_0_eq.
-Qed.
-
-Theorem struct_c_1_I : forall S X, forall C:(set -> prop) -> prop, S = pack_c X C -> forall U:set -> prop, (forall x, U x -> x :e X) -> C U -> unpack_c_1 S U.
-let S X C.
-assume H1: S = (X,Sep (Power X) (fun U => (C (fun x => x :e U)))).
-let U.
-assume HU: forall x, U x -> x :e X.
-assume H2: C U.
-prove (forall x, U x -> x :e S 0) /\ Sep (S 0) U :e S 1.
-rewrite <- struct_c_0_eq S X C H1.
-prove (forall x, U x -> x :e X) /\ Sep X U :e S 1.
-apply andI (forall x, U x -> x :e X) (Sep X U :e S 1) HU.
-prove Sep X U :e S 1.
-rewrite H1.
-prove Sep X U :e (X,Sep (Power X) (fun U => (C (fun x => x :e U)))) 1.
-rewrite tuple_2_1_eq.
-prove Sep X U :e Sep (Power X) (fun U => (C (fun x => x :e U))).
-apply SepI.
-- prove Sep X U :e Power X. apply Sep_In_Power.
-- prove C (fun x => x :e Sep X U).
-  claim LU: U = fun x => x :e Sep X U.
-  { apply pred_ext set.
-    - let x. assume H3: U x. prove x :e Sep X U. apply SepI.
-      + apply HU. exact H3.
-      + exact H3.
-    - exact SepE2 X U.
-  }
-  exact LU C H2.
-Qed.
-
-Theorem struct_c_1_E : forall S X, forall C:(set -> prop) -> prop, S = pack_c X C -> forall U:set -> prop, unpack_c_1 S U -> (forall x, U x -> x :e X) /\ C U.
-let S X C.
-assume H1: S = (X,Sep (Power X) (fun U => (C (fun x => x :e U)))).
-let U.
-prove (forall x, U x -> x :e S 0) /\ Sep (S 0) U :e S 1 -> (forall x, U x -> x :e X) /\ C U.
-rewrite <- struct_c_0_eq S X C H1.
-prove (forall x, U x -> x :e X) /\ Sep X U :e S 1 -> (forall x, U x -> x :e X) /\ C U.
-assume H1a. apply H1a.
-assume HU: forall x, U x -> x :e X.
-rewrite H1.
-prove Sep X U :e (X,Sep (Power X) (fun U => (C (fun x => x :e U)))) 1 -> (forall x, U x -> x :e X) /\ C U.
-rewrite tuple_2_1_eq.
-prove Sep X U :e Sep (Power X) (fun U => (C (fun x => x :e U))) -> (forall x, U x -> x :e X) /\ C U.
-assume H2.
-apply SepE (Power X) (fun U => (C (fun x => x :e U))) (Sep X U) H2.
-assume H3: Sep X U :e Power X.
-assume H4: C (fun x => x :e Sep X U).
-prove (forall x, U x -> x :e X) /\ C U.
-apply andI.
-- exact HU.
-- prove C U.
-  claim LU: (fun x : set => x :e Sep X U) = U.
-  { apply pred_ext set.
-    - exact SepE2 X U.
-    - let x. assume H3: U x. prove x :e Sep X U. apply SepI.
-      + apply HU. exact H3.
-      + exact H3.
-  }
-  exact LU C H4.
-Qed.
-
-Theorem struct_c_1_E1 : forall S X, forall C:(set -> prop) -> prop, S = pack_c X C -> forall U:set -> prop, unpack_c_1 S U -> forall x, U x -> x :e X.
-let S X C. assume H1. let U. assume H2. apply struct_c_1_E S X C H1 U H2. exact (fun H _ => H).
-Qed.
-
-Theorem struct_c_1_E2 : forall S X, forall C:(set -> prop) -> prop, S = pack_c X C -> forall U:set -> prop, unpack_c_1 S U -> C U.
-let S X C. assume H1. let U. assume H2. apply struct_c_1_E S X C H1 U H2. exact (fun _ H => H).
-Qed.
-
-Theorem pack_struct_c: forall X, forall C:(set -> prop) -> prop, struct_c (pack_c X C).
-let X C.
-prove exists X':set, exists C':(set -> prop) -> prop, pack_c X C = pack_c X' C'.
-witness X. witness C.
-apply eqI set.
-Qed.
-
-Theorem struct_c_eta: forall S, struct_c S -> S = pack_c (S 0) (unpack_c_1 S).
-let S. assume H1. apply H1. let X. assume H2. apply H2. let C.
-assume H3: S = pack_c X C.
-claim L1: X = S 0.
-{ rewrite H3.
-  prove X = (X,Sep (Power X) (fun U => (C (fun x => x :e U)))) 0.
-  apply eq_sym set.
-  apply tuple_2_0_eq.
-}
-claim L2: Sep (Power X) (fun U => (C (fun x => x :e U))) = Sep (Power X) (fun U => unpack_c_1 S (fun x => x :e U)).
-{ apply set_ext.
-  - let U. assume HU: U :e Sep (Power X) (fun U => (C (fun x => x :e U))).
-    apply SepE (Power X) (fun U => (C (fun x => x :e U))) U HU.
-    assume HUPX: U :e Power X.
-    assume HU2: C (fun x => x :e U).
-    claim LUsX: U c= X.
-    { exact PowerE X U HUPX. }
-    claim LU2: U = Sep X (fun x => x :e U).
-    { apply set_ext.
-      - let x. assume Hx: x :e U. apply SepI.
-        + exact LUsX x Hx.
-	+ exact Hx.
-      - exact SepE2 X (fun x => x :e U).
-    }
-    apply SepI.
-    + exact HUPX.
-    + prove unpack_c_1 S (fun x => x :e U).
-      prove (forall x, x :e U -> x :e S 0) /\ Sep (S 0) (fun x => x :e U) :e S 1.
-      rewrite H3.
-      prove (forall x, x :e U -> x :e (X,Sep (Power X) (fun U => (C (fun x => x :e U)))) 0) /\ Sep ((X,Sep (Power X) (fun U => (C (fun x => x :e U)))) 0) (fun x => x :e U) :e (X,Sep (Power X) (fun U => (C (fun x => x :e U)))) 1.
-      rewrite tuple_2_0_eq.
-      rewrite tuple_2_0_eq.
-      prove (forall x, x :e U -> x :e X) /\ Sep X (fun x => x :e U) :e (X,Sep (Power X) (fun U => (C (fun x => x :e U)))) 1.
-      apply andI.
-      * exact LUsX.
-      * { rewrite tuple_2_1_eq.
-          prove Sep X (fun x => x :e U) :e Sep (Power X) (fun U => (C (fun x => x :e U))).
-          rewrite <- LU2.
-          prove U :e Sep (Power X) (fun U => (C (fun x => x :e U))).
-  	  apply SepI.
-	  - prove U :e Power X. exact HUPX.
-	  - prove C (fun x => x :e U). exact HU2.
-	}
-  - let U. assume HU: U :e Sep (Power X) (fun U => unpack_c_1 S (fun x => x :e U)).
-    apply SepE (Power X) (fun U => unpack_c_1 S (fun x => x :e U)) U HU.
-    assume HUPX: U :e Power X.
-    assume HU2.
-    claim LUsX: U c= X.
-    { exact PowerE X U HUPX. }
-    claim LU2: U = Sep X (fun x => x :e U).
-    { apply set_ext.
-      - let x. assume Hx: x :e U. apply SepI.
-        + exact LUsX x Hx.
-	+ exact Hx.
-      - exact SepE2 X (fun x => x :e U).
-    }
-    claim LU3: U = Sep (S 0) (fun x => x :e U).
-    { rewrite H3.
-      prove U = Sep ((X,Sep (Power X) (fun U => (C (fun x => x :e U)))) 0) (fun x => x :e U).
-      rewrite tuple_2_0_eq.
-      exact LU2.
-    }
-    apply HU2. assume _.
-    prove (Sep (S 0) (fun x => x :e U)) :e S 1 -> U :e Sep (Power X) (fun U => (C (fun x => x :e U))).
-    rewrite <- LU3.
-    rewrite H3.
-    prove U :e (X,Sep (Power X) (fun U => (C (fun x => x :e U)))) 1 -> U :e Sep (Power X) (fun U => (C (fun x => x :e U))).
-    rewrite tuple_2_1_eq.
-    exact (fun H => H).
-}
-prove S = pack_c (S 0) (unpack_c_1 S).
-rewrite H3 at 1.
-prove pack_c X C = pack_c (S 0) (unpack_c_1 S).
-prove (X,Sep (Power X) (fun U => (C (fun x => x :e U))))
-    = (S 0,Sep (Power (S 0)) (fun U => unpack_c_1 S (fun x => x :e U))).
-rewrite <- L1.
-prove (X,Sep (Power X) (fun U => (C (fun x => x :e U))))
-    = (X,Sep (Power X) (fun U => unpack_c_1 S (fun x => x :e U))).
-rewrite <- L2.
-apply eqI set.
-Qed.
-
-Section unpack_c.
-Variable A:SType.
-
-Definition unpack_c : set -> (set -> ((set -> prop) -> prop) -> A) -> A := fun S Phi => Phi (S 0) (unpack_c_1 S).
-
-Theorem unpack_c_eq : forall Phi:set -> ((set -> prop) -> prop) -> A,
-  (forall X, forall C C':(set -> prop) -> prop, (forall U:set -> prop, (forall x, U x -> x :e X) -> (C U <-> C' U)) -> Phi X C = Phi X C')
-  ->
-  forall X, forall C:(set -> prop) -> prop, unpack_c (pack_c X C) Phi = Phi X C.
-let Phi.  
-assume H1.
-let X C.
-prove unpack_c (pack_c X C) Phi = Phi X C.
-prove Phi (pack_c X C 0) (unpack_c_1 (pack_c X C)) = Phi X C.
-rewrite <- struct_c_0_eq (pack_c X C) X C (eqI set (pack_c X C)).
-prove Phi X (unpack_c_1 (pack_c X C)) = Phi X C.
-apply H1.
-let x. assume Hx.
-prove unpack_c_1 (pack_c X C) x <-> C x.
-apply iffI.
-- exact struct_c_1_E2 (pack_c X C) X C (eqI set (pack_c X C)) x.
-- exact struct_c_1_I (pack_c X C) X C (eqI set (pack_c X C)) x Hx.
-Qed.
-
-End unpack_c.
 

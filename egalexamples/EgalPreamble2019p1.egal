@@ -12,6 +12,7 @@ Infix /\ 780 left  := and.
 Axiom andI : forall A B : prop , A -> B -> A /\ B.
 Axiom and3I : forall P1 P2 P3 : prop, P1 -> P2 -> P3 -> P1 /\ P2 /\ P3.
 Axiom and3E : forall P1 P2 P3: prop, P1 /\ P2 /\ P3 -> (forall p : prop , (P1 -> P2 -> P3 -> p) -> p).
+Axiom and4I : forall P1 P2 P3 P4 : prop, P1 -> P2 -> P3 -> P4 -> P1 /\ P2 /\ P3 /\ P4.
 Axiom and5I : forall P1 P2 P3 P4 P5: prop, P1 -> P2 -> P3 -> P4 -> P5 -> P1 /\ P2 /\ P3 /\ P4 /\ P5.
 Definition or : prop -> prop -> prop := fun A B : prop => forall P : prop , (A -> P) -> (B -> P) -> P.
 (* Unicode \/ "2228" *)
@@ -21,6 +22,7 @@ Infix <-> 805 := iff.
 Axiom iffI : forall A B : prop , (A -> B) -> (B -> A) -> (A <-> B).
 Axiom iffEL : forall A B : prop , (A <-> B) -> A -> B.
 Axiom iffER : forall A B : prop , (A <-> B) -> B -> A.
+Axiom iff_refl : forall A : prop , A <-> A.
 Section Poly1_eq.
 Variable A : SType.
 Definition eq : A -> A -> prop := fun x y => forall Q : A -> prop , Q x -> Q y.
@@ -120,6 +122,27 @@ Notation Repl Repl.
 Axiom ReplE : forall X : set , forall F : set -> set , forall y : set , y :e {F x|x :e X} -> exists x : set , x :e X /\ y = F x.
 Axiom ReplE2 : forall X : set , forall F : set -> set , forall y : set , y :e {F x|x :e X} -> forall p : prop , (forall x : set , x :e X -> y = F x -> p) -> p.
 Axiom ReplI : forall X : set , forall F : set -> set , forall x : set , x :e X -> F x :e {F x|x :e X}.
+
+Definition TransSet : set->prop := fun U:set => forall X:set, X :e U -> X c= U.
+
+Definition Union_closed : set->prop := fun U:set => forall X:set, X :e U -> Union X :e U.
+Definition Power_closed : set->prop := fun U:set => forall X:set, X :e U -> Power X :e U.
+Definition Repl_closed : set->prop := fun U:set => forall X:set, X :e U -> forall F:set->set,
+   (forall x:set, x :e X -> F x :e U) -> {F x|x :e X} :e U.
+Definition ZF_closed : set->prop := fun U:set =>
+   Union_closed U
+/\ Power_closed U
+/\ Repl_closed U.
+
+Parameter UnivOf : set->set.
+Axiom UnivOf_In : forall N:set, N :e UnivOf N.
+Axiom UnivOf_TransSet : forall N:set, TransSet (UnivOf N).
+Axiom UnivOf_ZF_closed : forall N:set, ZF_closed (UnivOf N).
+Axiom UnivOf_Min : forall N U:set, N :e U
+  -> TransSet U
+  -> ZF_closed U
+  -> UnivOf N c= U.
+
 (* Parameter UPair MHANdqNd8qPYjgPJug4t52j3JL41cLUy5KCibeyEq5yq3ytH *)
 Parameter UPair : set -> set -> set.
 Notation SetEnum2 UPair.
@@ -145,6 +168,7 @@ Axiom SepI : forall X : set , forall P : (set -> prop) , forall x : set , x :e X
 Axiom SepE : forall X : set , forall P : (set -> prop) , forall x : set , x :e {x :e X|P x} -> x :e X /\ P x.
 Axiom SepE1 : forall X : set , forall P : (set -> prop) , forall x : set , x :e {x :e X|P x} -> x :e X.
 Axiom SepE2 : forall X : set , forall P : (set -> prop) , forall x : set , x :e {x :e X|P x} -> P x.
+Axiom Sep_Subq : forall X:set, forall P:set->prop, {x :e X|P x} c= X.
 Axiom Sep_In_Power : forall X:set, forall P:set->prop, {x :e X|P x} :e Power X.
 (* Parameter ReplSep MH3YCcpFJ7KL3vGACnmMYpor6so4KFgnSSBfAHDGTrXoSvjn *)
 Parameter ReplSep : set -> (set -> prop) -> (set -> set) -> set.
@@ -152,13 +176,18 @@ Notation ReplSep ReplSep.
 Axiom ReplSepI : forall X : set , forall P : set -> prop , forall F : set -> set , forall x : set , x :e X -> P x -> F x :e {F x|x :e X,P x}.
 Axiom ReplSepE : forall X : set , forall P : set -> prop , forall F : set -> set , forall y : set , y :e {F x|x :e X,P x} -> exists x : set , x :e X /\ P x /\ y = F x.
 Axiom ReplSepE2 : forall X : set , forall P : set -> prop , forall F : set -> set , forall y : set , y :e {F x|x :e X,P x} -> forall p : prop , (forall x :e X , P x -> y = F x -> p) -> p.
+Axiom In_ind : forall P : set -> prop , (forall X : set , (forall x : set , x :e X -> P x) -> P X) -> forall X : set , P X.
+Axiom In_irref : forall x , x /:e x.
+Axiom In_no2cycle : forall x y , x :e y -> y /:e x.
 (* Parameter ordsucc MG7MeUQKGRDWGfCpnv4BBfwuRumr4R1ngnkoEgKgz7jpCB6E *)
 Parameter ordsucc : set -> set.
 Notation Nat Empty ordsucc.
 Axiom ordsuccI1 : forall x:set, x c= ordsucc x.
 Axiom ordsuccI2 : forall x:set, x :e ordsucc x.
 Axiom ordsuccE : forall x y : set , y :e ordsucc x -> y :e x \/ y = x.
+Axiom neq_0_ordsucc : forall a:set, 0 <> ordsucc a.
 Axiom neq_ordsucc_0 : forall a:set, ordsucc a <> 0.
+Axiom ordsucc_inj : forall a b:set, ordsucc a = ordsucc b -> a = b.
 Axiom ordsucc_inj_contra : forall a b:set, a <> b -> ordsucc a <> ordsucc b.
 Axiom In_0_1 : 0 :e 1.
 Axiom In_1_2 : 1 :e 2.
@@ -174,20 +203,42 @@ Axiom nat_1 : nat_p 1.
 Axiom nat_2 : nat_p 2.
 Axiom nat_0_in_ordsucc : forall n, nat_p n -> 0 :e ordsucc n.
 Axiom nat_ordsucc_in_ordsucc : forall n, nat_p n -> forall m :e n, ordsucc m :e ordsucc n.
+Axiom nat_ind : forall p : set -> prop , p 0 -> (forall n , nat_p n -> p n -> p (ordsucc n)) -> forall n , nat_p n -> p n.
+
+Definition omega : set := {n :e UnivOf Empty|nat_p n}.
+Axiom omega_nat_p : forall n :e omega, nat_p n.
+Axiom nat_p_omega : forall n:set, nat_p n -> n :e omega.
+
+(* Parameter nat_primrec MH1PhR4nvTH9RtLNfcEMuKTZM5rLrJkGArrPzhCt6yHhFJjP *)
+Parameter nat_primrec:set -> (set -> set -> set) -> set -> set.
+Axiom nat_primrec_0 : forall z, forall f:set -> set -> set, nat_primrec z f 0 = z.
+Axiom nat_primrec_S : forall z, forall f:set -> set -> set, forall n:set, nat_p n -> nat_primrec z f (ordsucc n) = f n (nat_primrec z f n).
+
+(* Parameter add_nat MJC9zELvgcK8NgZVFMwkTCkumeG1MfPNBu7U2AwrhUkd85vb *)
+Parameter add_nat : set->set->set.
+Infix + 360 right := add_nat.
+Axiom add_nat_p : forall n:set, nat_p n -> forall m:set, nat_p m -> nat_p (n + m).
+Axiom add_nat_0R : forall n:set, n + 0 = n.
+Axiom add_nat_SR : forall n m:set, nat_p m -> n + ordsucc m = ordsucc (n + m).
+
+(* Parameter mul_nat MGgDk5BE7pAfKP8LBjCB4qhNfWeMH5nckQsnX5yL3XBMrvJm *)
+Parameter mul_nat : set->set->set.
+Infix * 355 right := mul_nat.
+Axiom mul_nat_p : forall n:set, nat_p n -> forall m:set, nat_p m -> nat_p (n * m).
+Axiom mul_nat_0R : forall n:set, n * 0 = 0.
+Axiom mul_nat_SR : forall n m:set, nat_p m -> n * ordsucc m = n + n * m.
+
 (* Parameter pair MKKGnKnC1quGLGnWpwB65MgQ7bPbCPc48zaQUdmq8s3fSrjf *)
 Parameter pair : set -> set -> set.
-Axiom pair_inj : forall x y w z:set, pair x y = pair w z -> x = w /\ y = z.
-
 (* Parameter lam MGNw2qbBL6u6B4yyFAmQMbqdhyHwqynrhYepMxjLsK829eTU *)
 Parameter lam : set -> (set -> set) -> set.
 (* Parameter ap MJ5EYDZNGhP3BE3iG8STL8H7dpyp21H28dqojZfKHnhxe7Lr *)
 Parameter ap : set -> set -> set.
 Notation SetImplicitOp ap.
 Notation SetLam lam.
-Axiom lamI : forall X, forall F:set->set, forall x :e X, forall y :e F x, pair x y :e fun x :e X => F x.
-Axiom lamE : forall X, forall F : set -> set , forall z : set , z :e (fun x :e X => F x) -> exists x :e X , exists y :e F x , z = pair x y.
-Axiom apI : forall f x y, pair x y :e f -> y :e f x.
-Axiom apE : forall f x y, y :e f x -> pair x y :e f.
+Axiom lamE : forall X : set , forall F : set -> set , forall z : set , z :e (fun x :e X => F x) -> exists x :e X , exists y :e F x , z = pair x y.
+Axiom apI : forall f x y , pair x y :e f -> y :e f x.
+Axiom apE : forall f x y , y :e f x -> pair x y :e f.
 Axiom beta : forall X : set , forall F : set -> set , forall x : set , x :e X -> (fun x :e X => F x) x = F x.
 Axiom beta0 : forall X : set , forall F : set -> set , forall x : set , x /:e X -> (fun x :e X => F x) x = 0.
 (* Parameter tuple_p MMSrb3B6FZ15WbrfCy3juMY5aXFwGJTscGvs8rmeo9bwEVV1 *)
@@ -213,11 +264,40 @@ Definition setexp : set->set->set := fun X Y:set => Pi_ y :e Y, X.
 (* Superscript :^: *)
 Infix :^: 430 left := setexp.
 
-Definition aSet : set -> prop := fun _ => True.
-Definition aFunction : set -> prop := fun f => tuple_p 3 f /\ f 0 :e f 2 :^: f 1.
-Definition Dom : set -> set := fun f => f 1.
-Definition funap : set -> set -> set := fun f x => f 0 x.
+(** A few extra results not in the Egal library from 2014 **)
 
-(**
-Definition iLess : set -> set -> prop := fun x y => x :e y.
-**)
+Axiom tuple_2_Sigma : forall X:set, forall Y:set -> set, forall x :e X, forall y :e Y x, (x,y) :e Sigma_ x :e X, Y x.
+Axiom tuple_2_setprod : forall X:set, forall Y:set, forall x :e X, forall y :e Y, (x,y) :e X :*: Y.
+
+Axiom lam_ext: forall X, forall F G:set -> set, (forall x :e X, F x = G x) -> (fun x :e X => F x) = (fun x :e X => G x).
+Axiom lam_eta: forall X, forall F:set -> set, (fun x :e X => (fun x :e X => F x) x) = (fun x :e X => F x).
+
+Definition lam2 : set -> (set -> set) -> (set -> set -> set) -> set
+ := fun X Y F => fun x :e X => fun y :e Y x => F x y.
+
+Axiom beta2 : forall X, forall Y:set -> set, forall F:set->set->set, forall x :e X, forall y :e Y x, lam2 X Y F x y = F x y.
+
+Definition Sep2 : set -> (set -> set) -> (set -> set -> prop) -> set
+ := fun X Y R => {u :e Sigma_ x :e X, Y x | R (u 0) (u 1)}.
+
+Axiom Sep2I: forall X, forall Y:set -> set, forall R:set -> set -> prop,
+   forall x :e X, forall y :e Y x, R x y -> (x,y) :e Sep2 X Y R.
+
+Axiom Sep2E: forall X, forall Y:set -> set, forall R:set -> set -> prop,
+   forall u :e Sep2 X Y R, exists x :e X, exists y :e Y x, u = (x,y) /\ R x y.
+
+Axiom Sep2E': forall X, forall Y:set -> set, forall R:set -> set -> prop,
+   forall x y, (x,y) :e Sep2 X Y R -> x :e X /\ y :e Y x /\ R x y.
+
+Axiom Sep2E'1: forall X, forall Y:set -> set, forall R:set -> set -> prop,
+   forall x y, (x,y) :e Sep2 X Y R -> x :e X.
+
+Axiom Sep2E'2: forall X, forall Y:set -> set, forall R:set -> set -> prop,
+   forall x y, (x,y) :e Sep2 X Y R -> y :e Y x.
+
+Axiom Sep2E'3: forall X, forall Y:set -> set, forall R:set -> set -> prop,
+   forall x y, (x,y) :e Sep2 X Y R -> R x y.
+
+Axiom Sep2_ext : forall X, forall Y:set -> set, forall R R':set -> set -> prop,
+     (forall x :e X, forall y :e Y x, R x y <-> R' x y)
+  -> Sep2 X Y R = Sep2 X Y R'.

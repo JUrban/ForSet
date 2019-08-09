@@ -1,0 +1,492 @@
+Definition pack_e : set -> set -> set := fun X c => (X,c).
+
+Definition struct_e : set -> prop := fun S => exists X:set, exists c:set, c :e X /\ S = pack_e X c.
+
+Theorem struct_e_0_eq : forall S X, forall c:set, S = pack_e X c -> X = S 0.
+let S X c.
+assume H1: S = (X,c).
+prove X = S 0.
+rewrite H1.
+apply eq_sym set.
+apply tuple_2_0_eq.
+Qed.
+
+Theorem struct_e_1_eq : forall S X, forall c:set, S = pack_e X c -> c = S 1.
+let S X c.
+assume H1: S = (X,c).
+prove c = S 1.
+rewrite H1.
+apply eq_sym set.
+apply tuple_2_1_eq.
+Qed.
+
+Theorem pack_struct_e: forall X, forall c:set, c :e X -> struct_e (pack_e X c).
+let X c. assume Hc.
+prove struct_e (pack_e X c).
+prove exists X':set, exists c':set, c' :e X' /\ pack_e X c = pack_e X' c'.
+witness X. witness c.
+apply andI.
+- exact Hc.
+- apply eqI set.
+Qed.
+
+Theorem struct_e_eta: forall S, struct_e S -> S = pack_e (S 0) (S 1).
+let S. assume H1. apply H1. let X. assume H2. apply H2. let c. assume H3. apply H3.
+assume H4: c :e X.
+assume Heq: S = pack_e X c.
+rewrite <- struct_e_0_eq S X c Heq.
+rewrite <- struct_e_1_eq S X c Heq.
+exact Heq.
+Qed.
+
+Section unpack_e.
+
+Variable A:SType.
+
+Definition unpack_e : set -> (set -> set -> A) -> A := fun S c => c (S 0) (S 1).
+
+Theorem unpack_e_eq : forall Phi:set -> set -> A,
+  forall X, forall c:set, unpack_e (pack_e X c) Phi = Phi X c.
+let Phi.
+let X c.
+prove unpack_e (pack_e X c) Phi = Phi X c.
+prove Phi (pack_e X c 0) (pack_e X c 1) = Phi X c.
+rewrite <- struct_e_0_eq (pack_e X c) X c (eqI set (pack_e X c)).
+prove Phi X (pack_e X c 1) = Phi X c.
+rewrite <- struct_e_1_eq (pack_e X c) X c (eqI set (pack_e X c)).
+prove Phi X c = Phi X c.
+apply eqI A.
+Qed.
+
+End unpack_e.
+
+Definition pack_u : set -> (set -> set) -> set := fun X F => (X,encode_u X F).
+
+Definition struct_u : set -> prop := fun S => exists X:set, exists F:set -> set, (forall x :e X, F x :e X) /\ S = pack_u X F.
+
+Theorem pack_u_ext : forall X, forall F F':set -> set,
+     (forall x :e X, F x = F' x)
+  -> pack_u X F = pack_u X F'.
+let X F F'. assume H1.
+claim L1: encode_u X F = encode_u X F'.
+{ apply encode_u_ext. exact H1. }
+prove (X,encode_u X F) = (X,encode_u X F').
+rewrite <- L1.
+apply eqI set.
+Qed.
+
+Theorem struct_u_0_eq : forall S X, forall F:set -> set, S = pack_u X F -> X = S 0.
+let S X F.
+assume H1: S = (X,encode_u X F).
+prove X = S 0.
+rewrite H1.
+apply eq_sym set.
+apply tuple_2_0_eq.
+Qed.
+
+Theorem struct_u_1_eq : forall S X, forall F:set -> set, S = pack_u X F -> forall x :e X, F x = decode_u (S 1) x.
+let S X F.
+assume H1: S = (X,encode_u X F).
+let x. assume Hx: x :e X.
+prove F x = decode_u (S 1) x.
+rewrite H1.
+prove F x = decode_u ((X,encode_u X F) 1) x.
+rewrite tuple_2_1_eq.
+apply eq_sym set.
+apply decode_encode_u.
+exact Hx.
+Qed.
+
+Theorem pack_struct_u: forall X, forall F:set -> set, (forall x :e X, F x :e X) -> struct_u (pack_u X F).
+let X F.
+assume HF.
+prove exists X':set, exists F':set -> set, (forall x :e X', F' x :e X') /\ pack_u X F = pack_u X' F'.
+witness X. witness F.
+apply andI.
+- exact HF.
+- apply eqI set.
+Qed.
+
+Theorem struct_u_eta: forall S, struct_u S -> S = pack_u (S 0) (decode_u (S 1)).
+let S. assume H1. apply H1. let X. assume H2. apply H2. let F. assume H3. apply H3.
+assume _.
+assume Heq: S = pack_u X F.
+rewrite <- struct_u_0_eq S X F Heq.
+prove S = (X,encode_u X (decode_u (S 1))).
+claim L1: encode_u X F = encode_u X (decode_u (S 1)).
+{ apply encode_u_ext.
+  exact struct_u_1_eq S X F Heq.
+}
+rewrite <- L1.
+exact Heq.
+Qed.
+
+Section unpack_u.
+Variable A:SType.
+
+Definition unpack_u : set -> (set -> (set -> set) -> A) -> A := fun S F => F (S 0) (decode_u (S 1)).
+
+Theorem unpack_u_eq : forall Phi:set -> (set -> set) -> A,
+  (forall X, forall F F':set -> set, (forall x :e X, F x = F' x) -> Phi X F = Phi X F')
+  ->
+  forall X, forall F:set -> set, unpack_u (pack_u X F) Phi = Phi X F.
+let Phi.
+assume H1.
+let X F.
+prove unpack_u (pack_u X F) Phi = Phi X F.
+prove Phi (pack_u X F 0) (decode_u (pack_u X F 1)) = Phi X F.
+rewrite <- struct_u_0_eq (pack_u X F) X F (eqI set (pack_u X F)).
+prove Phi X (decode_u (pack_u X F 1)) = Phi X F.
+apply H1.
+let x. assume Hx.
+prove decode_u (pack_u X F 1) x = F x.
+apply eq_sym set.
+exact struct_u_1_eq (pack_u X F) X F (eqI set (pack_u X F)) x Hx.
+Qed.
+
+End unpack_u.
+
+Definition pack_b : set -> (set -> set -> set) -> set := fun X F => (X,encode_b X F).
+
+Definition struct_b : set -> prop := fun S => exists X:set, exists F:set -> set -> set, (forall x y :e X, F x y :e X) /\ S = pack_b X F.
+
+Theorem pack_b_ext : forall X, forall F F':set -> set -> set,
+     (forall x y :e X, F x y = F' x y)
+  -> pack_b X F = pack_b X F'.
+let X F F'. assume H1.
+claim L1: encode_b X F = encode_b X F'.
+{ apply encode_b_ext. exact H1. }
+prove (X,encode_b X F) = (X,encode_b X F').
+rewrite <- L1.
+apply eqI set.
+Qed.
+
+Theorem struct_b_0_eq : forall S X, forall F:set -> set -> set, S = pack_b X F -> X = S 0.
+let S X F.
+assume H1: S = (X,encode_b X F).
+prove X = S 0.
+rewrite H1.
+apply eq_sym set.
+apply tuple_2_0_eq.
+Qed.
+
+Theorem struct_b_1_eq : forall S X, forall F:set -> set -> set, S = pack_b X F -> forall x y :e X, F x y = decode_b (S 1) x y.
+let S X F.
+assume H1: S = (X,encode_b X F).
+let x. assume Hx: x :e X.
+let y. assume Hy: y :e X.
+prove F x y = decode_b (S 1) x y.
+rewrite H1.
+prove F x y = decode_b ((X,encode_b X F) 1) x y.
+rewrite tuple_2_1_eq.
+apply eq_sym set. apply decode_encode_b.
+- exact Hx.
+- exact Hy.
+Qed.
+
+Theorem pack_struct_b: forall X, forall F:set -> set -> set, (forall x y :e X, F x y :e X) -> struct_b (pack_b X F).
+let X F.
+assume HF.
+prove exists X':set, exists F':set -> set -> set, (forall x y :e X', F' x y :e X') /\ pack_b X F = pack_b X' F'.
+witness X. witness F. apply andI.
+- exact HF.
+- apply eqI set.
+Qed.
+
+Theorem struct_b_eta: forall S, struct_b S -> S = pack_b (S 0) (decode_b (S 1)).
+let S. assume H1. apply H1. let X. assume H2. apply H2. let F. assume H3. apply H3.
+assume _.
+assume Heq: S = pack_b X F.
+rewrite <- struct_b_0_eq S X F Heq.
+prove S = (X,encode_b X (decode_b (S 1))).
+claim L1: encode_b X F = encode_b X (decode_b (S 1)).
+{ apply encode_b_ext.
+  exact struct_b_1_eq S X F Heq.
+}
+rewrite <- L1.
+exact Heq.
+Qed.
+
+Section unpack_b.
+Variable A:SType.
+
+Definition unpack_b : set -> (set -> (set -> set -> set) -> A) -> A := fun S F => F (S 0) (decode_b (S 1)).
+
+Theorem unpack_b_eq : forall Phi:set -> (set -> set -> set) -> A,
+  (forall X, forall F F':set -> set -> set, (forall x y :e X, F x y = F' x y) -> Phi X F = Phi X F')
+  ->
+  forall X, forall F:set -> set -> set, unpack_b (pack_b X F) Phi = Phi X F.
+let Phi.
+assume H1.
+let X F.
+prove unpack_b (pack_b X F) Phi = Phi X F.
+prove Phi (pack_b X F 0) (decode_b (pack_b X F 1)) = Phi X F.
+rewrite <- struct_b_0_eq (pack_b X F) X F (eqI set (pack_b X F)).
+prove Phi X (decode_b (pack_b X F 1)) = Phi X F.
+apply H1.
+let x. assume Hx. let y. assume Hy.
+prove decode_b (pack_b X F 1) x y = F x y.
+apply eq_sym set.
+exact struct_b_1_eq (pack_b X F) X F (eqI set (pack_b X F)) x Hx y Hy.
+Qed.
+
+End unpack_b.
+
+Definition pack_p : set -> (set -> prop) -> set := fun X P => (X,encode_p X P).
+
+Definition struct_p : set -> prop := fun S => exists X:set, exists P:set -> prop, S = pack_p X P.
+
+Theorem pack_p_ext : forall X, forall P P':set -> prop,
+     (forall x :e X, P x <-> P' x)
+  -> pack_p X P = pack_p X P'.
+let X P P'.
+assume H1: forall x :e X, P x <-> P' x.
+claim L1: encode_p X P = encode_p X P'.
+{ apply encode_p_ext. exact H1. }
+prove (X,encode_p X P) = (X,encode_p X P').
+rewrite L1.
+apply eqI set.
+Qed.
+
+Theorem struct_p_0_eq : forall S X, forall P:set -> prop, S = pack_p X P -> X = S 0.
+let S X P.
+assume H1: S = (X,encode_p X P).
+prove X = S 0.
+rewrite H1.
+apply eq_sym set.
+apply tuple_2_0_eq.
+Qed.
+
+Theorem struct_p_1_eq : forall S X, forall P:set -> prop, S = pack_p X P -> forall x :e X, P x = decode_p (S 1) x.
+let S X P.
+assume H1: S = (X,encode_p X P).
+let x. assume Hx: x :e X.
+prove P x = decode_p (S 1) x.
+rewrite H1.
+prove P x = decode_p ((X,encode_p X P) 1) x.
+rewrite tuple_2_1_eq.
+prove P x = decode_p (encode_p X P) x.
+apply eq_sym prop.
+exact decode_encode_p X P x Hx.
+Qed.
+
+Theorem pack_struct_p: forall X, forall P:set -> prop, struct_p (pack_p X P).
+let X P.
+prove exists X':set, exists P':set -> prop, pack_p X P = pack_p X' P'.
+witness X. witness P.
+apply eqI set.
+Qed.
+
+Theorem struct_p_eta: forall S, struct_p S -> S = pack_p (S 0) (decode_p (S 1)).
+let S. assume H1. apply H1. let X. assume H2. apply H2. let P.
+assume Heq: S = pack_p X P.
+rewrite <- struct_p_0_eq S X P Heq.
+prove S = (X,encode_p X (decode_p (S 1))).
+claim L1: encode_p X P = encode_p X (decode_p (S 1)).
+{ apply encode_p_ext.
+  let x. assume Hx.
+  rewrite <- struct_p_1_eq S X P Heq x Hx.
+  prove P x <-> P x.
+  apply iff_refl.
+}
+rewrite <- L1.
+exact Heq.
+Qed.
+
+Section unpack_p.
+Variable A:SType.
+
+Definition unpack_p : set -> (set -> (set -> prop) -> A) -> A := fun S Phi => Phi (S 0) (decode_p (S 1)).
+
+Theorem unpack_p_eq : forall Phi:set -> (set -> prop) -> A,
+  (forall X, forall P P':set -> prop, (forall x :e X, P x <-> P' x) -> Phi X P = Phi X P')
+  ->
+  forall X, forall P:set -> prop, unpack_p (pack_p X P) Phi = Phi X P.
+let Phi.  
+assume H1.
+let X P.
+prove unpack_p (pack_p X P) Phi = Phi X P.
+prove Phi (pack_p X P 0) (decode_p (pack_p X P 1)) = Phi X P.
+rewrite <- struct_p_0_eq (pack_p X P) X P (eqI set (pack_p X P)).
+prove Phi X (decode_p (pack_p X P 1)) = Phi X P.
+apply H1.
+let x. assume Hx.
+prove decode_p (pack_p X P 1) x <-> P x.
+rewrite <- struct_p_1_eq (pack_p X P) X P (eqI set (pack_p X P)) x Hx.
+apply iff_refl.
+Qed.
+
+End unpack_p.
+
+Definition pack_r : set -> (set -> set -> prop) -> set := fun X R => (X,encode_r X R).
+
+Definition struct_r : set -> prop := fun S => exists X:set, exists R:set -> set -> prop, S = pack_r X R.
+
+Theorem pack_r_ext : forall X, forall R R':set -> set -> prop,
+     (forall x y :e X, R x y <-> R' x y)
+  -> pack_r X R = pack_r X R'.
+let X R R'.
+assume H1: forall x y :e X, R x y <-> R' x y.
+claim L1: encode_r X R = encode_r X R'.
+{ apply encode_r_ext. exact H1. }
+prove (X,encode_r X R) = (X,encode_r X R').
+rewrite L1.
+apply eqI set.
+Qed.
+
+Theorem struct_r_0_eq : forall S X, forall R:set -> set -> prop, S = pack_r X R -> X = S 0.
+let S X R.
+assume H1: S = (X,encode_r X R).
+prove X = S 0.
+rewrite H1.
+apply eq_sym set.
+apply tuple_2_0_eq.
+Qed.
+
+Theorem struct_r_1_eq : forall S X, forall R:set -> set -> prop, S = pack_r X R -> forall x y :e X, R x y = decode_r (S 1) x y.
+let S X R.
+assume H1: S = (X,encode_r X R).
+let x. assume Hx: x :e X.
+let y. assume Hy: y :e X.
+prove R x y = decode_r (S 1) x y.
+rewrite H1.
+prove R x y = decode_r ((X,encode_r X R) 1) x y.
+rewrite tuple_2_1_eq.
+prove R x y = decode_r (encode_r X R) x y.
+apply eq_sym prop.
+exact decode_encode_r X R x Hx y Hy.
+Qed.
+
+Theorem pack_struct_r: forall X, forall R:set -> set -> prop, struct_r (pack_r X R).
+let X R.
+prove exists X':set, exists R':set -> set -> prop, pack_r X R = pack_r X' R'.
+witness X. witness R.
+apply eqI set.
+Qed.
+
+Theorem struct_r_eta: forall S, struct_r S -> S = pack_r (S 0) (decode_r (S 1)).
+let S. assume H1. apply H1. let X. assume H2. apply H2. let R.
+assume Heq: S = pack_r X R.
+rewrite <- struct_r_0_eq S X R Heq.
+prove S = (X,encode_r X (decode_r (S 1))).
+claim L1: encode_r X R = encode_r X (decode_r (S 1)).
+{ apply encode_r_ext. let x. assume Hx. let y. assume Hy.
+  rewrite <- struct_r_1_eq S X R Heq x Hx y Hy.
+  apply iff_refl.
+}
+rewrite <- L1.
+exact Heq.
+Qed.
+
+Section unpack_r.
+Variable A:SType.
+
+Definition unpack_r : set -> (set -> (set -> set -> prop) -> A) -> A := fun S Phi => Phi (S 0) (decode_r (S 1)).
+
+Theorem unpack_r_eq : forall Phi:set -> (set -> set -> prop) -> A,
+  (forall X, forall R R':set -> set -> prop, (forall x y :e X, R x y <-> R' x y) -> Phi X R = Phi X R')
+  ->
+  forall X, forall R:set -> set -> prop, unpack_r (pack_r X R) Phi = Phi X R.
+let Phi.  
+assume H1.
+let X R.
+prove unpack_r (pack_r X R) Phi = Phi X R.
+prove Phi (pack_r X R 0) (decode_r (pack_r X R 1)) = Phi X R.
+rewrite <- struct_r_0_eq (pack_r X R) X R (eqI set (pack_r X R)).
+prove Phi X (decode_r (pack_r X R 1)) = Phi X R.
+apply H1.
+let x. assume Hx. let y. assume Hy.
+prove decode_r (pack_r X R 1) x y <-> R x y.
+rewrite <- struct_r_1_eq (pack_r X R) X R (eqI set (pack_r X R)) x Hx y Hy.
+apply iff_refl.
+Qed.
+
+End unpack_r.
+
+Definition pack_c : set -> ((set -> prop) -> prop) -> set := fun X C => (X,encode_c X C).
+
+Definition struct_c : set -> prop := fun S => exists X:set, exists C:(set -> prop) -> prop, S = pack_c X C.
+
+Theorem pack_c_ext : forall X, forall C C':(set -> prop) -> prop,
+     (forall U:set -> prop, (forall x, U x -> x :e X) -> (C U <-> C' U))
+  -> pack_c X C = pack_c X C'.
+let X C C'. assume H1.
+claim L1: encode_c X C = encode_c X C'.
+{ apply encode_c_ext. exact H1. }
+prove (X,encode_c X C) = (X,encode_c X C').
+rewrite <- L1.
+apply eqI set.
+Qed.
+
+Theorem struct_c_0_eq : forall S X, forall C:(set -> prop) -> prop, S = pack_c X C -> X = S 0.
+let S X C.
+assume H1: S = (X,encode_c X C).
+prove X = S 0.
+rewrite H1.
+apply eq_sym set.
+apply tuple_2_0_eq.
+Qed.
+
+Theorem struct_c_1_eq : forall S X, forall C:(set -> prop) -> prop, S = pack_c X C -> forall U:set -> prop, (forall x, U x -> x :e X) -> C U = decode_c (S 1) U.
+let S X C.
+assume H1: S = (X,encode_c X C).
+let U.
+assume HU: forall x, U x -> x :e X.
+prove C U = decode_c (S 1) U.
+rewrite H1.
+prove C U = decode_c ((X,encode_c X C) 1) U.
+rewrite tuple_2_1_eq.
+prove C U = decode_c (encode_c X C) U.
+apply eq_sym prop.
+exact decode_encode_c X C U HU.
+Qed.
+
+Theorem pack_struct_c: forall X, forall C:(set -> prop) -> prop, struct_c (pack_c X C).
+let X C.
+prove exists X':set, exists C':(set -> prop) -> prop, pack_c X C = pack_c X' C'.
+witness X. witness C.
+apply eqI set.
+Qed.
+
+Theorem struct_c_eta: forall S, struct_c S -> S = pack_c (S 0) (decode_c (S 1)).
+let S. assume H1. apply H1. let X. assume H2. apply H2. let C.
+assume Heq: S = pack_c X C.
+rewrite <- struct_c_0_eq S X C Heq.
+prove S = (X,encode_c X (decode_c (S 1))).
+claim L1: encode_c X C = encode_c X (decode_c (S 1)).
+{ apply encode_c_ext.
+  prove forall U:set -> prop, (forall x, U x -> x :e X) -> (C U <-> decode_c (S 1) U).
+  let U.
+  assume H4: forall x, U x -> x :e X.
+  rewrite <- struct_c_1_eq S X C Heq U H4.
+  prove C U <-> C U.
+  apply iff_refl.
+}
+rewrite <- L1.
+exact Heq.
+Qed.
+
+Section unpack_c.
+Variable A:SType.
+
+Definition unpack_c : set -> (set -> ((set -> prop) -> prop) -> A) -> A := fun S Phi => Phi (S 0) (decode_c (S 1)).
+
+Theorem unpack_c_eq : forall Phi:set -> ((set -> prop) -> prop) -> A,
+  (forall X, forall C C':(set -> prop) -> prop, (forall U:set -> prop, (forall x, U x -> x :e X) -> (C U <-> C' U)) -> Phi X C = Phi X C')
+  ->
+  forall X, forall C:(set -> prop) -> prop, unpack_c (pack_c X C) Phi = Phi X C.
+let Phi.  
+assume H1.
+let X C.
+prove unpack_c (pack_c X C) Phi = Phi X C.
+prove Phi (pack_c X C 0) (decode_c (pack_c X C 1)) = Phi X C.
+rewrite <- struct_c_0_eq (pack_c X C) X C (eqI set (pack_c X C)).
+prove Phi X (decode_c (pack_c X C 1)) = Phi X C.
+apply H1.
+let U. assume HU.
+prove decode_c (pack_c X C 1) U <-> C U.
+rewrite <- struct_c_1_eq (pack_c X C) X C (eqI set (pack_c X C)) U HU.
+apply iff_refl.
+Qed.
+
+End unpack_c.

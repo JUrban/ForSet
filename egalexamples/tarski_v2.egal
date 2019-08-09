@@ -265,6 +265,31 @@ Qed.
 (** This is the end of the part that closely follows tarski.ftl **)
 (** The rest is to reasonably package the information in a way that could be used outside the section above. **)
 
+(** Import struct_r information to use for packing. The 'axioms' are theorems proven earlier. **)
+Definition pack_r : set -> (set -> set -> prop) -> set := fun X R => (X,encode_r X R).
+
+Definition struct_r : set -> prop := fun S => exists X:set, exists R:set -> set -> prop, S = pack_r X R.
+
+Axiom pack_r_ext : forall X, forall R R':set -> set -> prop,
+     (forall x y :e X, R x y <-> R' x y)
+  -> pack_r X R = pack_r X R'.
+Axiom pack_struct_r: forall X, forall R:set -> set -> prop, struct_r (pack_r X R).
+Axiom struct_r_eta: forall S, struct_r S -> S = pack_r (S 0) (decode_r (S 1)).
+
+Section unpack_r.
+Variable A:SType.
+
+Definition unpack_r : set -> (set -> (set -> set -> prop) -> A) -> A := fun S Phi => Phi (S 0) (decode_r (S 1)).
+
+Axiom unpack_r_eq : forall Phi:set -> (set -> set -> prop) -> A,
+  (forall X, forall R R':set -> set -> prop, (forall x y :e X, R x y <-> R' x y) -> Phi X R = Phi X R')
+  ->
+  forall X, forall R:set -> set -> prop, unpack_r (pack_r X R) Phi = Phi X R.
+
+End unpack_r.
+
+(** Define Poset and CompleteLattice as a structure with a carrier and a binary relation. **)
+
 (** A Poset is a pair (T,<=) where <= is most easily used as Leq:set->set->prop,
     but is secretly packaged as {(x,y) | x :e T, y :e T, Leq x y} in the second component.
     **)
@@ -324,19 +349,19 @@ let P.
 apply iffI.
 - assume HP: Poset P. apply HP.
   assume H1: struct_r P.
-  claim L1: P = pack_r (P 0) (unpack_r_1 P).
+  claim L1: P = pack_r (P 0) (decode_r (P 1)).
   { exact struct_r_eta P H1. }
   prove unpack_r prop P (fun T Leq => MetaPoset T Leq) ->
      exists T, exists Leq:set -> set -> prop,
                   P = pack_r T Leq /\ Refl T Leq /\ ASymm T Leq /\ Trans T Leq.
   rewrite L1 at 1.
-  prove unpack_r prop (pack_r (P 0) (unpack_r_1 P)) (fun T Leq => MetaPoset T Leq) ->
+  prove unpack_r prop (pack_r (P 0) (decode_r (P 1))) (fun T Leq => MetaPoset T Leq) ->
      exists T, exists Leq:set -> set -> prop,
                   P = pack_r T Leq /\ Refl T Leq /\ ASymm T Leq /\ Trans T Leq.
-  rewrite Poset_unpack_r_eq (P 0) (unpack_r_1 P).
-  assume H2: Refl (P 0) (unpack_r_1 P) /\ ASymm (P 0) (unpack_r_1 P) /\ Trans (P 0) (unpack_r_1 P).
+  rewrite Poset_unpack_r_eq (P 0) (decode_r (P 1)).
+  assume H2: Refl (P 0) (decode_r (P 1)) /\ ASymm (P 0) (decode_r (P 1)) /\ Trans (P 0) (decode_r (P 1)).
   witness (P 0).
-  witness (unpack_r_1 P).
+  witness (decode_r (P 1)).
   apply and4I.
   + exact L1.
   + apply H2. assume H3 _. apply H3. assume H4 _. exact H4.
@@ -705,7 +730,7 @@ claim L1: forall T, forall Leq Leq':set -> set -> prop,
       - exact LS1 x Hx.
       - exact LS1 y Hy.
     }
-    rewrite <- pack_r_eq S Leq Leq' LS2.
+    rewrite <- pack_r_ext S Leq Leq' LS2.
     prove CompleteLattice (pack_r S Leq).
     exact H2 f Hf1 Lf2 S HS.
   - assume H2: forall f:set -> set, Meta_on f T -> Meta_monotone T Leq' f ->
@@ -729,7 +754,7 @@ claim L1: forall T, forall Leq Leq':set -> set -> prop,
       - exact LS1 x Hx.
       - exact LS1 y Hy.
     }
-    rewrite pack_r_eq S Leq Leq' LS2.
+    rewrite pack_r_ext S Leq Leq' LS2.
     prove CompleteLattice (pack_r S Leq').
     exact H2 f Hf1 Lf2 S HS.
 }

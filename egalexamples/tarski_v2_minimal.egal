@@ -47,6 +47,20 @@ End Poset.
 (** This is the end of the part that closely follows tarski.ftl **)
 (** The rest is to reasonably package the information in a way that could be used outside the section above. **)
 
+(** Import struct_r information to use for packing. **)
+Definition pack_r : set -> (set -> set -> prop) -> set := fun X R => (X,encode_r X R).
+
+Definition struct_r : set -> prop := fun S => exists X:set, exists R:set -> set -> prop, S = pack_r X R.
+
+Section unpack_r.
+Variable A:SType.
+
+Definition unpack_r : set -> (set -> (set -> set -> prop) -> A) -> A := fun S Phi => Phi (S 0) (decode_r (S 1)).
+
+End unpack_r.
+
+(** Define Poset and CompleteLattice as a structure with a carrier and a binary relation. **)
+
 (** A Poset is a pair (T,<=) where <= is most easily used as Leq:set->set->prop,
     but is secretly packaged as {(x,y) | x :e T, y :e T, Leq x y} in the second component.
     **)
