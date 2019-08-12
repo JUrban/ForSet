@@ -44,7 +44,7 @@ End Poset.
 (** Import struct_r information to use for packing. **)
 Definition pack_r : set -> (set -> set -> prop) -> set := fun X R => (X,encode_r X R).
 
-Definition struct_r : set -> prop := fun S => exists X:set, exists R:set -> set -> prop, S = pack_r X R.
+Definition struct_r : set -> prop := fun S => forall q:set -> prop, (forall X:set, forall R:set -> set -> prop, q (pack_r X R)) -> q S.
 
 Section unpack_r.
 Variable A:SType.

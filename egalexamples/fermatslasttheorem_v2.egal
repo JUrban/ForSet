@@ -48,13 +48,13 @@ End Peano.
 (** struct_u_e -- structure with one unary function and one distinguished element. Axioms are theorems proven elsewhere. **)
 Definition pack_u_e : set -> (set -> set) -> set -> set := fun X i c => (X,encode_u X i,c).
 
-Definition struct_u_e : set -> prop := fun S => exists X:set, exists i:set -> set, exists c:set, (forall x :e X, i x :e X) /\ c :e X /\ S = pack_u_e X i c.
+Definition struct_u_e : set -> prop := fun S => forall q:set -> prop, (forall X:set, forall i:set -> set, (forall x :e X, i x :e X) -> forall c:set, c :e X -> q (pack_u_e X i c)) -> q S.
 
 Axiom pack_u_e_ext : forall X, forall i i':set -> set, forall c,
  (forall x :e X, i x = i' x) ->
  pack_u_e X i c = pack_u_e X i' c.
 
-Axiom pack_struct_u_e: forall X, forall i:set -> set, forall c:set, (forall x :e X, i x :e X) -> c :e X -> struct_u_e (pack_u_e X i c).
+Axiom pack_struct_u_e_I: forall X, forall i:set -> set, (forall x :e X, i x :e X) -> forall c:set, c :e X -> struct_u_e (pack_u_e X i c).
 
 Axiom struct_u_e_eta: forall S, struct_u_e S -> S = pack_u_e (S 0) (decode_u (S 1)) (S 2).
 

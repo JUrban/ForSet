@@ -1,5 +1,32 @@
 (** A few extra results not in the Egal library from 2014 **)
 
+Theorem and6I: forall P1 P2 P3 P4 P5 P6:prop, P1 -> P2 -> P3 -> P4 -> P5 -> P6 -> P1 /\ P2 /\ P3 /\ P4 /\ P5 /\ P6.
+let P1 P2 P3 P4 P5 P6.
+assume H1 H2 H3 H4 H5 H6.
+apply and5I.
+- apply andI.
+  + exact H1.
+  + exact H2.
+- exact H3.
+- exact H4.
+- exact H5.
+- exact H6.
+Qed.
+
+Theorem and7I: forall P1 P2 P3 P4 P5 P6 P7:prop, P1 -> P2 -> P3 -> P4 -> P5 -> P6 -> P7 -> P1 /\ P2 /\ P3 /\ P4 /\ P5 /\ P6 /\ P7.
+let P1 P2 P3 P4 P5 P6 P7.
+assume H1 H2 H3 H4 H5 H6 H7.
+apply and6I.
+- apply andI.
+  + exact H1.
+  + exact H2.
+- exact H3.
+- exact H4.
+- exact H5.
+- exact H6.
+- exact H7.
+Qed.
+
 Theorem In_0_3: 0 :e 3.
 exact ordsuccI1 2 0 In_0_2.
 Qed.

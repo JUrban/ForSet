@@ -48,7 +48,7 @@ End Peano.
 (** struct_b_b_b_u_e -- structure with three binary operations, one unary function and one distinguished element. Axioms are theorems proven elsewhere. **)
 Definition pack_b_b_b_u_e : set -> (set -> set -> set) -> (set -> set -> set) -> (set -> set -> set) -> (set -> set) -> set -> set := fun X f g h i c => (X,encode_b X f,encode_b X g,encode_b X h,encode_u X i,c).
 
-Definition struct_b_b_b_u_e : set -> prop := fun S => exists X:set, exists f:set -> set -> set, exists g:set -> set -> set, exists h:set -> set -> set, exists i:set -> set, exists c:set, (forall x y :e X, f x y :e X) /\ (forall x y :e X, g x y :e X) /\ (forall x y :e X, h x y :e X) /\ (forall x :e X, i x :e X) /\ c :e X /\ S = pack_b_b_b_u_e X f g h i c.
+Definition struct_b_b_b_u_e : set -> prop := fun S => forall q:set -> prop, (forall X:set, forall f:set -> set -> set, (forall x y :e X, f x y :e X) -> forall g:set -> set -> set, (forall x y :e X, g x y :e X) -> forall h:set -> set -> set, (forall x y :e X, h x y :e X) -> forall i:set -> set, (forall x :e X, i x :e X) -> forall c:set, c :e X -> q (pack_b_b_b_u_e X f g h i c)) -> q S.
 
 Axiom pack_b_b_b_u_e_ext : forall X, forall f f':set -> set -> set, forall g g':set -> set -> set, forall h h':set -> set -> set, forall i i':set -> set, forall c,
  (forall x y :e X, f x y = f' x y) ->
@@ -57,7 +57,7 @@ Axiom pack_b_b_b_u_e_ext : forall X, forall f f':set -> set -> set, forall g g':
  (forall x :e X, i x = i' x) ->
  pack_b_b_b_u_e X f g h i c = pack_b_b_b_u_e X f' g' h' i' c.
 
-Axiom pack_struct_b_b_b_u_e: forall X, forall f:set -> set -> set, forall g:set -> set -> set, forall h:set -> set -> set, forall i:set -> set, forall c:set, (forall x y :e X, f x y :e X) -> (forall x y :e X, g x y :e X) -> (forall x y :e X, h x y :e X) -> (forall x :e X, i x :e X) -> c :e X -> struct_b_b_b_u_e (pack_b_b_b_u_e X f g h i c).
+Axiom pack_struct_b_b_b_u_e_I: forall X, forall f:set -> set -> set, (forall x y :e X, f x y :e X) -> forall g:set -> set -> set, (forall x y :e X, g x y :e X) -> forall h:set -> set -> set, (forall x y :e X, h x y :e X) -> forall i:set -> set, (forall x :e X, i x :e X) -> forall c:set, c :e X -> struct_b_b_b_u_e (pack_b_b_b_u_e X f g h i c).
 
 Axiom struct_b_b_b_u_e_eta: forall S, struct_b_b_b_u_e S -> S = pack_b_b_b_u_e (S 0) (decode_b (S 1)) (decode_b (S 2)) (decode_b (S 3)) (decode_u (S 4)) (S 5).
 
