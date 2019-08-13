@@ -65,9 +65,10 @@ Variable A:SType.
 Definition unpack_u_e : set -> (set -> (set -> set) -> set -> A) -> A := fun S Phi => Phi (S 0) (decode_u (S 1)) (S 2).
 
 Axiom unpack_u_e_eq : forall Phi:set -> (set -> set) -> set -> A,
-  (forall X, forall i i':set -> set, (forall x :e X, i x = i' x) ->  forall c,Phi X i c = Phi X i' c)
+  forall X, forall i:set -> set, forall c:set,
+  ( forall i':set -> set, (forall x :e X, i x = i' x) -> Phi X i' c = Phi X i c)
   ->
-  forall X, forall i:set -> set, forall c:set, unpack_u_e (pack_u_e X i c) Phi = Phi X i c.
+  unpack_u_e (pack_u_e X i c) Phi = Phi X i c.
 
 End unpack_u_e.
 

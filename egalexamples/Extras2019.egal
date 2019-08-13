@@ -1,5 +1,80 @@
 (** A few extra results not in the Egal library from 2014 **)
 
+Definition bij : set->set->(set->set)->prop :=
+  fun X Y f =>
+  (forall u :e X, f u :e Y)
+  /\
+  (forall u v :e X, f u = f v -> u = v)
+  /\
+  (forall w :e Y, exists u :e X, f u = w).
+
+Definition inv : set -> (set -> set) -> set -> set := fun X f => fun y:set => some x :e X, f x = y.
+
+Theorem surj_rinv : forall X Y, forall f:set->set, (forall w :e Y, exists u :e X, f u = w) -> forall y :e Y, inv X f y :e X /\ f (inv X f y) = y.
+let X Y f. assume H1.
+let y. assume Hy: y :e Y.
+apply H1 y Hy.
+let x.
+assume H2.
+exact EpsR set (fun x => x :e X /\ f x = y) x H2.
+Qed.
+
+Theorem inj_linv : forall X Y, forall f:set->set, (forall u v :e X, f u = f v -> u = v) -> forall x :e X, inv X f (f x) = x.
+let X Y f.
+assume H1.
+let x. assume Hx.
+claim L1: inv X f (f x) :e X /\ f (inv X f (f x)) = f x.
+{ apply EpsR set (fun x' => x' :e X /\ f x' = f x) x.
+  apply andI.
+  - exact Hx.
+  - exact eqI set (f x).
+}
+apply L1.
+assume H2 H3.
+exact H1 (inv X f (f x)) H2 x Hx H3.
+Qed.
+
+Theorem bij_inv : forall X Y, forall f:set->set, bij X Y f -> bij Y X (inv X f).
+let X Y f.
+assume H1. apply H1.
+assume H2. apply H2.
+assume H3: forall u :e X, f u :e Y.
+assume H4: forall u v :e X, f u = f v -> u = v.
+assume H5: forall w :e Y, exists u :e X, f u = w.
+set g : set->set := fun y => some x :e X, f x = y.
+claim L1: forall y :e Y, g y :e X /\ f (g y) = y.
+{ exact surj_rinv X Y f H5. }
+prove (forall u :e Y, g u :e X)
+      /\
+      (forall u v :e Y, g u = g v -> u = v)
+      /\
+      (forall w :e X, exists u :e Y, g u = w).
+apply and3I.
+- prove forall u :e Y, g u :e X.
+  let u. assume Hu. apply L1 u Hu. assume H _. exact H.
+- prove forall u v :e Y, g u = g v -> u = v.
+  let u. assume Hu. let v. assume Hv H6.
+  prove u = v.
+  apply L1 u Hu.
+  assume H7: g u :e X.
+  assume H8: f (g u) = u.
+  apply L1 v Hv.
+  assume H9: g v :e X.
+  assume H10: f (g v) = v.
+  rewrite <- H8.
+  rewrite <- H10.
+  rewrite <- H6.
+  apply eqI set.
+- prove forall w :e X, exists u :e Y, g u = w.
+  let w. assume Hw.
+  claim Lfw: f w :e Y.
+  { exact H3 w Hw. }
+  witness f w.
+  apply andI.
+  + exact Lfw.
+  + exact inj_linv X Y f H4 w Hw.
+Qed.
+
 Theorem and6I: forall P1 P2 P3 P4 P5 P6:prop, P1 -> P2 -> P3 -> P4 -> P5 -> P6 -> P1 /\ P2 /\ P3 /\ P4 /\ P5 /\ P6.
 let P1 P2 P3 P4 P5 P6.
 assume H1 H2 H3 H4 H5 H6.

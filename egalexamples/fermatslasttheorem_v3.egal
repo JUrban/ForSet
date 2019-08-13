@@ -68,9 +68,10 @@ Variable A:SType.
 Definition unpack_b_b_b_u_e : set -> (set -> (set -> set -> set) -> (set -> set -> set) -> (set -> set -> set) -> (set -> set) -> set -> A) -> A := fun S Phi => Phi (S 0) (decode_b (S 1)) (decode_b (S 2)) (decode_b (S 3)) (decode_u (S 4)) (S 5).
 
 Axiom unpack_b_b_b_u_e_eq : forall Phi:set -> (set -> set -> set) -> (set -> set -> set) -> (set -> set -> set) -> (set -> set) -> set -> A,
-  (forall X, forall f f':set -> set -> set, (forall x y :e X, f x y = f' x y) ->  forall g g':set -> set -> set, (forall x y :e X, g x y = g' x y) ->  forall h h':set -> set -> set, (forall x y :e X, h x y = h' x y) ->  forall i i':set -> set, (forall x :e X, i x = i' x) ->  forall c,Phi X f g h i c = Phi X f' g' h' i' c)
+  forall X, forall f:set -> set -> set, forall g:set -> set -> set, forall h:set -> set -> set, forall i:set -> set, forall c:set,
+  ( forall f':set -> set -> set, (forall x y :e X, f x y = f' x y) ->  forall g':set -> set -> set, (forall x y :e X, g x y = g' x y) ->  forall h':set -> set -> set, (forall x y :e X, h x y = h' x y) ->  forall i':set -> set, (forall x :e X, i x = i' x) -> Phi X f' g' h' i' c = Phi X f g h i c)
   ->
-  forall X, forall f:set -> set -> set, forall g:set -> set -> set, forall h:set -> set -> set, forall i:set -> set, forall c:set, unpack_b_b_b_u_e (pack_b_b_b_u_e X f g h i c) Phi = Phi X f g h i c.
+  unpack_b_b_b_u_e (pack_b_b_b_u_e X f g h i c) Phi = Phi X f g h i c.
 
 End unpack_b_b_b_u_e.
 

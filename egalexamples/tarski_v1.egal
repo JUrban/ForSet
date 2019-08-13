@@ -420,9 +420,10 @@ Variable A:SType.
 Definition unpack_r : set -> (set -> (set -> set -> prop) -> A) -> A := fun S Phi => Phi (S 0) (decode_r (S 1)).
 
 Axiom unpack_r_eq : forall Phi:set -> (set -> set -> prop) -> A,
-  (forall X, forall R R':set -> set -> prop, (forall x y :e X, R x y <-> R' x y) -> Phi X R = Phi X R')
+  forall X, forall R:set -> set -> prop,
+  (forall R':set -> set -> prop, (forall x y :e X, R x y <-> R' x y) -> Phi X R' = Phi X R)
   ->
-  forall X, forall R:set -> set -> prop, unpack_r (pack_r X R) Phi = Phi X R.
+  unpack_r (pack_r X R) Phi = Phi X R.
 
 End unpack_r.
 
@@ -439,29 +440,17 @@ Definition Poset : set -> prop := fun P =>
 Lemma Poset_unpack_r_eq: forall T, forall Leq:set -> set -> prop,
   unpack_r prop (pack_r T Leq) (fun T Leq => Refl (fun x => x :e T) Leq /\ ASymm (fun x => x :e T) Leq /\ Trans (fun x => x :e T) Leq)
   = (Refl (fun x => x :e T) Leq /\ ASymm (fun x => x :e T) Leq /\ Trans (fun x => x :e T) Leq).
-claim L1: forall T, forall Leq Leq':set -> set -> prop, (forall x y :e T, Leq x y <-> Leq' x y) ->
-   (Refl (fun x => x :e T) Leq /\ ASymm (fun x => x :e T) Leq /\ Trans (fun x => x :e T) Leq) = (Refl (fun x => x :e T) Leq' /\ ASymm (fun x => x :e T) Leq' /\ Trans (fun x => x :e T) Leq').
-{ let T Leq Leq'.
+let T Leq.
+claim L1: forall Leq':set -> set -> prop, (forall x y :e T, Leq x y <-> Leq' x y) ->
+   (Refl (fun x => x :e T) Leq' /\ ASymm (fun x => x :e T) Leq' /\ Trans (fun x => x :e T) Leq') = (Refl (fun x => x :e T) Leq /\ ASymm (fun x => x :e T) Leq /\ Trans (fun x => x :e T) Leq).
+{ let Leq'.
   assume H1: forall x y :e T, Leq x y <-> Leq' x y.
   claim H1a: forall x y :e T, Leq x y -> Leq' x y.
   { let x. assume Hx. let y. assume Hy. apply H1 x Hx y Hy. assume H _. exact H. }
   claim H1b: forall x y :e T, Leq' x y -> Leq x y.
   { let x. assume Hx. let y. assume Hy. apply H1 x Hx y Hy. assume _ H. exact H. }
-  prove (Refl (fun x => x :e T) Leq /\ ASymm (fun x => x :e T) Leq /\ Trans (fun x => x :e T) Leq) = (Refl (fun x => x :e T) Leq' /\ ASymm (fun x => x :e T) Leq' /\ Trans (fun x => x :e T) Leq').
+  prove (Refl (fun x => x :e T) Leq' /\ ASymm (fun x => x :e T) Leq' /\ Trans (fun x => x :e T) Leq') = (Refl (fun x => x :e T) Leq /\ ASymm (fun x => x :e T) Leq /\ Trans (fun x => x :e T) Leq).
   apply prop_ext2.
-  - assume H2. apply H2. assume H3.
-    assume HTra: forall x y z, x :e T -> y :e T -> z :e T -> Leq x y -> Leq y z -> Leq x z.
-    apply H3.
-    assume HRef: forall x :e T, Leq x x.
-    assume HASym: forall x y, x :e T -> y :e T -> Leq x y -> Leq y x -> x = y.
-    apply and3I.
-    + let x. assume Hx. prove Leq' x x. apply H1a x Hx x Hx. prove Leq x x. apply HRef x Hx.
-    + let x y. assume Hx Hy. assume H4 H5. apply HASym x y Hx Hy.
-      * apply H1b x Hx y Hy. exact H4.
-      * apply H1b y Hy x Hx. exact H5.
-    + let x y z. assume Hx Hy Hz. assume H4 H5. apply H1a x Hx z Hz. apply HTra x y z Hx Hy Hz.
-      * apply H1b x Hx y Hy. exact H4.
-      * apply H1b y Hy z Hz. exact H5.
   - assume H2. apply H2. assume H3.
     assume HTra: forall x y z, x :e T -> y :e T -> z :e T -> Leq' x y -> Leq' y z -> Leq' x z.
     apply H3.
@@ -475,8 +464,21 @@ claim L1: forall T, forall Leq Leq':set -> set -> prop, (forall x y :e T, Leq x 
     + let x y z. assume Hx Hy Hz. assume H4 H5. apply H1b x Hx z Hz. apply HTra x y z Hx Hy Hz.
       * apply H1a x Hx y Hy. exact H4.
       * apply H1a y Hy z Hz. exact H5.
+  - assume H2. apply H2. assume H3.
+    assume HTra: forall x y z, x :e T -> y :e T -> z :e T -> Leq x y -> Leq y z -> Leq x z.
+    apply H3.
+    assume HRef: forall x :e T, Leq x x.
+    assume HASym: forall x y, x :e T -> y :e T -> Leq x y -> Leq y x -> x = y.
+    apply and3I.
+    + let x. assume Hx. prove Leq' x x. apply H1a x Hx x Hx. prove Leq x x. apply HRef x Hx.
+    + let x y. assume Hx Hy. assume H4 H5. apply HASym x y Hx Hy.
+      * apply H1b x Hx y Hy. exact H4.
+      * apply H1b y Hy x Hx. exact H5.
+    + let x y z. assume Hx Hy Hz. assume H4 H5. apply H1a x Hx z Hz. apply HTra x y z Hx Hy Hz.
+      * apply H1b x Hx y Hy. exact H4.
+      * apply H1b y Hy z Hz. exact H5.
 }
-exact unpack_r_eq prop (fun T Leq => Refl (fun x => x :e T) Leq /\ ASymm (fun x => x :e T) Leq /\ Trans (fun x => x :e T) Leq) L1.
+exact unpack_r_eq prop (fun T Leq => Refl (fun x => x :e T) Leq /\ ASymm (fun x => x :e T) Leq /\ Trans (fun x => x :e T) Leq) T Leq L1.
 Qed.
 
 Theorem Poset_equiv : forall P,
@@ -603,9 +605,10 @@ Lemma CompleteLattice_unpack_r_eq: forall T, forall Leq:set -> set -> prop,
   unpack_r prop (pack_r T Leq)
     (fun T Leq => MetaCompleteLattice (fun x => x :e T) Leq T)
   = (MetaCompleteLattice (fun x => x :e T) Leq T).
-claim L1: forall T, forall Leq Leq':set -> set -> prop, (forall x y :e T, Leq x y <-> Leq' x y) ->
-    (MetaCompleteLattice (fun x => x :e T) Leq T) = (MetaCompleteLattice (fun x => x :e T) Leq' T).
-{ let T Leq Leq'.
+let T Leq.
+claim L1: forall Leq':set -> set -> prop, (forall x y :e T, Leq x y <-> Leq' x y) ->
+    (MetaCompleteLattice (fun x => x :e T) Leq' T) = (MetaCompleteLattice (fun x => x :e T) Leq T).
+{ let Leq'.
   assume H1: forall x y :e T, Leq x y <-> Leq' x y.
   claim H1s: forall x y :e T, Leq' x y <-> Leq x y.
   { let x. assume Hx. let y. assume Hy.
@@ -613,30 +616,8 @@ claim L1: forall T, forall Leq Leq':set -> set -> prop, (forall x y :e T, Leq x 
     + exact H1b.
     + exact H1a.
   }
-  prove (MetaCompleteLattice (fun x => x :e T) Leq T) = (MetaCompleteLattice (fun x => x :e T) Leq' T).
+  prove (MetaCompleteLattice (fun x => x :e T) Leq' T) = (MetaCompleteLattice (fun x => x :e T) Leq T).
   apply prop_ext2.
-  - assume H2: MetaCompleteLattice (fun x => x :e T) Leq T.
-    apply H2.
-    assume H2a: forall x :e T, x :e T.
-    assume H2b: forall S c= T, (exists u, an_inf (fun x => x :e T) Leq S T u) /\ (exists v, a_sup (fun x => x :e T) Leq S T v).
-    prove (forall x :e T, x :e T) /\ forall S c= T, (exists u, an_inf (fun x => x :e T) Leq' S T u) /\ (exists v, a_sup (fun x => x :e T) Leq' S T v).
-    apply andI.
-    + exact H2a.
-    + let S. assume HST: S c= T.
-      apply H2b S HST.
-      assume H3: exists u, an_inf (fun x => x :e T) Leq S T u.
-      assume H4: exists v, a_sup (fun x => x :e T) Leq S T v.
-      apply andI.
-      * prove exists u, an_inf (fun x => x :e T) Leq' S T u.
-        apply H3.
-	let u. assume H5.
-	witness u.
-        exact EqReln_inf T Leq Leq' H1 S HST u H5.
-      * prove exists v, a_sup (fun x => x :e T) Leq' S T v.
-        apply H4.
-        let v. assume H5.
-        witness v.
-        exact EqReln_sup T Leq Leq' H1 S HST v H5.
   - assume H2: MetaCompleteLattice (fun x => x :e T) Leq' T.
     apply H2.
     assume H2a: forall x :e T, x :e T.
@@ -659,9 +640,32 @@ claim L1: forall T, forall Leq Leq':set -> set -> prop, (forall x y :e T, Leq x 
 	let v. assume H5.
         witness v.
         exact EqReln_sup T Leq' Leq H1s S HST v H5.
+  - assume H2: MetaCompleteLattice (fun x => x :e T) Leq T.
+    apply H2.
+    assume H2a: forall x :e T, x :e T.
+    assume H2b: forall S c= T, (exists u, an_inf (fun x => x :e T) Leq S T u) /\ (exists v, a_sup (fun x => x :e T) Leq S T v).
+    prove (forall x :e T, x :e T) /\ forall S c= T, (exists u, an_inf (fun x => x :e T) Leq' S T u) /\ (exists v, a_sup (fun x => x :e T) Leq' S T v).
+    apply andI.
+    + exact H2a.
+    + let S. assume HST: S c= T.
+      apply H2b S HST.
+      assume H3: exists u, an_inf (fun x => x :e T) Leq S T u.
+      assume H4: exists v, a_sup (fun x => x :e T) Leq S T v.
+      apply andI.
+      * prove exists u, an_inf (fun x => x :e T) Leq' S T u.
+        apply H3.
+	let u. assume H5.
+	witness u.
+        exact EqReln_inf T Leq Leq' H1 S HST u H5.
+      * prove exists v, a_sup (fun x => x :e T) Leq' S T v.
+        apply H4.
+        let v. assume H5.
+        witness v.
+        exact EqReln_sup T Leq Leq' H1 S HST v H5.
 }
 exact unpack_r_eq prop
         (fun T Leq => MetaCompleteLattice (fun x => x :e T) Leq T)
+	T Leq
         L1.
 Qed.
 
@@ -783,15 +787,19 @@ Theorem KnasterTarski_b: forall L, CompleteLattice L ->
      forall f:set -> set, Meta_on (fun x => x :e T) Leq f T -> Meta_monotone (fun x => x :e T) Leq f T ->
      forall S, S = {x :e T|f x = x} -> CompleteLattice (pack_r S Leq)).
 let L. assume HL.
-claim L1: forall T, forall Leq Leq':set -> set -> prop,
+apply CompleteLattice_equiv L. assume HLI _.
+apply HLI HL. let T. assume H1. apply H1. let Leq. assume H2. apply H2. assume H3. apply H3. assume H4. apply H4.
+assume H5: L = pack_r T Leq.
+assume _ _ _.
+claim L1: forall Leq':set -> set -> prop,
   (forall x y :e T, Leq x y <-> Leq' x y)
  ->
-  (forall f:set -> set, Meta_on (fun x => x :e T) Leq f T -> Meta_monotone (fun x => x :e T) Leq f T ->
-     forall S, S = {x :e T|f x = x} -> CompleteLattice (pack_r S Leq))
-  = 
   (forall f:set -> set, Meta_on (fun x => x :e T) Leq' f T -> Meta_monotone (fun x => x :e T) Leq' f T ->
-     forall S, S = {x :e T|f x = x} -> CompleteLattice (pack_r S Leq')).
-{ let T Leq Leq'.
+     forall S, S = {x :e T|f x = x} -> CompleteLattice (pack_r S Leq'))
+  = 
+  (forall f:set -> set, Meta_on (fun x => x :e T) Leq f T -> Meta_monotone (fun x => x :e T) Leq f T ->
+     forall S, S = {x :e T|f x = x} -> CompleteLattice (pack_r S Leq)).
+{ let Leq'.
   assume H1: forall x y :e T, Leq x y <-> Leq' x y.
   claim H1a: forall x y :e T, Leq x y -> Leq' x y.
   { let x. assume Hx. let y. assume Hy. apply H1 x Hx y Hy. assume H _. exact H. }
@@ -804,30 +812,6 @@ claim L1: forall T, forall Leq Leq':set -> set -> prop,
     + exact H1a x Hx y Hy.
   }
   apply prop_ext2.
-  - assume H2: forall f:set -> set, Meta_on (fun x => x :e T) Leq f T -> Meta_monotone (fun x => x :e T) Leq f T ->
-       forall S, S = {x :e T|f x = x} -> CompleteLattice (pack_r S Leq).
-    let f. assume Hf1 Hf2. let S. assume HS.
-    claim Lf2: Meta_monotone (fun x => x :e T) Leq f T.
-    { let x. assume Hx. let y. assume Hy.
-      assume Hxy: Leq x y.
-      prove Leq (f x) (f y).
-      apply H1b (f x) (Hf1 x Hx) (f y) (Hf1 y Hy).
-      prove Leq' (f x) (f y).
-      apply Hf2 x Hx y Hy.
-      apply H1a x Hx y Hy.
-      exact Hxy.
-    }
-    prove CompleteLattice (pack_r S Leq').
-    claim LS1: S c= T.
-    { rewrite HS. apply Sep_Subq. }
-    claim LS2: forall x y :e S, Leq x y <-> Leq' x y.
-    { let x. assume Hx. let y. assume Hy. apply H1.
-      - exact LS1 x Hx.
-      - exact LS1 y Hy.
-    }
-    rewrite <- pack_r_ext S Leq Leq' LS2.
-    prove CompleteLattice (pack_r S Leq).
-    exact H2 f Hf1 Lf2 S HS.
   - assume H2: forall f:set -> set, Meta_on (fun x => x :e T) Leq' f T -> Meta_monotone (fun x => x :e T) Leq' f T ->
        forall S, S = {x :e T|f x = x} -> CompleteLattice (pack_r S Leq').
     let f. assume Hf1 Hf2. let S. assume HS.
@@ -852,15 +836,36 @@ claim L1: forall T, forall Leq Leq':set -> set -> prop,
     rewrite pack_r_ext S Leq Leq' LS2.
     prove CompleteLattice (pack_r S Leq').
     exact H2 f Hf1 Lf2 S HS.
+  - assume H2: forall f:set -> set, Meta_on (fun x => x :e T) Leq f T -> Meta_monotone (fun x => x :e T) Leq f T ->
+       forall S, S = {x :e T|f x = x} -> CompleteLattice (pack_r S Leq).
+    let f. assume Hf1 Hf2. let S. assume HS.
+    claim Lf2: Meta_monotone (fun x => x :e T) Leq f T.
+    { let x. assume Hx. let y. assume Hy.
+      assume Hxy: Leq x y.
+      prove Leq (f x) (f y).
+      apply H1b (f x) (Hf1 x Hx) (f y) (Hf1 y Hy).
+      prove Leq' (f x) (f y).
+      apply Hf2 x Hx y Hy.
+      apply H1a x Hx y Hy.
+      exact Hxy.
+    }
+    prove CompleteLattice (pack_r S Leq').
+    claim LS1: S c= T.
+    { rewrite HS. apply Sep_Subq. }
+    claim LS2: forall x y :e S, Leq x y <-> Leq' x y.
+    { let x. assume Hx. let y. assume Hy. apply H1.
+      - exact LS1 x Hx.
+      - exact LS1 y Hy.
+    }
+    rewrite <- pack_r_ext S Leq Leq' LS2.
+    prove CompleteLattice (pack_r S Leq).
+    exact H2 f Hf1 Lf2 S HS.
 }
-apply CompleteLattice_equiv L. assume HLI _.
-apply HLI HL. let T. assume H1. apply H1. let Leq. assume H2. apply H2. assume H3. apply H3. assume H4. apply H4.
-assume H5: L = pack_r T Leq.
-assume _ _ _.
 rewrite H5.
 rewrite unpack_r_eq prop
           (fun T Leq => forall f:set -> set, Meta_on (fun x => x :e T) Leq f T -> Meta_monotone (fun x => x :e T) Leq f T ->
             forall S, S = {x :e T|f x = x} -> CompleteLattice (pack_r S Leq))
+	  T Leq
 	  L1.
 prove forall f:set -> set, Meta_on (fun x => x :e T) Leq f T -> Meta_monotone (fun x => x :e T) Leq f T ->
             forall S, S = {x :e T|f x = x} -> CompleteLattice (pack_r S Leq).

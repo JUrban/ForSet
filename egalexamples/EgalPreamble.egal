@@ -98,6 +98,7 @@ Parameter In : set -> set -> prop.
 Definition nIn : set -> set -> prop := fun x X => ~ In x X.
 (* Unicode /:e "2209" *)
 Infix /:e 502 := nIn.
+Binder some , := Eps ; and.
 Definition Subq : set -> set -> prop := fun X Y => forall x : set , x :e X -> x :e Y.
 Binder+ exists , := ex ; and.
 Axiom set_ext : forall X Y:set, X c= Y -> Y c= X -> X = Y.

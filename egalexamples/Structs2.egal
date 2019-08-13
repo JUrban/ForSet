@@ -113,24 +113,21 @@ Variable A:SType.
 Definition unpack_c_b : set -> (set -> ((set -> prop) -> prop) -> (set -> set -> set) -> A) -> A := fun S Phi => Phi (S 0) (decode_c (S 1)) (decode_b (S 2)).
 
 Theorem unpack_c_b_eq : forall Phi:set -> ((set -> prop) -> prop) -> (set -> set -> set) -> A,
-  (forall X, forall C C':(set -> prop) -> prop, (forall U:set -> prop, (forall x, U x -> x :e X) -> (C U <-> C' U)) ->  forall f f':set -> set -> set, (forall x y :e X, f x y = f' x y) -> Phi X C f = Phi X C' f')
+  forall X, forall C:(set -> prop) -> prop, forall f:set -> set -> set,
+  ( forall C':(set -> prop) -> prop, (forall U:set -> prop, (forall x, U x -> x :e X) -> (C U <-> C' U)) ->  forall f':set -> set -> set, (forall x y :e X, f x y = f' x y) -> Phi X C' f' = Phi X C f)
   ->
-  forall X, forall C:(set -> prop) -> prop, forall f:set -> set -> set, unpack_c_b (pack_c_b X C f) Phi = Phi X C f.
-let Phi.
+  unpack_c_b (pack_c_b X C f) Phi = Phi X C f.
+let Phi X C f.
 assume HPhi.
-let X C f.
 prove Phi (pack_c_b X C f 0) (decode_c (pack_c_b X C f 1)) (decode_b (pack_c_b X C f 2)) = Phi X C f.
 rewrite <- pack_c_b_0_eq2 X C f.
 prove Phi X (decode_c (pack_c_b X C f 1)) (decode_b (pack_c_b X C f 2)) = Phi X C f.
 apply HPhi.
 - let U. assume HU.
-  prove decode_c (pack_c_b X C f 1) U <-> C U.
+  prove C U <-> decode_c (pack_c_b X C f 1) U.
   rewrite <- pack_c_b_1_eq2 X C f U HU.
   apply iff_refl.
-- let x. assume Hx. let y. assume Hy.
-  prove decode_b (pack_c_b X C f 2) x y = f x y.
-  apply eq_sym set.
-  exact pack_c_b_2_eq2 X C f x Hx y Hy.
+- exact pack_c_b_2_eq2 X C f.
 Qed.
 
 End unpack_c_b.
@@ -248,24 +245,21 @@ Variable A:SType.
 Definition unpack_c_u : set -> (set -> ((set -> prop) -> prop) -> (set -> set) -> A) -> A := fun S Phi => Phi (S 0) (decode_c (S 1)) (decode_u (S 2)).
 
 Theorem unpack_c_u_eq : forall Phi:set -> ((set -> prop) -> prop) -> (set -> set) -> A,
-  (forall X, forall C C':(set -> prop) -> prop, (forall U:set -> prop, (forall x, U x -> x :e X) -> (C U <-> C' U)) ->  forall i i':set -> set, (forall x :e X, i x = i' x) -> Phi X C i = Phi X C' i')
+  forall X, forall C:(set -> prop) -> prop, forall i:set -> set,
+  ( forall C':(set -> prop) -> prop, (forall U:set -> prop, (forall x, U x -> x :e X) -> (C U <-> C' U)) ->  forall i':set -> set, (forall x :e X, i x = i' x) -> Phi X C' i' = Phi X C i)
   ->
-  forall X, forall C:(set -> prop) -> prop, forall i:set -> set, unpack_c_u (pack_c_u X C i) Phi = Phi X C i.
-let Phi.
+  unpack_c_u (pack_c_u X C i) Phi = Phi X C i.
+let Phi X C i.
 assume HPhi.
-let X C i.
 prove Phi (pack_c_u X C i 0) (decode_c (pack_c_u X C i 1)) (decode_u (pack_c_u X C i 2)) = Phi X C i.
 rewrite <- pack_c_u_0_eq2 X C i.
 prove Phi X (decode_c (pack_c_u X C i 1)) (decode_u (pack_c_u X C i 2)) = Phi X C i.
 apply HPhi.
 - let U. assume HU.
-  prove decode_c (pack_c_u X C i 1) U <-> C U.
+  prove C U <-> decode_c (pack_c_u X C i 1) U.
   rewrite <- pack_c_u_1_eq2 X C i U HU.
   apply iff_refl.
-- let x. assume Hx.
-  prove decode_u (pack_c_u X C i 2) x = i x.
-  apply eq_sym set.
-  exact pack_c_u_2_eq2 X C i x Hx.
+- exact pack_c_u_2_eq2 X C i.
 Qed.
 
 End unpack_c_u.
@@ -375,22 +369,22 @@ Variable A:SType.
 Definition unpack_c_r : set -> (set -> ((set -> prop) -> prop) -> (set -> set -> prop) -> A) -> A := fun S Phi => Phi (S 0) (decode_c (S 1)) (decode_r (S 2)).
 
 Theorem unpack_c_r_eq : forall Phi:set -> ((set -> prop) -> prop) -> (set -> set -> prop) -> A,
-  (forall X, forall C C':(set -> prop) -> prop, (forall U:set -> prop, (forall x, U x -> x :e X) -> (C U <-> C' U)) ->  forall R R':set -> set -> prop, (forall x y :e X, R x y <-> R' x y) -> Phi X C R = Phi X C' R')
+  forall X, forall C:(set -> prop) -> prop, forall R:set -> set -> prop,
+  ( forall C':(set -> prop) -> prop, (forall U:set -> prop, (forall x, U x -> x :e X) -> (C U <-> C' U)) ->  forall R':set -> set -> prop, (forall x y :e X, R x y <-> R' x y) -> Phi X C' R' = Phi X C R)
   ->
-  forall X, forall C:(set -> prop) -> prop, forall R:set -> set -> prop, unpack_c_r (pack_c_r X C R) Phi = Phi X C R.
-let Phi.
+  unpack_c_r (pack_c_r X C R) Phi = Phi X C R.
+let Phi X C R.
 assume HPhi.
-let X C R.
 prove Phi (pack_c_r X C R 0) (decode_c (pack_c_r X C R 1)) (decode_r (pack_c_r X C R 2)) = Phi X C R.
 rewrite <- pack_c_r_0_eq2 X C R.
 prove Phi X (decode_c (pack_c_r X C R 1)) (decode_r (pack_c_r X C R 2)) = Phi X C R.
 apply HPhi.
 - let U. assume HU.
-  prove decode_c (pack_c_r X C R 1) U <-> C U.
+  prove C U <-> decode_c (pack_c_r X C R 1) U.
   rewrite <- pack_c_r_1_eq2 X C R U HU.
   apply iff_refl.
 - let x. assume Hx. let y. assume Hy.
-  prove decode_r (pack_c_r X C R 2) x y <-> R x y.
+  prove R x y <-> decode_r (pack_c_r X C R 2) x y.
   rewrite <- pack_c_r_2_eq2 X C R x Hx y Hy.
   apply iff_refl.
 Qed.
@@ -500,22 +494,22 @@ Variable A:SType.
 Definition unpack_c_p : set -> (set -> ((set -> prop) -> prop) -> (set -> prop) -> A) -> A := fun S Phi => Phi (S 0) (decode_c (S 1)) (decode_p (S 2)).
 
 Theorem unpack_c_p_eq : forall Phi:set -> ((set -> prop) -> prop) -> (set -> prop) -> A,
-  (forall X, forall C C':(set -> prop) -> prop, (forall U:set -> prop, (forall x, U x -> x :e X) -> (C U <-> C' U)) ->  forall P P':set -> prop, (forall x :e X, P x <-> P' x) -> Phi X C P = Phi X C' P')
+  forall X, forall C:(set -> prop) -> prop, forall P:set -> prop,
+  ( forall C':(set -> prop) -> prop, (forall U:set -> prop, (forall x, U x -> x :e X) -> (C U <-> C' U)) ->  forall P':set -> prop, (forall x :e X, P x <-> P' x) -> Phi X C' P' = Phi X C P)
   ->
-  forall X, forall C:(set -> prop) -> prop, forall P:set -> prop, unpack_c_p (pack_c_p X C P) Phi = Phi X C P.
-let Phi.
+  unpack_c_p (pack_c_p X C P) Phi = Phi X C P.
+let Phi X C P.
 assume HPhi.
-let X C P.
 prove Phi (pack_c_p X C P 0) (decode_c (pack_c_p X C P 1)) (decode_p (pack_c_p X C P 2)) = Phi X C P.
 rewrite <- pack_c_p_0_eq2 X C P.
 prove Phi X (decode_c (pack_c_p X C P 1)) (decode_p (pack_c_p X C P 2)) = Phi X C P.
 apply HPhi.
 - let U. assume HU.
-  prove decode_c (pack_c_p X C P 1) U <-> C U.
+  prove C U <-> decode_c (pack_c_p X C P 1) U.
   rewrite <- pack_c_p_1_eq2 X C P U HU.
   apply iff_refl.
 - let x. assume Hx.
-  prove decode_p (pack_c_p X C P 2) x <-> P x.
+  prove P x <-> decode_p (pack_c_p X C P 2) x.
   rewrite <- pack_c_p_2_eq2 X C P x Hx.
   apply iff_refl.
 Qed.
@@ -624,19 +618,19 @@ Variable A:SType.
 Definition unpack_c_e : set -> (set -> ((set -> prop) -> prop) -> set -> A) -> A := fun S Phi => Phi (S 0) (decode_c (S 1)) (S 2).
 
 Theorem unpack_c_e_eq : forall Phi:set -> ((set -> prop) -> prop) -> set -> A,
-  (forall X, forall C C':(set -> prop) -> prop, (forall U:set -> prop, (forall x, U x -> x :e X) -> (C U <-> C' U)) ->  forall c,Phi X C c = Phi X C' c)
+  forall X, forall C:(set -> prop) -> prop, forall c:set,
+  ( forall C':(set -> prop) -> prop, (forall U:set -> prop, (forall x, U x -> x :e X) -> (C U <-> C' U)) -> Phi X C' c = Phi X C c)
   ->
-  forall X, forall C:(set -> prop) -> prop, forall c:set, unpack_c_e (pack_c_e X C c) Phi = Phi X C c.
-let Phi.
+  unpack_c_e (pack_c_e X C c) Phi = Phi X C c.
+let Phi X C c.
 assume HPhi.
-let X C c.
 prove Phi (pack_c_e X C c 0) (decode_c (pack_c_e X C c 1)) (pack_c_e X C c 2) = Phi X C c.
 rewrite <- pack_c_e_0_eq2 X C c.
 prove Phi X (decode_c (pack_c_e X C c 1)) (pack_c_e X C c 2) = Phi X C c.
 rewrite <- pack_c_e_2_eq2 X C c.
 apply HPhi.
 let U. assume HU.
-prove decode_c (pack_c_e X C c 1) U <-> C U.
+prove C U <-> decode_c (pack_c_e X C c 1) U.
 rewrite <- pack_c_e_1_eq2 X C c U HU.
 apply iff_refl.
 Qed.
@@ -770,24 +764,18 @@ Variable A:SType.
 Definition unpack_b_b : set -> (set -> (set -> set -> set) -> (set -> set -> set) -> A) -> A := fun S Phi => Phi (S 0) (decode_b (S 1)) (decode_b (S 2)).
 
 Theorem unpack_b_b_eq : forall Phi:set -> (set -> set -> set) -> (set -> set -> set) -> A,
-  (forall X, forall f f':set -> set -> set, (forall x y :e X, f x y = f' x y) ->  forall g g':set -> set -> set, (forall x y :e X, g x y = g' x y) -> Phi X f g = Phi X f' g')
+  forall X, forall f:set -> set -> set, forall g:set -> set -> set,
+  ( forall f':set -> set -> set, (forall x y :e X, f x y = f' x y) ->  forall g':set -> set -> set, (forall x y :e X, g x y = g' x y) -> Phi X f' g' = Phi X f g)
   ->
-  forall X, forall f:set -> set -> set, forall g:set -> set -> set, unpack_b_b (pack_b_b X f g) Phi = Phi X f g.
-let Phi.
+  unpack_b_b (pack_b_b X f g) Phi = Phi X f g.
+let Phi X f g.
 assume HPhi.
-let X f g.
 prove Phi (pack_b_b X f g 0) (decode_b (pack_b_b X f g 1)) (decode_b (pack_b_b X f g 2)) = Phi X f g.
 rewrite <- pack_b_b_0_eq2 X f g.
 prove Phi X (decode_b (pack_b_b X f g 1)) (decode_b (pack_b_b X f g 2)) = Phi X f g.
 apply HPhi.
-- let x. assume Hx. let y. assume Hy.
-  prove decode_b (pack_b_b X f g 1) x y = f x y.
-  apply eq_sym set.
-  exact pack_b_b_1_eq2 X f g x Hx y Hy.
-- let x. assume Hx. let y. assume Hy.
-  prove decode_b (pack_b_b X f g 2) x y = g x y.
-  apply eq_sym set.
-  exact pack_b_b_2_eq2 X f g x Hx y Hy.
+- exact pack_b_b_1_eq2 X f g.
+- exact pack_b_b_2_eq2 X f g.
 Qed.
 
 End unpack_b_b.
@@ -917,24 +905,18 @@ Variable A:SType.
 Definition unpack_b_u : set -> (set -> (set -> set -> set) -> (set -> set) -> A) -> A := fun S Phi => Phi (S 0) (decode_b (S 1)) (decode_u (S 2)).
 
 Theorem unpack_b_u_eq : forall Phi:set -> (set -> set -> set) -> (set -> set) -> A,
-  (forall X, forall f f':set -> set -> set, (forall x y :e X, f x y = f' x y) ->  forall i i':set -> set, (forall x :e X, i x = i' x) -> Phi X f i = Phi X f' i')
+  forall X, forall f:set -> set -> set, forall i:set -> set,
+  ( forall f':set -> set -> set, (forall x y :e X, f x y = f' x y) ->  forall i':set -> set, (forall x :e X, i x = i' x) -> Phi X f' i' = Phi X f i)
   ->
-  forall X, forall f:set -> set -> set, forall i:set -> set, unpack_b_u (pack_b_u X f i) Phi = Phi X f i.
-let Phi.
+  unpack_b_u (pack_b_u X f i) Phi = Phi X f i.
+let Phi X f i.
 assume HPhi.
-let X f i.
 prove Phi (pack_b_u X f i 0) (decode_b (pack_b_u X f i 1)) (decode_u (pack_b_u X f i 2)) = Phi X f i.
 rewrite <- pack_b_u_0_eq2 X f i.
 prove Phi X (decode_b (pack_b_u X f i 1)) (decode_u (pack_b_u X f i 2)) = Phi X f i.
 apply HPhi.
-- let x. assume Hx. let y. assume Hy.
-  prove decode_b (pack_b_u X f i 1) x y = f x y.
-  apply eq_sym set.
-  exact pack_b_u_1_eq2 X f i x Hx y Hy.
-- let x. assume Hx.
-  prove decode_u (pack_b_u X f i 2) x = i x.
-  apply eq_sym set.
-  exact pack_b_u_2_eq2 X f i x Hx.
+- exact pack_b_u_1_eq2 X f i.
+- exact pack_b_u_2_eq2 X f i.
 Qed.
 
 End unpack_b_u.
@@ -1056,22 +1038,19 @@ Variable A:SType.
 Definition unpack_b_r : set -> (set -> (set -> set -> set) -> (set -> set -> prop) -> A) -> A := fun S Phi => Phi (S 0) (decode_b (S 1)) (decode_r (S 2)).
 
 Theorem unpack_b_r_eq : forall Phi:set -> (set -> set -> set) -> (set -> set -> prop) -> A,
-  (forall X, forall f f':set -> set -> set, (forall x y :e X, f x y = f' x y) ->  forall R R':set -> set -> prop, (forall x y :e X, R x y <-> R' x y) -> Phi X f R = Phi X f' R')
+  forall X, forall f:set -> set -> set, forall R:set -> set -> prop,
+  ( forall f':set -> set -> set, (forall x y :e X, f x y = f' x y) ->  forall R':set -> set -> prop, (forall x y :e X, R x y <-> R' x y) -> Phi X f' R' = Phi X f R)
   ->
-  forall X, forall f:set -> set -> set, forall R:set -> set -> prop, unpack_b_r (pack_b_r X f R) Phi = Phi X f R.
-let Phi.
+  unpack_b_r (pack_b_r X f R) Phi = Phi X f R.
+let Phi X f R.
 assume HPhi.
-let X f R.
 prove Phi (pack_b_r X f R 0) (decode_b (pack_b_r X f R 1)) (decode_r (pack_b_r X f R 2)) = Phi X f R.
 rewrite <- pack_b_r_0_eq2 X f R.
 prove Phi X (decode_b (pack_b_r X f R 1)) (decode_r (pack_b_r X f R 2)) = Phi X f R.
 apply HPhi.
+- exact pack_b_r_1_eq2 X f R.
 - let x. assume Hx. let y. assume Hy.
-  prove decode_b (pack_b_r X f R 1) x y = f x y.
-  apply eq_sym set.
-  exact pack_b_r_1_eq2 X f R x Hx y Hy.
-- let x. assume Hx. let y. assume Hy.
-  prove decode_r (pack_b_r X f R 2) x y <-> R x y.
+  prove R x y <-> decode_r (pack_b_r X f R 2) x y.
   rewrite <- pack_b_r_2_eq2 X f R x Hx y Hy.
   apply iff_refl.
 Qed.
@@ -1193,22 +1172,19 @@ Variable A:SType.
 Definition unpack_b_p : set -> (set -> (set -> set -> set) -> (set -> prop) -> A) -> A := fun S Phi => Phi (S 0) (decode_b (S 1)) (decode_p (S 2)).
 
 Theorem unpack_b_p_eq : forall Phi:set -> (set -> set -> set) -> (set -> prop) -> A,
-  (forall X, forall f f':set -> set -> set, (forall x y :e X, f x y = f' x y) ->  forall P P':set -> prop, (forall x :e X, P x <-> P' x) -> Phi X f P = Phi X f' P')
+  forall X, forall f:set -> set -> set, forall P:set -> prop,
+  ( forall f':set -> set -> set, (forall x y :e X, f x y = f' x y) ->  forall P':set -> prop, (forall x :e X, P x <-> P' x) -> Phi X f' P' = Phi X f P)
   ->
-  forall X, forall f:set -> set -> set, forall P:set -> prop, unpack_b_p (pack_b_p X f P) Phi = Phi X f P.
-let Phi.
+  unpack_b_p (pack_b_p X f P) Phi = Phi X f P.
+let Phi X f P.
 assume HPhi.
-let X f P.
 prove Phi (pack_b_p X f P 0) (decode_b (pack_b_p X f P 1)) (decode_p (pack_b_p X f P 2)) = Phi X f P.
 rewrite <- pack_b_p_0_eq2 X f P.
 prove Phi X (decode_b (pack_b_p X f P 1)) (decode_p (pack_b_p X f P 2)) = Phi X f P.
 apply HPhi.
-- let x. assume Hx. let y. assume Hy.
-  prove decode_b (pack_b_p X f P 1) x y = f x y.
-  apply eq_sym set.
-  exact pack_b_p_1_eq2 X f P x Hx y Hy.
+- exact pack_b_p_1_eq2 X f P.
 - let x. assume Hx.
-  prove decode_p (pack_b_p X f P 2) x <-> P x.
+  prove P x <-> decode_p (pack_b_p X f P 2) x.
   rewrite <- pack_b_p_2_eq2 X f P x Hx.
   apply iff_refl.
 Qed.
@@ -1329,21 +1305,18 @@ Variable A:SType.
 Definition unpack_b_e : set -> (set -> (set -> set -> set) -> set -> A) -> A := fun S Phi => Phi (S 0) (decode_b (S 1)) (S 2).
 
 Theorem unpack_b_e_eq : forall Phi:set -> (set -> set -> set) -> set -> A,
-  (forall X, forall f f':set -> set -> set, (forall x y :e X, f x y = f' x y) ->  forall c,Phi X f c = Phi X f' c)
+  forall X, forall f:set -> set -> set, forall c:set,
+  ( forall f':set -> set -> set, (forall x y :e X, f x y = f' x y) -> Phi X f' c = Phi X f c)
   ->
-  forall X, forall f:set -> set -> set, forall c:set, unpack_b_e (pack_b_e X f c) Phi = Phi X f c.
-let Phi.
+  unpack_b_e (pack_b_e X f c) Phi = Phi X f c.
+let Phi X f c.
 assume HPhi.
-let X f c.
 prove Phi (pack_b_e X f c 0) (decode_b (pack_b_e X f c 1)) (pack_b_e X f c 2) = Phi X f c.
 rewrite <- pack_b_e_0_eq2 X f c.
 prove Phi X (decode_b (pack_b_e X f c 1)) (pack_b_e X f c 2) = Phi X f c.
 rewrite <- pack_b_e_2_eq2 X f c.
 apply HPhi.
-let x. assume Hx. let y. assume Hy.
-prove decode_b (pack_b_e X f c 1) x y = f x y.
-apply eq_sym set.
-exact pack_b_e_1_eq2 X f c x Hx y Hy.
+exact pack_b_e_1_eq2 X f c.
 Qed.
 
 End unpack_b_e.
@@ -1471,24 +1444,18 @@ Variable A:SType.
 Definition unpack_u_u : set -> (set -> (set -> set) -> (set -> set) -> A) -> A := fun S Phi => Phi (S 0) (decode_u (S 1)) (decode_u (S 2)).
 
 Theorem unpack_u_u_eq : forall Phi:set -> (set -> set) -> (set -> set) -> A,
-  (forall X, forall i i':set -> set, (forall x :e X, i x = i' x) ->  forall j j':set -> set, (forall x :e X, j x = j' x) -> Phi X i j = Phi X i' j')
+  forall X, forall i:set -> set, forall j:set -> set,
+  ( forall i':set -> set, (forall x :e X, i x = i' x) ->  forall j':set -> set, (forall x :e X, j x = j' x) -> Phi X i' j' = Phi X i j)
   ->
-  forall X, forall i:set -> set, forall j:set -> set, unpack_u_u (pack_u_u X i j) Phi = Phi X i j.
-let Phi.
+  unpack_u_u (pack_u_u X i j) Phi = Phi X i j.
+let Phi X i j.
 assume HPhi.
-let X i j.
 prove Phi (pack_u_u X i j 0) (decode_u (pack_u_u X i j 1)) (decode_u (pack_u_u X i j 2)) = Phi X i j.
 rewrite <- pack_u_u_0_eq2 X i j.
 prove Phi X (decode_u (pack_u_u X i j 1)) (decode_u (pack_u_u X i j 2)) = Phi X i j.
 apply HPhi.
-- let x. assume Hx.
-  prove decode_u (pack_u_u X i j 1) x = i x.
-  apply eq_sym set.
-  exact pack_u_u_1_eq2 X i j x Hx.
-- let x. assume Hx.
-  prove decode_u (pack_u_u X i j 2) x = j x.
-  apply eq_sym set.
-  exact pack_u_u_2_eq2 X i j x Hx.
+- exact pack_u_u_1_eq2 X i j.
+- exact pack_u_u_2_eq2 X i j.
 Qed.
 
 End unpack_u_u.
@@ -1608,22 +1575,19 @@ Variable A:SType.
 Definition unpack_u_r : set -> (set -> (set -> set) -> (set -> set -> prop) -> A) -> A := fun S Phi => Phi (S 0) (decode_u (S 1)) (decode_r (S 2)).
 
 Theorem unpack_u_r_eq : forall Phi:set -> (set -> set) -> (set -> set -> prop) -> A,
-  (forall X, forall i i':set -> set, (forall x :e X, i x = i' x) ->  forall R R':set -> set -> prop, (forall x y :e X, R x y <-> R' x y) -> Phi X i R = Phi X i' R')
+  forall X, forall i:set -> set, forall R:set -> set -> prop,
+  ( forall i':set -> set, (forall x :e X, i x = i' x) ->  forall R':set -> set -> prop, (forall x y :e X, R x y <-> R' x y) -> Phi X i' R' = Phi X i R)
   ->
-  forall X, forall i:set -> set, forall R:set -> set -> prop, unpack_u_r (pack_u_r X i R) Phi = Phi X i R.
-let Phi.
+  unpack_u_r (pack_u_r X i R) Phi = Phi X i R.
+let Phi X i R.
 assume HPhi.
-let X i R.
 prove Phi (pack_u_r X i R 0) (decode_u (pack_u_r X i R 1)) (decode_r (pack_u_r X i R 2)) = Phi X i R.
 rewrite <- pack_u_r_0_eq2 X i R.
 prove Phi X (decode_u (pack_u_r X i R 1)) (decode_r (pack_u_r X i R 2)) = Phi X i R.
 apply HPhi.
-- let x. assume Hx.
-  prove decode_u (pack_u_r X i R 1) x = i x.
-  apply eq_sym set.
-  exact pack_u_r_1_eq2 X i R x Hx.
+- exact pack_u_r_1_eq2 X i R.
 - let x. assume Hx. let y. assume Hy.
-  prove decode_r (pack_u_r X i R 2) x y <-> R x y.
+  prove R x y <-> decode_r (pack_u_r X i R 2) x y.
   rewrite <- pack_u_r_2_eq2 X i R x Hx y Hy.
   apply iff_refl.
 Qed.
@@ -1743,22 +1707,19 @@ Variable A:SType.
 Definition unpack_u_p : set -> (set -> (set -> set) -> (set -> prop) -> A) -> A := fun S Phi => Phi (S 0) (decode_u (S 1)) (decode_p (S 2)).
 
 Theorem unpack_u_p_eq : forall Phi:set -> (set -> set) -> (set -> prop) -> A,
-  (forall X, forall i i':set -> set, (forall x :e X, i x = i' x) ->  forall P P':set -> prop, (forall x :e X, P x <-> P' x) -> Phi X i P = Phi X i' P')
+  forall X, forall i:set -> set, forall P:set -> prop,
+  ( forall i':set -> set, (forall x :e X, i x = i' x) ->  forall P':set -> prop, (forall x :e X, P x <-> P' x) -> Phi X i' P' = Phi X i P)
   ->
-  forall X, forall i:set -> set, forall P:set -> prop, unpack_u_p (pack_u_p X i P) Phi = Phi X i P.
-let Phi.
+  unpack_u_p (pack_u_p X i P) Phi = Phi X i P.
+let Phi X i P.
 assume HPhi.
-let X i P.
 prove Phi (pack_u_p X i P 0) (decode_u (pack_u_p X i P 1)) (decode_p (pack_u_p X i P 2)) = Phi X i P.
 rewrite <- pack_u_p_0_eq2 X i P.
 prove Phi X (decode_u (pack_u_p X i P 1)) (decode_p (pack_u_p X i P 2)) = Phi X i P.
 apply HPhi.
+- exact pack_u_p_1_eq2 X i P.
 - let x. assume Hx.
-  prove decode_u (pack_u_p X i P 1) x = i x.
-  apply eq_sym set.
-  exact pack_u_p_1_eq2 X i P x Hx.
-- let x. assume Hx.
-  prove decode_p (pack_u_p X i P 2) x <-> P x.
+  prove P x <-> decode_p (pack_u_p X i P 2) x.
   rewrite <- pack_u_p_2_eq2 X i P x Hx.
   apply iff_refl.
 Qed.
@@ -1877,21 +1838,18 @@ Variable A:SType.
 Definition unpack_u_e : set -> (set -> (set -> set) -> set -> A) -> A := fun S Phi => Phi (S 0) (decode_u (S 1)) (S 2).
 
 Theorem unpack_u_e_eq : forall Phi:set -> (set -> set) -> set -> A,
-  (forall X, forall i i':set -> set, (forall x :e X, i x = i' x) ->  forall c,Phi X i c = Phi X i' c)
+  forall X, forall i:set -> set, forall c:set,
+  ( forall i':set -> set, (forall x :e X, i x = i' x) -> Phi X i' c = Phi X i c)
   ->
-  forall X, forall i:set -> set, forall c:set, unpack_u_e (pack_u_e X i c) Phi = Phi X i c.
-let Phi.
+  unpack_u_e (pack_u_e X i c) Phi = Phi X i c.
+let Phi X i c.
 assume HPhi.
-let X i c.
 prove Phi (pack_u_e X i c 0) (decode_u (pack_u_e X i c 1)) (pack_u_e X i c 2) = Phi X i c.
 rewrite <- pack_u_e_0_eq2 X i c.
 prove Phi X (decode_u (pack_u_e X i c 1)) (pack_u_e X i c 2) = Phi X i c.
 rewrite <- pack_u_e_2_eq2 X i c.
 apply HPhi.
-let x. assume Hx.
-prove decode_u (pack_u_e X i c 1) x = i x.
-apply eq_sym set.
-exact pack_u_e_1_eq2 X i c x Hx.
+exact pack_u_e_1_eq2 X i c.
 Qed.
 
 End unpack_u_e.
@@ -2003,22 +1961,22 @@ Variable A:SType.
 Definition unpack_r_r : set -> (set -> (set -> set -> prop) -> (set -> set -> prop) -> A) -> A := fun S Phi => Phi (S 0) (decode_r (S 1)) (decode_r (S 2)).
 
 Theorem unpack_r_r_eq : forall Phi:set -> (set -> set -> prop) -> (set -> set -> prop) -> A,
-  (forall X, forall R R':set -> set -> prop, (forall x y :e X, R x y <-> R' x y) ->  forall T T':set -> set -> prop, (forall x y :e X, T x y <-> T' x y) -> Phi X R T = Phi X R' T')
+  forall X, forall R:set -> set -> prop, forall T:set -> set -> prop,
+  ( forall R':set -> set -> prop, (forall x y :e X, R x y <-> R' x y) ->  forall T':set -> set -> prop, (forall x y :e X, T x y <-> T' x y) -> Phi X R' T' = Phi X R T)
   ->
-  forall X, forall R:set -> set -> prop, forall T:set -> set -> prop, unpack_r_r (pack_r_r X R T) Phi = Phi X R T.
-let Phi.
+  unpack_r_r (pack_r_r X R T) Phi = Phi X R T.
+let Phi X R T.
 assume HPhi.
-let X R T.
 prove Phi (pack_r_r X R T 0) (decode_r (pack_r_r X R T 1)) (decode_r (pack_r_r X R T 2)) = Phi X R T.
 rewrite <- pack_r_r_0_eq2 X R T.
 prove Phi X (decode_r (pack_r_r X R T 1)) (decode_r (pack_r_r X R T 2)) = Phi X R T.
 apply HPhi.
 - let x. assume Hx. let y. assume Hy.
-  prove decode_r (pack_r_r X R T 1) x y <-> R x y.
+  prove R x y <-> decode_r (pack_r_r X R T 1) x y.
   rewrite <- pack_r_r_1_eq2 X R T x Hx y Hy.
   apply iff_refl.
 - let x. assume Hx. let y. assume Hy.
-  prove decode_r (pack_r_r X R T 2) x y <-> T x y.
+  prove T x y <-> decode_r (pack_r_r X R T 2) x y.
   rewrite <- pack_r_r_2_eq2 X R T x Hx y Hy.
   apply iff_refl.
 Qed.
@@ -2130,22 +2088,22 @@ Variable A:SType.
 Definition unpack_r_p : set -> (set -> (set -> set -> prop) -> (set -> prop) -> A) -> A := fun S Phi => Phi (S 0) (decode_r (S 1)) (decode_p (S 2)).
 
 Theorem unpack_r_p_eq : forall Phi:set -> (set -> set -> prop) -> (set -> prop) -> A,
-  (forall X, forall R R':set -> set -> prop, (forall x y :e X, R x y <-> R' x y) ->  forall P P':set -> prop, (forall x :e X, P x <-> P' x) -> Phi X R P = Phi X R' P')
+  forall X, forall R:set -> set -> prop, forall P:set -> prop,
+  ( forall R':set -> set -> prop, (forall x y :e X, R x y <-> R' x y) ->  forall P':set -> prop, (forall x :e X, P x <-> P' x) -> Phi X R' P' = Phi X R P)
   ->
-  forall X, forall R:set -> set -> prop, forall P:set -> prop, unpack_r_p (pack_r_p X R P) Phi = Phi X R P.
-let Phi.
+  unpack_r_p (pack_r_p X R P) Phi = Phi X R P.
+let Phi X R P.
 assume HPhi.
-let X R P.
 prove Phi (pack_r_p X R P 0) (decode_r (pack_r_p X R P 1)) (decode_p (pack_r_p X R P 2)) = Phi X R P.
 rewrite <- pack_r_p_0_eq2 X R P.
 prove Phi X (decode_r (pack_r_p X R P 1)) (decode_p (pack_r_p X R P 2)) = Phi X R P.
 apply HPhi.
 - let x. assume Hx. let y. assume Hy.
-  prove decode_r (pack_r_p X R P 1) x y <-> R x y.
+  prove R x y <-> decode_r (pack_r_p X R P 1) x y.
   rewrite <- pack_r_p_1_eq2 X R P x Hx y Hy.
   apply iff_refl.
 - let x. assume Hx.
-  prove decode_p (pack_r_p X R P 2) x <-> P x.
+  prove P x <-> decode_p (pack_r_p X R P 2) x.
   rewrite <- pack_r_p_2_eq2 X R P x Hx.
   apply iff_refl.
 Qed.
@@ -2256,19 +2214,19 @@ Variable A:SType.
 Definition unpack_r_e : set -> (set -> (set -> set -> prop) -> set -> A) -> A := fun S Phi => Phi (S 0) (decode_r (S 1)) (S 2).
 
 Theorem unpack_r_e_eq : forall Phi:set -> (set -> set -> prop) -> set -> A,
-  (forall X, forall R R':set -> set -> prop, (forall x y :e X, R x y <-> R' x y) ->  forall c,Phi X R c = Phi X R' c)
+  forall X, forall R:set -> set -> prop, forall c:set,
+  ( forall R':set -> set -> prop, (forall x y :e X, R x y <-> R' x y) -> Phi X R' c = Phi X R c)
   ->
-  forall X, forall R:set -> set -> prop, forall c:set, unpack_r_e (pack_r_e X R c) Phi = Phi X R c.
-let Phi.
+  unpack_r_e (pack_r_e X R c) Phi = Phi X R c.
+let Phi X R c.
 assume HPhi.
-let X R c.
 prove Phi (pack_r_e X R c 0) (decode_r (pack_r_e X R c 1)) (pack_r_e X R c 2) = Phi X R c.
 rewrite <- pack_r_e_0_eq2 X R c.
 prove Phi X (decode_r (pack_r_e X R c 1)) (pack_r_e X R c 2) = Phi X R c.
 rewrite <- pack_r_e_2_eq2 X R c.
 apply HPhi.
 let x. assume Hx. let y. assume Hy.
-prove decode_r (pack_r_e X R c 1) x y <-> R x y.
+prove R x y <-> decode_r (pack_r_e X R c 1) x y.
 rewrite <- pack_r_e_1_eq2 X R c x Hx y Hy.
 apply iff_refl.
 Qed.
@@ -2378,22 +2336,22 @@ Variable A:SType.
 Definition unpack_p_p : set -> (set -> (set -> prop) -> (set -> prop) -> A) -> A := fun S Phi => Phi (S 0) (decode_p (S 1)) (decode_p (S 2)).
 
 Theorem unpack_p_p_eq : forall Phi:set -> (set -> prop) -> (set -> prop) -> A,
-  (forall X, forall P P':set -> prop, (forall x :e X, P x <-> P' x) ->  forall Q Q':set -> prop, (forall x :e X, Q x <-> Q' x) -> Phi X P Q = Phi X P' Q')
+  forall X, forall P:set -> prop, forall Q:set -> prop,
+  ( forall P':set -> prop, (forall x :e X, P x <-> P' x) ->  forall Q':set -> prop, (forall x :e X, Q x <-> Q' x) -> Phi X P' Q' = Phi X P Q)
   ->
-  forall X, forall P:set -> prop, forall Q:set -> prop, unpack_p_p (pack_p_p X P Q) Phi = Phi X P Q.
-let Phi.
+  unpack_p_p (pack_p_p X P Q) Phi = Phi X P Q.
+let Phi X P Q.
 assume HPhi.
-let X P Q.
 prove Phi (pack_p_p X P Q 0) (decode_p (pack_p_p X P Q 1)) (decode_p (pack_p_p X P Q 2)) = Phi X P Q.
 rewrite <- pack_p_p_0_eq2 X P Q.
 prove Phi X (decode_p (pack_p_p X P Q 1)) (decode_p (pack_p_p X P Q 2)) = Phi X P Q.
 apply HPhi.
 - let x. assume Hx.
-  prove decode_p (pack_p_p X P Q 1) x <-> P x.
+  prove P x <-> decode_p (pack_p_p X P Q 1) x.
   rewrite <- pack_p_p_1_eq2 X P Q x Hx.
   apply iff_refl.
 - let x. assume Hx.
-  prove decode_p (pack_p_p X P Q 2) x <-> Q x.
+  prove Q x <-> decode_p (pack_p_p X P Q 2) x.
   rewrite <- pack_p_p_2_eq2 X P Q x Hx.
   apply iff_refl.
 Qed.
@@ -2502,19 +2460,19 @@ Variable A:SType.
 Definition unpack_p_e : set -> (set -> (set -> prop) -> set -> A) -> A := fun S Phi => Phi (S 0) (decode_p (S 1)) (S 2).
 
 Theorem unpack_p_e_eq : forall Phi:set -> (set -> prop) -> set -> A,
-  (forall X, forall P P':set -> prop, (forall x :e X, P x <-> P' x) ->  forall c,Phi X P c = Phi X P' c)
+  forall X, forall P:set -> prop, forall c:set,
+  ( forall P':set -> prop, (forall x :e X, P x <-> P' x) -> Phi X P' c = Phi X P c)
   ->
-  forall X, forall P:set -> prop, forall c:set, unpack_p_e (pack_p_e X P c) Phi = Phi X P c.
-let Phi.
+  unpack_p_e (pack_p_e X P c) Phi = Phi X P c.
+let Phi X P c.
 assume HPhi.
-let X P c.
 prove Phi (pack_p_e X P c 0) (decode_p (pack_p_e X P c 1)) (pack_p_e X P c 2) = Phi X P c.
 rewrite <- pack_p_e_0_eq2 X P c.
 prove Phi X (decode_p (pack_p_e X P c 1)) (pack_p_e X P c 2) = Phi X P c.
 rewrite <- pack_p_e_2_eq2 X P c.
 apply HPhi.
 let x. assume Hx.
-prove decode_p (pack_p_e X P c 1) x <-> P x.
+prove P x <-> decode_p (pack_p_e X P c 1) x.
 rewrite <- pack_p_e_1_eq2 X P c x Hx.
 apply iff_refl.
 Qed.
@@ -2615,9 +2573,9 @@ Variable A:SType.
 Definition unpack_e_e : set -> (set -> set -> set -> A) -> A := fun S Phi => Phi (S 0) (S 1) (S 2).
 
 Theorem unpack_e_e_eq : forall Phi:set -> set -> set -> A,
-  forall X, forall c:set, forall d:set, unpack_e_e (pack_e_e X c d) Phi = Phi X c d.
-let Phi.
-let X c d.
+  forall X, forall c:set, forall d:set,
+  unpack_e_e (pack_e_e X c d) Phi = Phi X c d.
+let Phi X c d.
 prove Phi (pack_e_e X c d 0) (pack_e_e X c d 1) (pack_e_e X c d 2) = Phi X c d.
 rewrite <- pack_e_e_0_eq2 X c d.
 prove Phi X (pack_e_e X c d 1) (pack_e_e X c d 2) = Phi X c d.

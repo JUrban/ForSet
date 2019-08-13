@@ -207,6 +207,7 @@ Axiom nat_2 : nat_p 2.
 Axiom nat_0_in_ordsucc : forall n, nat_p n -> 0 :e ordsucc n.
 Axiom nat_ordsucc_in_ordsucc : forall n, nat_p n -> forall m :e n, ordsucc m :e ordsucc n.
 Axiom nat_ind : forall p : set -> prop , p 0 -> (forall n , nat_p n -> p n -> p (ordsucc n)) -> forall n , nat_p n -> p n.
+Axiom nat_inv : forall n, nat_p n -> n = 0 \/ exists x, nat_p x /\ n = ordsucc x.
 
 Definition omega : set := {n :e UnivOf Empty|nat_p n}.
 Axiom omega_nat_p : forall n :e omega, nat_p n.
@@ -268,6 +269,20 @@ Definition setexp : set->set->set := fun X Y:set => Pi_ y :e Y, X.
 Infix :^: 430 left := setexp.
 
 (** A few extra results not in the Egal library from 2014 **)
+
+Definition bij : set->set->(set->set)->prop :=
+  fun X Y f =>
+  (forall u :e X, f u :e Y)
+  /\
+  (forall u v :e X, f u = f v -> u = v)
+  /\
+  (forall w :e Y, exists u :e X, f u = w).
+
+Definition inv : set -> (set -> set) -> set -> set := fun X f => fun y:set => some x :e X, f x = y.
+
+Axiom surj_rinv : forall X Y, forall f:set->set, (forall w :e Y, exists u :e X, f u = w) -> forall y :e Y, inv X f y :e X /\ f (inv X f y) = y.
+Axiom inj_linv : forall X Y, forall f:set->set, (forall u v :e X, f u = f v -> u = v) -> forall x :e X, inv X f (f x) = x.
+Axiom bij_inv : forall X Y, forall f:set->set, bij X Y f -> bij Y X (inv X f).
 
 Axiom In_0_3: 0 :e 3.
 Axiom In_1_3: 1 :e 3.

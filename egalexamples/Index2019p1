@@ -25,6 +25,7 @@ MHFgriKTdoXHNBdku2cbMtc7K5Kxm89PTd3qXWsGT5fvRWkn (set -> set).
 MFyRcUPX2NP5ybfB4nRBP1Qep5PLtiiKiZ1Gdp88o6P1ZkyY (set -> set).
 MJakUpqttEykyeNhc3XKxZNtLcofknKa9gn29vrqAbewtGYr set.
 MJf4DtQS8m7j2arrUWxzg8RuPz2bRubNDjy3fFEK95ZM9b7E (set -> (set -> (set -> prop))).
+MHcaRFQPT2NGQiKfA2tzprfqjS4He5YkgwYevaiZCWPKQmdX (set -> (set -> ((set -> set) -> prop))).
 MJqSAQK5xNi5Zu5z9qPciK5rjQNhTXX4XQdPobGjpWvZSiKY ((set -> prop) -> (set -> prop)).
 MLywQTtJcoNKgztgfTu69bhu4eUuLMxPDoLPPJ551y1WpprR (set -> (set -> set)).
 MJsnMqqCTZtYKYjbomrMNEi26mrjFsB9935KUXhAg74A5Tbp ((set -> prop) -> ((set -> prop) -> (set -> prop))).
@@ -41,6 +42,7 @@ MGtPhoeZ5SW87BAP3FdYP4552YLVdN58Rrv2tcyyni3UE9wH (set -> prop).
 MMUCPW8ve1NeZQSF6QAYrhEzK8uiuz5z6MxqZnhkYVkV3gAE (set -> ((set -> prop) -> set)).
 MKbsJzrtSiUxZwgJm4zpiqhnN482txasnPS7kynTG53ZRDAE (set -> (set -> set)).
 MLy7rD85r5bVzzEQPSMNtPZgtatGZwZZzSEuzxRTHn4viYmr (set -> ((set -> set) -> ((set -> (set -> set)) -> set))).
+MLAo5QsSjX2hKGf55su3U4T4G46YjdQpGd9tCwS5ZSr9yZUL (set -> ((set -> set) -> (set -> set))).
 MHHJXj44xEDbcHcAKmYXTZjgB1SKGHLvQdYtsTUexgYd6qhw (set -> set).
 MHxy4yxRxKYxbmAnwodWafmymKBMA2g1VtDFgsvXpRgncyz6 (set -> ((set -> set) -> set)).
 MJC9zELvgcK8NgZVFMwkTCkumeG1MfPNBu7U2AwrhUkd85vb (set -> (set -> set)).
@@ -378,6 +380,7 @@ Known MGP1DxSnfJq3uujH9EJErJFqD2kqnrN87UMojbaF1jFdPeWn.
 Known MKRy6rr2p7pBrFBtissdkaQsLMQwAAv27QxXWRQ2e5jhLcu2.
 Known MJ31E3py3VuFJKxNxUnsW3HwpLRPQzBtZWpCgvxWKPnJVL2W.
 Known MMUcMZDquVWbr7LWbSnNcWPEU8LXBvwqMfhvZnRqHk8mfHfA.
+Known MKFJj391u3mP7LoETTyM9j9RWU2SpuHfFSYWzkmoRupDormj.
 Known MLsDqsVwqk1kGRg8cnhTK4WFDnekwgv9P5CsaMPuwGR9Kd9V.
 Known MKDn1wwYKTRYcdzphpKFMsAm1a4GX9gSPCyTuPsKAcMoJ2u4.
 Known MHkKDHAmsxfrGLSgHXLNZkPrhbj6qiWnpta1nPC6KqeXAtTK.
@@ -728,6 +731,7 @@ Known MGwT7rUi4UdKfuuXNW2LwuL57r2juZcbt3vJeGJFM4FXwyb4.
 Known MHGmhfskPUt4e1vLceKcmagF7QSYPJV2eKyyWw8KUtKy2qS4.
 Known MLcHQUsXMUC71myt84oP9PLNsSb3c1dq1K5roiXHy1GaxXQW.
 Known MHrDmm6NicofN7675HKZLcnU9Z7rSZpzLANW5gYqYzX65HJn.
+Known MHkW1yCz1vZrgLB381grjaDFCqXy6kvvhgd1jeiTeCcKi7JR.
 Known MMGNgpZqudwxaX9x8WDDvFvP1SaZZFw95pDodBaUaQvTjms4.
 Known MKXiBVQR7wQBUzYNEhWdzc5C65CsGZ5My6bx7xWigfTXycnS.
 Known MHvNe8CH8hVSnysFy8Rb7y4JSq9mE1ATw9GKkX81L1bVRCmF.
@@ -796,6 +800,7 @@ Known MGodLwKSZ7onhDPScdJ1hMUxesHvvAhUJkcNLU8KmkcABYTE.
 Known MKmJNJEoURYLBYaDWbB98vn94dkyzsLSEaL6zwFZdjp7S1Ap.
 Known MLfFkduTSgyAmAGdHuNsSTvWthgNEmRnpwQvuZMxbs86yNgY.
 Known MLE3BYrXH2VHUWJV2TrMajxsT4CNNDXhKZwJaLSG7i5eSM4T.
+Known MLbxy8DS6YV4b6qMiu3scjzxEr7iaxHYbL9iSQWSFedLxmvN.
 Known MLkFMMFVMhhbESKRiYLQD4ikmP6HpDEPeXtRQeJYZYJ4z1Kv.
 Known MH1nWQYe242oia4AAz78L2CxcKcGqv1tBaysF3ZMokddDKo8.
 Known MG13V74T7EVoMV5fjDEEY5hdDfXsbNtvuev23rvsfFAR4aKZ.
