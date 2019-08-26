@@ -1,0 +1,1196 @@
+(** https://proofwiki.org/wiki/Definition:Group **)
+Section Group1.
+
+Variable G:set.
+
+Section Group1Explicit.
+
+Variable op:set -> set -> set.
+Infix * 355 right := op.
+
+Definition explicit_Group : prop :=
+      (forall a b :e G, a * b :e G)
+   /\ (forall a b c :e G, a * (b * c) = (a * b) * c)
+   /\ exists e :e G,
+           (forall a :e G, e * a = a /\ a * e = a)
+        /\ (forall a :e G, exists b :e G, a * b = e /\ b * a = e).
+
+Theorem explicit_Group_identity_unique : forall e e' :e G, (forall a :e G, e * a = a) -> (forall a :e G, a * e' = a) -> e = e'.
+let e. assume He. let e'. assume He' Helid He'rid.
+prove e = e'.
+rewrite <- He'rid e He.
+prove e * e' = e'.
+exact Helid e' He'.
+Qed.
+
+Hypothesis HG: explicit_Group.
+
+Definition explicit_Group_identity : set := some e :e G, (forall a :e G, e * a = a /\ a * e = a) /\ forall a :e G, exists b :e G, a * b = e /\ b * a = e.
+
+Let e := explicit_Group_identity.
+
+Definition explicit_Group_inverse : set -> set := fun a => some b :e G, a * b = e /\ b * a = e.
+
+Postfix - 340 := explicit_Group_inverse.
+
+Theorem explicit_Group_identity_prop : e :e G /\ ((forall a :e G, e * a = a /\ a * e = a) /\ forall a :e G, exists b :e G, a * b = e /\ b * a = e).
+claim L1: exists e :e G, (forall a :e G, e * a = a /\ a * e = a) /\ forall a :e G, exists b :e G, a * b = e /\ b * a = e.
+{ apply HG. assume _ H1. exact H1. }
+exact EpsR2 set (fun e => e :e G /\ ((forall a :e G, e * a = a /\ a * e = a) /\ forall a :e G, exists b :e G, a * b = e /\ b * a = e)) L1.
+Qed.
+
+Theorem explicit_Group_identity_in : e :e G.
+apply explicit_Group_identity_prop. exact (fun H _ => H).
+Qed.
+
+Theorem explicit_Group_identity_lid : forall a :e G, e * a = a.
+let a. assume Ha.
+apply explicit_Group_identity_prop.
+assume _ H1. apply H1. assume H2 _. apply H2 a Ha. exact (fun H _ => H).
+Qed.
+
+Theorem explicit_Group_identity_rid : forall a :e G, a * e = a.
+let a. assume Ha.
+apply explicit_Group_identity_prop.
+assume _ H1. apply H1. assume H2 _. apply H2 a Ha. exact (fun _ H => H).
+Qed.
+
+Theorem explicit_Group_identity_invex : forall a :e G, exists b :e G, a * b = e /\ b * a = e.
+apply explicit_Group_identity_prop.
+assume _ H1. apply H1. assume _ H2. exact H2.
+Qed.
+
+Theorem explicit_Group_inverse_prop : forall a :e G, a- :e G /\ (a * a- = e /\ a- * a = e).
+let a. assume Ha.
+claim L1: exists b :e G, a * b = e /\ b * a = e.
+{ exact explicit_Group_identity_invex a Ha. }
+exact EpsR2 set (fun b => b :e G /\ (a * b = e /\ b * a = e)) L1.
+Qed.
+
+Theorem explicit_Group_inverse_in : forall a :e G, a- :e G.
+let a. assume Ha.
+apply explicit_Group_inverse_prop a Ha.
+exact (fun H _ => H).
+Qed.
+
+Theorem explicit_Group_inverse_rinv : forall a :e G, a * a- = e.
+let a. assume Ha.
+apply explicit_Group_inverse_prop a Ha.
+assume _ H. apply H. exact (fun H _ => H).
+Qed.
+
+Theorem explicit_Group_inverse_linv : forall a :e G, a- * a = e.
+let a. assume Ha.
+apply explicit_Group_inverse_prop a Ha.
+assume _ H. apply H. exact (fun _ H => H).
+Qed.
+
+Theorem explicit_Group_lcancel : forall a b c :e G, a * b = a * c -> b = c.
+apply HG. assume HG1. apply HG1.
+assume HG2: forall a b :e G, a * b :e G.
+assume HG3: forall a b c :e G, a * (b * c) = (a * b) * c.
+assume _.
+let a. assume Ha. let b. assume Hb. let c. assume Hc H1.
+claim L1: forall d :e G, a- * (a * d) = d.
+{ let d. assume Hd. rewrite HG3 (a-) (explicit_Group_inverse_in a Ha) a Ha d Hd.
+  rewrite explicit_Group_inverse_linv a Ha.
+  exact explicit_Group_identity_lid d Hd.
+}
+prove b = c.
+rewrite <- L1 b Hb. rewrite H1.
+exact L1 c Hc.
+Qed.
+
+Theorem explicit_Group_rcancel : forall a b c :e G, a * c = b * c -> a = b.
+apply HG. assume HG1. apply HG1.
+assume HG2: forall a b :e G, a * b :e G.
+assume HG3: forall a b c :e G, a * (b * c) = (a * b) * c.
+assume _.
+let a. assume Ha. let b. assume Hb. let c. assume Hc H1.
+claim L1: forall d :e G, (d * c) * c- = d.
+{ let d. assume Hd. rewrite <- HG3 d Hd c Hc (c-) (explicit_Group_inverse_in c Hc).
+  rewrite explicit_Group_inverse_rinv c Hc.
+  exact explicit_Group_identity_rid d Hd.
+}
+prove a = b.
+rewrite <- L1 a Ha. rewrite H1.
+exact L1 b Hb.
+Qed.
+
+End Group1Explicit.
+
+Section Group1Explicit2.
+
+Variable op:set -> set -> set.
+Infix * 355 right := op.
+
+Section Group1Explicit2RepIndep.
+
+Variable op':set -> set -> set.
+Infix :*: 355 right := op'.
+
+Hypothesis Hopop': forall a b :e G, a * b = a :*: b.
+
+Theorem explicit_Group_repindep_imp : explicit_Group op -> explicit_Group op'.
+assume H1. apply H1. assume H2. apply H2.
+assume H3: forall a b :e G, a * b :e G.
+assume H4: forall a b c :e G, a * (b * c) = (a * b) * c.
+assume H5. apply H5.
+let e. assume H6. apply H6.
+assume H7: e :e G. assume H8. apply H8.
+assume H9: forall a :e G, e * a = a /\ a * e = a.
+assume H10: forall a :e G, exists b :e G, a * b = e /\ b * a = e.
+prove (forall a b :e G, a :*: b :e G)
+   /\ (forall a b c :e G, a :*: (b :*: c) = (a :*: b) :*: c)
+   /\ exists e :e G,
+           (forall a :e G, e :*: a = a /\ a :*: e = a)
+        /\ (forall a :e G, exists b :e G, a :*: b = e /\ b :*: a = e).
+apply and3I.
+- let a. assume Ha. let b. assume Hb. rewrite <- Hopop' a Ha b Hb. exact H3 a Ha b Hb.
+- let a. assume Ha. let b. assume Hb. let c. assume Hc.
+  prove a :*: (b :*: c) = (a :*: b) :*: c.
+  rewrite <- Hopop' a Ha b Hb.
+  prove a :*: (b :*: c) = (a * b) :*: c.
+  rewrite <- Hopop' b Hb c Hc.
+  prove a :*: (b * c) = (a * b) :*: c.
+  rewrite <- Hopop' a Ha (b * c) (H3 b Hb c Hc).
+  prove a * (b * c) = (a * b) :*: c.
+  rewrite <- Hopop' (a * b) (H3 a Ha b Hb) c Hc.
+  prove a * (b * c) = (a * b) * c.
+  exact H4 a Ha b Hb c Hc.
+- witness e. apply andI.
+  + exact H7.
+  + apply andI.
+    * let a. assume Ha. prove e :*: a = a /\ a :*: e = a.
+      rewrite <- Hopop' e H7 a Ha.
+      rewrite <- Hopop' a Ha e H7.
+      exact H9 a Ha.
+    * { let a. assume Ha. apply H10 a Ha.
+        let b. assume H11. apply H11.
+        assume Hb: b :e G.
+        assume H12: a * b = e /\ b * a = e.
+        witness b. apply andI.
+	- exact Hb.
+        - rewrite <- Hopop' a Ha b Hb.
+	  rewrite <- Hopop' b Hb a Ha.
+	  exact H12.
+      }
+Qed.
+
+Let e := explicit_Group_identity op.
+Let e' := explicit_Group_identity op'.
+
+(** This could be proven in a way that would work more generally:
+    the property of e stated with op and op' are provably equivalent.
+    Here instead I use the usual way of proving identities are unique.
+  **)
+Theorem explicit_Group_identity_repindep: explicit_Group op -> e = e'.
+assume HG.
+claim LG: explicit_Group op'.
+{ exact explicit_Group_repindep_imp HG. }
+claim L1: e :e G.
+{ exact explicit_Group_identity_in op HG. }
+claim L2: forall a :e G, e * a = a.
+{ exact explicit_Group_identity_lid op HG. }
+claim L3: e' :e G.
+{ exact explicit_Group_identity_in op' LG. }
+claim L4: forall a :e G, a :*: e' = a.
+{ exact explicit_Group_identity_rid op' LG. }
+claim L5: forall a :e G, a * e' = a.
+{ let a. assume Ha. rewrite Hopop' a Ha e' L3. exact L4 a Ha. }
+exact explicit_Group_identity_unique op e L1 e' L3 L2 L5.
+Qed.
+
+Let inv := explicit_Group_inverse op.
+Let inv' := explicit_Group_inverse op'.
+
+Theorem explicit_Group_inverse_repindep: explicit_Group op -> forall a :e G, inv a = inv' a.
+assume HG.
+claim LG: explicit_Group op'.
+{ exact explicit_Group_repindep_imp HG. }
+apply HG.
+assume H _. apply H.
+assume _.
+assume HA: forall a b c :e G, a * (b * c) = (a * b) * c.
+claim L2: forall a :e G, a * e = a.
+{ exact explicit_Group_identity_rid op HG. }
+claim L3: e' :e G.
+{ exact explicit_Group_identity_in op' LG. }
+claim L4: forall a :e G, e' :*: a = a.
+{ exact explicit_Group_identity_lid op' LG. }
+let a. assume Ha.
+claim L5: inv a :e G.
+{ exact explicit_Group_inverse_in op HG a Ha. }
+claim L6: inv a * a = e.
+{ exact explicit_Group_inverse_linv op HG a Ha. }
+claim L7: inv' a :e G.
+{ exact explicit_Group_inverse_in op' LG a Ha. }
+claim L8: a :*: inv' a = e'.
+{ exact explicit_Group_inverse_rinv op' LG a Ha. }
+rewrite <- L4 (inv' a) L7.
+prove inv a = e' :*: inv' a.
+rewrite <- Hopop' e' L3 (inv' a) L7.
+prove inv a = e' * inv' a.
+rewrite <- explicit_Group_identity_repindep HG.
+prove inv a = e * inv' a.
+rewrite <- L6.
+prove inv a = (inv a * a) * inv' a.
+rewrite <- HA (inv a) L5 a Ha (inv' a) L7.
+prove inv a = inv a * (a * inv' a).
+rewrite Hopop' a Ha (inv' a) L7.
+rewrite L8.
+prove inv a = inv a * e'.
+rewrite <- explicit_Group_identity_repindep HG.
+prove inv a = inv a * e.
+rewrite L2 (inv a) L5.
+exact eqI set (inv a).
+Qed.
+
+End Group1Explicit2RepIndep.
+
+End Group1Explicit2.
+
+Section Group1Explicit3RepIndep.
+
+Variable op:set -> set -> set.
+Infix * 355 right := op.
+
+Variable op':set -> set -> set.
+Infix :*: 355 right := op'.
+
+Hypothesis Hopop': forall a b :e G, a * b = a :*: b.
+
+Theorem explicit_Group_repindep : explicit_Group op <-> explicit_Group op'.
+apply iffI.
+- exact explicit_Group_repindep_imp op op' Hopop'.
+- apply explicit_Group_repindep_imp op' op.
+  let a. assume Ha. let b. assume Hb.
+  apply eq_sym set.
+  exact Hopop' a Ha b Hb.
+Qed.
+
+End Group1Explicit3RepIndep.
+
+End Group1.
+
+(** Structure for a carrier with a binary operation **)
+Definition pack_b : set -> (set -> set -> set) -> set := fun X F => (X,encode_b X F).
+Axiom pack_b_inj: forall X X', forall F F':set -> set -> set, pack_b X F = pack_b X' F' -> X = X' /\ forall x y :e X, F x y = F' x y.
+Axiom pack_b_ext : forall X, forall F F':set -> set -> set,
+     (forall x y :e X, F x y = F' x y)
+  -> pack_b X F = pack_b X F'.
+
+Definition struct_b : set -> prop := fun S => forall q:set -> prop, (forall X:set, forall F:set -> set -> set, (forall x y :e X, F x y :e X) -> q (pack_b X F)) -> q S.
+
+Axiom pack_struct_b_I: forall X, forall F:set -> set -> set, (forall x y :e X, F x y :e X) -> struct_b (pack_b X F).
+
+Axiom pack_struct_b_E1: forall X, forall F:set -> set -> set, struct_b (pack_b X F) -> forall x y :e X, F x y :e X.
+
+Axiom struct_b_eta: forall S, struct_b S -> S = pack_b (S 0) (decode_b (S 1)).
+
+Section unpack_b.
+Variable A:SType.
+
+Definition unpack_b : set -> (set -> (set -> set -> set) -> A) -> A := fun S F => F (S 0) (decode_b (S 1)).
+
+Axiom unpack_b_eq : forall Phi:set -> (set -> set -> set) -> A,
+  forall X, forall F:set -> set -> set,
+  (forall F':set -> set -> set, (forall x y :e X, F x y = F' x y) -> Phi X F' = Phi X F)
+  ->
+  unpack_b (pack_b X F) Phi = Phi X F.
+
+End unpack_b.
+
+(** Group as a structure (with just the binary operation) **)
+Definition Group : set -> prop :=
+  fun G => struct_b G /\ unpack_b prop G explicit_Group.
+
+Theorem Group_unpack_eq : forall G, forall op:set -> set -> set, unpack_b prop (pack_b G op) explicit_Group = explicit_Group G op.
+let G op.
+apply unpack_b_eq prop explicit_Group G op.
+prove forall op':set -> set -> set, (forall a b :e G, op a b = op' a b) -> explicit_Group G op' = explicit_Group G op.
+let op'. assume Hopop'.
+apply eq_sym prop.
+apply prop_ext.
+exact explicit_Group_repindep G op op' Hopop'.
+Qed.
+
+Theorem GroupI: forall G, forall op:set -> set -> set, explicit_Group G op -> Group (pack_b G op).
+let G op. assume HG.
+apply HG. assume H. apply H.
+assume HG1: forall a b :e G, op a b :e G.
+assume _.
+assume _.
+prove struct_b (pack_b G op) /\ unpack_b prop (pack_b G op) explicit_Group.
+apply andI.
+- exact pack_struct_b_I G op HG1.
+- rewrite Group_unpack_eq G op.
+  exact HG.
+Qed.
+
+Theorem GroupE: forall G, forall op:set -> set -> set, Group (pack_b G op) -> explicit_Group G op.
+let G op. assume H. apply H. assume _ H1.
+rewrite <- Group_unpack_eq.
+exact H1.
+Qed.
+
+(** https://proofwiki.org/wiki/Definition:Subgroup **)
+Section Group2.
+
+Variable G:set.
+Variable op:set -> set -> set.
+Infix * 355 right := op.
+
+Variable H:set.
+
+Definition explicit_subgroup : prop := Group (pack_b H op) /\ H c= G.
+
+Hypothesis HG: Group (pack_b G op).
+Hypothesis HSG: explicit_subgroup.
+
+Let e := explicit_Group_identity G op.
+Let e' := explicit_Group_identity H op.
+
+Theorem explicit_subgroup_identity_eq : e = e'.
+claim LG: explicit_Group G op.
+{ exact GroupE G op HG. }
+claim LH: explicit_Group H op.
+{ apply HSG. assume HH1 _. exact GroupE H op HH1. }
+claim LHG: H c= G.
+{ apply HSG. assume _ HH2. exact HH2. }
+claim LeG: e :e G.
+{ exact explicit_Group_identity_in G op LG. }
+claim Le'H: e' :e H.
+{ exact explicit_Group_identity_in H op LH. }
+claim Le'G: e' :e G.
+{ apply LHG. exact Le'H. }
+prove e = e'.
+apply explicit_Group_rcancel G op LG e LeG e' Le'G e' Le'G.
+prove e * e' = e' * e'.
+rewrite explicit_Group_identity_rid H op LH e' Le'H.
+prove e * e' = e'.
+exact explicit_Group_identity_lid G op LG e' Le'G.
+Qed.
+
+Theorem explicit_subgroup_inv_eq : forall a :e H, explicit_Group_inverse G op a = explicit_Group_inverse H op a.
+claim LG: explicit_Group G op.
+{ exact GroupE G op HG. }
+claim LH: explicit_Group H op.
+{ apply HSG. assume HH1 _. exact GroupE H op HH1. }
+claim LHG: H c= G.
+{ apply HSG. assume _ HH2. exact HH2. }
+let a. assume Ha.
+set a'H := explicit_Group_inverse H op a.
+set a'G := explicit_Group_inverse G op a.
+claim La: a :e G.
+{ exact LHG a Ha. }
+claim La'HG: a'H :e G.
+{ exact LHG a'H (explicit_Group_inverse_in H op LH a Ha). }
+claim La'GG: a'G :e G.
+{ exact explicit_Group_inverse_in G op LG a La. }
+apply explicit_Group_lcancel G op LG a La a'G La'GG a'H La'HG.
+rewrite explicit_Group_inverse_rinv G op LG a La.
+rewrite explicit_Group_inverse_rinv H op LH a Ha.
+exact explicit_subgroup_identity_eq.
+Qed.
+
+End Group2.
+
+Definition subgroup : set -> set -> prop :=
+  fun H G =>
+     struct_b G /\ struct_b H /\
+     unpack_b prop G
+        (fun G' op =>
+	  unpack_b prop H
+	   (fun H' _ => H = pack_b H' op /\ Group (pack_b H' op) /\ H' c= G')).
+
+Infix <= 400 := subgroup.
+
+Lemma subgroup_unpack_1 : forall H G, forall opH op:set -> set -> set,
+  unpack_b prop (pack_b H opH) (fun H' _ => pack_b H opH = pack_b H' op /\ Group (pack_b H' op) /\ H' c= G)
+  = (pack_b H opH = pack_b H op /\ Group (pack_b H op) /\ H c= G).
+let H G opH op.
+apply unpack_b_eq prop (fun H' _ => pack_b H opH = pack_b H' op /\ Group (pack_b H' op) /\ H' c= G).
+prove forall opH':set -> set -> set, (forall a b :e H, opH a b = opH' a b) ->
+    (pack_b H opH = pack_b H op /\ Group (pack_b H op) /\ H c= G)
+  = (pack_b H opH = pack_b H op /\ Group (pack_b H op) /\ H c= G).
+(** since the body of the inner unpack does not dependon the operation, this premise is trivial to prove **)
+let opH'. assume _. apply eqI prop.
+Qed.
+
+Lemma subgroup_unpack_2 : forall H G, forall opH op:set -> set -> set,
+       (unpack_b prop (pack_b G op)
+          (fun G op =>
+	    unpack_b prop (pack_b H opH)
+	     (fun H' _ => pack_b H opH = pack_b H' op /\ Group (pack_b H' op) /\ H' c= G)))
+     = (pack_b H opH = pack_b H op /\ Group (pack_b H op) /\ H c= G).
+let H G opH op.
+rewrite unpack_b_eq prop (fun G op =>
+	  unpack_b prop (pack_b H opH)
+	   (fun H' _ => pack_b H opH = pack_b H' op /\ Group (pack_b H' op) /\ H' c= G)).
+- exact subgroup_unpack_1 H G opH op.
+- let op'. assume Hopop': forall a b :e G, op a b = op' a b.
+  prove (unpack_b prop (pack_b H opH)
+	   (fun H' _ => pack_b H opH = pack_b H' op' /\ Group (pack_b H' op') /\ H' c= G))
+      = (unpack_b prop (pack_b H opH)
+	   (fun H' _ => pack_b H opH = pack_b H' op /\ Group (pack_b H' op) /\ H' c= G)).
+  rewrite subgroup_unpack_1 H G opH op.
+  rewrite subgroup_unpack_1 H G opH op'.
+  prove (pack_b H opH = pack_b H op' /\ Group (pack_b H op') /\ H c= G)
+      = (pack_b H opH = pack_b H op /\ Group (pack_b H op) /\ H c= G).
+  claim L1: H c= G -> pack_b H op = pack_b H op'.
+  { assume H1: H c= G.
+    apply pack_b_ext H op op'.
+    let a. assume Ha. let b. assume Hb. apply Hopop'.
+    + exact H1 a Ha.
+    + exact H1 b Hb.
+  }
+  apply prop_ext2.
+  - assume H1: pack_b H opH = pack_b H op' /\ Group (pack_b H op') /\ H c= G.
+    apply H1. assume _ H2. rewrite L1 H2.
+    exact H1.
+  - assume H1: pack_b H opH = pack_b H op /\ Group (pack_b H op) /\ H c= G.
+    apply H1. assume _ H2. rewrite <- L1 H2.
+    exact H1.
+Qed.
+
+Theorem pack_b_subgroup_iff : forall H G:set, forall op:set -> set -> set,
+   (forall a b :e G, op a b :e G) ->
+   (explicit_subgroup G op H <-> pack_b H op <= pack_b G op).
+let H G op.
+assume Hop: forall a b :e G, op a b :e G.
+apply iffI.
+- assume H1: explicit_subgroup G op H.
+  apply H1.
+  assume H2: Group (pack_b H op).
+  assume H3: H c= G.
+  prove pack_b H op <= pack_b G op.
+  prove struct_b (pack_b G op) /\ struct_b (pack_b H op) /\
+     unpack_b prop (pack_b G op)
+        (fun G' op' =>
+	  unpack_b prop (pack_b H op)
+	   (fun H' _ => pack_b H op = pack_b H' op' /\ Group (pack_b H' op') /\ H' c= G')).
+  apply and3I.
+  + apply pack_struct_b_I. exact Hop.
+  + apply pack_struct_b_I.
+    prove forall a b :e H, op a b :e H.
+    apply GroupE H op H2.
+    assume H3 _. apply H3.
+    assume H4 _. exact H4.
+  + rewrite subgroup_unpack_2.
+    prove pack_b H op = pack_b H op /\ Group (pack_b H op) /\ H c= G.
+    apply and3I.
+    * apply eqI set.
+    * exact H2.
+    * exact H3.
+- prove (struct_b (pack_b G op) /\ struct_b (pack_b H op) /\
+          unpack_b prop (pack_b G op)
+            (fun G' op' =>
+	      unpack_b prop (pack_b H op)
+	       (fun H' _ => pack_b H op = pack_b H' op' /\ Group (pack_b H' op') /\ H' c= G')))
+     -> explicit_subgroup G op H.
+  assume H0. apply H0. assume _.
+  rewrite subgroup_unpack_2.
+  assume H1: pack_b H op = pack_b H op /\ Group (pack_b H op) /\ H c= G.
+  prove Group (pack_b H op) /\ H c= G.
+  apply H1. assume H2. apply H2. assume _ H3 H4. apply andI.
+  + exact H3.
+  + exact H4.
+Qed.
+
+(** https://proofwiki.org/wiki/Definition:Cyclic_Group **)
+Section Group3Explicit.
+
+Variable G:set.
+Variable op:set -> set -> set.
+Infix * 355 right := op.
+
+Let e := explicit_Group_identity G op.
+
+Definition explicit_Group_exp:set -> set -> set := fun a n => nat_primrec e (fun _ r => a * r) n.
+
+Infix ^ 350 left := explicit_Group_exp.
+
+Theorem explicit_Group_exp_0 : forall a, a ^ 0 = e.
+let a. exact nat_primrec_0 e (fun _ r => a * r).
+Qed.
+
+Theorem explicit_Group_exp_S : forall a, forall n :e omega, a ^ (ordsucc n) = a * (a ^ n).
+let a. let n. assume Hn.
+exact nat_primrec_S e (fun _ r => a * r) n (omega_nat_p n Hn).
+Qed.
+
+Theorem explicit_Group_exp_in_sub : explicit_Group G op ->
+    forall H, e :e H -> (forall a b :e H, a * b :e H) ->
+             forall a :e H, forall n :e omega, a ^ n :e H.
+assume HG.
+let H.
+assume HH1: e :e H.
+assume HH2: forall a b :e H, a * b :e H.
+let a. assume Ha. let n. assume Hn.
+claim L0: a ^ 0 :e H.
+{ rewrite explicit_Group_exp_0. exact HH1. }
+claim LS: forall n, nat_p n -> a ^ n :e H -> a ^ (ordsucc n) :e H.
+{ let n. assume Hn IH.
+  rewrite explicit_Group_exp_S a n (nat_p_omega n Hn).
+  prove a * a ^ n :e H.
+  exact HH2 a Ha (a ^ n) IH.
+}
+exact nat_ind (fun n => a ^ n :e H) L0 LS n (omega_nat_p n Hn).
+Qed.
+
+Theorem explicit_Group_exp_in : explicit_Group G op -> forall a :e G, forall n :e omega, a ^ n :e G.
+assume HG. apply HG. assume H _. apply H.
+assume HG1: forall a b :e G, a * b :e G.
+assume _.
+apply explicit_Group_exp_in_sub HG G.
+- prove e :e G. exact explicit_Group_identity_in G op HG.
+- exact HG1.
+Qed.
+
+Definition explicit_Group_cyclic : prop := exists a :e G, forall b :e G, exists n :e omega, a ^ n = b.
+
+End Group3Explicit.
+
+Definition Group_exp : set -> set -> set -> set := fun G a n => unpack_b set G (fun G op => explicit_Group_exp G op a n).
+Definition Group_cyclic : set -> prop := fun G => unpack_b prop G explicit_Group_cyclic.
+
+Section Group4Explicit.
+
+Variable G:set.
+Variable op:set -> set -> set.
+Infix * 355 right := op.
+Infix ^ 350 left := explicit_Group_exp G op.
+
+Section Group4ExplicitRepIndep.
+
+Variable op':set -> set -> set.
+Hypothesis Hopop': forall x y :e G, x * y = op' x y.
+
+Infix :*: 355 right := op'.
+Infix :^: 350 left := explicit_Group_exp G op'.
+
+Theorem explicit_Group_exp_repindep : explicit_Group G op -> forall a :e G, forall n :e omega, a :^: n = a ^ n.
+assume HG.
+let a. assume Ha.
+claim L0: a :^: 0 = a ^ 0.
+{ rewrite explicit_Group_exp_0 G op.
+  rewrite explicit_Group_identity_repindep G op op' Hopop' HG.
+  exact explicit_Group_exp_0 G op' a.
+}
+claim LS: forall n, nat_p n -> a :^: n = a ^ n
+             -> a :^: (ordsucc n) = a ^ (ordsucc n).
+{ let n. assume Hn IH.
+  rewrite explicit_Group_exp_S G op a n (nat_p_omega n Hn).
+  rewrite explicit_Group_exp_S G op' a n (nat_p_omega n Hn).
+  prove a :*: (a :^: n) = a * (a ^ n).
+  rewrite IH.
+  prove a :*: (a ^ n) = a * (a ^ n).
+  apply eq_sym set.
+  apply Hopop' a Ha.
+  exact explicit_Group_exp_in G op HG a Ha n (nat_p_omega n Hn).
+}
+let n. assume Hn.
+exact nat_ind (fun n => a :^: n = a ^ n) L0 LS n (omega_nat_p n Hn).
+Qed.
+
+End Group4ExplicitRepIndep.
+
+Hypothesis HG: Group (pack_b G op).
+
+Infix :^: 350 left := Group_exp (pack_b G op).
+
+(** rep independence:
+    Only makes it do the right thing/same thing when a is in the carrier and n is in omega
+    which should (hopefully) be enough.
+ **)
+Theorem Group_exp_unpack_eq : forall a :e G, forall n :e omega, a :^: n = a ^ n.
+apply HG. assume _.
+rewrite Group_unpack_eq G op.
+assume HG2: explicit_Group G op.
+apply HG2. assume H _. apply H.
+assume HG3: forall a b :e G, a * b :e G.
+assume _.
+let a. assume Ha. let n. assume Hn.
+prove a :^: n = a ^ n.
+prove (unpack_b set (pack_b G op) (fun G op => explicit_Group_exp G op a n)) = a ^ n.
+apply unpack_b_eq set (fun G op => explicit_Group_exp G op a n).
+prove forall op':set -> set -> set, (forall x y :e G, x * y = op' x y) -> explicit_Group_exp G op' a n = a ^ n.
+let op'. assume Hopop'.
+claim L0: explicit_Group_exp G op' a 0 = a ^ 0.
+{ rewrite explicit_Group_exp_0 G op.
+  rewrite explicit_Group_identity_repindep G op op' Hopop' HG2.
+  exact explicit_Group_exp_0 G op' a.
+}
+claim LS: forall n, nat_p n -> explicit_Group_exp G op' a n = a ^ n
+             -> explicit_Group_exp G op' a (ordsucc n) = a ^ (ordsucc n).
+{ let n. assume Hn IH.
+  rewrite explicit_Group_exp_S G op a n (nat_p_omega n Hn).
+  rewrite explicit_Group_exp_S G op' a n (nat_p_omega n Hn).
+  prove op' a (explicit_Group_exp G op' a n) = a * (a ^ n).
+  rewrite IH.
+  prove op' a (a ^ n) = a * (a ^ n).
+  apply eq_sym set.
+  apply Hopop' a Ha.
+  exact explicit_Group_exp_in G op HG2 a Ha n (nat_p_omega n Hn).
+}
+exact nat_ind (fun n => explicit_Group_exp G op' a n = a ^ n) L0 LS n (omega_nat_p n Hn).
+Qed.
+
+Theorem Group_cyclic_unpack_eq : (Group_cyclic (pack_b G op)) = (explicit_Group_cyclic G op).
+apply HG. assume _.
+rewrite Group_unpack_eq G op.
+assume HG2: explicit_Group G op.
+apply HG2. assume H _. apply H.
+assume HG3: forall a b :e G, a * b :e G.
+assume _.
+apply unpack_b_eq prop explicit_Group_cyclic G op.
+prove forall op':set -> set -> set, (forall x y :e G, x * y = op' x y) -> explicit_Group_cyclic G op' = explicit_Group_cyclic G op.
+let op'. assume Hopop'.
+apply prop_ext2.
+- assume H1. apply H1. let a. assume H2. apply H2.
+  assume Ha: a :e G.
+  assume H3: forall b :e G, exists n :e omega, explicit_Group_exp G op' a n = b.
+  prove exists a :e G, forall b :e G, exists n :e omega, a ^ n = b.
+  witness a. apply andI.
+  + exact Ha.
+  + let b. assume Hb. apply H3 b Hb. let n. assume H4. apply H4.
+    assume Hn: n :e omega.
+    assume H5: explicit_Group_exp G op' a n = b.
+    witness n. apply andI.
+    * exact Hn.
+    * prove a ^ n = b.
+      rewrite <- explicit_Group_exp_repindep op' Hopop' HG2 a Ha n Hn.
+      exact H5.
+- assume H1. apply H1. let a. assume H2. apply H2.
+  assume Ha: a :e G.
+  assume H3: forall b :e G, exists n :e omega, a ^ n = b.
+  prove exists a :e G, forall b :e G, exists n :e omega, explicit_Group_exp G op' a n = b.
+  witness a. apply andI.
+  + exact Ha.
+  + let b. assume Hb. apply H3 b Hb. let n. assume H4. apply H4.
+    assume Hn: n :e omega.
+    assume H5: a ^ n = b.
+    witness n. apply andI.
+    * exact Hn.
+    * prove explicit_Group_exp G op' a n = b.
+      rewrite explicit_Group_exp_repindep op' Hopop' HG2 a Ha n Hn.
+      exact H5.
+Qed.
+
+End Group4Explicit.
+
+Theorem completeind_omega : forall phi:set -> prop, (forall n :e omega, (forall m :e n, phi m) -> phi n) -> forall n :e omega, phi n.
+let phi.
+assume H1: forall n :e omega, (forall m :e n, phi m) -> phi n.
+claim L1: forall n, nat_p n -> forall m :e n, phi m.
+{ claim L0: forall m :e 0, phi m.
+  { let m. assume H2: m :e 0. apply EmptyE m H2. }
+  claim LS: forall n, nat_p n -> (forall m :e n, phi m)
+                              -> forall m :e ordsucc n, phi m.
+  { let n. assume Hn IH.
+    let m. assume Hm: m :e ordsucc n.
+    prove phi m.
+    apply ordsuccE n m Hm.
+    - assume H2: m :e n. exact IH m H2.
+    - assume H2: m = n. rewrite H2.
+      prove phi n.
+      apply H1 n (nat_p_omega n Hn).
+      prove forall m :e n, phi m.
+      exact IH.
+  }
+  exact nat_ind (fun n => forall m :e n, phi m) L0 LS.
+}
+let n. assume Hn.
+apply H1 n Hn.
+prove forall m :e n, phi m.
+exact L1 n (omega_nat_p n Hn).
+Qed.
+
+Theorem leastelt_omega : forall phi:set -> prop, (exists n :e omega, phi n) -> (exists m :e omega, phi m /\ forall n :e omega, phi n -> m c= n).
+let phi.
+assume H1: exists n :e omega, phi n.
+apply NNPP.
+assume H2: ~exists m :e omega, phi m /\ forall n :e omega, phi n -> m c= n.
+claim L1: forall n :e omega, (forall m :e n, ~phi m) -> ~phi n.
+{ let n. assume Hn.
+  assume H3: forall m :e n, ~phi m.
+  prove ~phi n.
+  assume H4: phi n.
+  apply H2.
+  witness n. apply andI.
+  - exact Hn.
+  - apply andI.
+    + exact H4.
+    + prove forall m :e omega, phi m -> n c= m.
+      let m. assume Hm.
+      assume H5: phi m.
+      apply ordinal_In_Or_Subq m n (nat_p_ordinal m (omega_nat_p m Hm)) (nat_p_ordinal n (omega_nat_p n Hn)).
+      * assume H6: m :e n. prove False.
+        exact H3 m H6 H5.
+      * assume H6: n c= m. exact H6.
+}
+claim L2: forall n :e omega, ~phi n.
+{ exact completeind_omega (fun n => ~phi n) L1. }
+claim L3: ~exists n :e omega, phi n.
+{ assume H3. apply H3.
+  let n. assume H4. apply H4.
+  assume H5: n :e omega.
+  assume H6: phi n.
+  exact L2 n H5 H6.
+}
+exact L3 H1.
+Qed.
+
+Theorem DivisionThm_omega : forall m :e omega, m <> 0 -> forall n :e omega, exists q :e omega, exists r :e m, n = m * q + r.
+let m. assume Hm HmP.
+claim LmS: exists m', nat_p m' /\ m = ordsucc m'.
+{ apply nat_inv m (omega_nat_p m Hm).
+  - assume H1: m = 0. apply HmP H1.
+  - assume H1: exists m', nat_p m' /\ m = ordsucc m'.
+    exact H1.
+}
+apply LmS. let m'. assume Hm'. apply Hm'.
+assume Hm'1: nat_p m'.
+assume Hm'2: m = ordsucc m'.
+claim Lm0: 0 :e m.
+{ rewrite Hm'2. exact nat_0_in_ordsucc m' Hm'1. }
+claim L0: exists q :e omega, exists r :e m, 0 = m * q + r.
+{ witness 0. apply andI.
+  - exact nat_p_omega 0 nat_0.
+  - witness 0. apply andI.
+    + prove 0 :e m. exact Lm0.
+    + prove 0 = m * 0 + 0. rewrite add_nat_0R.
+      prove 0 = m * 0. apply eq_sym set. exact mul_nat_0R m.
+}
+claim LS: forall n, nat_p n ->
+     (exists q :e omega, exists r :e m, n = m * q + r)
+   -> exists q :e omega, exists r :e m, ordsucc n = m * q + r.
+{ let n. assume Hn IH.
+  apply IH.
+  let q. assume Hq1. apply Hq1.
+  assume Hq: q :e omega. assume Hq2. apply Hq2.
+  let r. assume Hr1. apply Hr1.
+  assume Hr: r :e m.
+  assume Hr2: n = m * q + r.
+  claim Lr: r :e ordsucc m'.
+  { rewrite <- Hm'2. exact Hr. }
+  claim Lr2: nat_p r.
+  { exact nat_p_trans m (omega_nat_p m Hm) r Hr. }
+  claim Leq: ordsucc n = m * q + ordsucc r.
+  { rewrite add_nat_SR (m * q) r Lr2.
+    prove ordsucc n = ordsucc (m * q + r).
+    rewrite <- Hr2.
+    apply eqI set.
+  }
+  apply ordsuccE m' r Lr.
+  - assume H1: r :e m'.
+    witness q. apply andI.
+    + exact Hq.
+    + witness (ordsucc r). apply andI.
+      * prove ordsucc r :e m. rewrite Hm'2.
+        prove ordsucc r :e ordsucc m'.
+	exact nat_ordsucc_in_ordsucc m' Hm'1 r H1.
+      * prove ordsucc n = m * q + ordsucc r. exact Leq.
+  - assume H1: r = m'.
+    witness (ordsucc q). apply andI.
+    + exact nat_p_omega (ordsucc q) (nat_ordsucc q (omega_nat_p q Hq)).
+    + witness 0. apply andI.
+      * prove 0 :e m. exact Lm0.
+      * prove ordsucc n = m * (ordsucc q) + 0.
+        rewrite add_nat_0R.
+	prove ordsucc n = m * (ordsucc q).
+	rewrite mul_nat_SR m q (omega_nat_p q Hq).
+	prove ordsucc n = m + m * q.
+	rewrite add_nat_com m (omega_nat_p m Hm) (m * q) (mul_nat_p m (omega_nat_p m Hm) q (omega_nat_p q Hq)).
+	prove ordsucc n = m * q + m.
+	rewrite Hm'2 at 2.
+	prove ordsucc n = m * q + ordsucc m'.
+	rewrite <- H1.
+	prove ordsucc n = m * q + ordsucc r.
+	exact Leq.
+}
+let n. assume Hn.
+exact nat_ind (fun n => exists q :e omega, exists r :e m, n = m * q + r) L0 LS n (omega_nat_p n Hn).
+Qed.
+
+
+(** https://proofwiki.org/wiki/Subgroup_of_Cyclic_Group_is_Cyclic **)
+Section Group5Explicit.
+
+Variable G:set.
+Variable op:set -> set -> set.
+Infix :*: 355 right := op.
+Infix ^ 350 left := explicit_Group_exp G op.
+
+Let e := explicit_Group_identity G op.
+
+Hypothesis HG: Group (pack_b G op).
+
+Theorem explicit_Group_exp_com: forall a :e G, forall n :e omega, a :*: a ^ n = a ^ n :*: a.
+let a. assume Ha.
+claim LG: explicit_Group G op.
+{ exact GroupE G op HG. }
+apply LG. assume HG1. apply HG1.
+assume HG2: forall a b :e G, a :*: b :e G.
+assume HG3: forall a b c :e G, a :*: (b :*: c) = (a :*: b) :*: c.
+assume _.
+claim L0: a :*: a ^ 0 = a ^ 0 :*: a.
+{ rewrite explicit_Group_exp_0 G op a.
+  prove a :*: e = e :*: a.
+  rewrite explicit_Group_identity_lid G op LG a Ha.
+  apply explicit_Group_identity_rid G op LG a Ha.
+}
+claim LS: forall n, nat_p n -> a :*: a ^ n = a ^ n :*: a -> a :*: a ^ (ordsucc n) = a ^ (ordsucc n) :*: a.
+{ let n. assume Hn IH.
+  rewrite explicit_Group_exp_S G op a n (nat_p_omega n Hn).
+  prove a :*: (a :*: a ^ n) = (a :*: a ^ n) :*: a.
+  rewrite IH at 1.
+  prove a :*: (a ^ n :*: a) = (a :*: a ^ n) :*: a.
+  claim Lan: a ^ n :e G.
+  { exact explicit_Group_exp_in G op LG a Ha n (nat_p_omega n Hn). }
+  exact HG3 a Ha (a ^ n) Lan a Ha.
+}
+let n. assume Hn.
+exact nat_ind (fun n => a :*: a ^ n = a ^ n :*: a) L0 LS n (omega_nat_p n Hn).
+Qed.
+
+Theorem explicit_Group_exp_nat_add_eq : forall a :e G, forall n m :e omega, a ^ (n + m) = a ^ n :*: a ^ m.
+let a. assume Ha. let n. assume Hn.
+claim LG: explicit_Group G op.
+{ exact GroupE G op HG. }
+apply LG. assume HG1. apply HG1.
+assume HG2: forall a b :e G, a :*: b :e G.
+assume HG3: forall a b c :e G, a :*: (b :*: c) = (a :*: b) :*: c.
+assume _.
+claim Lan: a ^ n :e G.
+{ exact explicit_Group_exp_in G op LG a Ha n Hn. }
+claim L0: a ^ (n + 0) = a ^ n :*: a ^ 0.
+{ rewrite add_nat_0R. prove a ^ n = a ^ n :*: a ^ 0.
+  rewrite explicit_Group_exp_0 G op a.
+  apply eq_sym set.
+  apply explicit_Group_identity_rid G op LG (a ^ n) Lan.
+}
+claim LS: forall m, nat_p m -> a ^ (n + m) = a ^ n :*: a ^ m -> a ^ (n + ordsucc m) = a ^ n :*: a ^ (ordsucc m).
+{ let m. assume Hm IH.
+  rewrite add_nat_SR n m Hm.
+  prove a ^ (ordsucc (n + m)) = a ^ n :*: a ^ (ordsucc m).
+  rewrite explicit_Group_exp_S G op a m (nat_p_omega m Hm).
+  prove a ^ (ordsucc (n + m)) = a ^ n :*: (a :*: a ^ m).
+  rewrite explicit_Group_exp_S G op a (n + m) (nat_p_omega (n + m) (add_nat_p n (omega_nat_p n Hn) m Hm)).
+  prove a :*: a ^ (n + m) = a ^ n :*: (a :*: a ^ m).
+  rewrite IH.
+  prove a :*: (a ^ n :*: a ^ m) = a ^ n :*: (a :*: a ^ m).
+  claim Lam: a ^ m :e G.
+  { exact explicit_Group_exp_in G op LG a Ha m (nat_p_omega m Hm). }
+  rewrite HG3 a Ha (a ^ n) Lan (a ^ m) Lam.
+  rewrite HG3 (a ^ n) Lan a Ha (a ^ m) Lam.
+  rewrite explicit_Group_exp_com a Ha n Hn.
+  apply eqI set.
+}
+let m. assume Hm.
+exact nat_ind (fun m => a ^ (n + m) = a ^ n :*: a ^ m) L0 LS m (omega_nat_p m Hm).
+Qed.
+
+Theorem explicit_Group_exp_nat_mul_eq : forall a :e G, forall n m :e omega, (a ^ n) ^ m = a ^ (n * m).
+let a. assume Ha. let n. assume Hn.
+claim L0: (a ^ n) ^ 0 = a ^ (n * 0).
+{ rewrite mul_nat_0R. prove (a ^ n) ^ 0 = a ^ 0.
+  rewrite explicit_Group_exp_0 G op a.
+  apply explicit_Group_exp_0.
+}
+claim LS: forall m, nat_p m -> (a ^ n) ^ m = a ^ (n * m) -> (a ^ n) ^ (ordsucc m) = a ^ (n * (ordsucc m)).
+{ let m. assume Hm IH.
+  rewrite mul_nat_SR n m Hm.
+  prove (a ^ n) ^ (ordsucc m) = a ^ (n + n * m).
+  rewrite explicit_Group_exp_S G op (a ^ n) m (nat_p_omega m Hm).
+  prove a ^ n :*: (a ^ n) ^ m = a ^ (n + n * m).
+  rewrite explicit_Group_exp_nat_add_eq a Ha n Hn (n * m) (nat_p_omega (n * m) (mul_nat_p n (omega_nat_p n Hn) m Hm)).
+  prove a ^ n :*: (a ^ n) ^ m = a ^ n :*: a ^ (n * m).
+  rewrite IH.
+  apply eqI set.
+}
+let m. assume Hm.
+exact nat_ind (fun m => (a ^ n) ^ m = a ^ (n * m)) L0 LS m (omega_nat_p m Hm).
+Qed.
+
+End Group5Explicit.
+
+Section Group6Explicit.
+
+Variable G:set.
+Variable op:set -> set -> set.
+Infix :*: 355 right := op.
+Infix ^ 350 left := explicit_Group_exp G op.
+
+Variable H:set.
+Infix :^: 350 left := explicit_Group_exp H op.
+
+Let e := explicit_Group_identity G op.
+Postfix - 340 := explicit_Group_inverse G op.
+
+Hypothesis HG: Group (pack_b G op).
+Hypothesis HH: explicit_subgroup G op H.
+
+Theorem explicit_Group_exp_subgroup_eq : forall a :e H, forall n :e omega, a :^: n = a ^ n.
+let a. assume Ha.
+claim L0: a :^: 0 = a ^ 0.
+{ rewrite explicit_Group_exp_0 H op.
+  rewrite explicit_Group_exp_0 G op.
+  apply eq_sym set.
+  exact explicit_subgroup_identity_eq G op H HG HH.
+}
+claim LS: forall n, nat_p n -> a :^: n = a ^ n -> a :^: (ordsucc n) = a ^ (ordsucc n).
+{ let n. assume Hn IH.
+  rewrite explicit_Group_exp_S H op a n (nat_p_omega n Hn).
+  rewrite explicit_Group_exp_S G op a n (nat_p_omega n Hn).
+  prove a :*: (a :^: n) = a :*: (a ^ n).
+  rewrite <- IH.
+  apply eqI set.
+}
+let n. assume Hn.
+exact nat_ind (fun n => a :^: n = a ^ n) L0 LS n (omega_nat_p n Hn).
+Qed.
+
+Theorem explicit_subgroup_cyclic: explicit_Group_cyclic G op -> explicit_Group_cyclic H op.
+claim LG: explicit_Group G op.
+{ exact GroupE G op HG. }
+claim Lassoc: forall a b c :e G, a :*: (b :*: c) = (a :*: b) :*: c.
+{ apply LG. assume HG1 _. apply HG1. exact (fun _ HG2 => HG2). }
+claim LH: Group (pack_b H op).
+{ apply HH. exact (fun H1 _ => H1). }
+claim LHG: H c= G.
+{ apply HH. exact (fun _ H1 => H1). }
+claim LH2: explicit_Group H op.
+{ exact GroupE H op LH. }
+claim LeH: e :e H.
+{ rewrite explicit_subgroup_identity_eq G op H HG HH.
+  exact explicit_Group_identity_in H op LH2.
+}
+claim LopH : forall a b :e H, a :*: b :e H.
+{ apply LH2. assume LH3. apply LH3. exact (fun LH4 _ _ => LH4). }
+claim LinvH : forall a :e H, a - :e H.
+{ let a. assume Ha.
+  rewrite explicit_subgroup_inv_eq G op H HG HH a Ha.
+  exact explicit_Group_inverse_in H op LH2 a Ha.
+}
+assume HGC. apply HGC. let a. assume H1. apply H1.
+assume Ha: a :e G.
+assume HaG: forall b :e G, exists n :e omega, a ^ n = b.
+apply classic (H = {e}).
+- assume H1: H = {e}.
+  prove explicit_Group_cyclic H op.
+  prove exists a :e H, forall b :e H, exists n :e omega, a :^: n = b.
+  witness e.
+  apply andI.
+  + prove e :e H. exact LeH.
+  + let b. assume Hb: b :e H. witness 0. apply andI.
+    * exact nat_p_omega 0 nat_0.
+    * prove e :^: 0 = b.
+      rewrite explicit_Group_exp_0 H op.
+      rewrite <- explicit_subgroup_identity_eq G op H HG HH.
+      prove e = b.
+      apply eq_sym set.
+      apply SingE e b.
+      prove b :e {e}.
+      rewrite <- H1.
+      exact Hb.
+- assume H1: H <> {e}.
+  claim L1: exists n :e omega, n <> 0 /\ a ^ n :e H.
+  { claim L1a: exists b :e H, b <> e.
+    { apply NNPP.
+      assume H2: ~exists b :e H, b <> e.
+      apply H1.
+      apply set_ext.
+      - prove H c= {e}.
+        let c. assume Hc: c :e H.
+	prove c :e {e}.
+	apply classic (c = e).
+	+ assume H3: c = e. rewrite H3. apply SingI.
+	+ assume H3: c <> e.
+	  apply H2.
+	  witness c. apply andI.
+	  * exact Hc.
+	  * exact H3.
+      - prove {e} c= H.
+        let c. assume Hc: c :e {e}.
+	prove c :e H.
+	rewrite SingE e c Hc.
+	prove e :e H.
+	exact LeH.
+    }
+    apply L1a.
+    let b. assume H2. apply H2.
+    assume H3: b :e H.
+    assume H4: b <> e.
+    apply HaG b (LHG b H3).
+    let n. assume H5. apply H5.
+    assume Hn: n :e omega.
+    assume Hn2: a ^ n = b.
+    witness n. apply andI.
+    - exact Hn.
+    - apply andI.
+      + prove n <> 0.
+        assume H6: n = 0.
+	apply H4.
+	prove b = e.
+	rewrite <- Hn2.
+	prove a ^ n = e.
+	rewrite H6.
+	prove a ^ 0 = e.
+	exact explicit_Group_exp_0 G op a.
+      + prove a ^ n :e H.
+        rewrite Hn2. exact H3.
+  }
+  claim L2: exists m :e omega, m <> 0 /\ a ^ m :e H /\ forall n :e omega, n <> 0 /\ a ^ n :e H -> m c= n.
+  { exact leastelt_omega (fun n => n <> 0 /\ a ^ n :e H) L1. }
+  apply L2.
+  let m. assume H2. apply H2.
+  assume Hm1: m :e omega. assume H3. apply H3. assume H4. apply H4.
+  assume Hm2: m <> 0.
+  assume Hm3: a ^ m :e H.
+  assume Hm4: forall n :e omega, n <> 0 /\ a ^ n :e H -> m c= n.
+  prove exists a :e H, forall b :e H, exists n :e omega, a :^: n = b.
+  witness (a ^ m).
+  apply andI.
+  + exact Hm3.
+  + let b. assume Hb: b :e H.
+    prove exists n :e omega, (a ^ m) :^: n = b.
+    apply HaG b (LHG b Hb).
+    let n. assume Hn. apply Hn.
+    assume Hn1: n :e omega.
+    assume Hn2: a ^ n = b.
+    apply DivisionThm_omega m Hm1 Hm2 n Hn1.
+    let q. assume Hq. apply Hq.
+    assume Hq1: q :e omega. assume Hq2. apply Hq2.
+    let r. assume Hr. apply Hr.
+    assume Hr1: r :e m.
+    assume Hr2: n = m * q + r.
+    claim Lr: r :e omega.
+    { exact nat_p_omega r (nat_p_trans m (omega_nat_p m Hm1) r Hr1). }
+    claim Lmq: m * q :e omega.
+    { exact nat_p_omega (m * q) (mul_nat_p m (omega_nat_p m Hm1) q (omega_nat_p q Hq1)). }
+    claim L3: a ^ n = (a ^ m) ^ q :*: a ^ r.
+    { rewrite Hr2.
+      prove a ^ (m * q + r) = (a ^ m) ^ q :*: a ^ r.
+      rewrite explicit_Group_exp_nat_mul_eq G op HG a Ha m Hm1 q Hq1.
+      prove a ^ (m * q + r) = a ^ (m * q) :*: a ^ r.
+      apply explicit_Group_exp_nat_add_eq G op HG a Ha (m * q) Lmq r Lr.
+    }
+    claim LanH: a ^ n :e H.
+    { rewrite Hn2. exact Hb. }
+    claim LamqH: (a ^ m) ^ q :e H.
+    { exact explicit_Group_exp_in_sub G op LG H LeH LopH (a ^ m) Hm3 q Hq1. }
+    claim LamqiH: ((a ^ m) ^ q) - :e H.
+    { apply LinvH. exact LamqH. }
+    claim LamqianH: ((a ^ m) ^ q) - :*: a ^ n :e H.
+    { apply LopH.
+      - exact LamqiH.
+      - exact LanH.
+    }
+    claim LarH: a ^ r :e H.
+    { claim LarG: a ^ r :e G.
+      { exact explicit_Group_exp_in G op LG a Ha r Lr. }
+      claim L4: a ^ r = ((a ^ m) ^ q) - :*: a ^ n.
+      { apply explicit_Group_lcancel G op LG ((a ^ m) ^ q) (LHG ((a ^ m) ^ q) LamqH) (a ^ r) LarG (((a ^ m) ^ q) - :*: a ^ n) (LHG (((a ^ m) ^ q) - :*: a ^ n) LamqianH).
+        prove ((a ^ m) ^ q) :*: a ^ r = ((a ^ m) ^ q) :*: (((a ^ m) ^ q) - :*: a ^ n).
+	rewrite Lassoc ((a ^ m) ^ q) (LHG ((a ^ m) ^ q) LamqH) (((a ^ m) ^ q) -) (LHG (((a ^ m) ^ q) -) LamqiH) (a ^ n) (LHG (a ^ n) LanH).
+	prove ((a ^ m) ^ q) :*: a ^ r = (((a ^ m) ^ q) :*: ((a ^ m) ^ q) -) :*: a ^ n.
+	rewrite explicit_Group_inverse_rinv G op LG ((a ^ m) ^ q) (LHG ((a ^ m) ^ q) LamqH).
+	rewrite explicit_Group_identity_lid G op LG (a ^ n) (LHG (a ^ n) LanH).
+	apply eq_sym set.
+	exact L3.
+      }
+      rewrite L4.
+      exact LamqianH.
+    }
+    claim Lr0: r = 0.
+    { apply NNPP.
+      assume Hrn0: r <> 0.
+      claim Lmr: m c= r.
+      { apply Hm4 r Lr.
+        apply andI.
+	- exact Hrn0.
+	- exact LarH.
+      }
+      apply In_irref r.
+      prove r :e r.
+      exact Lmr r Hr1.
+    }
+    prove exists n :e omega, (a ^ m) :^: n = b.
+    witness q. apply andI.
+    * exact Hq1.
+    * prove (a ^ m) :^: q = b.
+      rewrite explicit_Group_exp_subgroup_eq (a ^ m) Hm3 q Hq1.
+      prove (a ^ m) ^ q = b.
+      rewrite <- Hn2.
+      prove (a ^ m) ^ q = a ^ n.
+      rewrite L3.
+      prove (a ^ m) ^ q = (a ^ m) ^ q :*: a ^ r.
+      rewrite Lr0.
+      prove (a ^ m) ^ q = (a ^ m) ^ q :*: a ^ 0.
+      rewrite explicit_Group_exp_0 G op.
+      apply eq_sym set.
+      exact explicit_Group_identity_rid G op LG ((a ^ m) ^ q) (LHG ((a ^ m) ^ q) LamqH).
+Qed.
+
+End Group6Explicit.
+
+Theorem Group_subgroup_cyclic: forall G, Group G -> forall H, H <= G -> Group_cyclic G -> Group_cyclic H.
+let G.
+assume HG: Group G.
+apply HG.
+assume HG1 _.
+claim L1: Group G -> forall H, H <= G -> Group_cyclic G -> Group_cyclic H.
+{ apply HG1 (fun G => Group G -> forall H, H <= G -> Group_cyclic G -> Group_cyclic H).
+  let G op.
+  assume HopG: forall a b :e G, op a b :e G.
+  prove Group (pack_b G op) -> forall H, H <= pack_b G op -> Group_cyclic (pack_b G op) -> Group_cyclic H.
+  assume HG1: Group (pack_b G op).
+  let H.
+  assume HH: H <= pack_b G op.
+  apply HH. assume HH1. apply HH1. assume _.
+  assume HH2: struct_b H.
+  prove (unpack_b prop (pack_b G op)
+               (fun G' op =>
+   	         unpack_b prop H
+	            (fun H' _ => H = pack_b H' op /\ Group (pack_b H' op) /\ H' c= G')))
+           -> Group_cyclic (pack_b G op) -> Group_cyclic H.
+  claim L2: forall H, forall opH:set -> set -> set,
+        (forall a b :e H, opH a b :e H)
+     -> (unpack_b prop (pack_b G op)
+               (fun G' op =>
+   	         unpack_b prop (pack_b H opH)
+	            (fun H' _ => pack_b H opH = pack_b H' op /\ Group (pack_b H' op) /\ H' c= G')))
+              -> Group_cyclic (pack_b G op) -> Group_cyclic (pack_b H opH).
+  { let H opH.
+    assume HopH: forall a b :e H, opH a b :e H.
+    rewrite subgroup_unpack_2 H G opH op.
+    assume H1: pack_b H opH = pack_b H op /\ Group (pack_b H op) /\ H c= G.
+    apply H1. assume H2. apply H2.
+    assume H3: pack_b H opH = pack_b H op.
+    assume H4: Group (pack_b H op).
+    assume H5: H c= G.
+    prove Group_cyclic (pack_b G op) -> Group_cyclic (pack_b H opH).
+    rewrite H3.
+    prove Group_cyclic (pack_b G op) -> Group_cyclic (pack_b H op).
+    rewrite Group_cyclic_unpack_eq G op HG1.
+    rewrite Group_cyclic_unpack_eq H op H4.
+    claim LH: explicit_subgroup G op H.
+    { prove Group (pack_b H op) /\ H c= G.
+      apply andI.
+      - exact H4.
+      - exact H5.
+    }
+    exact explicit_subgroup_cyclic G op H HG1 LH.
+  }
+  exact HH2 (fun H =>
+              (unpack_b prop (pack_b G op)
+               (fun G' op =>
+   	         unpack_b prop H
+	            (fun H' _ => H = pack_b H' op /\ Group (pack_b H' op) /\ H' c= G')))
+              -> Group_cyclic (pack_b G op) -> Group_cyclic H) L2.
+}
+prove forall H, H <= G -> Group_cyclic G -> Group_cyclic H.
+exact L1 HG.
+Qed.

@@ -50,7 +50,12 @@ Variable A : SType.
 Axiom exI : forall P : A -> prop , forall x : A , P x -> exists x : A , P x.
 Axiom exandE : forall P Q : A -> prop , (exists x : A , P x /\ Q x) -> forall p : prop , (forall x : A , P x -> Q x -> p) -> p.
 End Poly1_exthms.
-Axiom prop_ext2 : forall A B : prop , (A -> B) -> (B -> A) -> A = B.
+Section PredPoly1.
+Variable A:SType.
+Definition bigunion := fun (D:(A->prop)->prop) (x:A) => exists P:A->prop, D P /\ P x.
+End PredPoly1.
+Axiom prop_ext : forall A B : prop, (A <-> B) -> A = B.
+Axiom prop_ext2 : forall A B : prop, (A -> B) -> (B -> A) -> A = B.
 Section FE.
 Variable A B : SType.
 Axiom func_ext : forall f g : A -> B , (forall x : A , f x = g x) -> f = g.
@@ -58,6 +63,8 @@ End FE.
 Section PE.
 Variable A : SType.
 Axiom pred_ext : forall P Q : A -> prop , P c= Q -> Q c= P -> P = Q.
+Definition pred_intersect : (A->prop)->(A->prop)->(A->prop) :=
+ fun P Q:A->prop => fun x:A => P x /\ Q x.
 End PE.
 Section RE.
 Variable A B : SType.
@@ -78,6 +85,10 @@ Parameter Eps : (A -> prop) -> A.
 Axiom EpsR : forall P : A -> prop , forall x : A , P x -> P (Eps P).
 End Choice.
 Binder some , := Eps.
+Section Choice2.
+Variable A : SType.
+Axiom EpsR2 : forall P : A -> prop , (exists x : A , P x) -> P (some x : A , P x).
+End Choice2.
 Section Poly1_Quotient.
 Variable A:SType.
 Definition canonical_elt : (A->A->prop)->A->A := fun R:A->A->prop => fun x:A => some y:A, R x y.
@@ -179,6 +190,10 @@ Notation ReplSep ReplSep.
 Axiom ReplSepI : forall X : set , forall P : set -> prop , forall F : set -> set , forall x : set , x :e X -> P x -> F x :e {F x|x :e X,P x}.
 Axiom ReplSepE : forall X : set , forall P : set -> prop , forall F : set -> set , forall y : set , y :e {F x|x :e X,P x} -> exists x : set , x :e X /\ P x /\ y = F x.
 Axiom ReplSepE2 : forall X : set , forall P : set -> prop , forall F : set -> set , forall y : set , y :e {F x|x :e X,P x} -> forall p : prop , (forall x :e X , P x -> y = F x -> p) -> p.
+Definition binintersect:set->set->set
+:= fun X Y => {x :e X |x :e Y}.
+(* Unicode :/\: "2229" *)
+Infix :/\: 340 left := binintersect.
 Axiom In_ind : forall P : set -> prop , (forall X : set , (forall x : set , x :e X -> P x) -> P X) -> forall X : set , P X.
 Axiom In_irref : forall x , x /:e x.
 Axiom In_no2cycle : forall x y , x :e y -> y /:e x.
@@ -208,6 +223,7 @@ Axiom nat_0_in_ordsucc : forall n, nat_p n -> 0 :e ordsucc n.
 Axiom nat_ordsucc_in_ordsucc : forall n, nat_p n -> forall m :e n, ordsucc m :e ordsucc n.
 Axiom nat_ind : forall p : set -> prop , p 0 -> (forall n , nat_p n -> p n -> p (ordsucc n)) -> forall n , nat_p n -> p n.
 Axiom nat_inv : forall n, nat_p n -> n = 0 \/ exists x, nat_p x /\ n = ordsucc x.
+Axiom nat_p_trans : forall n, nat_p n -> forall m :e n, nat_p m.
 
 Definition omega : set := {n :e UnivOf Empty|nat_p n}.
 Axiom omega_nat_p : forall n :e omega, nat_p n.
@@ -224,6 +240,7 @@ Infix + 360 right := add_nat.
 Axiom add_nat_p : forall n:set, nat_p n -> forall m:set, nat_p m -> nat_p (n + m).
 Axiom add_nat_0R : forall n:set, n + 0 = n.
 Axiom add_nat_SR : forall n m:set, nat_p m -> n + ordsucc m = ordsucc (n + m).
+Axiom add_nat_com : forall n:set, nat_p n -> forall m:set, nat_p m -> n + m = m + n.
 
 (* Parameter mul_nat MGgDk5BE7pAfKP8LBjCB4qhNfWeMH5nckQsnX5yL3XBMrvJm *)
 Parameter mul_nat : set->set->set.
@@ -231,6 +248,13 @@ Infix * 355 right := mul_nat.
 Axiom mul_nat_p : forall n:set, nat_p n -> forall m:set, nat_p m -> nat_p (n * m).
 Axiom mul_nat_0R : forall n:set, n * 0 = 0.
 Axiom mul_nat_SR : forall n m:set, nat_p m -> n * ordsucc m = n + n * m.
+Axiom mul_nat_0L : forall m:set, nat_p m -> 0 * m = 0.
+Axiom mul_nat_SL : forall n:set, nat_p n -> forall m:set, nat_p m -> ordsucc n * m = n * m + m.
+
+Definition ordinal : set->prop := fun (alpha:set) => TransSet alpha /\ forall beta :e alpha, TransSet beta.
+Axiom nat_p_ordinal : forall n:set, nat_p n -> ordinal n.
+Axiom ordinal_trichotomy_or : forall alpha beta:set, ordinal alpha -> ordinal beta -> alpha :e beta \/ alpha = beta \/ beta :e alpha.
+Axiom ordinal_In_Or_Subq : forall alpha beta, ordinal alpha -> ordinal beta -> alpha :e beta \/ beta c= alpha.
 
 (* Parameter pair MKKGnKnC1quGLGnWpwB65MgQ7bPbCPc48zaQUdmq8s3fSrjf *)
 Parameter pair : set -> set -> set.
