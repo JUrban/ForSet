@@ -45,18 +45,6 @@ Definition Group : set -> prop :=
   fun G => struct_b G /\ unpack_b prop G explicit_Group.
 
 (** https://proofwiki.org/wiki/Definition:Subgroup **)
-Section Group2.
-
-Variable G:set.
-Variable op:set -> set -> set.
-Infix * 355 right := op.
-
-Variable H:set.
-
-Definition explicit_subgroup : prop := Group (pack_b H op) /\ H c= G.
-
-End Group2.
-
 Definition subgroup : set -> set -> prop :=
   fun H G =>
      struct_b G /\ struct_b H /\
@@ -80,6 +68,7 @@ Definition explicit_Group_exp:set -> set -> set := fun a n => nat_primrec e (fun
 
 Infix ^ 350 left := explicit_Group_exp.
 
+(** BUG: This is wrong, since it does not allow n to be negative. It will recognize (only) finite cyclic groups. **)
 Definition explicit_Group_cyclic : prop := exists a :e G, forall b :e G, exists n :e omega, a ^ n = b.
 
 End Group3Explicit.
@@ -87,5 +76,6 @@ End Group3Explicit.
 Definition Group_cyclic : set -> prop := fun G => unpack_b prop G explicit_Group_cyclic.
 
 (** https://proofwiki.org/wiki/Subgroup_of_Cyclic_Group_is_Cyclic **)
+(** BUG: This is wrong, since the definition of cyclic is wrong. It is still provable though. **)
 Theorem Group_subgroup_cyclic: forall G, Group G -> forall H, H <= G -> Group_cyclic G -> Group_cyclic H.
 Admitted.

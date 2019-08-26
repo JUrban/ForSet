@@ -548,6 +548,7 @@ apply explicit_Group_exp_in_sub HG G.
 - exact HG1.
 Qed.
 
+(** BUG: This is wrong, since it does not allow n to be negative. It will recognize (only) finite cyclic groups. **)
 Definition explicit_Group_cyclic : prop := exists a :e G, forall b :e G, exists n :e omega, a ^ n = b.
 
 End Group3Explicit.
@@ -1136,6 +1137,7 @@ Qed.
 
 End Group6Explicit.
 
+(** BUG: This is wrong, since the definition of cyclic is wrong. It is still provable though. **)
 Theorem Group_subgroup_cyclic: forall G, Group G -> forall H, H <= G -> Group_cyclic G -> Group_cyclic H.
 let G.
 assume HG: Group G.
