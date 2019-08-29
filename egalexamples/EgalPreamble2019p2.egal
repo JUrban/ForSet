@@ -37,6 +37,8 @@ Section Poly1_eqthms.
 Variable A : SType.
 Axiom eqI : forall x : A , x = x.
 Axiom eq_sym : forall x y : A , x = y -> y = x.
+Axiom eq_trans : forall x y z : A , x = y -> y = z -> x = z.
+Axiom neq_sym : forall x y : A , x <> y -> y <> x.
 End Poly1_eqthms.
 Section Poly1_exdef.
 Variable A : SType.
@@ -175,6 +177,8 @@ Infix :\/: 345 left  := binunion.
 Axiom binunionI1 : forall X Y z : set , z :e X -> z :e X :\/: Y.
 Axiom binunionI2 : forall X Y z : set , z :e Y -> z :e X :\/: Y.
 Axiom binunionE : forall X Y z : set , z :e X :\/: Y -> z :e X \/ z :e Y.
+Definition SetAdjoin : set->set->set := fun X y => X :\/: {y}.
+Notation SetEnum Empty Sing UPair SetAdjoin.
 (* Parameter Sep MMUCPW8ve1NeZQSF6QAYrhEzK8uiuz5z6MxqZnhkYVkV3gAE *)
 Parameter Sep : set -> (set -> prop) -> set.
 Notation Sep Sep.
@@ -505,3 +509,11 @@ Axiom encode_p_ext : forall X, forall P P':set -> prop, (forall x :e X, P x <-> 
 Axiom encode_r_ext : forall X, forall R R':set -> set -> prop, (forall x y :e X, R x y <-> R' x y) -> encode_r X R = encode_r X R'.
 Axiom encode_c_ext : forall X, forall C C':(set -> prop) -> prop, (forall U:set -> prop, (forall x, U x -> x :e X) -> (C U <-> C' U)) -> encode_c X C = encode_c X C'.
 	
+Axiom PigeonHole_nat_bij : forall n, nat_p n -> forall f:set -> set, (forall i :e n, f i :e n) -> (forall i j :e n, f i = f j -> i = j) -> bij n n f.
+
+Axiom tuple_3_eta : forall x y z, (fun i :e 3 => (x,y,z) i) = (x,y,z).
+Axiom tuple_3_in_A_3 : forall x y z A, x :e A -> y :e A -> z :e A -> (x,y,z) :e A :^: 3.
+Axiom tuple_3_bij_3 : forall x y z, x :e 3 -> y :e 3 -> z :e 3 -> x <> y -> x <> z -> y <> z -> bij 3 3 (fun i => (x,y,z) i).
+Axiom tuple_4_eta : forall x y z w, (fun i :e 4 => (x,y,z,w) i) = (x,y,z,w).
+Axiom tuple_4_in_A_4 : forall x y z w A, x :e A -> y :e A -> z :e A -> w :e A -> (x,y,z,w) :e A :^: 4.
+Axiom tuple_4_bij_4 : forall x y z w, x :e 4 -> y :e 4 -> z :e 4 -> w :e 4 -> x <> y -> x <> z -> x <> w -> y <> z -> y <> w -> z <> w -> bij 4 4 (fun i => (x,y,z,w) i).

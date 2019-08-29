@@ -961,6 +961,14 @@ Theorem tuple_2_eta : forall x y, (fun i :e 2 => (x,y) i) = (x,y).
 let x y. exact lam_eta 2 (fun i => if i = 0 then x else y).
 Qed.
 
+Lemma tuple_3_eta : forall x y z, (fun i :e 3 => (x,y,z) i) = (x,y,z).
+let x y z. exact lam_eta 3 (fun i => if i = 0 then x else if i = 1 then y else z).
+Qed.
+
+Lemma tuple_4_eta : forall x y z w, (fun i :e 4 => (x,y,z,w) i) = (x,y,z,w).
+let x y z w. exact lam_eta 4 (fun i => if i = 0 then x else if i = 1 then y else if i = 2 then z else w).
+Qed.
+
 Definition Sep2 : set -> (set -> set) -> (set -> set -> prop) -> set
  := fun X Y R => {u :e Sigma_ x :e X, Y x | R (u 0) (u 1)}.
 
@@ -1144,5 +1152,357 @@ prove (fun y :e Y x => F x y) = (fun y :e Y x => G x y).
 apply lam_ext.
 let y. assume Hy.
 exact H1 x Hx y Hy.
+Qed.
+
+Theorem PigeonHole_nat : forall n, nat_p n -> forall f:set -> set, (forall i :e ordsucc n, f i :e n) -> ~(forall i j :e ordsucc n, f i = f j -> i = j).
+apply nat_ind (fun n => forall f:set -> set, (forall i :e ordsucc n, f i :e n) -> ~(forall i j :e ordsucc n, f i = f j -> i = j)).
+- prove forall f:set -> set, (forall i :e 1, f i :e 0) -> ~(forall i j :e 1, f i = f j -> i = j).
+  let f. assume H1. apply EmptyE (f 0) (H1 0 In_0_1).
+- let n. assume Hn: nat_p n.
+  assume IH: forall f:set -> set, (forall i :e ordsucc n, f i :e n) -> ~(forall i j :e ordsucc n, f i = f j -> i = j).
+  let f.
+  assume H1: forall i :e ordsucc (ordsucc n), f i :e ordsucc n.
+  assume H2: forall i j :e ordsucc (ordsucc n), f i = f j -> i = j.
+  apply classic (exists i :e ordsucc (ordsucc n), f i = n).
+  + assume H3. apply H3. let k. assume Hk. apply Hk.
+    assume Hk1: k :e ordsucc (ordsucc n).
+    assume Hk2: f k = n.
+    set f' := fun i:set => if k c= i then f (ordsucc i) else f i.
+    apply IH f'.
+    * { prove forall i :e ordsucc n, f' i :e n.
+        let i. assume Hi: i :e ordsucc n.
+        apply classic (k c= i).
+	- assume H4: k c= i.
+          prove (if k c= i then f (ordsucc i) else f i) :e n.
+	  rewrite If_1 set (k c= i) (f (ordsucc i)) (f i) H4.
+	  prove f (ordsucc i) :e n.
+	  claim L1: ordsucc i :e ordsucc (ordsucc n).
+          { apply nat_ordsucc_in_ordsucc.
+	    - apply nat_ordsucc. exact Hn.
+	    - exact Hi.
+	  }
+	  apply ordsuccE n (f (ordsucc i)) (H1 (ordsucc i) L1).
+	  + assume H5: f (ordsucc i) :e n. exact H5.
+	  + assume H5: f (ordsucc i) = n.
+	    prove False.
+	    apply In_irref i.
+	    prove i :e i.
+	    claim L2: k = ordsucc i.
+	    { apply H2.
+	      - exact Hk1.
+	      - exact L1.
+	      - rewrite H5. exact Hk2.
+	    }
+	    claim L3: i :e k.
+	    { rewrite L2. apply ordsuccI2. }
+	    exact H4 i L3.
+	- assume H4: ~(k c= i).
+          prove (if k c= i then f (ordsucc i) else f i) :e n.
+	  rewrite If_0 set (k c= i) (f (ordsucc i)) (f i) H4.
+	  prove f i :e n.
+	  apply ordsuccE n (f i) (H1 i (ordsuccI1 (ordsucc n) i Hi)).
+	  + assume H5: f i :e n. exact H5.
+	  + assume H5: f i = n.
+	    prove False.
+	    apply H4.
+	    prove k c= i.
+	    claim L2: k = i.
+	    { apply H2.
+	      - exact Hk1.
+	      - exact ordsuccI1 (ordsucc n) i Hi.
+	      - rewrite H5. exact Hk2.
+	    }
+	    rewrite <- L2.
+	    exact (fun x Hx => Hx).
+      }
+    * { prove forall i j :e ordsucc n, f' i = f' j -> i = j.
+        let i. assume Hi. let j. assume Hj.
+	prove (if k c= i then f (ordsucc i) else f i) = (if k c= j then f (ordsucc j) else f j) -> i = j.
+	claim Li1: i :e ordsucc (ordsucc n).
+	{ apply ordsuccI1. exact Hi. }
+	claim Li2: ordsucc i :e ordsucc (ordsucc n).
+	{ apply nat_ordsucc_in_ordsucc.
+	  - apply nat_ordsucc. exact Hn.
+	  - exact Hi.
+        }
+	claim Lj1: j :e ordsucc (ordsucc n).
+	{ apply ordsuccI1. exact Hj. }
+	claim Lj2: ordsucc j :e ordsucc (ordsucc n).
+	{ apply nat_ordsucc_in_ordsucc.
+	  - apply nat_ordsucc. exact Hn.
+	  - exact Hj.
+        }
+	apply classic (k c= i).
+	- assume H4: k c= i.
+	  rewrite If_1 set (k c= i) (f (ordsucc i)) (f i) H4.
+	  apply classic (k c= j).
+	  + assume H5: k c= j.
+	    rewrite If_1 set (k c= j) (f (ordsucc j)) (f j) H5.
+	    prove f (ordsucc i) = f (ordsucc j) -> i = j.
+	    assume H6.
+	    apply ordsucc_inj.
+	    prove ordsucc i = ordsucc j.
+	    exact H2 (ordsucc i) Li2 (ordsucc j) Lj2 H6.
+	  + assume H5: ~(k c= j).
+	    rewrite If_0 set (k c= j) (f (ordsucc j)) (f j) H5.
+	    prove f (ordsucc i) = f j -> i = j.
+	    assume H6.
+	    prove False.
+	    claim L3: ordsucc i = j.
+	    { apply H2.
+	      - exact Li2.
+	      - exact Lj1.
+	      - exact H6.
+	    }
+	    apply H5.
+	    rewrite <- L3.
+	    let x. assume Hx: x :e k.
+	    apply ordsuccI1. apply H4. exact Hx.
+	- assume H4: ~(k c= i).
+	  rewrite If_0 set (k c= i) (f (ordsucc i)) (f i) H4.
+	  apply classic (k c= j).
+	  + assume H5: k c= j.
+	    rewrite If_1 set (k c= j) (f (ordsucc j)) (f j) H5.
+	    prove f i = f (ordsucc j) -> i = j.
+	    assume H6.
+	    prove False.
+	    claim L3: i = ordsucc j.
+	    { apply H2.
+	      - exact Li1.
+	      - exact Lj2.
+	      - exact H6.
+	    }
+	    apply H4.
+	    rewrite L3.
+	    let x. assume Hx: x :e k.
+	    apply ordsuccI1. apply H5. exact Hx.
+	  + assume H5: ~(k c= j).
+	    rewrite If_0 set (k c= j) (f (ordsucc j)) (f j) H5.
+	    prove f i = f j -> i = j.
+	    apply H2.
+	    * exact Li1.
+	    * exact Lj1.
+      }
+  + assume H3: ~(exists i :e ordsucc (ordsucc n), f i = n).
+    apply IH f.
+    * { prove forall i :e ordsucc n, f i :e n.
+        let i. assume Hi: i :e ordsucc n.
+	apply ordsuccE n (f i) (H1 i (ordsuccI1 (ordsucc n) i Hi)).
+	- assume Hfi: f i :e n. exact Hfi.
+	- assume Hfi: f i = n. apply H3. witness i. apply andI.
+	  + apply ordsuccI1. exact Hi.
+	  + exact Hfi.
+      }
+    * { prove forall i j :e ordsucc n, f i = f j -> i = j.
+        let i. assume Hi. let j. assume Hj.
+	apply H2.
+	- apply ordsuccI1. exact Hi.
+	- apply ordsuccI1. exact Hj.
+      }
+Qed.
+
+Theorem PigeonHole_nat_bij : forall n, nat_p n -> forall f:set -> set, (forall i :e n, f i :e n) -> (forall i j :e n, f i = f j -> i = j) -> bij n n f.
+let n. assume Hn. let f. assume Hf1 Hf2.
+prove (forall i :e n, f i :e n)
+   /\ (forall i j :e n, f i = f j -> i = j)
+   /\ (forall j :e n, exists i :e n, f i = j).
+apply and3I.
+- exact Hf1.
+- exact Hf2.
+- let j. assume Hj: j :e n. apply NNPP. assume H1: ~exists i :e n, f i = j.
+  set f' := fun i:set => if i = n then j else f i.
+  apply PigeonHole_nat n Hn f'.
+  + prove forall i :e ordsucc n, f' i :e n.
+    let i. assume Hi.
+    prove (if i = n then j else f i) :e n.
+    apply classic (i = n).
+    * assume H1: i = n.
+      rewrite If_1 set (i = n) j (f i) H1.
+      prove j :e n.
+      exact Hj.
+    * { assume H1: i <> n.
+        rewrite If_0 set (i = n) j (f i) H1.
+        prove f i :e n.
+        apply Hf1.
+        apply ordsuccE n i Hi.
+	- assume H2: i :e n. exact H2.
+	- assume H2: i = n. apply H1 H2.
+      }
+  + prove forall i k :e ordsucc n, f' i = f' k -> i = k.
+    let i. assume Hi. let k. assume Hk.
+    claim Li: i <> n -> i :e n.
+    { assume Hin: i <> n.
+      apply ordsuccE n i Hi.
+      - assume H2. exact H2.
+      - assume H2. apply Hin H2.
+    }
+    claim Lk: k <> n -> k :e n.
+    { assume Hkn: k <> n.
+      apply ordsuccE n k Hk.
+      - assume H2. exact H2.
+      - assume H2. apply Hkn H2.
+    }
+    prove (if i = n then j else f i) = (if k = n then j else f k) -> i = k.
+    apply classic (i = n).
+    * { assume H2: i = n.
+        apply classic (k = n).
+	- assume H3: k = n.
+	  assume _. rewrite H3. exact H2.
+	- assume H3: k <> n.
+	  rewrite If_1 set (i = n) j (f i) H2.
+	  rewrite If_0 set (k = n) j (f k) H3.
+	  assume H4: j = f k.
+	  apply H1. witness k.
+	  apply andI.
+	  + prove k :e n. exact Lk H3.
+          + apply eq_sym set. exact H4.
+      }
+    * { assume H2: i <> n.
+        apply classic (k = n).
+	- assume H3: k = n.
+	  rewrite If_0 set (i = n) j (f i) H2.
+	  rewrite If_1 set (k = n) j (f k) H3.
+	  assume H4: f i = j.
+	  apply H1. witness i.
+	  apply andI.
+	  + prove i :e n. exact Li H2.
+          + exact H4.
+	- assume H3: k <> n.
+	  rewrite If_0 set (i = n) j (f i) H2.
+	  rewrite If_0 set (k = n) j (f k) H3.
+	  prove f i = f k -> i = k.
+	  apply Hf2.
+	  + prove i :e n. exact Li H2.
+	  + prove k :e n. exact Lk H3.
+      }
+Qed.
+
+Theorem tuple_3_in_A_3 : forall x y z A, x :e A -> y :e A -> z :e A -> (x,y,z) :e A :^: 3.
+let x y z A.
+assume Hx Hy Hz.
+rewrite <- tuple_3_eta x y z.
+prove (fun i :e 3 => (x,y,z) i) :e Pi_ _ :e 3, A.
+apply lam_Pi 3 (fun _ => A).
+let i. assume Hi: i :e 3.
+prove (x,y,z) i :e A.
+apply cases_3 i Hi (fun i => (x,y,z) i :e A).
+- prove (x,y,z) 0 :e A. rewrite tuple_3_0_eq. exact Hx.
+- prove (x,y,z) 1 :e A. rewrite tuple_3_1_eq. exact Hy.
+- prove (x,y,z) 2 :e A. rewrite tuple_3_2_eq. exact Hz.
+Qed.
+
+Theorem tuple_3_bij_3 : forall x y z, x :e 3 -> y :e 3 -> z :e 3 -> x <> y -> x <> z -> y <> z -> bij 3 3 (fun i => (x,y,z) i).
+let x y z. assume Hx Hy Hz Hxy Hxz Hyz.
+apply PigeonHole_nat_bij 3 (nat_ordsucc 2 nat_2) (fun i => (x,y,z) i).
+- let u. assume Hu. apply cases_3 u Hu (fun u => (x,y,z) u :e 3).
+  + prove (x,y,z) 0 :e 3. rewrite tuple_3_0_eq. exact Hx.
+  + prove (x,y,z) 1 :e 3. rewrite tuple_3_1_eq. exact Hy.
+  + prove (x,y,z) 2 :e 3. rewrite tuple_3_2_eq. exact Hz.
+- let u. assume Hu. let v. assume Hv.
+  apply cases_3 u Hu (fun u => (x,y,z) u = (x,y,z) v -> u = v).
+  + apply cases_3 v Hv (fun v => (x,y,z) 0 = (x,y,z) v -> 0 = v).
+    * assume _. apply eqI set.
+    * rewrite tuple_3_0_eq.
+      prove x = (x,y,z) 1 -> 0 = 1.
+      rewrite tuple_3_1_eq. assume H1. apply Hxy H1.
+    * rewrite tuple_3_0_eq.
+      prove x = (x,y,z) 2 -> 0 = 2.
+      rewrite tuple_3_2_eq. assume H1. apply Hxz H1.
+  + apply cases_3 v Hv (fun v => (x,y,z) 1 = (x,y,z) v -> 1 = v).
+    * rewrite tuple_3_1_eq.
+      prove y = (x,y,z) 0 -> 1 = 0.
+      rewrite tuple_3_0_eq. assume H1. apply Hxy.
+      apply eq_sym set. exact H1.
+    * assume _. apply eqI set.
+    * rewrite tuple_3_1_eq.
+      prove y = (x,y,z) 2 -> 1 = 2.
+      rewrite tuple_3_2_eq. assume H1. apply Hyz H1.
+  + apply cases_3 v Hv (fun v => (x,y,z) 2 = (x,y,z) v -> 2 = v).
+    * rewrite tuple_3_2_eq.
+      prove z = (x,y,z) 0 -> 2 = 0.
+      rewrite tuple_3_0_eq. assume H1. apply Hxz.
+      apply eq_sym set. exact H1.
+    * rewrite tuple_3_2_eq.
+      prove z = (x,y,z) 1 -> 2 = 1.
+      rewrite tuple_3_1_eq. assume H1. apply Hyz.
+      apply eq_sym set. exact H1.
+    * assume _. apply eqI set.
+Qed.
+
+Theorem tuple_4_in_A_4 : forall x y z w A, x :e A -> y :e A -> z :e A -> w :e A -> (x,y,z,w) :e A :^: 4.
+let x y z w A.
+assume Hx Hy Hz Hw.
+rewrite <- tuple_4_eta x y z w.
+prove (fun i :e 4 => (x,y,z,w) i) :e Pi_ _ :e 4, A.
+apply lam_Pi 4 (fun _ => A).
+let i. assume Hi: i :e 4.
+prove (x,y,z,w) i :e A.
+apply cases_4 i Hi (fun i => (x,y,z,w) i :e A).
+- prove (x,y,z,w) 0 :e A. rewrite tuple_4_0_eq. exact Hx.
+- prove (x,y,z,w) 1 :e A. rewrite tuple_4_1_eq. exact Hy.
+- prove (x,y,z,w) 2 :e A. rewrite tuple_4_2_eq. exact Hz.
+- prove (x,y,z,w) 3 :e A. rewrite tuple_4_3_eq. exact Hw.
+Qed.
+
+Theorem tuple_4_bij_4 : forall x y z w, x :e 4 -> y :e 4 -> z :e 4 -> w :e 4 -> x <> y -> x <> z -> x <> w -> y <> z -> y <> w -> z <> w -> bij 4 4 (fun i => (x,y,z,w) i).
+let x y z w. assume Hx Hy Hz Hw Hxy Hxz Hxw Hyz Hyw Hzw.
+apply PigeonHole_nat_bij 4 (nat_ordsucc 3 (nat_ordsucc 2 nat_2)) (fun i => (x,y,z,w) i).
+- let u. assume Hu. apply cases_4 u Hu (fun u => (x,y,z,w) u :e 4).
+  + prove (x,y,z,w) 0 :e 4. rewrite tuple_4_0_eq. exact Hx.
+  + prove (x,y,z,w) 1 :e 4. rewrite tuple_4_1_eq. exact Hy.
+  + prove (x,y,z,w) 2 :e 4. rewrite tuple_4_2_eq. exact Hz.
+  + prove (x,y,z,w) 3 :e 4. rewrite tuple_4_3_eq. exact Hw.
+- let u. assume Hu. let v. assume Hv.
+  apply cases_4 u Hu (fun u => (x,y,z,w) u = (x,y,z,w) v -> u = v).
+  + apply cases_4 v Hv (fun v => (x,y,z,w) 0 = (x,y,z,w) v -> 0 = v).
+    * assume _. apply eqI set.
+    * rewrite tuple_4_0_eq.
+      prove x = (x,y,z,w) 1 -> 0 = 1.
+      rewrite tuple_4_1_eq. assume H1. apply Hxy H1.
+    * rewrite tuple_4_0_eq.
+      prove x = (x,y,z,w) 2 -> 0 = 2.
+      rewrite tuple_4_2_eq. assume H1. apply Hxz H1.
+    * rewrite tuple_4_0_eq.
+      prove x = (x,y,z,w) 3 -> 0 = 3.
+      rewrite tuple_4_3_eq. assume H1. apply Hxw H1.
+  + apply cases_4 v Hv (fun v => (x,y,z,w) 1 = (x,y,z,w) v -> 1 = v).
+    * rewrite tuple_4_1_eq.
+      prove y = (x,y,z,w) 0 -> 1 = 0.
+      rewrite tuple_4_0_eq. assume H1. apply Hxy.
+      apply eq_sym set. exact H1.
+    * assume _. apply eqI set.
+    * rewrite tuple_4_1_eq.
+      prove y = (x,y,z,w) 2 -> 1 = 2.
+      rewrite tuple_4_2_eq. assume H1. apply Hyz H1.
+    * rewrite tuple_4_1_eq.
+      prove y = (x,y,z,w) 3 -> 1 = 3.
+      rewrite tuple_4_3_eq. assume H1. apply Hyw H1.
+  + apply cases_4 v Hv (fun v => (x,y,z,w) 2 = (x,y,z,w) v -> 2 = v).
+    * rewrite tuple_4_2_eq.
+      prove z = (x,y,z,w) 0 -> 2 = 0.
+      rewrite tuple_4_0_eq. assume H1. apply Hxz.
+      apply eq_sym set. exact H1.
+    * rewrite tuple_4_2_eq.
+      prove z = (x,y,z,w) 1 -> 2 = 1.
+      rewrite tuple_4_1_eq. assume H1. apply Hyz.
+      apply eq_sym set. exact H1.
+    * assume _. apply eqI set.
+    * rewrite tuple_4_2_eq.
+      prove z = (x,y,z,w) 3 -> 2 = 3.
+      rewrite tuple_4_3_eq. assume H1. apply Hzw H1.
+  + apply cases_4 v Hv (fun v => (x,y,z,w) 3 = (x,y,z,w) v -> 3 = v).
+    * rewrite tuple_4_3_eq.
+      prove w = (x,y,z,w) 0 -> 3 = 0.
+      rewrite tuple_4_0_eq. assume H1. apply Hxw.
+      apply eq_sym set. exact H1.
+    * rewrite tuple_4_3_eq.
+      prove w = (x,y,z,w) 1 -> 3 = 1.
+      rewrite tuple_4_1_eq. assume H1. apply Hyw.
+      apply eq_sym set. exact H1.
+    * rewrite tuple_4_3_eq.
+      prove w = (x,y,z,w) 2 -> 3 = 2.
+      rewrite tuple_4_2_eq. assume H1. apply Hzw.
+      apply eq_sym set. exact H1.
+    * assume _. apply eqI set.
 Qed.
 

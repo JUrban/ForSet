@@ -102,6 +102,7 @@ Binder some , := Eps ; and.
 Definition Subq : set -> set -> prop := fun X Y => forall x : set , x :e X -> x :e Y.
 Binder+ exists , := ex ; and.
 Axiom set_ext : forall X Y:set, X c= Y -> Y c= X -> X = Y.
+Axiom In_irref : forall x , x /:e x.
 (* Unicode Empty "2205" *)
 Parameter Empty : set.
 Axiom EmptyE : forall x : set , x /:e Empty.
@@ -160,6 +161,7 @@ Axiom ordsuccI1 : forall x:set, x c= ordsucc x.
 Axiom ordsuccI2 : forall x:set, x :e ordsucc x.
 Axiom ordsuccE : forall x y : set , y :e ordsucc x -> y :e x \/ y = x.
 Axiom neq_ordsucc_0 : forall a:set, ordsucc a <> 0.
+Axiom ordsucc_inj : forall a b:set, ordsucc a = ordsucc b -> a = b.
 Axiom ordsucc_inj_contra : forall a b:set, a <> b -> ordsucc a <> ordsucc b.
 Axiom In_0_1 : 0 :e 1.
 Axiom In_1_2 : 1 :e 2.
@@ -175,6 +177,8 @@ Axiom nat_1 : nat_p 1.
 Axiom nat_2 : nat_p 2.
 Axiom nat_0_in_ordsucc : forall n, nat_p n -> 0 :e ordsucc n.
 Axiom nat_ordsucc_in_ordsucc : forall n, nat_p n -> forall m :e n, ordsucc m :e ordsucc n.
+Axiom nat_ind : forall p : set -> prop , p 0 -> (forall n , nat_p n -> p n -> p (ordsucc n)) -> forall n , nat_p n -> p n.
+
 (* Parameter pair MKKGnKnC1quGLGnWpwB65MgQ7bPbCPc48zaQUdmq8s3fSrjf *)
 Parameter pair : set -> set -> set.
 Axiom pair_inj : forall x y w z:set, pair x y = pair w z -> x = w /\ y = z.
