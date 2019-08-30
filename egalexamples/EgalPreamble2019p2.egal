@@ -19,6 +19,8 @@ Axiom and7I: forall P1 P2 P3 P4 P5 P6 P7:prop, P1 -> P2 -> P3 -> P4 -> P5 -> P6 
 Definition or : prop -> prop -> prop := fun A B : prop => forall P : prop , (A -> P) -> (B -> P) -> P.
 (* Unicode \/ "2228" *)
 Infix \/ 785 left  := or.
+Axiom orIL : forall A B : prop, A -> A \/ B.
+Axiom orIR : forall A B : prop, B -> A \/ B.
 Definition iff : prop -> prop -> prop := fun A B : prop => (A -> B) /\ (B -> A).
 Infix <-> 805 := iff.
 Axiom iffI : forall A B : prop , (A -> B) -> (B -> A) -> (A <-> B).
@@ -38,8 +40,15 @@ Variable A : SType.
 Axiom eqI : forall x : A , x = x.
 Axiom eq_sym : forall x y : A , x = y -> y = x.
 Axiom eq_trans : forall x y z : A , x = y -> y = z -> x = z.
+Axiom eq_trans3 : forall x0 x1 x2 x3:A, x0 = x1 -> x1 = x2 -> x2 = x3 -> x0 = x3.
+Axiom eq_trans4 : forall x0 x1 x2 x3 x4:A, x0 = x1 -> x1 = x2 -> x2 = x3 -> x3 = x4 -> x0 = x4.
+Axiom eq_trans5 : forall x0 x1 x2 x3 x4 x5:A, x0 = x1 -> x1 = x2 -> x2 = x3 -> x3 = x4 -> x4 = x5 -> x0 = x5.
 Axiom neq_sym : forall x y : A , x <> y -> y <> x.
 End Poly1_eqthms.
+Section Poly2_eqthms.
+Variable A B:SType.
+Axiom f_equal : forall f : A -> B, forall x y : A, x = y -> f x = f y.
+End Poly2_eqthms.
 Section Poly1_exdef.
 Variable A : SType.
 Variable Q : A -> prop.

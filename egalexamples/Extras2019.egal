@@ -1,5 +1,15 @@
 (** A few extra results not in the Egal library from 2014 **)
 
+Section Eq.
+
+Variable A B:SType.
+
+Theorem f_equal : forall f:A -> B, forall x y:A, x = y -> f x = f y.
+let f x y. assume Hxy. rewrite <- Hxy. apply eqI B.
+Qed.
+
+End Eq.
+
 Definition bij : set->set->(set->set)->prop :=
   fun X Y f =>
   (forall u :e X, f u :e Y)
