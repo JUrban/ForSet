@@ -1,0 +1,196 @@
+\documentclass{article}
+
+\usepackage{pstricks,pst-node,pst-text,pst-3d}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\title{Groups and Subgroups in Formal Set Theory}
+
+\begin{document}
+\maketitle
+
+In these notes we will walk through the formalization of a few easy group theory definitions
+and statements of theorems.
+The main definitions are groups, abelian groups, subgroups and normal subgroups.
+The main theorems are that every subgroup of an abelian group is normal,
+the subgroup relation is transitive,
+there is a group with a non-normal subgroup,
+and the normal subgroup relation is not transitive.
+
+The formalization is done in a formal system based on higher-order set theory (Egal~\cite{BrownPak2019}),
+but the same set-theoretic style of formalization could be done in a type theory system like Coq or Lean.
+In Coq or Lean one can either assume a type ${\mathtt{set}}$ of sets along with ZFC-style constructors
+and axioms, or construct such a type ${\mathtt{set}}$ using the Aczel inductive type~\cite{Aczel98}.
+Egal was written with set theory in mind, so the parser supports basic set theoretic notation,
+but a front end with a parser could be written to translate set theoretic notation into Lean.
+The Egal formalation without proofs is at\\
+\url{https://github.com/JUrban/ForSet/blob/master/egalexamples/NormalSubgroupExample_minimal.egal}
+and a version with full proofs is at the same url without the {\tt{minimal}} suffix.
+
+We first define groups. In fact we define groups twice.
+The first time we assume we have a set $G$ and a binary operation $*$ (on the whole set theoretic universe)
+and define when $G$ and $*$ form an ${\mathtt{explicit\_Group}}$:
+\begin{verbatim}
+Variable G:set.
+Variable op:set -> set -> set.
+Infix * 355 right := op.
+
+Definition explicit_Group : prop :=
+      (forall a b :e G, a * b :e G)
+   /\ (forall a b c :e G, a * (b * c) = (a * b) * c)
+   /\ exists e :e G,
+           (forall a :e G, e * a = a /\ a * e = a)
+        /\ (forall a :e G, exists b :e G, a * b = e /\ b * a = e).
+\end{verbatim}
+Note that we have chosen to define groups without making the identity
+and inverse function explicit. These can be defined using a choice operator
+and proven to have the expected properties.
+We can further define the explicit version of being abelian in the obvious way:
+\begin{verbatim}
+Definition explicit_abelian : prop := forall a b :e G, a * b = b * a.
+\end{verbatim}
+
+We now forget about the set $G$ and operation above, but
+remember the definitions like ${\mathtt{explicit\_Group}}$.
+
+The second time we define groups as mathematical objects.
+Groups will be sets that package explicit groups.
+\begin{verbatim}
+Definition Group : set -> prop :=
+  fun G => struct_b G /\ unpack_b prop G explicit_Group.
+\end{verbatim}
+The first conjunct $\mathtt{struct_b}~G$ is defined to mean
+that $G$ is an ordered pair of the form $(G',\hat{f})$ where $f$ is a
+binary operation and $\hat{f}$ is its encoding as a set when restricted to the set $G'$.
+The second conjunct $\mathtt{unpack_b}~\mathtt{prop}~G~\mathtt{explicit\_Group}$.
+means that when we ``unpack'' $G$ then its components $G'$ and $f$
+form an explicit group.\footnote{The ``unpack'' operator is essentially a let or match construct encoded as a higher order function.}
+A constructor $\mathtt{pack_b}$ takes a set $G'$ and a binary operator $f$ and forms $(G',\hat{f})$.
+It is provable that $G'$ and $f$ form an explicit group if and only if $\mathtt{pack_b}~G'~f$
+forms a group. Furthermore, if $G$ is a group, then it is provably of the form $\mathtt{pack_b}~G'~f$
+for some explicit group formed by $G'$ and $f$. (Also, as expected, the group does not depend on the
+behavior of $f$ outside of $G'$.)
+
+{\it{Informal claim:}} When working inside particular groups, it is
+more convenient to consider the explicit group with components. When
+working outside, it is more convenient to work with the packaged set
+representation.
+
+An abelian group is a group that is explicitly abelian when we unpack it:
+\begin{verbatim}
+Definition abelian_Group : set -> prop :=
+  fun G => Group G /\ unpack_b prop G explicit_abelian.
+\end{verbatim}
+
+Next we define subgroups and normal. Again we will first define an explicit version
+working with components and then define packaged versions where the groups are sets.
+Assume we have a set $G$ and a binary operation $*$.
+Let $e$ be the (defined) identity element and let $a-$ denote the (defined) inverse of $a$
+for $a\in G$.
+Next assume we have another set $H$. We define when $G$, $*$ and $H$ satisfy the explicit subgroup property
+if $\mathtt{pack_b}~H~*$ is a group and $H\subseteq G$.
+\begin{verbatim}
+Definition explicit_subgroup : prop := Group (pack_b H op) /\ H c= G.
+\end{verbatim}
+Influenced by proofwiki (\url{https://proofwiki.org/wiki/Definition:Subgroup}) have not required $G$ and $*$ to be an
+explicit group in order for the subgroup relation to hold.
+
+We also define an explicit notion of being normal. Here a typical definition is to require $x * H * x-\subseteq H$
+for all $x\in G$. Here $x * H * x-$ is interpreted pointwise and we can simply use set theoretic notation:
+\begin{verbatim}
+Definition explicit_normal : prop := forall x :e G, {x * a * x - | a :e H} c= H.
+\end{verbatim}
+The set theoretic notation is internally represented by a replacement operator $\mathtt{Repl}:\mathtt{set}\to(\mathtt{set}\to\mathtt{set})\to\mathtt{set}$.
+Having term level binders like this within set theory is no problem if one is working within a reasonable type theory.
+
+We now forget about $G$, $*$ and $H$ and define the subgroup relation and normal subgroup relation
+for groups (as sets). The definition of $\mathtt{subgroup}$ is slightly tricky and uses two $\mathtt{unpack_b}$ operations.
+\begin{verbatim}
+Definition subgroup : set -> set -> prop :=
+  fun H G =>
+   struct_b G /\ struct_b H /\
+   unpack_b prop G
+     (fun G' op =>
+       unpack_b prop H
+         (fun H' _ => H = pack_b H' op /\ Group (pack_b H' op) /\ H' c= G')).
+\end{verbatim}
+The first two conjuncts simply say $G$ and $H$ are pairs of a carrier set and encoded binary operation (for each).
+We then unpack $G$ and $H$ to say the remaining conditions.
+Let $(G',*)$ be the unpacked version of $G$ and $(H',*')$ be the unpacked version of $H$.
+We actually completely ignore the operation $*'$. With access to all the others we state three further conjuncts:
+\begin{itemize}
+\item $H$ is $\mathtt{pack_b}~H'~*$. (This forces the unmentioned operation $*'$ of $H$ to be the same as the operation $*$ for $G$.)
+\item $\mathtt{pack_b}~H'~*$ is a group.
+\item $H'\subseteq G'$.
+\end{itemize}
+With some work, it is possible to prove expected relationships between $\mathtt{subgroup}$ and $\mathtt{explicit\_subgroup}$.
+
+We can write $H\leq G$ when $H$ and $G$ satisfy the $\mathtt{subgroup}$ property.
+\begin{verbatim}
+Infix <= 400 := subgroup.
+\end{verbatim}
+
+The definition of subset is the first time (in these examples) one sees a significant difference
+between defining concepts in a set theoretic style versus a type theoretic style.
+One way to define groups in type theory is as a record type with a carrier type and operations.
+There is no direct way to define subgroups of such a group (unless the type theory has some nontrivial subtyping relation).
+One could instead reformulate statements about subgroups into statements about monomorphisms
+between groups, but this diverges from mathematical practice.
+A different approach taken in type theory is to always work within some large ``ambient'' group and
+define notions of subgroup relative to that ambient group.
+
+We define the normal subgroup relation to hold if $H\leq G$ and when we unpack the explicit subgroup is
+explicitly normal.
+\begin{verbatim}
+Definition normal_subgroup : set -> set -> prop :=
+  fun H G => H <= G /\
+  unpack_b prop G
+   (fun G' op => unpack_b prop H (fun H' _ => explicit_normal G' op H')).
+\end{verbatim}
+
+We can now state the main theorems.
+
+Every subgroup of an abelian group is normal.
+\begin{verbatim}
+Theorem abelian_group_normal_subgroup:
+  forall G, abelian_Group G -> forall H, H <= G -> normal_subgroup H G.
+\end{verbatim}
+
+The subgroup relation is transitive.
+\begin{verbatim}
+Theorem subgroup_transitive: forall K H G, K <= H -> H <= G -> K <= G.
+\end{verbatim}
+
+There is a group with a non-normal subgroup.
+\begin{verbatim}
+Theorem nonnormal_subgroup: exists H G, Group G /\ H <= G /\ ~normal_subgroup H G.
+\end{verbatim}
+
+The normal subgroup relation is not transitive.
+\begin{verbatim}
+Theorem normal_subgroup_not_transitive: exists K H G,
+   Group G /\ normal_subgroup K H /\ normal_subgroup H G /\ ~normal_subgroup K G.
+\end{verbatim}
+
+If we were to follow the ``ambient group'' approach, then the last two ``theorems'' would only
+be provable under assumptions about the material available in the ambient group.
+
+Aside from the ``packing'' and ``unpacking'' (which could likely be hidden by a front end)
+in the definitions, the statements read more like their informal mathematical versions
+that type theoretic versions likely would. To confirm this, an advocate for doing
+mathematics in type theory could formulate the definitions and statements
+and mathematicians could compare.
+
+Again, the message is not that formal abstracts should use a different prover than Lean.
+The message is that there are different ways to formalize mathematical definitions and statements
+in Lean, and one option is to work set theoretically within type theory.
+The set theoretic versions might be harder to prove, but their statements would hopefully
+be easier to create, understand, communicate and debug.
+When it comes to proving, it is easy to imagine type theorists proving type theoretic versions
+of statements and then using the type theoretic versions to conclude the ``official'' set theoretic version.
+
+
+\bibliographystyle{spmpsci}
+\bibliography{groupexample}
+
+\end{document}
