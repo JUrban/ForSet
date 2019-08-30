@@ -8,6 +8,11 @@ egal -ind Index2019p5 -indout Index2019p6 -I EgalPreamble2019p2.egal Structs4.eg
 egal -ind Index2019p6 -indout Index2019p7 -I EgalPreamble2019p2.egal Structs5.egal
 egal -ind Index2019p7 -indout Index2019p8 -I EgalPreamble2019p2.egal Structs6.egal
 
+Files with examples about normal subgroups.
+
+egal -ind Index2019p8 -I EgalPreamble2019p2.egal NormalSubgroupExample.egal
+egal -ind Index2019p8 -I EgalPreamble2019p2.egal NormalSubgroupExample_minimal.egal
+
 egal -ind Index2019p3 -I EgalPreamble2019p2.egal tarski_v1.egal
 egal -ind Index2019p3 -I EgalPreamble2019p2.egal tarski_v1_nopfs.egal
 egal -ind Index2019p3 -I EgalPreamble2019p2.egal tarski_v1_minimal.egal
@@ -20,3 +25,16 @@ egal -ind Index2019p4 -I EgalPreamble2019p2.egal fermatslasttheorem_v2.egal
 egal -ind Index2019p7 -I EgalPreamble2019p2.egal fermatslasttheorem_v3.egal
 
 egal -ind Index2019p8 -I EgalPreamble2019p2.egal RealStruct.egal
+
+Every subgroup of an abelian Group is normal:
+
+egal -ind Index2019p8 -I EgalPreamble2019p2.egal NormalSubgroupExample.egal
+egal -ind Index2019p8 -I EgalPreamble2019p2.egal NormalSubgroupExample_minimal.egal
+
+ProofWiki Example about groups, cyclic groups, subgroups, and the
+result that every subgroup of a cyclic group is cyclic:
+
+These files have a proof that all subgroups of cyclic groups are cyclic, but the definition of cyclic is flawed:
+
+egal -ind Index2019p8 -I EgalPreamble2019p2.egal ProofWikiGroupExample.egal
+egal -ind Index2019p8 -I EgalPreamble2019p2.egal ProofWikiGroupExample_minimal.egal

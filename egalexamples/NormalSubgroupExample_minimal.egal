@@ -1,0 +1,136 @@
+(** https://proofwiki.org/wiki/Definition:Group **)
+Section Group1.
+
+Variable G:set.
+
+Section Group1Explicit.
+
+Variable op:set -> set -> set.
+Infix * 355 right := op.
+
+Definition explicit_Group : prop :=
+      (forall a b :e G, a * b :e G)
+   /\ (forall a b c :e G, a * (b * c) = (a * b) * c)
+   /\ exists e :e G,
+           (forall a :e G, e * a = a /\ a * e = a)
+        /\ (forall a :e G, exists b :e G, a * b = e /\ b * a = e).
+
+Hypothesis HG: explicit_Group.
+
+Definition explicit_Group_identity : set := some e :e G, (forall a :e G, e * a = a /\ a * e = a) /\ forall a :e G, exists b :e G, a * b = e /\ b * a = e.
+
+Let e := explicit_Group_identity.
+
+Definition explicit_Group_inverse : set -> set := fun a => some b :e G, a * b = e /\ b * a = e.
+
+Postfix - 340 := explicit_Group_inverse.
+
+Theorem explicit_Group_identity_in : e :e G.
+Admitted.
+
+Theorem explicit_Group_identity_lid : forall a :e G, e * a = a.
+Admitted.
+
+Theorem explicit_Group_identity_rid : forall a :e G, a * e = a.
+Admitted.
+
+Theorem explicit_Group_inverse_in : forall a :e G, a- :e G.
+Admitted.
+
+Theorem explicit_Group_inverse_rinv : forall a :e G, a * a- = e.
+Admitted.
+
+Theorem explicit_Group_inverse_linv : forall a :e G, a- * a = e.
+Admitted.
+
+Definition explicit_abelian : prop := forall a b :e G, a * b = b * a.
+
+End Group1Explicit.
+End Group1.
+
+(** Structure for a carrier with a binary operation **)
+Definition pack_b : set -> (set -> set -> set) -> set := fun X F => (X,encode_b X F).
+Axiom pack_b_inj: forall X X', forall F F':set -> set -> set, pack_b X F = pack_b X' F' -> X = X' /\ forall x y :e X, F x y = F' x y.
+Axiom pack_b_ext : forall X, forall F F':set -> set -> set,
+     (forall x y :e X, F x y = F' x y)
+  -> pack_b X F = pack_b X F'.
+
+Definition struct_b : set -> prop := fun S => forall q:set -> prop, (forall X:set, forall F:set -> set -> set, (forall x y :e X, F x y :e X) -> q (pack_b X F)) -> q S.
+
+Axiom pack_struct_b_I: forall X, forall F:set -> set -> set, (forall x y :e X, F x y :e X) -> struct_b (pack_b X F).
+
+Axiom pack_struct_b_E1: forall X, forall F:set -> set -> set, struct_b (pack_b X F) -> forall x y :e X, F x y :e X.
+
+Axiom struct_b_eta: forall S, struct_b S -> S = pack_b (S 0) (decode_b (S 1)).
+
+Section unpack_b.
+Variable A:SType.
+
+Definition unpack_b : set -> (set -> (set -> set -> set) -> A) -> A := fun S F => F (S 0) (decode_b (S 1)).
+
+Axiom unpack_b_eq : forall Phi:set -> (set -> set -> set) -> A,
+  forall X, forall F:set -> set -> set,
+  (forall F':set -> set -> set, (forall x y :e X, F x y = F' x y) -> Phi X F' = Phi X F)
+  ->
+  unpack_b (pack_b X F) Phi = Phi X F.
+
+End unpack_b.
+
+(** Group as a structure (with just the binary operation) **)
+Definition Group : set -> prop :=
+  fun G => struct_b G /\ unpack_b prop G explicit_Group.
+
+Definition abelian_Group : set -> prop :=
+  fun G => Group G /\ unpack_b prop G explicit_abelian.
+
+(** https://proofwiki.org/wiki/Definition:Subgroup **)
+Section Group2.
+
+Variable G:set.
+Variable op:set -> set -> set.
+Infix * 355 right := op.
+Postfix - 340 := explicit_Group_inverse G op.
+
+Variable H:set.
+
+Definition explicit_subgroup : prop := Group (pack_b H op) /\ H c= G.
+
+Definition explicit_normal : prop := forall x :e G, {x * a * x - | a :e H} c= H.
+
+Hypothesis HG: Group (pack_b G op).
+
+Let e := explicit_Group_identity G op.
+
+Theorem explicit_subgroup_test : H c= G -> e :e H -> (forall a :e H, a - :e H) -> (forall a b :e H, a * b :e H) -> explicit_subgroup.
+Admitted.
+
+End Group2.
+
+Definition subgroup : set -> set -> prop :=
+  fun H G =>
+     struct_b G /\ struct_b H /\
+     unpack_b prop G
+        (fun G' op =>
+	  unpack_b prop H
+	   (fun H' _ => H = pack_b H' op /\ Group (pack_b H' op) /\ H' c= G')).
+
+Infix <= 400 := subgroup.
+
+Definition normal_subgroup : set -> set -> prop :=
+  fun H G => H <= G /\
+     unpack_b prop G
+        (fun G' op =>
+	  unpack_b prop H
+	   (fun H' _ => explicit_normal G' op H')).
+
+Theorem abelian_group_normal_subgroup: forall G, abelian_Group G -> forall H, H <= G -> normal_subgroup H G.
+Admitted.
+
+Theorem subgroup_transitive: forall K H G, K <= H -> H <= G -> K <= G.
+Admitted.
+
+Theorem nonnormal_subgroup: exists H G, Group G /\ H <= G /\ ~normal_subgroup H G.
+Admitted.
+
+Theorem normal_subgroup_not_transitive: exists K H G, Group G /\ normal_subgroup K H /\ normal_subgroup H G /\ ~normal_subgroup K G.
+Admitted.
