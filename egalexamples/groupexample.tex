@@ -1,5 +1,7 @@
 \documentclass{article}
 
+\usepackage[margin=27mm]{geometry}
+
 \usepackage{pstricks,pst-node,pst-text,pst-3d}
 \usepackage{graphicx}
 \usepackage{hyperref}
@@ -52,6 +54,8 @@ Definition explicit_abelian : prop := forall a b :e G, a * b = b * a.
 
 We now forget about the set $G$ and operation above, but
 remember the definitions like ${\mathtt{explicit\_Group}}$.
+Now ${\mathtt{explicit\_Group}}$ expects two arguments (a set $G$ and operation $*$) and
+returns a proposition.
 
 The second time we define groups as mathematical objects.
 Groups will be sets that package explicit groups.
@@ -82,10 +86,10 @@ Definition abelian_Group : set -> prop :=
   fun G => Group G /\ unpack_b prop G explicit_abelian.
 \end{verbatim}
 
-Next we define subgroups and normal. Again we will first define an explicit version
+Next we define subgroups and normal subgroups. Again we will first define an explicit version
 working with components and then define packaged versions where the groups are sets.
 Assume we have a set $G$ and a binary operation $*$.
-Let $e$ be the (defined) identity element and let $a-$ denote the (defined) inverse of $a$
+Let $e$ be the (defined) identity element and let $a^-$ denote the (defined) inverse of $a$
 for $a\in G$.
 Next assume we have another set $H$. We define when $G$, $*$ and $H$ satisfy the explicit subgroup property
 if $\mathtt{pack_b}~H~*$ is a group and $H\subseteq G$.
@@ -95,13 +99,13 @@ Definition explicit_subgroup : prop := Group (pack_b H op) /\ H c= G.
 Influenced by proofwiki (\url{https://proofwiki.org/wiki/Definition:Subgroup}) have not required $G$ and $*$ to be an
 explicit group in order for the subgroup relation to hold.
 
-We also define an explicit notion of being normal. Here a typical definition is to require $x * H * x-\subseteq H$
+We also define an explicit notion of being normal. Here a typical definition is to require $x * H * x^-\subseteq H$
 for all $x\in G$. Here $x * H * x-$ is interpreted pointwise and we can simply use set theoretic notation:
 \begin{verbatim}
 Definition explicit_normal : prop := forall x :e G, {x * a * x - | a :e H} c= H.
 \end{verbatim}
 The set theoretic notation is internally represented by a replacement operator $\mathtt{Repl}:\mathtt{set}\to(\mathtt{set}\to\mathtt{set})\to\mathtt{set}$.
-Having term level binders like this within set theory is no problem if one is working within a reasonable type theory.
+Having term level binders like this is no problem if one is working within a reasonable type theory.
 
 We now forget about $G$, $*$ and $H$ and define the subgroup relation and normal subgroup relation
 for groups (as sets). The definition of $\mathtt{subgroup}$ is slightly tricky and uses two $\mathtt{unpack_b}$ operations.
@@ -117,9 +121,9 @@ Definition subgroup : set -> set -> prop :=
 The first two conjuncts simply say $G$ and $H$ are pairs of a carrier set and encoded binary operation (for each).
 We then unpack $G$ and $H$ to say the remaining conditions.
 Let $(G',*)$ be the unpacked version of $G$ and $(H',*')$ be the unpacked version of $H$.
-We actually completely ignore the operation $*'$. With access to all the others we state three further conjuncts:
+We actually completely ignore the operation $*'$. We state three further conjuncts:
 \begin{itemize}
-\item $H$ is $\mathtt{pack_b}~H'~*$. (This forces the unmentioned operation $*'$ of $H$ to be the same as the operation $*$ for $G$.)
+\item $H$ is $\mathtt{pack_b}~H'~*$. (This forces the unmentioned operation $*'$ of $H$ to be the same as the operation $*$ for $G$ when restricted to $H$.)
 \item $\mathtt{pack_b}~H'~*$ is a group.
 \item $H'\subseteq G'$.
 \end{itemize}
@@ -133,7 +137,8 @@ Infix <= 400 := subgroup.
 The definition of subset is the first time (in these examples) one sees a significant difference
 between defining concepts in a set theoretic style versus a type theoretic style.
 One way to define groups in type theory is as a record type with a carrier type and operations.
-There is no direct way to define subgroups of such a group (unless the type theory has some nontrivial subtyping relation).
+There is no direct way to define subgroups of such a group since there is no way to
+say one carrier type is a ``subset'' of another carrier type (unless the type theory has some nontrivial subtyping relation).
 One could instead reformulate statements about subgroups into statements about monomorphisms
 between groups, but this diverges from mathematical practice.
 A different approach taken in type theory is to always work within some large ``ambient'' group and
@@ -144,8 +149,8 @@ explicitly normal.
 \begin{verbatim}
 Definition normal_subgroup : set -> set -> prop :=
   fun H G => H <= G /\
-  unpack_b prop G
-   (fun G' op => unpack_b prop H (fun H' _ => explicit_normal G' op H')).
+  unpack_b prop G (fun G' op =>
+     unpack_b prop H (fun H' _ => explicit_normal G' op H')).
 \end{verbatim}
 
 We can now state the main theorems.
@@ -175,7 +180,7 @@ Theorem normal_subgroup_not_transitive: exists K H G,
 If we were to follow the ``ambient group'' approach, then the last two ``theorems'' would only
 be provable under assumptions about the material available in the ambient group.
 
-Aside from the ``packing'' and ``unpacking'' (which could likely be hidden by a front end)
+Aside from the ``packing'' and ``unpacking'' (which could likely be hidden as a ``let'' by a front end)
 in the definitions, the statements read more like their informal mathematical versions
 that type theoretic versions likely would. To confirm this, an advocate for doing
 mathematics in type theory could formulate the definitions and statements
