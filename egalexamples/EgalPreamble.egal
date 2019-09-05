@@ -33,6 +33,7 @@ Section Poly1_eqthms.
 Variable A : SType.
 Axiom eqI : forall x : A , x = x.
 Axiom eq_sym : forall x y : A , x = y -> y = x.
+Axiom eq_trans : forall x y z : A , x = y -> y = z -> x = z.
 End Poly1_eqthms.
 Section Poly1_exdef.
 Variable A : SType.
@@ -103,6 +104,7 @@ Definition Subq : set -> set -> prop := fun X Y => forall x : set , x :e X -> x 
 Binder+ exists , := ex ; and.
 Axiom set_ext : forall X Y:set, X c= Y -> Y c= X -> X = Y.
 Axiom In_irref : forall x , x /:e x.
+Axiom In_no2cycle : forall x y , x :e y -> y /:e x.
 (* Unicode Empty "2205" *)
 Parameter Empty : set.
 Axiom EmptyE : forall x : set , x /:e Empty.

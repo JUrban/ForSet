@@ -1,0 +1,277 @@
+(** Pigeon Hole to get that every every injection from n into n is a bijection **)
+(** Second version. **)
+
+Lemma PigeonHole_lem : forall n, nat_p n -> forall i :e ordsucc n, bij n {j :e ordsucc n | i <> j} (fun j => if j :e i then j else ordsucc j).
+let n. assume Hn. let i. assume Hi: i :e ordsucc n.
+claim Lsno: ordinal (ordsucc n).
+{ apply nat_p_ordinal. apply nat_ordsucc. exact Hn. }
+claim Lsnt: TransSet (ordsucc n).
+{ apply Lsno. exact (fun H _ => H). }
+claim Lnt: TransSet n.
+{ apply Lsno. assume _ H1. exact H1 n (ordsuccI2 n). }
+claim Ln2: forall k :e ordsucc n, forall j :e k, j :e n.
+{ let k. assume Hk. let j. assume Hj.
+  apply ordsuccE n k Hk.
+  - assume H1: k :e n. exact Lnt k H1 j Hj.
+  - assume H1: k = n. rewrite <- H1. exact Hj.
+}
+claim Lin: nat_p i.
+{ exact nat_p_trans (ordsucc n) (nat_ordsucc n Hn) i Hi. }
+claim Lio: ordinal i.
+{ apply nat_p_ordinal. exact Lin. }
+claim Lit: TransSet i.
+{ apply Lio. exact (fun H _ => H). }
+set Y := {j :e ordsucc n | i <> j}.
+set f := fun j : set => if j :e i then j else ordsucc j.
+prove (forall u :e n, f u :e Y)
+  /\
+  (forall u v :e n, f u = f v -> u = v)
+  /\
+  (forall w :e Y, exists u :e n, f u = w).
+apply and3I.
+- let j. assume Hj: j :e n. prove (if j :e i then j else ordsucc j) :e {j :e ordsucc n|i <> j}.
+  apply classic (j :e i).
+  + assume H1: j :e i. rewrite If_1 set (j :e i) j (ordsucc j) H1.
+    prove j :e {j :e ordsucc n|i <> j}.
+    apply SepI.
+    * prove j :e ordsucc n.  exact Lsnt i Hi j H1.
+    * prove i <> j. assume H2: i = j. apply In_irref j. prove j :e j. rewrite <- H2 at 2. exact H1.
+  + assume H1: j /:e i. rewrite If_0 set (j :e i) j (ordsucc j) H1.
+    prove ordsucc j :e {j :e ordsucc n|i <> j}.
+    apply SepI.
+    * prove ordsucc j :e ordsucc n.
+      apply nat_ordsucc_in_ordsucc n Hn.
+      exact Hj.
+    * prove i <> ordsucc j. assume H2: i = ordsucc j. apply H1. rewrite H2.
+      prove j :e ordsucc j. exact ordsuccI2 j.
+- let j. assume Hj: j :e n. let k. assume Hk: k :e n.
+  prove (if j :e i then j else ordsucc j) = (if k :e i then k else ordsucc k) -> j = k.
+  apply classic (j :e i).
+  + assume H1: j :e i. rewrite If_1 set (j :e i) j (ordsucc j) H1.
+    apply classic (k :e i).
+    * assume H2: k :e i. rewrite If_1 set (k :e i) k (ordsucc k) H2.
+      exact (fun H3 => H3).
+    * assume H2: k /:e i. rewrite If_0 set (k :e i) k (ordsucc k) H2.
+      assume H3: j = ordsucc k.
+      claim Lkj: k :e j.
+      { rewrite H3. apply ordsuccI2. }
+      apply H2.
+      exact Lit j H1 k Lkj.
+  + assume H1: j /:e i. rewrite If_0 set (j :e i) j (ordsucc j) H1.
+    apply classic (k :e i).
+    * assume H2: k :e i. rewrite If_1 set (k :e i) k (ordsucc k) H2.
+      assume H3: ordsucc j = k.
+      claim Ljk: j :e k.
+      { rewrite <- H3. apply ordsuccI2. }
+      apply H1.
+      exact Lit k H2 j Ljk.
+    * assume H2: k /:e i. rewrite If_0 set (k :e i) k (ordsucc k) H2.
+      apply ordsucc_inj.
+- let j. assume Hj: j :e {j :e ordsucc n|i <> j}.
+  apply SepE (ordsucc n) (fun j => i <> j) j Hj.
+  assume Hj1: j :e ordsucc n.
+  assume Hj2: i <> j.
+  apply classic (j :e i).
+  + assume H1: j :e i. witness j. apply andI.
+    * prove j :e n. exact Ln2 i Hi j H1.
+    * prove (if j :e i then j else ordsucc j) = j.
+      exact If_1 set (j :e i) j (ordsucc j) H1.
+  + assume H1: j /:e i.
+    claim Ljn: nat_p j.
+    { exact nat_p_trans (ordsucc n) (nat_ordsucc n Hn) j Hj1. }
+    apply nat_inv j Ljn.
+    * { assume H2: j = 0.
+        apply Hj2.
+	prove i = j.
+	apply eq_trans set i 0.
+	- prove i = 0. apply ordinal_In_Or_Subq 0 i ordinal_Empty (nat_p_ordinal i Lin).
+          + assume H3: 0 :e i. apply H1. rewrite H2. exact H3.
+          + assume H3: i c= 0. apply Empty_Subq_eq. exact H3.
+	- prove 0 = j. apply eq_sym set. exact H2.
+      }
+    * { assume H2. apply H2. let j'. assume H3. apply H3.
+        assume H4: nat_p j'.
+	assume H5: j = ordsucc j'.
+	claim Lj'1: j' :e j.
+	{ rewrite H5. apply ordsuccI2. }
+	claim Lj'2: j' /:e i.
+	{ assume H6: j' :e i.
+          apply ordinal_trichotomy_or i j (nat_p_ordinal i Lin) (nat_p_ordinal j Ljn).
+	  - assume H7. apply H7.
+	    + assume H7: i :e j. apply ordsuccE j' i (H5 (fun z => i :e z) H7).
+	      * assume H8: i :e j'. exact In_no2cycle i j' H8 H6.
+	      * assume H8: i = j'. apply In_irref j'. prove j' :e j'. rewrite <- H8 at 2. exact H6.
+	    + assume H7: i = j. apply Hj2. exact H7.
+	  - assume H7: j :e i. apply H1. exact H7.
+	}
+        witness j'. apply andI.
+        - prove j' :e n. exact Ln2 j Hj1 j' Lj'1.
+        - prove (if j' :e i then j' else ordsucc j') = j.
+	  apply eq_trans set (if j' :e i then j' else ordsucc j') (ordsucc j').
+          + exact If_0 set (j' :e i) j' (ordsucc j') Lj'2.
+	  + apply eq_sym set. exact H5.
+      }
+Qed.
+
+Theorem PigeonHole_k : forall n, nat_p n -> forall A B:set, forall f g h:set -> set, bij A n g -> bij B n h -> (forall x :e A, f x :e B) -> (forall x y :e A, f x = f y -> x = y) -> bij A B f.
+apply nat_ind (fun n => forall A B:set, forall f g h:set -> set, bij A n g -> bij B n h -> (forall x :e A, f x :e B) -> (forall x y :e A, f x = f y -> x = y) -> bij A B f).
+- prove forall A B:set, forall f g h:set -> set, bij A 0 g -> bij B 0 h -> (forall x :e A, f x :e B) -> (forall x y :e A, f x = f y -> x = y) -> bij A B f.
+  let A B f g h.
+  assume Hg: bij A 0 g.
+  assume Hh: bij B 0 h.
+  assume H1 H2.
+  prove (forall u :e A, f u :e B) /\ (forall u v :e A, f u = f v -> u = v) /\ (forall w :e B, exists u :e A, f u = w).
+  apply and3I.
+  + exact H1.
+  + exact H2.
+  + let w. assume Hw: w :e B.
+    apply Hh. assume Hh0. apply Hh0. assume Hh1 _ _.
+    apply EmptyE (h w) (Hh1 w Hw).
+- let n. assume Hn: nat_p n.
+  assume IH: forall A B:set, forall f g h:set -> set, bij A n g -> bij B n h -> (forall x :e A, f x :e B) -> (forall x y :e A, f x = f y -> x = y) -> bij A B f.
+  prove forall A B:set, forall f g h:set -> set, bij A (ordsucc n) g -> bij B (ordsucc n) h -> (forall x :e A, f x :e B) -> (forall x y :e A, f x = f y -> x = y) -> bij A B f.
+  let A B f g h.
+  assume Hg: bij A (ordsucc n) g.
+  assume Hh: bij B (ordsucc n) h.
+  assume H1 H2.
+  prove (forall u :e A, f u :e B) /\ (forall u v :e A, f u = f v -> u = v) /\ (forall w :e B, exists u :e A, f u = w).
+  apply and3I.
+  + exact H1.
+  + exact H2.
+  + apply Hg. assume Hg0. apply Hg0. assume Hg1 Hg2 Hg3.
+    apply Hh. assume Hh0. apply Hh0. assume Hh1 Hh2 Hh3.
+    apply Hg3 n (ordsuccI2 n). let a. assume Ha0. apply Ha0.
+    assume Ha1: a :e A.
+    assume Ha2: g a = n.
+    claim Lg: bij {x :e A|x <> a} n g.
+    { prove (forall u :e {x :e A|x <> a}, g u :e n) /\ (forall u v :e {x :e A|x <> a}, g u = g v -> u = v) /\ (forall w :e n, exists u :e {x :e A|x <> a}, g u = w).
+      apply and3I.
+      - let u. assume Hu: u :e {x :e A|x <> a}.
+        apply SepE A (fun x => x <> a) u Hu.
+	assume HuA: u :e A.
+	assume Hua: u <> a.
+        claim Lgu: g u :e ordsucc n.
+	{ apply Hg1. exact HuA. }
+	apply ordsuccE n (g u) Lgu.
+	+ assume H3: g u :e n. exact H3.
+	+ assume H3: g u = n. apply Hua.
+	  prove u = a.
+	  apply Hg2 u HuA a Ha1.
+	  prove g u = g a.
+	  rewrite Ha2.
+	  exact H3.
+      - let u. assume Hu. let v. assume Hv. apply Hg2.
+        + exact SepE1 A (fun x => x <> a) u Hu.
+        + exact SepE1 A (fun x => x <> a) v Hv.
+      - let w. assume Hw: w :e n.
+        apply Hg3 w (ordsuccI1 n w Hw).
+	let u. assume Hu0. apply Hu0.
+	assume Hu1: u :e A.
+	assume Hu2: g u = w.
+	witness u.
+	apply andI.
+	+ prove u :e {x :e A|x <> a}. apply SepI.
+	  * exact Hu1.
+	  * prove u <> a. assume H3: u = a.
+	    apply In_irref n.
+	    prove n :e n.
+	    rewrite <- Ha2 at 1.
+	    prove g a :e n.
+	    rewrite <- H3.
+	    prove g u :e n.
+	    rewrite Hu2. exact Hw.
+	+ exact Hu2.
+    }
+    claim Lf1: forall u :e {x :e A|x <> a}, f u :e {y :e B|y <> f a}.
+    { let u. assume Hu. apply SepE A (fun x => x <> a) u Hu.
+      assume Hu1 Hu2. apply SepI.
+      - prove f u :e B. apply H1. exact Hu1.
+      - prove f u <> f a. assume H3: f u = f a. apply Hu2. prove u = a.
+        exact H2 u Hu1 a Ha1 H3.
+    }
+    claim Lf2: forall u v :e {x :e A|x <> a}, f u = f v -> u = v.
+    { let u. assume Hu. let v. assume Hv.
+      apply SepE A (fun x => x <> a) u Hu.
+      assume Hu1 _.
+      apply SepE A (fun x => x <> a) v Hv.
+      assume Hv1 _.
+      exact H2 u Hu1 v Hv1.
+    }
+    claim Lh: bij {y :e B|y <> f a} {j :e ordsucc n|h (f a) <> j} h.
+    { prove (forall u :e {y :e B|y <> f a}, h u :e {j :e ordsucc n|h (f a) <> j}) /\ (forall u v :e {y :e B|y <> f a}, h u = h v -> u = v) /\ (forall w :e {j :e ordsucc n|h (f a) <> j}, exists u :e {y :e B|y <> f a}, h u = w).
+      apply and3I.
+      - let u. assume Hu.
+        apply SepE B (fun y => y <> f a) u Hu.
+        assume Hu1 Hu2.
+	apply SepI.
+	+ prove h u :e ordsucc n.
+	  apply Hh1. exact Hu1.
+	+ prove h (f a) <> h u.
+	  assume H3: h (f a) = h u.
+	  apply Hu2. apply eq_sym set.
+	  exact Hh2 (f a) (H1 a Ha1) u Hu1 H3.
+      - let u. assume Hu. let v. assume Hv.
+        apply SepE B (fun y => y <> f a) u Hu.
+        assume Hu1 _.
+        apply SepE B (fun y => y <> f a) v Hv.
+        assume Hv1 _.
+	exact Hh2 u Hu1 v Hv1.
+      - let w. assume Hw.
+        apply SepE (ordsucc n) (fun j => h (f a) <> j) w Hw.
+	assume Hw1 Hw2.
+	apply Hh3 w Hw1. let u. assume Hu0. apply Hu0.
+	assume Hu1: u :e B.
+	assume Hu2: h u = w.
+	witness u. apply andI.
+	+ prove u :e {y :e B|y <> f a}.
+	  apply SepI.
+	  * exact Hu1.
+	  * prove u <> f a.
+	    assume H3: u = f a.
+	    apply Hw2.
+	    prove h (f a) = w.
+	    rewrite <- H3.
+	    exact Hu2.
+	+ exact Hu2.
+    }
+    claim Lhfa: h (f a) :e ordsucc n.
+    { apply Hh1. prove f a :e B. apply H1. exact Ha1. }
+    claim Lh'ex: exists h':set -> set, bij {y :e B|y <> f a} n h'.
+    { witness (fun x => inv n (fun j => if j :e h (f a) then j else ordsucc j) (h x)).
+      apply bij_comp {y :e B|y <> f a} {j :e ordsucc n|h (f a) <> j} n h (inv n (fun j => if j :e h (f a) then j else ordsucc j)).
+      - exact Lh.
+      - apply bij_inv.
+        exact PigeonHole_lem n Hn (h (f a)) Lhfa.
+    }
+    apply Lh'ex. let h'. assume Hh': bij {y :e B|y <> f a} n h'.
+    apply IH {x :e A|x <> a} {y :e B|y <> f a} f g h' Lg Hh' Lf1 Lf2.
+    assume _.
+    assume IH3: forall w :e {y :e B|y <> f a}, exists u :e {x :e A|x <> a}, f u = w.
+    let w. assume Hw: w :e B.
+    apply classic (w = f a).
+    * { assume H3: w = f a. witness a. apply andI.
+        - exact Ha1.
+	- apply eq_sym set. exact H3.
+      }
+    * { assume H3: w <> f a.
+        claim Lw: w :e {y :e B|y <> f a}.
+	{ apply SepI.
+	  - exact Hw.
+	  - exact H3.
+        }
+        apply IH3 w Lw.
+	let u. assume Hu0. apply Hu0.
+	assume Hu1: u :e {x :e A|x <> a}.
+	assume Hu2: f u = w.
+	witness u. apply andI.
+	- exact SepE1 A (fun x => x <> a) u Hu1.
+	- exact Hu2.
+      }
+Qed.
+
+Theorem PigeonHole_nat_bij : forall n, nat_p n -> forall f:set -> set, (forall i :e n, f i :e n) -> (forall i j :e n, f i = f j -> i = j) -> bij n n f.
+let n. assume Hn. let f.
+apply PigeonHole_k n Hn n n f (fun i:set => i) (fun i:set => i).
+- prove bij n n (fun i => i). exact bij_id n.
+- prove bij n n (fun i => i). exact bij_id n.
+Qed.

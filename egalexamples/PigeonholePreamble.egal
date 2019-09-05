@@ -1,0 +1,118 @@
+(* Unicode False "22A5" *)
+Definition False : prop := forall P : prop , P.
+(* Unicode True "22A4" *)
+Definition not : prop -> prop := fun A : prop => A -> False.
+(* Unicode ~ "00ac" *)
+Prefix ~ 700 := not.
+Definition and : prop -> prop -> prop := fun A B : prop => forall P : prop , (A -> B -> P) -> P.
+(* Unicode /\ "2227" *)
+Infix /\ 780 left  := and.
+Axiom andI : forall A B : prop , A -> B -> A /\ B.
+Axiom and3I : forall P1 P2 P3 : prop, P1 -> P2 -> P3 -> P1 /\ P2 /\ P3.
+Definition or : prop -> prop -> prop := fun A B : prop => forall P : prop , (A -> P) -> (B -> P) -> P.
+(* Unicode \/ "2228" *)
+Infix \/ 785 left  := or.
+Section Poly1_eq.
+Variable A : SType.
+Definition eq : A -> A -> prop := fun x y => forall Q : A -> prop , Q x -> Q y.
+Definition neq : A -> A -> prop := fun x y => ~ eq x y.
+End Poly1_eq.
+Infix = 502 := eq.
+(* Unicode <> "2260" *)
+Infix <> 502 := neq.
+Section Poly1_eqthms.
+Variable A : SType.
+Axiom eqI : forall x : A , x = x.
+Axiom eq_sym : forall x y : A , x = y -> y = x.
+Axiom eq_trans : forall x y z : A , x = y -> y = z -> x = z.
+End Poly1_eqthms.
+Section Poly1_exdef.
+Variable A : SType.
+Variable Q : A -> prop.
+Definition ex : prop := forall P : prop , (forall x : A , Q x -> P) -> P.
+End Poly1_exdef.
+(* Unicode exists "2203" *)
+Binder+ exists , := ex.
+Section Poly1_exthms.
+Variable A : SType.
+Axiom exI : forall P : A -> prop , forall x : A , P x -> exists x : A , P x.
+End Poly1_exthms.
+Section Choice.
+Variable A : SType.
+Parameter Eps : (A -> prop) -> A.
+Axiom EpsR : forall P : A -> prop , forall x : A , P x -> P (Eps P).
+End Choice.
+Binder some , := Eps.
+Section IfA.
+Variable A : SType.
+Definition If : prop -> A -> A -> A := (fun p x y => some z : A , p /\ z = x \/ ~ p /\ z = y).
+Notation IfThenElse If.
+Axiom If_0 : forall p : prop , forall x y : A , ~ p -> (if p then x else y) = y.
+Axiom If_1 : forall p : prop , forall x y : A , p -> (if p then x else y) = x.
+Axiom If_or : forall p : prop , forall x y : A , (if p then x else y) = x \/ (if p then x else y) = y.
+End IfA.
+Axiom classic : forall P : prop , P \/ ~ P.
+Axiom NNPP : forall p : prop , ~ ~ p -> p.
+Parameter In : set -> set -> prop.
+Definition nIn : set -> set -> prop := fun x X => ~ In x X.
+(* Unicode /:e "2209" *)
+Infix /:e 502 := nIn.
+Binder some , := Eps ; and.
+Definition Subq : set -> set -> prop := fun X Y => forall x : set , x :e X -> x :e Y.
+Binder+ exists , := ex ; and.
+(* Unicode Empty "2205" *)
+Parameter Empty : set.
+Axiom EmptyE : forall x : set , x /:e Empty.
+Axiom Empty_Subq_eq : forall X : set , X c= Empty -> X = Empty.
+
+Definition TransSet : set->prop := fun U:set => forall X:set, X :e U -> X c= U.
+
+(* Parameter Sep MMUCPW8ve1NeZQSF6QAYrhEzK8uiuz5z6MxqZnhkYVkV3gAE *)
+Parameter Sep : set -> (set -> prop) -> set.
+Notation Sep Sep.
+Axiom SepI : forall X : set , forall P : (set -> prop) , forall x : set , x :e X -> P x -> x :e {x :e X|P x}.
+Axiom SepE : forall X : set , forall P : (set -> prop) , forall x : set , x :e {x :e X|P x} -> x :e X /\ P x.
+Axiom SepE1 : forall X : set , forall P : (set -> prop) , forall x : set , x :e {x :e X|P x} -> x :e X.
+Axiom SepE2 : forall X : set , forall P : (set -> prop) , forall x : set , x :e {x :e X|P x} -> P x.
+Axiom In_irref : forall x , x /:e x.
+Axiom In_no2cycle : forall x y , x :e y -> y /:e x.
+(* Parameter ordsucc MG7MeUQKGRDWGfCpnv4BBfwuRumr4R1ngnkoEgKgz7jpCB6E *)
+Parameter ordsucc : set -> set.
+Notation Nat Empty ordsucc.
+Axiom ordsuccI1 : forall x:set, x c= ordsucc x.
+Axiom ordsuccI2 : forall x:set, x :e ordsucc x.
+Axiom ordsuccE : forall x y : set , y :e ordsucc x -> y :e x \/ y = x.
+Axiom ordsucc_inj : forall a b:set, ordsucc a = ordsucc b -> a = b.
+Axiom In_0_1 : 0 :e 1.
+(* Parameter nat_p MGtPhoeZ5SW87BAP3FdYP4552YLVdN58Rrv2tcyyni3UE9wH *)
+Parameter nat_p : set -> prop.
+Axiom nat_0 : nat_p 0.
+Axiom nat_ordsucc : forall n : set , nat_p n -> nat_p (ordsucc n).
+Axiom nat_ordsucc_in_ordsucc : forall n, nat_p n -> forall m :e n, ordsucc m :e ordsucc n.
+Axiom nat_ind : forall p : set -> prop , p 0 -> (forall n , nat_p n -> p n -> p (ordsucc n)) -> forall n , nat_p n -> p n.
+Axiom nat_inv : forall n, nat_p n -> n = 0 \/ exists x, nat_p x /\ n = ordsucc x.
+Axiom nat_p_trans : forall n, nat_p n -> forall m :e n, nat_p m.
+
+Definition ordinal : set->prop := fun (alpha:set) => TransSet alpha /\ forall beta :e alpha, TransSet beta.
+Axiom ordinal_Empty : ordinal Empty.
+Axiom nat_p_ordinal : forall n:set, nat_p n -> ordinal n.
+Axiom ordinal_trichotomy_or : forall alpha beta:set, ordinal alpha -> ordinal beta -> alpha :e beta \/ alpha = beta \/ beta :e alpha.
+Axiom ordinal_In_Or_Subq : forall alpha beta, ordinal alpha -> ordinal beta -> alpha :e beta \/ beta c= alpha.
+
+(** A few extra results not in the Egal library from 2014 **)
+
+Definition bij : set->set->(set->set)->prop :=
+  fun X Y f =>
+  (forall u :e X, f u :e Y)
+  /\
+  (forall u v :e X, f u = f v -> u = v)
+  /\
+  (forall w :e Y, exists u :e X, f u = w).
+
+Definition inv : set -> (set -> set) -> set -> set := fun X f => fun y:set => some x :e X, f x = y.
+
+Axiom surj_rinv : forall X Y, forall f:set->set, (forall w :e Y, exists u :e X, f u = w) -> forall y :e Y, inv X f y :e X /\ f (inv X f y) = y.
+Axiom inj_linv : forall X Y, forall f:set->set, (forall u v :e X, f u = f v -> u = v) -> forall x :e X, inv X f (f x) = x.
+Axiom bij_inv : forall X Y, forall f:set->set, bij X Y f -> bij Y X (inv X f).
+Axiom bij_comp : forall X Y Z:set, forall f g:set->set, bij X Y f -> bij Y Z g -> bij X Z (fun x => g (f x)).
+Axiom bij_id : forall X, bij X X (fun x => x).

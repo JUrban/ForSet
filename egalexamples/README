@@ -38,3 +38,9 @@ These files have a proof that all subgroups of cyclic groups are cyclic, but the
 
 egal -ind Index2019p8 -I EgalPreamble2019p2.egal ProofWikiGroupExample.egal
 egal -ind Index2019p8 -I EgalPreamble2019p2.egal ProofWikiGroupExample_minimal.egal
+
+Three proofs of pigeonhole:
+
+time egal -ind Index2019p1 -I PigeonholePreamble.egal Pigeonholev1.egal
+time egal -ind Index2019p1 -I PigeonholePreamble.egal Pigeonholev2.egal
+time egal -ind Index2019p1 -I PigeonholePreamble.egal Pigeonholev3.egal

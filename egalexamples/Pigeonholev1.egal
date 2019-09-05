@@ -1,0 +1,225 @@
+(** Pigeon Hole to get that every every injection from n into n is a bijection **)
+(** First version. **)
+
+Theorem PigeonHole_nat : forall n, nat_p n -> forall f:set -> set, (forall i :e ordsucc n, f i :e n) -> ~(forall i j :e ordsucc n, f i = f j -> i = j).
+apply nat_ind (fun n => forall f:set -> set, (forall i :e ordsucc n, f i :e n) -> ~(forall i j :e ordsucc n, f i = f j -> i = j)).
+- prove forall f:set -> set, (forall i :e 1, f i :e 0) -> ~(forall i j :e 1, f i = f j -> i = j).
+  let f. assume H1. apply EmptyE (f 0) (H1 0 In_0_1).
+- let n. assume Hn: nat_p n.
+  assume IH: forall f:set -> set, (forall i :e ordsucc n, f i :e n) -> ~(forall i j :e ordsucc n, f i = f j -> i = j).
+  let f.
+  assume H1: forall i :e ordsucc (ordsucc n), f i :e ordsucc n.
+  assume H2: forall i j :e ordsucc (ordsucc n), f i = f j -> i = j.
+  apply classic (exists i :e ordsucc (ordsucc n), f i = n).
+  + assume H3. apply H3. let k. assume Hk. apply Hk.
+    assume Hk1: k :e ordsucc (ordsucc n).
+    assume Hk2: f k = n.
+    set f' := fun i:set => if k c= i then f (ordsucc i) else f i.
+    apply IH f'.
+    * { prove forall i :e ordsucc n, f' i :e n.
+        let i. assume Hi: i :e ordsucc n.
+        apply classic (k c= i).
+	- assume H4: k c= i.
+          prove (if k c= i then f (ordsucc i) else f i) :e n.
+	  rewrite If_1 set (k c= i) (f (ordsucc i)) (f i) H4.
+	  prove f (ordsucc i) :e n.
+	  claim L1: ordsucc i :e ordsucc (ordsucc n).
+          { apply nat_ordsucc_in_ordsucc.
+	    - apply nat_ordsucc. exact Hn.
+	    - exact Hi.
+	  }
+	  apply ordsuccE n (f (ordsucc i)) (H1 (ordsucc i) L1).
+	  + assume H5: f (ordsucc i) :e n. exact H5.
+	  + assume H5: f (ordsucc i) = n.
+	    prove False.
+	    apply In_irref i.
+	    prove i :e i.
+	    claim L2: k = ordsucc i.
+	    { apply H2.
+	      - exact Hk1.
+	      - exact L1.
+	      - rewrite H5. exact Hk2.
+	    }
+	    claim L3: i :e k.
+	    { rewrite L2. apply ordsuccI2. }
+	    exact H4 i L3.
+	- assume H4: ~(k c= i).
+          prove (if k c= i then f (ordsucc i) else f i) :e n.
+	  rewrite If_0 set (k c= i) (f (ordsucc i)) (f i) H4.
+	  prove f i :e n.
+	  apply ordsuccE n (f i) (H1 i (ordsuccI1 (ordsucc n) i Hi)).
+	  + assume H5: f i :e n. exact H5.
+	  + assume H5: f i = n.
+	    prove False.
+	    apply H4.
+	    prove k c= i.
+	    claim L2: k = i.
+	    { apply H2.
+	      - exact Hk1.
+	      - exact ordsuccI1 (ordsucc n) i Hi.
+	      - rewrite H5. exact Hk2.
+	    }
+	    rewrite <- L2.
+	    exact (fun x Hx => Hx).
+      }
+    * { prove forall i j :e ordsucc n, f' i = f' j -> i = j.
+        let i. assume Hi. let j. assume Hj.
+	prove (if k c= i then f (ordsucc i) else f i) = (if k c= j then f (ordsucc j) else f j) -> i = j.
+	claim Li1: i :e ordsucc (ordsucc n).
+	{ apply ordsuccI1. exact Hi. }
+	claim Li2: ordsucc i :e ordsucc (ordsucc n).
+	{ apply nat_ordsucc_in_ordsucc.
+	  - apply nat_ordsucc. exact Hn.
+	  - exact Hi.
+        }
+	claim Lj1: j :e ordsucc (ordsucc n).
+	{ apply ordsuccI1. exact Hj. }
+	claim Lj2: ordsucc j :e ordsucc (ordsucc n).
+	{ apply nat_ordsucc_in_ordsucc.
+	  - apply nat_ordsucc. exact Hn.
+	  - exact Hj.
+        }
+	apply classic (k c= i).
+	- assume H4: k c= i.
+	  rewrite If_1 set (k c= i) (f (ordsucc i)) (f i) H4.
+	  apply classic (k c= j).
+	  + assume H5: k c= j.
+	    rewrite If_1 set (k c= j) (f (ordsucc j)) (f j) H5.
+	    prove f (ordsucc i) = f (ordsucc j) -> i = j.
+	    assume H6.
+	    apply ordsucc_inj.
+	    prove ordsucc i = ordsucc j.
+	    exact H2 (ordsucc i) Li2 (ordsucc j) Lj2 H6.
+	  + assume H5: ~(k c= j).
+	    rewrite If_0 set (k c= j) (f (ordsucc j)) (f j) H5.
+	    prove f (ordsucc i) = f j -> i = j.
+	    assume H6.
+	    prove False.
+	    claim L3: ordsucc i = j.
+	    { apply H2.
+	      - exact Li2.
+	      - exact Lj1.
+	      - exact H6.
+	    }
+	    apply H5.
+	    rewrite <- L3.
+	    let x. assume Hx: x :e k.
+	    apply ordsuccI1. apply H4. exact Hx.
+	- assume H4: ~(k c= i).
+	  rewrite If_0 set (k c= i) (f (ordsucc i)) (f i) H4.
+	  apply classic (k c= j).
+	  + assume H5: k c= j.
+	    rewrite If_1 set (k c= j) (f (ordsucc j)) (f j) H5.
+	    prove f i = f (ordsucc j) -> i = j.
+	    assume H6.
+	    prove False.
+	    claim L3: i = ordsucc j.
+	    { apply H2.
+	      - exact Li1.
+	      - exact Lj2.
+	      - exact H6.
+	    }
+	    apply H4.
+	    rewrite L3.
+	    let x. assume Hx: x :e k.
+	    apply ordsuccI1. apply H5. exact Hx.
+	  + assume H5: ~(k c= j).
+	    rewrite If_0 set (k c= j) (f (ordsucc j)) (f j) H5.
+	    prove f i = f j -> i = j.
+	    apply H2.
+	    * exact Li1.
+	    * exact Lj1.
+      }
+  + assume H3: ~(exists i :e ordsucc (ordsucc n), f i = n).
+    apply IH f.
+    * { prove forall i :e ordsucc n, f i :e n.
+        let i. assume Hi: i :e ordsucc n.
+	apply ordsuccE n (f i) (H1 i (ordsuccI1 (ordsucc n) i Hi)).
+	- assume Hfi: f i :e n. exact Hfi.
+	- assume Hfi: f i = n. apply H3. witness i. apply andI.
+	  + apply ordsuccI1. exact Hi.
+	  + exact Hfi.
+      }
+    * { prove forall i j :e ordsucc n, f i = f j -> i = j.
+        let i. assume Hi. let j. assume Hj.
+	apply H2.
+	- apply ordsuccI1. exact Hi.
+	- apply ordsuccI1. exact Hj.
+      }
+Qed.
+
+Theorem PigeonHole_nat_bij : forall n, nat_p n -> forall f:set -> set, (forall i :e n, f i :e n) -> (forall i j :e n, f i = f j -> i = j) -> bij n n f.
+let n. assume Hn. let f. assume Hf1 Hf2.
+prove (forall i :e n, f i :e n)
+   /\ (forall i j :e n, f i = f j -> i = j)
+   /\ (forall j :e n, exists i :e n, f i = j).
+apply and3I.
+- exact Hf1.
+- exact Hf2.
+- let j. assume Hj: j :e n. apply NNPP. assume H1: ~exists i :e n, f i = j.
+  set f' := fun i:set => if i = n then j else f i.
+  apply PigeonHole_nat n Hn f'.
+  + prove forall i :e ordsucc n, f' i :e n.
+    let i. assume Hi.
+    prove (if i = n then j else f i) :e n.
+    apply classic (i = n).
+    * assume H1: i = n.
+      rewrite If_1 set (i = n) j (f i) H1.
+      prove j :e n.
+      exact Hj.
+    * { assume H1: i <> n.
+        rewrite If_0 set (i = n) j (f i) H1.
+        prove f i :e n.
+        apply Hf1.
+        apply ordsuccE n i Hi.
+	- assume H2: i :e n. exact H2.
+	- assume H2: i = n. apply H1 H2.
+      }
+  + prove forall i k :e ordsucc n, f' i = f' k -> i = k.
+    let i. assume Hi. let k. assume Hk.
+    claim Li: i <> n -> i :e n.
+    { assume Hin: i <> n.
+      apply ordsuccE n i Hi.
+      - assume H2. exact H2.
+      - assume H2. apply Hin H2.
+    }
+    claim Lk: k <> n -> k :e n.
+    { assume Hkn: k <> n.
+      apply ordsuccE n k Hk.
+      - assume H2. exact H2.
+      - assume H2. apply Hkn H2.
+    }
+    prove (if i = n then j else f i) = (if k = n then j else f k) -> i = k.
+    apply classic (i = n).
+    * { assume H2: i = n.
+        apply classic (k = n).
+	- assume H3: k = n.
+	  assume _. rewrite H3. exact H2.
+	- assume H3: k <> n.
+	  rewrite If_1 set (i = n) j (f i) H2.
+	  rewrite If_0 set (k = n) j (f k) H3.
+	  assume H4: j = f k.
+	  apply H1. witness k.
+	  apply andI.
+	  + prove k :e n. exact Lk H3.
+          + apply eq_sym set. exact H4.
+      }
+    * { assume H2: i <> n.
+        apply classic (k = n).
+	- assume H3: k = n.
+	  rewrite If_0 set (i = n) j (f i) H2.
+	  rewrite If_1 set (k = n) j (f k) H3.
+	  assume H4: f i = j.
+	  apply H1. witness i.
+	  apply andI.
+	  + prove i :e n. exact Li H2.
+          + exact H4.
+	- assume H3: k <> n.
+	  rewrite If_0 set (i = n) j (f i) H2.
+	  rewrite If_0 set (k = n) j (f k) H3.
+	  prove f i = f k -> i = k.
+	  apply Hf2.
+	  + prove i :e n. exact Li H2.
+	  + prove k :e n. exact Lk H3.
+      }
+Qed.

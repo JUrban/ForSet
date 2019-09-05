@@ -85,6 +85,49 @@ apply and3I.
   + exact inj_linv X Y f H4 w Hw.
 Qed.
 
+Theorem bij_comp : forall X Y Z:set, forall f g:set->set, bij X Y f -> bij Y Z g -> bij X Z (fun x => g (f x)).
+let X Y Z f g.
+assume Hf. apply Hf. assume Hf12 Hf3. apply Hf12. assume Hf1 Hf2.
+assume Hg. apply Hg. assume Hg12 Hg3. apply Hg12. assume Hg1 Hg2.
+prove (forall u :e X, g (f u) :e Z)
+  /\
+  (forall u v :e X, g (f u) = g (f v) -> u = v)
+  /\
+  (forall w :e Z, exists u :e X, g (f u) = w).
+apply and3I.
+- let u. assume Hu: u :e X. exact (Hg1 (f u) (Hf1 u Hu)).
+- let u. assume Hu: u :e X. let v. assume Hv: v :e X.
+  assume H1: g (f u) = g (f v).
+  prove u = v.
+  apply Hf2 u Hu v Hv.
+  prove f u = f v.
+  apply Hg2 (f u) (Hf1 u Hu) (f v) (Hf1 v Hv).
+  prove g (f u) = g (f v).
+  exact H1.
+- let w. assume Hw: w :e Z. apply Hg3 w Hw.
+  let y. assume Hy12. apply Hy12.
+  assume Hy1: y :e Y. assume Hy2: g y = w.
+  apply Hf3 y Hy1.
+  let u. assume Hu12. apply Hu12.
+  assume Hu1: u :e X. assume Hu2: f u = y.
+  prove exists u :e X, g (f u) = w.
+  witness u.
+  apply andI.
+  + exact Hu1.
+  + rewrite Hu2. exact Hy2.
+Qed.
+
+Theorem bij_id : forall X, bij X X (fun x => x).
+let X.
+prove (forall u :e X, u :e X) /\ (forall u v :e X, u = v -> u = v) /\ (forall w :e X, exists u :e X, u = w).
+apply and3I.
+- exact (fun u Hu => Hu).
+- exact (fun u Hu v Hv H1 => H1).
+- let w. assume Hw. witness w. apply andI.
+  + exact Hw.
+  + apply eqI set.
+Qed.
+
 Theorem and6I: forall P1 P2 P3 P4 P5 P6:prop, P1 -> P2 -> P3 -> P4 -> P5 -> P6 -> P1 /\ P2 /\ P3 /\ P4 /\ P5 /\ P6.
 let P1 P2 P3 P4 P5 P6.
 assume H1 H2 H3 H4 H5 H6.
