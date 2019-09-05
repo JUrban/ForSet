@@ -11,13 +11,13 @@
 \begin{document}
 \maketitle
 
-In these notes we will walk through the formalization of a few easy group theory definitions
-and statements of theorems.
-The main definitions are groups, abelian groups, subgroups and normal subgroups.
-The main theorems are that every subgroup of an abelian group is normal,
-the subgroup relation is transitive,
-there is a group with a non-normal subgroup,
-and the normal subgroup relation is not transitive.
+In these notes we will walk through the formalization of a few easy
+group theory definitions and statements of theorems.  The main
+definitions are groups, abelian groups, subgroups and normal
+subgroups.  The main theorems are that every subgroup of an abelian
+group is normal, the subgroup relation is transitive, there is a group
+with a non-normal subgroup, and the normal subgroup relation is not
+transitive.
 
 The formalization is done in a formal system based on higher-order set theory (Egal~\cite{BrownPak2019}),
 but the same set-theoretic style of formalization could be done in a type theory system like Coq or Lean.
@@ -44,6 +44,8 @@ Definition explicit_Group : prop :=
            (forall a :e G, e * a = a /\ a * e = a)
         /\ (forall a :e G, exists b :e G, a * b = e /\ b * a = e).
 \end{verbatim}
+(In Egal \verb+:e+ is ASCII for $\in$ and \verb+c=+ is ASCII for $\subseteq$.)
+
 Note that we have chosen to define groups without making the identity
 and inverse function explicit. These can be defined using a choice operator
 and proven to have the expected properties.
@@ -75,6 +77,16 @@ forms a group. Furthermore, if $G$ is a group, then it is provably of the form $
 for some explicit group formed by $G'$ and $f$. (Also, as expected, the group does not depend on the
 behavior of $f$ outside of $G'$.)
 
+With a better parser than Egal currently has, the definition of Group could be written
+in a form like
+\begin{verbatim}
+Definition: Group G iff
+            struct_b G
+        and let_b (G',op) := G in
+            explicit_Group G' op.
+\end{verbatim}
+This could then be translated into precisely the form above using ${\mathtt{unpack_b}}$ instead of let.
+
 {\it{Informal claim:}} When working inside particular groups, it is
 more convenient to consider the explicit group with components. When
 working outside, it is more convenient to work with the packaged set
@@ -104,7 +116,10 @@ for all $x\in G$. Here $x * H * x-$ is interpreted pointwise and we can simply u
 \begin{verbatim}
 Definition explicit_normal : prop := forall x :e G, {x * a * x - | a :e H} c= H.
 \end{verbatim}
-The set theoretic notation is internally represented by a replacement operator $\mathtt{Repl}:\mathtt{set}\to(\mathtt{set}\to\mathtt{set})\to\mathtt{set}$.
+A replacement operator $\mathtt{Repl}:\mathtt{set}\to(\mathtt{set}\to\mathtt{set})\to\mathtt{set}$
+is internally used to represent the set notation using $\{\cdots\}$.
+In this case $\{x * a * x^- |a\in H\}$ would internally be
+$\mathtt{Repl}~H~(\lambda a.x * a * x^-)$.
 Having term level binders like this is no problem if one is working within a reasonable type theory.
 
 We now forget about $G$, $*$ and $H$ and define the subgroup relation and normal subgroup relation
@@ -118,12 +133,22 @@ Definition subgroup : set -> set -> prop :=
        unpack_b prop H
          (fun H' _ => H = pack_b H' op /\ Group (pack_b H' op) /\ H' c= G')).
 \end{verbatim}
+Again, with a better front end parser, we could write this with two lets:
+\begin{verbatim}
+Definition: subgroup H G iff
+     struct_b G and struct_b H
+ and let_b (G',op) := G in
+     let_b (H',_) := H in
+     H = pack_b H' op and Group (pack_b H' op) and H' c= G'.
+\end{verbatim}
+
+
 The first two conjuncts simply say $G$ and $H$ are pairs of a carrier set and encoded binary operation (for each).
 We then unpack $G$ and $H$ to say the remaining conditions.
 Let $(G',*)$ be the unpacked version of $G$ and $(H',*')$ be the unpacked version of $H$.
 We actually completely ignore the operation $*'$. We state three further conjuncts:
 \begin{itemize}
-\item $H$ is $\mathtt{pack_b}~H'~*$. (This forces the unmentioned operation $*'$ of $H$ to be the same as the operation $*$ for $G$ when restricted to $H$.)
+\item $H$ is $\mathtt{pack_b}~H'~*$. (This forces the unmentioned operation $*'$ of $H$ to be the same as the operation $*$ for $G$ when both are restricted to $H'$.)
 \item $\mathtt{pack_b}~H'~*$ is a group.
 \item $H'\subseteq G'$.
 \end{itemize}
@@ -134,15 +159,24 @@ We can write $H\leq G$ when $H$ and $G$ satisfy the $\mathtt{subgroup}$ property
 Infix <= 400 := subgroup.
 \end{verbatim}
 
-The definition of subset is the first time (in these examples) one sees a significant difference
-between defining concepts in a set theoretic style versus a type theoretic style.
-One way to define groups in type theory is as a record type with a carrier type and operations.
-There is no direct way to define subgroups of such a group since there is no way to
-say one carrier type is a ``subset'' of another carrier type (unless the type theory has some nontrivial subtyping relation).
-One could instead reformulate statements about subgroups into statements about monomorphisms
-between groups, but this diverges from mathematical practice.
-A different approach taken in type theory is to always work within some large ``ambient'' group and
-define notions of subgroup relative to that ambient group.
+The definition of subset is the first time (in these examples) one
+sees a significant difference between defining concepts in a set
+theoretic style versus a type theoretic style.  One way to define
+groups in type theory is as a record type with a carrier type and
+operations.  There is no direct way to define subgroups of such a
+group since there is no way to say one carrier type is a ``subset'' of
+another carrier type (unless the type theory has some nontrivial
+subtyping relation).  One could instead reformulate statements about
+subgroups into statements about monomorphisms between groups, but this
+diverges from mathematical practice.  A different approach taken in
+type theory is to always work with groups that only have elements from
+some fixed ``ambient'' carrier type.  For example, in HOL-light's
+{\tt{grouptheory.ml}} library a type ``$\alpha$ {\tt{group}}'' is defined in which all
+elements of a group must have type $\alpha$. One $\alpha$ {\tt{group}}
+could be considered a subgroup of another $\alpha$ {\tt{group}},
+but an $\alpha$ {\tt{group}}
+could not directly be considered a subgroup of a $\beta$ {\tt{group}}
+when $\alpha\not=\beta$.
 
 We define the normal subgroup relation to hold if $H\leq G$ and when we unpack the explicit subgroup is
 explicitly normal.
@@ -177,13 +211,16 @@ Theorem normal_subgroup_not_transitive: exists K H G,
    Group G /\ normal_subgroup K H /\ normal_subgroup H G /\ ~normal_subgroup K G.
 \end{verbatim}
 
-If we were to follow the ``ambient group'' approach, then the last two ``theorems'' would only
-be provable under assumptions about the material available in the ambient group.
+If we were to follow the ``ambient'' approach, then the last two ``theorems'' would only
+be provable under assumptions about the material available in the ambient type for the carrier.
+In HOL-light, the last two theorems would only be theorems for $\alpha$ {\tt{group}}s
+when $\alpha$ has a sufficient number of elements.
 
 Aside from the ``packing'' and ``unpacking'' (which could likely be hidden as a ``let'' by a front end)
 in the definitions, the statements read more like their informal mathematical versions
 that type theoretic versions likely would. To confirm this, an advocate for doing
-mathematics in type theory could formulate the definitions and statements
+mathematics in type theory could reformulate the definitions and statements
+in a more traditional type theoretic manner
 and mathematicians could compare.
 
 Again, the message is not that formal abstracts should use a different prover than Lean.
@@ -191,6 +228,13 @@ The message is that there are different ways to formalize mathematical definitio
 in Lean, and one option is to work set theoretically within type theory.
 The set theoretic versions might be harder to prove, but their statements would hopefully
 be easier to create, understand, communicate and debug.
+There are two clear reasons why set theoretic versions might be harder to prove:
+\begin{enumerate}
+\item Much of the ``type checking'' for type theoretic version would often correspond to explicitly proving
+  set membership in the set theoretic version.
+\item Terms considered the same up to conversion in the type theoretic version would often
+  correspond to two sets that need to be explicitly proven equal in the set theoretic version.
+\end{enumerate}
 When it comes to proving, it is easy to imagine type theorists proving type theoretic versions
 of statements and then using the type theoretic versions to conclude the ``official'' set theoretic version.
 
