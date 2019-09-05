@@ -1,7 +1,9 @@
-(** Pigeon Hole to get that every every injection from n into n is a bijection **)
+(** Pigeonhole to get that every every injection from n into n is a bijection **)
 (** Second version. **)
 
-Lemma PigeonHole_lem : forall n, nat_p n -> forall i :e ordsucc n, bij n {j :e ordsucc n | i <> j} (fun j => if j :e i then j else ordsucc j).
+(** For every i in n+1, there is a bijection from n into n+1 - {i}. **)
+Lemma PigeonHole_lem : forall n, nat_p n -> forall i :e ordsucc n,
+   bij n {j :e ordsucc n | i <> j} (fun j => if j :e i then j else ordsucc j).
 let n. assume Hn. let i. assume Hi: i :e ordsucc n.
 claim Lsno: ordinal (ordsucc n).
 { apply nat_p_ordinal. apply nat_ordsucc. exact Hn. }
@@ -113,7 +115,13 @@ apply and3I.
       }
 Qed.
 
-Theorem PigeonHole_k : forall n, nat_p n -> forall A B:set, forall f g h:set -> set, bij A n g -> bij B n h -> (forall x :e A, f x :e B) -> (forall x y :e A, f x = f y -> x = y) -> bij A B f.
+(** If A and B are sets with bijections to n and f is an injection from A into B,
+    then f is a bijection. **)
+Theorem PigeonHole_k : forall n, nat_p n -> forall A B:set, forall f g h:set -> set,
+    bij A n g -> bij B n h
+ -> (forall x :e A, f x :e B)
+ -> (forall x y :e A, f x = f y -> x = y)
+ -> bij A B f.
 apply nat_ind (fun n => forall A B:set, forall f g h:set -> set, bij A n g -> bij B n h -> (forall x :e A, f x :e B) -> (forall x y :e A, f x = f y -> x = y) -> bij A B f).
 - prove forall A B:set, forall f g h:set -> set, bij A 0 g -> bij B 0 h -> (forall x :e A, f x :e B) -> (forall x y :e A, f x = f y -> x = y) -> bij A B f.
   let A B f g h.
@@ -269,7 +277,11 @@ apply nat_ind (fun n => forall A B:set, forall f g h:set -> set, bij A n g -> bi
       }
 Qed.
 
-Theorem PigeonHole_nat_bij : forall n, nat_p n -> forall f:set -> set, (forall i :e n, f i :e n) -> (forall i j :e n, f i = f j -> i = j) -> bij n n f.
+(** Every injective function from n into n is bijective. **)
+Theorem PigeonHole_nat_bij : forall n, nat_p n -> forall f:set -> set,
+    (forall i :e n, f i :e n)
+ -> (forall i j :e n, f i = f j -> i = j)
+ -> bij n n f.
 let n. assume Hn. let f.
 apply PigeonHole_k n Hn n n f (fun i:set => i) (fun i:set => i).
 - prove bij n n (fun i => i). exact bij_id n.

@@ -1,7 +1,9 @@
-(** Pigeon Hole to get that every every injection from n into n is a bijection **)
+(** Pigeonhole to get that every every injection from n into n is a bijection **)
 (** First version. **)
 
-Theorem PigeonHole_nat : forall n, nat_p n -> forall f:set -> set, (forall i :e ordsucc n, f i :e n) -> ~(forall i j :e ordsucc n, f i = f j -> i = j).
+(** Every function from n+1 to n is not injective. **)
+Theorem PigeonHole_nat : forall n, nat_p n -> forall f:set -> set, (forall i :e ordsucc n, f i :e n)
+   -> ~(forall i j :e ordsucc n, f i = f j -> i = j).
 apply nat_ind (fun n => forall f:set -> set, (forall i :e ordsucc n, f i :e n) -> ~(forall i j :e ordsucc n, f i = f j -> i = j)).
 - prove forall f:set -> set, (forall i :e 1, f i :e 0) -> ~(forall i j :e 1, f i = f j -> i = j).
   let f. assume H1. apply EmptyE (f 0) (H1 0 In_0_1).
@@ -148,7 +150,11 @@ apply nat_ind (fun n => forall f:set -> set, (forall i :e ordsucc n, f i :e n) -
       }
 Qed.
 
-Theorem PigeonHole_nat_bij : forall n, nat_p n -> forall f:set -> set, (forall i :e n, f i :e n) -> (forall i j :e n, f i = f j -> i = j) -> bij n n f.
+(** Every injective function from n into n is bijective. **)
+Theorem PigeonHole_nat_bij : forall n, nat_p n -> forall f:set -> set,
+    (forall i :e n, f i :e n)
+ -> (forall i j :e n, f i = f j -> i = j)
+ -> bij n n f.
 let n. assume Hn. let f. assume Hf1 Hf2.
 prove (forall i :e n, f i :e n)
    /\ (forall i j :e n, f i = f j -> i = j)
