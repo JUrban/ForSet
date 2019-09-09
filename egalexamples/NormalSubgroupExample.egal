@@ -8,9 +8,12 @@ Section Group1Explicit.
 Variable op:set -> set -> set.
 Infix * 355 right := op.
 
+Definition binop_on : prop := forall a b :e G, a * b :e G.
+Definition associative : prop := forall a b c :e G, a * (b * c) = (a * b) * c.
+
 Definition explicit_Group : prop :=
-      (forall a b :e G, a * b :e G)
-   /\ (forall a b c :e G, a * (b * c) = (a * b) * c)
+      binop_on
+   /\ associative
    /\ exists e :e G,
            (forall a :e G, e * a = a /\ a * e = a)
         /\ (forall a :e G, exists b :e G, a * b = e /\ b * a = e).

@@ -1,0 +1,112 @@
+\documentclass{article}
+
+%\usepackage[margin=27mm]{geometry}
+
+\usepackage{pstricks,pst-node,pst-text,pst-3d}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}{Definition}
+
+\title{Groups and Subgroups}
+
+\begin{document}
+\maketitle
+
+Let $G$ be a set.
+We say $\cdot$ is a binary operation on $G$
+if $a\cdot b\in G$ for $a,b\in G$.
+Let $\cdot$ be a binary operation on $G$.
+We say $\cdot$ is {\emph{associative}} if $a\cdot (b\cdot c) = (a\cdot b) \cdot c$
+holds for $a,b,c\in G$.
+\begin{definition}\label{def:group}
+  We say $(G,\cdot)$ is a {\emph{group}} if the following hold
+  $\cdot$ is an associative binary operation on $G$ 
+  and there exists an identity element $e\in G$ such
+  that $e\cdot a = a = a\cdot e$ for $a\in G$
+  and for each $a\in G$ there is an inverse $a^-\in G$ such that
+  $a\cdot a^- = e = a^-\cdot a$.
+\end{definition}
+
+Let $(G,\cdot)$ be a group.
+It is easy to prove that there is at most one identity element
+since $e\cdot a = a = a \cdot e'$ whenever $e$ and $e'$ are both identity elements.
+There is an identity element by definition and we will denote this element by $e$.
+Likewise we will let $a^-$ denote the inverse of $a$.
+It is easy to prove the following properties:
+\begin{enumerate}
+\item (Left cancellation) If $a\cdot b = a \cdot c$, then $b = c$.
+\item (Right cancellation) If $a\cdot c = b \cdot c$, then $a = b$.
+\item If $a\cdot b = e$, then $b = a^-$.
+\item If $a\cdot b = e$, then $b\cdot a = e$.
+\item If $(a\cdot b) \cdot (a\cdot b) = e$, then $(b\cdot a) \cdot (b\cdot a) = e$.
+\end{enumerate}
+We say a group is {\emph{abelian}} if $a\cdot b = b \cdot a$ for every $a,b\in G$.
+
+Let $G$ be a set with a binary operation $\cdot$.
+We say $H$ is a {\emph{subgroup}} of $(G,\cdot)$ if $(H,\cdot)$ is a group and $H\subseteq G$.
+We say $H$ is {\emph{normal}} if $x\cdot H\cdot x^- \subseteq H$ for all $x\in G$.
+
+\begin{theorem}\label{thm:subgrouptest}
+  Let $(G,\cdot)$ be a group.
+  If $H\subseteq G$, $e\in H$, $a^-\in H$ whenever $a\in H$ and $a\cdot b \in H$ whenever $a,b\in H$,
+  then $H$ is a subgroup of $(G,\cdot)$.
+\end{theorem}
+
+\begin{theorem}\label{thm:subgroupidinveq}
+  Let $(G,\cdot)$ be a group and $H$ be a subgroup of $(G,\cdot)$.
+  \begin{enumerate}
+  \item The identity of $(H,\cdot)$ is equal to the identity of $(G,\cdot)$.
+  \item For each $a\in H$ the inverse of $a$ in $(H,\cdot)$ is equal to the inverse of $a$ in $(G,\cdot)$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{theorem}\label{thm:abeliannormal}
+  Every subgroup of an abelian group is normal.
+\end{theorem}
+
+If $H$ and $G$ are groups, we write $H\leq G$ to mean $H$ is a subgroup of $G$.
+
+\begin{theorem}\label{thm:subgrouptrans}
+  If $K\leq H$ and $H\leq G$, then $K\leq G$.
+\end{theorem}
+
+We now turn to examples of groups.
+Let $A$ be a set and $G$ be the set of bijections on $A$.
+For $f,g\in G$ let $f\cdot g$ be the function defined by $(f\cdot g)(x) = g(f(x))$ for $x\in A$.
+It is easy to prove $\cdot$ is an operation on $G$.
+Let $\iota$ be the identity bijection defined by $\iota(x) = x$ for $x\in A$.
+It is easy to prove $\iota\in G$.
+Since bijections can be inverted, it is easy to prove $(G,\cdot)$ forms a group,
+called the {\emph{symmetric group over $A$}}.
+
+Let $B\subseteq A$ be given. Let $H$ be the set of bijections $f$ on $A$ such that $f(x)=x$ for $x\in B$.
+It is easy to prove $H$ gives a subgroup of $(G,\cdot)$.
+
+For the theorems below we consider symmetric groups over finite ordinals.
+Suppose the $n$-tuple $(a_0,\ldots,a_{n-1})$ is notation for the function $f$ from the
+finite ordinal $n$ such that $f(i) = a_i$ for each $i\in n$.
+If $a_0,\ldots,a_{n-1}\in n$, then $(a_0,\ldots,a_{n-1})$ is a function from $n$ to $n$.
+Using the Pigeonhole Principle we know $(a_0,\ldots,a_{n-1})$ is a bijection on $n$
+if $a_i\not= a_j$ whenever $i\not=j$.
+For example, we can easily denote the bijections on $3$ by $(0,1,2)$, $(0,2,1)$, $(1,0,2)$, $(1,2,0)$, $(2,0,1)$ and $(2,1,0)$.
+
+\begin{theorem}\label{thm:nonnormal} There is a group $G$ and a subgroup $H\leq G$ such that $H$ is not a normal subgroup of $G$.
+\end{theorem}
+\begin{proof} Use the symmetric group over the finite ordinal $3$ for $G$ and let $H$ be
+  given by taking the bijections for which $f(0) = 0$.
+\end{proof}
+
+\begin{theorem}\label{thm:normalnottrans} There is a group $G$, a normal subgroup $H$ of $G$ and a normal subgroup $K$ of $H$ such that $K$ is not a normal subgroup of $G$.
+\end{theorem}
+\begin{proof} Use the symmetric group over the finite ordinal $4$ for $G$.
+  For $H$ take the subgroup given by the four bijections $(0,1,2,3)$, $(1,0,3,2)$, $(3,2,1,0)$ and $(2,3,0,1)$.
+  For $K$ take the subgroup given by $(0,1,2,3)$ and $(1,0,3,2)$.
+\end{proof}
+
+
+\bibliographystyle{spmpsci}
+\bibliography{groupexample}
+
+\end{document}
